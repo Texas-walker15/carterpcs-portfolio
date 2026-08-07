@@ -1,13 +1,12 @@
+import { useState } from 'react'
+import Nav from '../components/navigation/Nav'
+import Intro from '../sections/intro/Intro'
+import Hero from '../sections/hero/Hero'
 import { useLenis } from '../hooks/useLenis'
-import styles from './App.module.css'
 
-/**
- * Temporary development shell. Not the final Hero/navigation/section
- * design — those are built in a later task, section by section, per
- * docs/ARCHITECTURE.md.
- */
 function App() {
   useLenis()
+  const [introComplete, setIntroComplete] = useState(false)
 
   return (
     <>
@@ -15,17 +14,13 @@ function App() {
         Skip to content
       </a>
 
-      <header className={styles.header}>
-        <p className={styles.wordmark}>CarterPCs Portfolio Concept</p>
-      </header>
+      <Nav />
 
-      <main id="main-content" className={styles.main}>
-        <h1 className={styles.heading}>CarterPCs Portfolio Concept</h1>
-        <p className={styles.status}>Development foundation initialized.</p>
-        <p className={styles.disclaimer}>
-          Unofficial interactive portfolio concept inspired by CarterPCs.
-        </p>
+      <main id="main-content">
+        <Hero ready={introComplete} />
       </main>
+
+      {!introComplete && <Intro onComplete={() => setIntroComplete(true)} />}
     </>
   )
 }

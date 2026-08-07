@@ -1,4 +1,11 @@
+import { afterEach } from 'vitest'
+import { cleanup } from '@testing-library/react'
 import '@testing-library/jest-dom/vitest'
+
+// Without vitest's `globals: true`, Testing Library can't auto-detect a
+// global `afterEach` to hook its automatic unmount-between-tests cleanup
+// into, so it's registered explicitly here.
+afterEach(cleanup)
 
 // jsdom does not implement matchMedia. GSAP/ScrollTrigger registration and
 // useReducedMotion() both call it at module/mount time, so the smoke test

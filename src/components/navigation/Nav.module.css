@@ -1,0 +1,24 @@
+.nav {
+  position: fixed;
+  inset-block-start: 0;
+  inset-inline: 0;
+  z-index: var(--z-nav);
+  display: flex;
+  align-items: center;
+  padding: var(--space-3) var(--container-padding-inline);
+  pointer-events: none;
+}
+
+.wordmark {
+  pointer-events: auto;
+  font-size: var(--font-size-body);
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  color: var(--color-text-primary);
+  text-decoration: none;
+  border-radius: 0.25rem;
+}
+
+.wordmark:hover {
+  color: var(--color-accent-primary);
+}

@@ -1,0 +1,252 @@
+.hero {
+  position: relative;
+  overflow: clip;
+  min-height: 100vh;
+  display: flex;
+}
+
+/* ===== Media stage =====
+   Development placeholder only (see data-dev-placeholder in Hero.tsx).
+   Sits on the same near-black base as the page and is lit only by soft accent
+   fields, so there is no panel edge and no vertical seam. Replacing
+   .stageSurface's background with real approved media needs no other change. */
+
+/* Small screens: the stage is a band occupying the lower canvas, part of the
+   vertical flow rather than a shrunken version of the desktop right panel. */
+.stage {
+  position: absolute;
+  z-index: 0;
+  inset-block: 38% -6%;
+  inset-inline: -8%;
+}
+
+.stageSurface {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(
+      80% 60% at 68% 16%,
+      color-mix(in srgb, var(--color-accent-primary) 34%, transparent),
+      transparent 72%
+    ),
+    radial-gradient(
+      75% 65% at 95% 88%,
+      color-mix(in srgb, var(--color-accent-secondary) 36%, transparent),
+      transparent 72%
+    ),
+    radial-gradient(
+      65% 55% at 50% 55%,
+      color-mix(in srgb, var(--color-text-primary) 10%, transparent),
+      transparent 72%
+    );
+  /* Dissolve the leading edge instead of cutting it (upward on small
+     screens, leftward once the stage moves to the right of the canvas). */
+  mask-image: linear-gradient(
+    to bottom,
+    transparent 0%,
+    rgb(0 0 0 / 45%) 14%,
+    rgb(0 0 0) 40%
+  );
+}
+
+.stageGuide {
+  position: absolute;
+  background-color: color-mix(
+    in srgb,
+    var(--color-text-primary) 7%,
+    transparent
+  );
+}
+
+/* Short framing ticks, deliberately not full-height — a full-length rule
+   reads as a panel edge and reintroduces the seam this layout removes. */
+.stageGuide[data-guide='v'] {
+  inset-block: 18% 62%;
+  inset-inline-start: 62%;
+  width: 1px;
+}
+
+.stageGuide[data-guide='h'] {
+  inset-inline: 30% 8%;
+  inset-block-start: 68%;
+  height: 1px;
+}
+
+.stageCorner {
+  position: absolute;
+  width: 1.75rem;
+  height: 1.75rem;
+  border: 0 solid
+    color-mix(in srgb, var(--color-accent-primary) 55%, transparent);
+}
+
+.stageCorner[data-corner='tr'] {
+  inset-block-start: 14%;
+  inset-inline-end: 12%;
+  border-top-width: 1px;
+  border-right-width: 1px;
+}
+
+.stageCorner[data-corner='bl'] {
+  inset-block-end: 34%;
+  inset-inline-start: 46%;
+  border-bottom-width: 1px;
+  border-left-width: 1px;
+}
+
+/* Hidden on small screens, where there is no free corner that does not
+   collide with the type or the legal line. Placeholder status is still
+   carried by `data-dev-placeholder` and the comment in Hero.tsx. */
+.stageCaption {
+  display: none;
+  position: absolute;
+  inset-block-start: 22%;
+  inset-inline-end: 12%;
+  font-size: 0.5625rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--color-text-muted);
+  opacity: 0.5;
+}
+
+/* ===== Canvas ===== */
+
+.canvas {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  width: 100%;
+  gap: var(--space-4);
+  padding: calc(var(--space-6) + var(--space-2)) var(--container-padding-inline)
+    var(--space-4);
+}
+
+/* Editorial metadata — project-level labels only, never CarterPCs facts. */
+.meta {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  font-size: 0.625rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--color-text-muted);
+}
+
+.metaRule {
+  width: clamp(1.5rem, 6vw, 5rem);
+  height: 1px;
+  background-color: color-mix(
+    in srgb,
+    var(--color-text-primary) 22%,
+    transparent
+  );
+}
+
+.type {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: var(--space-2);
+}
+
+.kicker {
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: var(--color-accent-primary);
+}
+
+.headline {
+  font-family: var(--font-family-display);
+  font-size: clamp(4.25rem, 1rem + 15vw, 15rem);
+  font-weight: 700;
+  line-height: 0.84;
+  letter-spacing: -0.035em;
+}
+
+.line {
+  display: block;
+}
+
+.lineOffset {
+  margin-inline-start: 0.12em;
+}
+
+.subhead {
+  margin-top: var(--space-2);
+  font-size: var(--font-size-lead);
+  color: var(--color-text-muted);
+}
+
+.footer {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.footerRule {
+  display: none;
+  flex: 1;
+  height: 1px;
+  background-color: color-mix(
+    in srgb,
+    var(--color-text-primary) 14%,
+    transparent
+  );
+}
+
+.disclaimer {
+  flex: 1 1 auto;
+  min-width: 0;
+  font-size: 0.6875rem;
+  letter-spacing: 0.04em;
+  color: var(--color-text-muted);
+}
+
+/* ===== Desktop: offset title crossing the stage ===== */
+
+@media (min-width: 1024px) {
+  .stage {
+    inset-block: -6%;
+    inset-inline: 52% -6%;
+  }
+
+  .stageSurface {
+    mask-image: linear-gradient(
+      to right,
+      transparent 0%,
+      rgb(0 0 0 / 45%) 16%,
+      rgb(0 0 0) 42%
+    );
+  }
+
+  .stageCorner[data-corner='bl'] {
+    inset-block-end: 16%;
+  }
+
+  .stageCaption {
+    display: block;
+  }
+
+  .footerRule {
+    display: block;
+  }
+
+  .disclaimer {
+    flex: none;
+  }
+
+  .lineOffset {
+    margin-inline-start: 3.1em;
+  }
+
+  .subhead {
+    margin-top: var(--space-3);
+  }
+
+  .footer {
+    gap: var(--space-3);
+  }
+}
