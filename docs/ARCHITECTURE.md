@@ -1,231 +1,228 @@
-# CarterPCs Research Dossier
+# CarterPCs Portfolio — Website Architecture Specification
 
-> Research reference for the CarterPCs Portfolio Concept.
-> Statistics, dates, milestones, platform metrics, and other factual claims must be reverified before public release.
+> Source of truth for the interactive portfolio website structure, narrative sequencing, layout mechanics, motion systems, and technical specifications.
+> Derived strictly from PROJECT.md, DESIGN.md, CONTENT.md, and RESEARCH.md.
 
----
-
-## 1. Executive Summary
-
-This research dossier provides a factual, evidence-based breakdown of **CarterPCs** (Carter Ryan Smith), one of the most prominent short-form technology content creators on digital platforms. Operating across TikTok, YouTube Shorts, and Instagram Reels, CarterPCs has amassed over **10.8 million total followers** and over **7 billion cumulative video views**. 
-
-His core value proposition is *"making tech less of a snooze fest"* through high-velocity, honest, and humor-infused commentary on PC hardware, consumer electronics, smartphones, and emerging technology news. This dossier establishes verified facts, visual motifs, historical milestones, and content pillars required to build an interactive portfolio website.
+> **Reverification notice:** Any CarterPCs-specific statistic, date, milestone, or platform metric referenced below (as design rationale or as placeholder UI copy) is sourced from `RESEARCH.md` and carries that document's standing warning — it must be reverified before public release. This document does not introduce any new factual claims about CarterPCs.
 
 ---
 
-## 2. Creator Overview
+## Global Navigation
 
-* **Real Name:** Carter Ryan Smith
-* **Date of Birth:** August 8, 2005 (Age: 20)
-* **Origin & Location:** Born in Monroe, Michigan; relocated to Los Angeles, California in 2024.
-* **Channel Tagline / Brand Slogan:** *"making tech less of a snooze fest 4x a day"*
-* **Primary Platforms & Reach (2026 Metrics):**
-  * **TikTok (`@carterpcs`):** ~6.8 Million followers | 864.7M+ likes | 9.2K+ uploads
-  * **YouTube (`@actuallycarterpcs`):** ~3.07 Million subscribers | 6.8B+ views | 4,500+ videos
-  * **Instagram (`@carterpcs_`):** ~1.0 Million followers
-  * **X / Twitter (`@carternotpcs`):** ~12.8K followers
-  * **Snapchat & Threads:** Active cross-platform presence
-* **Primary Audience Demographics:** Gen Z & Young Adult Tech Enthusiasts. Audience distribution on YouTube and TikTok is predominantly male (~86%–95%), concentrated in the 18–24 (30%–53%) and 25–34 (15%–27%) age brackets, with significant reach in the United States (41%–61%), United Kingdom, and Canada.
-* **Public Identity & Positioning:** Relatable, fast-talking, short-form tech critic and builder. Carter presents himself as an everyman tech enthusiast rather than an aloof academic reviewer. He balances real hands-on hardware knowledge with internet meme culture, deadpan humor, and sharp criticism of corporate tech blunders.
-* **Differentiation:** Unlike traditional long-form tech reviewers who post 10–20 minute benchmark-heavy reviews weekly (e.g., Linus Tech Tips, Marques Brownlee), Carter pioneered a daily ultra-short cadence (posting up to 4 times per day). His content synthesizes tech news, consumer buying advice, scam hardware testing, and viral commentary into punchy 30-to-60 second vertical clips.
+The site is a single continuous scroll experience, not a multi-page app with a traditional navbar — consistent with PROJECT.md's "storytelling over dashboards" philosophy and DESIGN.md's instruction to avoid repetitive, dashboard-like UI chrome.
+
+- **Wordmark, top-left, fixed:** Small, static "CARTERPCs" mark. Low visual weight — the section content carries the hierarchy, not the chrome.
+- **Section index, right edge, fixed (desktop only):** A vertical stack of numbered markers (01–11) reflecting DESIGN.md's "large section numbering" typography direction. The active section's number is emphasized; others recede. Clicking a marker smooth-scrolls to that section. This doubles as a scroll-progress indicator.
+- **Menu overlay:** A single icon (top-right) opens a full-screen overlay listing all 11 sections by name, for direct jump navigation. Uses the same kinetic-typography language as the rest of the site (see Global Motion System) rather than a generic slide-in drawer.
+- **No sticky utility navbar, no dropdowns, no multi-level menus** — these read as SaaS-dashboard patterns explicitly ruled out in PROJECT.md.
+- **Mobile:** the fixed index collapses to a single slim progress bar (top of viewport); the menu overlay remains the only jump-navigation mechanism.
 
 ---
 
-## 3. Content Categories
+## Global Visual System
 
-| Category | Importance | Typical Content | Example Videos | Notes |
-| :--- | :--- | :--- | :--- | :--- |
-| **PC Hardware & Custom Builds** | Core / Primary | Budget vs. extreme gaming PCs, GPU/CPU value, scam component testing ($50 RAM kits), cooling, prebuilt teardowns. | *"The problem with ULTRA HIGH BUDGET Gaming PCs"*<br>*"DO NOT BUY ALIENWARE PCS"*<br>*"The best PC you can build with $100k"* | Forms the core anchor of his brand ("CarterPCs"). Direct hands-on testing mixed with humor. |
-| **Smartphones & Mobile Tech** | Core / Primary | iPhone feature deep dives, iOS bugs, "Apple glazer" commentary, Galaxy vs. iPhone comparisons, smartphone durability. | *"My girlfriend asked me an iPhone question I couldn't answer..."*<br>*"Why did you buy a 'Pro' iPhone??"*<br>*"Nobody wants to switch to android because..."* | Highly viral category. Frequently playfully labeled an "Apple glazer" by viewers. |
-| **Tech News & Controversies** | High | Government policy (DJI drone bans, TikTok bans), corporate PR disasters (GM EV shifts, Sony PS5 disc drive controversies), scam products. | *"The US Government is banning the BIGGEST DRONE COMPANY DJI"*<br>*"Why GM sabotaged their best EV..."*<br>*"Is the Trump phone a collector's item now??"* | Quick-reaction talking head format over green-screen news headlines or press releases. |
-| **Scam Tech & Budget Gear** | High | Testing cheap products from Temu, Amazon, or sketchy suppliers; exposing fake storage drives or misleading PC marketing. | *"I talked to a Temu employee… this is what she said"*<br>*"Is this $50 64gb RAM kit a scam??"*<br>*"I got scammed trying to buy an Apple sock.."* | Strong consumer advocate tone wrapped in entertainment. |
-| **Emerging Tech & AI Tools** | Medium–High | AI video translation (HeyGen), Apple Vision Pro, AI Siri, novel Chinese hardware releases, gaming laptops. | *"I had my principal try the vision pro"*<br>*"This Chinese laptop folds into a full monitor??"*<br>*"The best way to translate your videos into 175+ languages..."* | Focuses on novel utility, practical applications, and high-tech spatial computing. |
-| **Community & Storytelling** | Medium | Viewer trade stories, subscriber milestones, rating app docks from Snapchat, creator races. | *"He painted a picture of me every day.. so I gave him a free gaming PC"*<br>*"My school would take my phone.. so I brought backups"* | Drives human connection and viewer retention. |
+### Color
 
----
+DESIGN.md specifies a restrained, editorial base palette (black, off-white, charcoal, soft gray) with a single subtle accent, and explicitly says "avoid excessive RGB." RESEARCH.md documents CarterPCs' own on-camera studio identity as a vibrant neon cyan/purple/amber palette. Per the project's design constraints, these are reconciled as **base vs. accent**, not blended as equals:
 
-## 4. Visual Identity
+| Role | Value | Source |
+| :--- | :--- | :--- |
+| Base — background | Near-black (`#0D0D0D`–`#111111` range) | DESIGN.md ("black"), consistent with RESEARCH.md's observed studio backdrop |
+| Base — surface | Charcoal / dark slate | DESIGN.md ("charcoal") |
+| Base — text | Off-white / soft gray | DESIGN.md |
+| Accent — primary | Restrained Electric Cyan (desaturated/dimmed from RESEARCH.md's `#00E5FF`) | RESEARCH.md §4 Visual Identity, used sparingly per DESIGN.md's "subtle electric blue or another restrained tech accent" |
+| Accent — secondary | Restrained Deep Purple (desaturated/dimmed from RESEARCH.md's `#9D00FF`) | RESEARCH.md §4, used sparingly |
 
-### Colors
-* **Primary Ambient Palette:** Dark studio backdrop with vibrant RGB neon accents—predominantly **Electric Cyan (`#00E5FF`)**, **Deep Magenta/Purple (`#9D00FF`)**, and **Warm Orange/Amber (`#FF6B00`)**.
-* **UI & Framing Palette:** High-contrast Matte Black (`#0D0D0D`), Dark Charcoal Slate (`#1A1A1A`), and Pure White (`#FFFFFF`) text overlays with Yellow/Lime accents (`#FFE600`) for caption pop-ups.
-
-### Thumbnails
-* **Structure:** Bold, simplified vertical and horizontal compositions designed for immediate phone-screen recognition.
-* **Key Elements:** Carter's expressive face (shocked, skeptical, or smirk) positioned on one side, paired with high-contrast cutouts of PC hardware (e.g., exposed GPUs, glowing PC cases) or smartphones.
-* **Text:** Massive sans-serif text (typically 2 to 4 words max in ALL CAPS) in white or bright yellow with thick black drop-shadows or outlines.
-
-### Studio
-* **Foreground:** Clean ergonomic desk, custom glass mousepads, minimalist mechanical keyboards, and PC builds positioned directly in frame.
-* **Background:** Dark studio walls lined with pegboard organization displaying hardware accessories, camera gear, and soft ambient light bars (Govee/Philips Hue). High emphasis on clean cable management and geometric line arrangements.
+Accents are reserved for: interactive states (hover/focus/cursor), section-index highlighting, key data callouts, and hardware-glow effects during the Hardware Experience section. They must never dominate a full viewport the way they do in CarterPCs' own thumbnails/studio lighting — that treatment is explicitly what DESIGN.md and the "excessive RGB/neon gaming website" exclusion warn against. Exact hex values are a design decision for implementation and should be finalized against real accessibility contrast checks, not treated as verified brand colors.
 
 ### Typography
-* **Primary Fonts:** Clean, thick, heavy-weight geometric sans-serifs (Montserrat, Impact, Inter Bold, or Helvetica Neue Bold).
-* **Caption Style:** Word-by-word active auto-captioning positioned mid-screen, utilizing bold white text with bright yellow keyword highlights and subtle scale pop animations on accent words.
 
-### Editing
-* **Pacing:** Ultra-rapid cutting style with zero silence or dead air (pacing optimized at ~1.5 to 2.5 cuts per 5 seconds).
-* **Visual Transitions:** Fast micro-zooms (100% to 110% punch-ins) on punchlines, rapid green-screen background cutaways to tweets/articles, and smooth hardware B-roll pans.
-* **Sound Design:** Snappy mechanical keyboard click effects, subtle swoosh transitions, and low ambient lo-fi or trap instrumentals under rapid-fire voiceovers.
+- Oversized, editorial display type for headlines (DESIGN.md), heavy/geometric sans-serif in the spirit of the weights RESEARCH.md documents in Carter's own caption style (thick, high-contrast) — applied to site headings, not captions.
+- Minimal body copy; body text is secondary to typographic composition, per DESIGN.md.
+- Large numeric section markers (e.g., "01", "02") as a recurring typographic motif, tying Global Navigation, Section Specifications, and the Page Flow together visually.
 
-### Recurring Motifs
-* Vertical 9:16 aspect ratio framing native to smartphone screens.
-* Green-screen overlay technique where Carter stands in front of articles, Reddit threads, or product pages.
-* Direct hand-held hardware demonstrations (holding up RAM sticks, smartphones, or custom cooling blocks close to camera).
+### Layout
 
-### Overall Visual Character
-* **Tone:** Energetic, technical, direct, meme-aware, modern, polished, and hyper-engaging.
-* **Identity Feel:** A high-speed hybrid of modern minimalist tech studio aesthetics and vibrant, Gen-Z viral video energy.
+Full-screen sections, asymmetric compositions, generous whitespace, layered/overlapping type over imagery, occasional horizontal scroll where it serves a specific section (not as a default pattern). Card grids are avoided as a primary layout device — where multiple content items must be shown side-by-side (e.g., Selected Videos), they are presented as large editorial entries, not uniform dashboard cards (CONTENT.md's "Featured Content" example structure — numbered entries with headline pairs — is the reference pattern).
 
 ---
 
-## 5. Notable Videos
+## Global Motion System
 
-| Video | Date | Category | Views | Why It Matters | Source |
-| :--- | :--- | :--- | :--- | :--- | :--- |
-| *"The problem with ULTRA HIGH BUDGET Gaming PCs"* | 2024 / 2025 | PC Hardware | ~6.1M Views | Deconstructs the diminishing returns and thermal/driver headaches of $10k+ custom builds. | [YouTube Shorts](https://www.youtube.com/@actuallycarterpcs/shorts) |
-| *"How Id game on a laptop.."* | 2024 / 2025 | Laptops / Gaming | ~5.6M Views | Showcases practical laptop gaming ergonomics and setup optimization with his characteristic humor. | [YouTube Shorts](https://www.youtube.com/@actuallycarterpcs/shorts) |
-| *"My girlfriend asked me an IPhone question I couldn't answer…"* | 2024 / 2025 | Mobile Tech | ~7.4M Views | Highly viral everyday tech breakdown highlighting obscure iOS quirks and settings. | [YouTube Shorts](https://www.youtube.com/@actuallycarterpcs/shorts) |
-| *"Is China gatekeeping all the best tech??"* | 2024 / 2025 | Consumer Tech | ~4.0M Views | Explores unique Asia-exclusive hardware innovations (e.g., dual-folding screens, extreme battery tech). | [YouTube Shorts](https://www.youtube.com/@actuallycarterpcs/shorts) |
-| *"Is the Trump phone a collector's item now??"* | 2024 / 2025 | Tech Commentary | ~3.7M Views | Critical commentary examining fine print changes and delivery delays surrounding the Trump Mobile T1. | [YouTube Shorts](https://www.youtube.com/@actuallycarterpcs/shorts) |
-| *"The best PC you can build with $100k.."* | 2024 / 2025 | PC Hardware | ~3.2M Views | Speculative extreme workstation build breakdown showcasing enterprise-grade server hardware. | [YouTube Shorts](https://www.youtube.com/@actuallycarterpcs/shorts) |
-| *"Nobody wants to switch to android because..."* | 2026 | Mobile Tech | ~2.7M Views | Analytical commentary explaining why early budget Android phones created lasting brand bias. | [YouTube Shorts](https://www.youtube.com/@actuallycarterpcs/shorts) |
-| *"He painted a picture of me every day.. so I gave him a free gaming PC"* | 2026 | Community / PC Build | ~2.2M Views | Wholesome story video showcasing fan trade interaction where Carter rewarded a dedicated artist viewer. | [YouTube Shorts](https://www.youtube.com/@actuallycarterpcs/shorts) |
-| *"I had my principal try the vision pro"* | 2024 | Spatial Tech | ~460K Views | Took Apple's spatial computer into a high school environment to gauge real-world reactions. | [YouTube Shorts](https://www.youtube.com/@actuallycarterpcs/shorts) |
-| *"DO NOT BUY ALIENWARE PCS"* | 2023 | PC Hardware / Prebuilts | ~321K Views | Seminal critique of Dell/Alienware proprietary parts, thermal throttling, and poor upgradability. | [YouTube](https://www.youtube.com/@actuallycarterpcs) |
-| *"Why GM sabotaged their best EV..."* | 2024 | EV / Tech Commentary | ~328K Views | Business and automotive tech commentary analyzing General Motors' decision to drop the Chevy Bolt EV. | [YouTube Shorts](https://www.youtube.com/@actuallycarterpcs/shorts) |
-| *"I talked to a Temu employee… this is what she said"* | 2024 | Scam Tech / E-Commerce | ~250K Views | Investigative commentary examining low-cost e-commerce platforms and privacy concerns. | [YouTube Shorts](https://www.youtube.com/@actuallycarterpcs/shorts) |
+Built on GSAP + ScrollTrigger (PROJECT.md's technical direction). Motion principles:
+
+- **Scroll-triggered reveals** as the default entrance pattern for text and imagery — content commits to the frame as it enters view, not before.
+- **Kinetic typography** for headlines and key stats: word-by-word or character-level reveal, echoing the caption energy RESEARCH.md documents in Carter's videos, but paced for a cinematic site rather than short-form video. See "Pacing philosophy" below — this is a deliberate, important divergence from Carter's own editing cadence.
+- **Text masking, image scale/parallax, section transitions, magnetic buttons, hover distortion, subtle depth (parallax layers)** — all per DESIGN.md's Motion Design list.
+- **Horizontal scroll sequences** reserved for sections where a linear "unrolling" narrative benefits from it (candidates: Hardware Experience's component breakdown, Creator Journey's timeline) — not used as a global scroll axis.
+- **Reduced-motion mode:** every animated pattern above must have a static or near-static fallback (opacity/position only, no parallax/masking) triggered by `prefers-reduced-motion` and reused for the mobile performance profile (see Responsive Strategy).
+
+### Pacing philosophy
+
+RESEARCH.md documents CarterPCs' own content as ultra-rapid (1.5–2.5 cuts per 5 seconds, zero dead air). This is **subject-matter reference, not a motion-pacing template.** PROJECT.md and DESIGN.md both call for a cinematic, premium, intentional feel with "sophisticated transitions" — the opposite pacing register from short-form TikTok editing. The architecture treats Carter's rapid-fire energy as something the site *depicts* (through footage, captions-as-motif, hardware quick-cuts inside the Featured Content and Selected Videos sections) rather than something the site's own scroll motion *performs*. Global transitions stay deliberate and unhurried; localized moments (e.g., a video preview loop, a caption-style callout) may borrow the faster rhythm as a contained motif.
 
 ---
 
-## 6. Creator Timeline
+## Custom Cursor
 
-| Date | Milestone | Evidence | Confidence | Source |
-| :--- | :--- | :--- | :--- | :--- |
-| **Feb 26, 2020** | **YouTube Channel Launch:** Carter created `@actuallycarterpcs` at age 14 while living in Monroe, Michigan. | Official YouTube channel creation metadata; Wikipedia biography. | High | [YouTube Channel Metadata](https://www.youtube.com/@actuallycarterpcs) |
-| **2020 – 2021** | **The Daily Short-Form Grind:** Began uploading up to 4 TikTok videos daily focusing on PC hardware and phone tips. | Secondary profiles and news reporting detailing his early daily output. | High | [Wikipedia](https://en.wikipedia.org/wiki/CarterPCs) |
-| **Early 2022** | **100K YouTube Subscribers & First Collaborations:** Hit 100K subscribers on YouTube; collaborated with tech creator Jenna Ezarik. | Published YouTube vlog *"Hanging with CarterPCs and Eddie Benjamin"* on Jenna Ezarik's channel. | High | [YouTube (Jenna Ezarik)](https://youtube.fandom.com/wiki/CarterPCs) |
-| **Late 2023** | **Fake Channel Impersonation Coverage:** A fraudulent YouTube channel reuploading Carter's TikToks gained more subscribers than his official channel, making tech news. | Covered by Business Insider (*"A YouTuber was shocked that an account impersonating him had more followers"*). | High | [Business Insider / Wikitubia](https://youtube.fandom.com/wiki/CarterPCs) |
-| **June – July 2024** | **1 Million Subscribers & Nathan Espinoza Race:** Crosses 1,000,000 YouTube subscribers after a friendly race against creator Nathan Espinoza; unboxes Gold Play Button. | Official video *"Unboxing my 1 Million subscriber play button"*. | High | [YouTube](https://youtube.fandom.com/wiki/CarterPCs) |
-| **September 2024** | **Relocation to Los Angeles:** Relocated from Michigan to Los Angeles, California to expand studio capabilities and networking. | Official video *"Packing all my tech for my move.."*. | High | [YouTube / Wikitubia](https://youtube.fandom.com/wiki/CarterPCs) |
-| **2025 – 2026** | **3 Million YouTube Subs & 6.8M TikTok Followers:** Reaches 3.07M subscribers on YouTube and 6.8M on TikTok, surpassing 6.8 Billion views total. | Public platform media kit data verified by YouTube API and Viewstats. | High | [Pillar Media Kit](https://pillar.io/carterpcs/mediakit) |
+Per DESIGN.md's "custom cursor interactions." States:
 
----
+| State | Trigger | Behavior |
+| :--- | :--- | :--- |
+| Default | Idle | Minimal dot/ring, low-opacity accent color |
+| Link hover | Any interactive text/link | Expands, magnetic pull toward the element |
+| Video hover | Featured/Selected video thumbnails | Morphs into a "play" affordance |
+| Hardware hover | Hardware Experience components | Morphs into a small crosshair/spec-callout affordance |
+| Horizontal-scroll zone | Inside a horizontal scroll sequence | Rotates into a left/right drag indicator |
+| Drag/press | Active interaction | Compresses slightly for tactile feedback |
 
-## 7. Hardware & Tech Themes
-
-### 1. Custom PCs vs. Overpriced Prebuilts
-* **Frequency:** Appears in approximately 35% of all content.
-* **Approach:** Strong advocate for custom PC building over prebuilts. Calls out major OEMs (Dell, Alienware, HP) for proprietary motherboards, poor airflow, and high price markups.
-* **Tone:** Unfiltered critique, educational, value-oriented.
-* **Website Opportunity *(Design Concept)*:** An interactive *"Build vs. Buy"* Comparison Tool or *"Hardware Teardown Matrix"* where users can toggle custom parts versus prebuilt flaws.
-
-### 2. Smartphone Wars (Apple Ecosystem vs. Android)
-* **Frequency:** Appears in ~30% of videos.
-* **Approach:** Frequently explores subtle iOS features, battery health myths, camera developments, and Android hardware advantages. Self-aware regarding the community meme labeling him an "Apple glazer".
-* **Tone:** Relatable, debate-provoking, humorous, comparative.
-* **Website Opportunity *(Design Concept)*:** An interactive *"iPhone vs. Android Verdict Dial"* highlighting key ecosystem tradeoffs.
-
-### 3. Scam Tech & Budget Hardware Busting
-* **Frequency:** Appears in ~15% of videos.
-* **Approach:** Buys suspiciously cheap hardware (e.g., $50 64GB RAM kits, Temu deals, fake external SSDs) and tests them to see if they perform or blow up.
-* **Tone:** Investigative, skeptical, entertaining, consumer-protective.
-* **Website Opportunity *(Design Concept)*:** A *"Scam or Legit?" Interactive Gallery* showcasing real lab-tested sketchy gadgets.
-
-### 4. Overkill & Futuristic Tech
-* **Frequency:** Appears in ~10% of videos.
-* **Approach:** Highlights $100,000 workstation PCs, wild Chinese dual-screen foldables, and cutting-edge VR/AR headsets (Apple Vision Pro).
-* **Tone:** Awe-inspired, analytical, forward-looking.
-* **Website Opportunity *(Design Concept)*:** An interactive *"Extreme Spec Sheet Showcase"* with dynamic 3D rendering concepts.
+Disabled entirely on touch devices (see Responsive Strategy) — replaced by native touch affordances, never simulated.
 
 ---
 
-## 8. Content Style
+## Responsive Strategy
 
-### Observable Facts
-1. **Ultra-High Velocity Cadence:** Posts up to 4 short-form videos daily across platforms.
-2. **Hook Speed:** Starts every video with a punchy hook or direct statement within the first 1.5 seconds.
-3. **Pacing & Audio:** Zero pause between spoken phrases; utilizes jump cuts to eliminate breathing pauses.
-4. **Visual Anchoring:** Always pairs talking-head footage with immediate background media (green-screened articles, tweets, specs sheets, or hands-on hardware B-roll).
-5. **Captions:** On-screen animated captions appear word-by-word or in short 2-3 word phrases to maintain visual focus.
+DESIGN.md is explicit: mobile must not be a shrunk desktop layout. Strategy:
 
-### Interpretation
-* **Algorithmic Optimization:** High edit density and instant hooks prevent swipe-away rates on TikTok and YouTube Shorts.
-* **Demystification of Tech:** By stripping away 20-minute long-form filler and corporate jargon, Carter renders complex hardware concepts immediately accessible to casual viewers.
-* **Authenticity & Relatability:** His willingness to call out corporate blunders, admit when he is wrong, and laugh at community memes ("Apple glazer") fosters strong creator-viewer trust.
+- **Breakpoint philosophy:** design mobile as its own composition per section (stacked, single-column, larger touch targets) rather than reflowing the desktop asymmetric grid.
+- **Cursor → touch:** all custom-cursor affordances are replaced by direct tap/hold feedback (scale/opacity pulses on the element itself).
+- **Horizontal scroll sequences:** re-authored as vertical stacks or swipeable carousels with explicit swipe affordances, not a horizontally-scrollable overflow of the desktop layout.
+- **Motion budget:** parallax layer count and simultaneous animation count are reduced on mobile for performance; kinetic typography degrades to simpler fade/slide reveals where needed.
+- **Reduced motion:** same fallback system as Global Motion System, additionally auto-engaged below a performance threshold (low-end device heuristics), not only via explicit OS preference.
 
 ---
 
-## 9. Brand / Creator Identity Themes
+## Asset Requirements
 
-1. **High-Velocity Tech Commentator:** Defined by the relentless 4x/day content pace and rapid news response.
-2. **Accessible Tech Demystifier:** Translating intimidating PC benchmarks and specs into plain English for Gen Z.
-3. **Honest Consumer Advocate:** Unafraid to expose overpriced prebuilts, fake memory kits, and corporate fine print.
-4. **Digital-Native Personality:** Deeply integrated into meme culture, viral trends, and platform dynamics.
-5. **Community-Driven Creator:** Rewarding viewer art, engaging in creator races, and directly responding to fan queries.
+All CarterPCs-sourced media (footage, thumbnails, photography) is subject to PROJECT.md's Legal / Attribution requirement — properly attributed or used only where legally appropriate — before inclusion. Required asset categories:
 
----
-
-## 10. Website-Relevant Insights
-
-*(Note: The following subsections are design interpretations and strategic opportunities derived from research, not factual claims about CarterPCs).*
-
-### 5 Strongest Creator Identity Themes for Site Structure
-* **The Daily Output Engine:** Emphasizing his 4x/day upload consistency and massive video archive (>4,500 videos).
-* **The Gen-Z Tech Authority:** Positioning Carter as the premier short-form voice for modern consumer electronics.
-* **The No-BS Hardware Critic:** Highlighting his direct, unfiltered reviews on bad tech deals.
-* **The LA Creator Journey:** Tracing his growth from a 14-year-old Michigan creator to an LA-based tech personality.
-* **Cross-Platform Reach:** Showcasing his 10.8M+ follower ecosystem.
-
-### 5 Strongest Visual Themes for Motion / UI Design
-* **Neon Cyberpunk Studio Lighting:** Utilizing dark slate (`#0D0D0D`) backdrops with neon cyan and purple glowing borders/cards.
-* **High-Speed Micro-Interactions:** Snappy hover states, instant tab switches, and kinetic typography mirroring his editing style.
-* **Vertical-First Video Player Nodes:** Mobile-optimized 9:16 interactive video cards.
-* **Hardware Schematic & Pegboard Motifs:** Clean grid overlays, technical spec badges, and pegboard-style UI organization.
-* **Word-by-Word Kinetic Text Animations:** Live captioning motion triggers on hero headings.
-
-### 5 Strongest Hardware Themes for Features Section
-* **Custom PC Build Specs:** Interactive component breakdown (CPU, GPU, RAM, Cooling).
-* **The "Prebuilt vs. DIY" Calculator:** Interactive cost/performance slider.
-* **Smartphone Flagship Battle:** Direct spec-check modal (Apple vs Samsung).
-* **Scam Hardware Lab:** Interactive teardown cards exposing fake storage drives.
-* **Extreme Workstation Builds:** Highlighting $100k dream builds.
-
-### 5 Strongest Content Themes for Featured Media
-* **Top Viral Shorts:** Carousel of his multi-million view videos.
-* **Tech Scam Exposés:** Direct spotlight on scam teardowns.
-* **Apple & iOS Hacks:** Crated collection of phone tips.
-* **Tech Industry Hot Takes:** High-impact commentary clips.
-* **Wholesome Creator Stories:** Viewer trades and milestone celebrations.
-
-### 5 Story Chapters for Creator Journey Timeline
-1. **Chapter 1: The Michigan Spark (2020):** Launching `@actuallycarterpcs` at age 14 during lockdowns.
-2. **Chapter 2: The Daily Grind & Rating App Docs (2021–2022):** Establishing the 4x/day workflow and early viral series.
-3. **Chapter 3: Battling Impersonators & The Race to 1M (2023–2024):** Overcoming massive fake channels and winning the race to 1 Million YouTube subscribers.
-4. **Chapter 4: Heading West to LA (Late 2024):** Moving out to Los Angeles and upgrading to a dedicated studio space.
-5. **Chapter 5: The 10-Million Digital Empire (2025–2026):** Amassing 10.8M+ followers and 7B+ views as a leading short-form tech voice.
+- **Hero:** a short looping cinematic clip or high-impact still representing CarterPCs' content world (placeholder until sourced/cleared).
+- **Hardware photography/renders:** exploded PC view, GPU close-up, motherboard detail, CPU, cooling, RAM, storage, complete build — per DESIGN.md's Hardware Presentation list. Real product photography preferred; 3D renders acceptable where photography is unavailable, flagged separately from photographed assets.
+- **Video content:** clips/thumbnails for Featured Content and Selected Videos sections, sourced from CarterPCs' public platforms per RESEARCH.md's Notable Videos table — pending licensing/attribution review, and pending reverification of any view-count or date labels shown alongside them.
+- **Creator imagery:** for Creator Introduction and Creator Identity sections — subject to the same attribution review.
+- **Typography assets:** the chosen display and body typefaces (implementation decision, not specified by source docs beyond "strong sans-serif").
+- **Iconography:** minimal custom icon set for menu, cursor states, and section markers — no stock dashboard icon packs (keeps the "not a SaaS dashboard" constraint intact).
 
 ---
 
-## 11. Uncertain or Unverified Information
+## Technical Complexity Map
 
-* **Exact Financial Earnings:** While third-party analytics tools (e.g., VidIQ) estimate monthly revenue, exact brand deal rates and ad revenue figures are undisclosed private financial data.
-* **Camera & Workstation Model Specifics (Current Year):** While past studio gear included LG 38" ultrawide monitors and AMD/NVIDIA custom PCs, exact current workstation specifications following his 2024/2025 Los Angeles studio upgrade remain unverified in primary documentation.
-* **Unannounced Partnerships:** Any upcoming commercial hardware launches or brand sponsorship deals not explicitly declared in public media kits.
+Based on PROJECT.md's stated stack (React, Vite, TypeScript, GSAP, ScrollTrigger, CSS, Three.js "only where true 3D adds value").
+
+| System / Section | Complexity | Notes |
+| :--- | :--- | :--- |
+| Global Navigation (index + overlay) | Medium | ScrollTrigger-driven active-state tracking |
+| Custom Cursor | Medium | Pointer-events + magnetic hover math; must be fully bypassed on touch |
+| Kinetic typography (global) | Medium–High | Per-character/word split animations, reused across sections |
+| Horizontal scroll sequences | High | Scroll-hijacking requires careful accessibility and momentum handling |
+| Intro / Loader | Low–Medium | Short, one-time sequence |
+| Hero | Medium | Combines kinetic type + looping media |
+| Creator Introduction | Low | Primarily editorial type + imagery |
+| Featured Content | Medium–High | Editorial-story layout with per-entry motion |
+| Hardware Experience | High–Very High | Candidate for Three.js (exploded-view / component breakdown); scope this down to CSS/GSAP first, escalate only if it clearly earns its complexity per PROJECT.md's Three.js guidance |
+| Content Universe | Medium | Category-based archive browsing without falling into card-grid patterns |
+| Creator Journey | Medium–High | Timeline sequencing, likely horizontal-scroll candidate |
+| Selected Videos | Medium | Video preview/playback handling |
+| Creator Identity | Low–Medium | Primarily typographic/editorial |
+| Final Cinematic Section | Medium | High-impact closing motion moment |
+| Credits / Disclaimer | Low | Static, legally-required content |
 
 ---
 
-## 12. Sources
+## Section Specifications
 
-### Primary Sources
-* **CarterPCs Official YouTube Channel:** [https://www.youtube.com/@actuallycarterpcs](https://www.youtube.com/@actuallycarterpcs)
-* **CarterPCs Official Media Kit (Pillar):** [https://pillar.io/carterpcs/mediakit](https://pillar.io/carterpcs/mediakit)
-* **CarterPCs Official TikTok (`@carterpcs`):** [https://www.tiktok/@carterpcs](https://www.tiktok/@carterpcs)
-* **CarterPCs Official X / Twitter (`@carternotpcs`):** [https://x.com/carternotpcs](https://x.com/carternotpcs)
+Each section below maps to PROJECT.md's "Main Sections" list and draws its placeholder copy from CONTENT.md (explicitly marked there as unverified placeholder text) and its supporting research framing from RESEARCH.md §10 (Website-Relevant Insights).
 
-### Secondary Sources & Analytics
-* **Wikipedia Entry ("CarterPCs"):** [https://en.wikipedia.org/wiki/CarterPCs](https://en.wikipedia.org/wiki/CarterPCs)
-* **VidIQ Channel Analytics:** [https://vidiq.com/youtube-stats/channel/@actuallycarterpcs/](https://vidiq.com/youtube-stats/channel/@actuallycarterpcs/)
-* **Viewstats Channel Analytics:** [https://www.viewstats.com/@actuallycarterpcs/](https://www.viewstats.com/@actuallycarterpcs/)
-* **Business Insider Article:** *"A YouTuber was shocked that an account impersonating him had more followers"*
-* **Wikitubia Fandom Archive:** [https://youtube.fandom.com/wiki/CarterPCs](https://youtube.fandom.com/wiki/CarterPCs)
+### 1. Intro / Loader
+
+**Purpose:** brief, cinematic threshold moment before the experience begins — sets tone (premium, intentional) and masks initial asset loading.
+**Layout/Motion:** full-viewport, type-driven (e.g., "CARTERPCs" kinetic reveal per CONTENT.md's Hero headline concept), minimal duration, no interactive controls.
+**Content source:** CONTENT.md §Hero (headline concepts reused/foreshadowed here).
+**Responsive:** identical structure, shorter duration on mobile to reduce perceived wait.
+
+### 2. Hero
+
+**Purpose:** first full statement of identity and tone.
+**Layout/Motion:** full-screen, asymmetric composition; oversized headline (CONTENT.md offers "CARTERPCs" / "Making tech interesting." and the alternative "TECH. HARDWARE. CULTURE." direction — both placeholders pending final copy decision); scroll-triggered reveal into the next section.
+**Content source:** CONTENT.md §Hero.
+**Responsive:** single-column, headline scales down but remains oversized relative to body text.
+
+### 3. Creator Introduction
+
+**Purpose:** a short editorial bridge establishing who CarterPCs is before diving into content/hardware — not present as a named section in PROJECT.md's list, but required by the 11-section architecture to avoid jumping from Hero directly into content without framing. Structurally distinct from the later, deeper Creator Identity section (9): this is a brief orientation, not the full identity treatment.
+**Layout/Motion:** editorial text block + imagery, restrained motion (fade/slide reveals only — this section should feel like a pause, not a spectacle).
+**Content source:** derived from RESEARCH.md §2 Creator Overview and §9 Brand/Creator Identity Themes, filtered down to a short introductory statement; any specific figures used must be reverified before use as on-site copy.
+**Responsive:** stacked text-then-image.
+
+### 4. Featured Content
+
+**Purpose:** showcase a small set of standout content pieces as large editorial stories, not a video grid.
+**Layout/Motion:** CONTENT.md's numbered-entry pattern ("01 — HARDWARE / THIS PC BUILD IS SICK.", "02 — TECH / THE END OF CHEAP GPUs.", "03 — COMMENTARY / THE PROBLEM WITH TECH CHANNELS.") — each entry full-bleed or near-full-bleed with kinetic-type headline over media, scroll- or interaction-advanced.
+**Content source:** CONTENT.md §Featured Content (explicitly placeholder copy); real entries should be selected from RESEARCH.md §5 Notable Videos once licensing and figures are verified.
+**Responsive:** entries stack vertically, one per viewport.
+
+### 5. Hardware Experience
+
+**Purpose:** the site's signature hardware showcase — directly serves PROJECT.md's "hardware-focused" identity and DESIGN.md's Hardware Presentation sequence.
+**Layout/Motion:** sequenced reveal through exploded PC → GPU → motherboard → CPU → cooling → RAM → storage → complete build (DESIGN.md order, matching CONTENT.md's Hardware Sequence list). Strongest candidate for a horizontal-scroll sequence or (if justified) a Three.js-driven exploded assembly; default implementation should be CSS/GSAP-driven per the Technical Complexity Map, with 3D treated as a stretch goal.
+**Content source:** CONTENT.md §Hardware Sequence; visual treatment informed by RESEARCH.md §4 Visual Identity and §7 Hardware & Tech Themes' "Website Opportunity" concepts (e.g., interactive build-vs-buy or spec-showcase ideas) as inspiration, not commitments.
+**Responsive:** sequence re-authored as a swipeable vertical stack (see Responsive Strategy) rather than horizontal overflow.
+
+### 6. Content Universe
+
+**Purpose:** an archive/overview of the breadth of CarterPCs' content categories — answers "what does he cover" beyond the hand-picked Featured entries.
+**Layout/Motion:** category-based presentation (not a card grid) — large typographic category labels with representative imagery, revealed on scroll.
+**Content source:** category structure directly from RESEARCH.md §3 Content Categories (PC Hardware & Custom Builds, Smartphones & Mobile Tech, Tech News & Controversies, Scam Tech & Budget Gear, Emerging Tech & AI Tools, Community & Storytelling) and CONTENT.md §Main Content Categories.
+**Responsive:** stacked category list, tap-to-expand for representative content.
+
+### 7. Creator Journey
+
+**Purpose:** narrative timeline of CarterPCs' growth.
+**Layout/Motion:** horizontal-scroll or vertically-stacked timeline (candidate for horizontal sequence per Technical Complexity Map); kinetic-type chapter headings.
+**Content source:** structural placeholder from CONTENT.md §Journey ("01 — THE BEGINNING", "02 — THE GROWTH", "03 — WHAT'S NEXT" — explicitly noted there as needing verified dates/milestones before publishing); RESEARCH.md §6 Creator Timeline and §10's "5 Story Chapters for Creator Journey Timeline" provide a more detailed candidate structure, but every date and milestone must be reverified before use as final copy.
+**Responsive:** vertical timeline on mobile.
+
+### 8. Selected Videos
+
+**Purpose:** a broader, browsable set of individual videos beyond the hand-picked Featured Content entries — distinct from Section 4 in that it favors breadth over curation-as-narrative.
+**Layout/Motion:** large editorial list/carousel (not a uniform grid), video preview on hover/focus (desktop) or tap (mobile), using the Custom Cursor's video-hover state.
+**Content source:** RESEARCH.md §5 Notable Videos table, pending licensing clearance and reverification of view counts/dates before any are shown as on-site copy.
+**Responsive:** vertical scrollable list.
+
+### 9. Creator Identity
+
+**Purpose:** the fuller identity/brand statement — expands on Section 3's brief introduction with tone, values, and positioning.
+**Layout/Motion:** typography-led (CONTENT.md's keyword set: TECH CREATOR, STORYTELLER, PC ENTHUSIAST, COMMENTATOR), kinetic reveal of each keyword, restrained imagery.
+**Content source:** CONTENT.md §Creator Identity; thematic grounding from RESEARCH.md §9 Brand/Creator Identity Themes and §10's "5 Strongest Creator Identity Themes for Site Structure."
+**Responsive:** keywords stack vertically, same reveal pattern.
+
+### 10. Final Cinematic Section
+
+**Purpose:** closing emotional/visual high point before Credits — mirrors the Hero's intensity as a bookend.
+**Layout/Motion:** full-screen, highest-impact motion moment on the site (largest kinetic-type treatment, most pronounced parallax/depth), then settles before transitioning to Credits.
+**Content source:** CONTENT.md §Closing Section ("CARTERPCs" / "MAKING TECH INTERESTING." — placeholder).
+**Responsive:** motion intensity reduced per the mobile motion budget, composition remains full-screen.
+
+### 11. Credits / Disclaimer
+
+**Purpose:** legally required unofficial-project disclosure, plus closing attribution.
+**Layout/Motion:** minimal, static, high-legibility — no experimental motion here; this is a trust/legal moment, not a spectacle moment.
+**Content source:** CONTENT.md §Closing Section disclaimer line ("Independent creative concept. Not affiliated with CarterPCs.") and PROJECT.md §Legal/Attribution, which this section must satisfy in full.
+**Responsive:** identical simplified layout across breakpoints.
+
+---
+
+## Page Flow Summary
+
+1. **Intro/Loader → Hero:** threshold moment resolves directly into the site's first full statement; no interruption.
+2. **Hero → Creator Introduction:** motion intensity steps down, giving the visitor a breath before the first editorial content.
+3. **Creator Introduction → Featured Content:** transition from "who" to "what he makes" — first hardware/content imagery appears.
+4. **Featured Content → Hardware Experience:** narrows from curated stories into the site's signature deep-dive; this is the largest complexity jump in the flow and should be sign-posted with a clear transitional motion beat.
+5. **Hardware Experience → Content Universe:** zooms back out from one hardware sequence to the full breadth of content categories.
+6. **Content Universe → Creator Journey:** shifts from "what he covers" to "how he got here" — content axis to time axis.
+7. **Creator Journey → Selected Videos:** timeline resolves into concrete, browsable proof points.
+8. **Selected Videos → Creator Identity:** from individual works back to the person/brand behind them.
+9. **Creator Identity → Final Cinematic Section:** identity statement builds directly into the site's emotional peak.
+10. **Final Cinematic Section → Credits/Disclaimer:** motion intensity drops sharply and deliberately — the closing legal/attribution moment is calm by design, never competing with the cinematic peak that precedes it.
+
+Overall pacing across the flow alternates between high-intensity moments (Hero, Hardware Experience, Final Cinematic Section) and lower-intensity editorial pauses (Creator Introduction, Content Universe, Creator Identity) — avoiding the "excessive RGB/neon gaming site" failure mode by never sustaining peak intensity for more than one section at a time, and avoiding a flat "generic portfolio template" feel by never fully idling either.
