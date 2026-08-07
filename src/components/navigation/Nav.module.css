@@ -5,6 +5,7 @@
   z-index: var(--z-nav);
   display: flex;
   align-items: center;
+  gap: var(--space-1);
   padding: var(--space-3) var(--container-padding-inline);
   pointer-events: none;
 }
@@ -20,5 +21,23 @@
 }
 
 .wordmark:hover {
+  color: var(--color-accent-primary);
+}
+
+.divider {
+  font-size: var(--font-size-body);
+  color: var(--color-text-muted);
+  opacity: 0.5;
+}
+
+.link {
+  pointer-events: auto;
+  font-size: var(--font-size-body);
+  color: var(--color-text-muted);
+  text-decoration: none;
+  border-radius: 0.25rem;
+}
+
+.link:hover {
   color: var(--color-accent-primary);
 }

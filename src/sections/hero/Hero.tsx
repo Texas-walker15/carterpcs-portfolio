@@ -128,6 +128,11 @@ function Hero({ ready }: HeroProps) {
           <span className={styles.footerRule} aria-hidden="true" />
         </div>
       </div>
+
+      {/* Hero → Creator transition: picked up by Creator's matching top
+          seam (see Creator.module.css's .seam) so the section boundary
+          reads as one hairline crossed, not a hard cut. */}
+      <span className={styles.seam} aria-hidden="true" />
     </section>
   )
 }

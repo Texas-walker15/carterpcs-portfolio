@@ -39,16 +39,41 @@ describe('App', () => {
     expect(screen.getByText(/making tech interesting\./i)).toBeInTheDocument()
   })
 
-  it('has a main landmark containing the Hero', () => {
+  it('has a real navigation link to the Creator section', () => {
+    render(<App />)
+
+    expect(screen.getByRole('link', { name: /^creator$/i })).toHaveAttribute(
+      'href',
+      '#creator',
+    )
+  })
+
+  it('renders the Creator section with an accessible heading and content', () => {
+    render(<App />)
+
+    expect(
+      screen.getByRole('heading', {
+        level: 2,
+        name: /hardware knowledge/i,
+      }),
+    ).toBeInTheDocument()
+    expect(screen.getByText(/tiktok/i)).toBeInTheDocument()
+    expect(screen.getByText(/youtube shorts/i)).toBeInTheDocument()
+  })
+
+  it('has a main landmark containing both Hero and Creator', () => {
     render(<App />)
 
     const main = screen.getByRole('main')
     expect(main).toContainElement(
       screen.getByRole('heading', { level: 1, name: /^carterpcs$/i }),
     )
+    expect(main).toContainElement(
+      screen.getByRole('heading', { level: 2, name: /hardware knowledge/i }),
+    )
   })
 
-  it('renders Hero content immediately when reduced motion is preferred', () => {
+  it('renders Hero and Creator content immediately when reduced motion is preferred', () => {
     mockMatchMedia(true)
     render(<App />)
 
@@ -56,5 +81,8 @@ describe('App', () => {
       screen.getByRole('heading', { level: 1, name: /^carterpcs$/i }),
     ).toBeInTheDocument()
     expect(screen.getByText(/making tech interesting\./i)).toBeInTheDocument()
+    expect(
+      screen.getByRole('heading', { level: 2, name: /hardware knowledge/i }),
+    ).toBeInTheDocument()
   })
 })

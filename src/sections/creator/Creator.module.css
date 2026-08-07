@@ -1,0 +1,258 @@
+.creator {
+  position: relative;
+  overflow: clip;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Hero → Creator transition: a hairline that picks up exactly where Hero's
+   matching bottom seam leaves off, so the boundary between sections reads as
+   one continuous thread crossed, not a hard cut. See Hero.module.css's
+   .seam for the other half. */
+.seam {
+  position: absolute;
+  inset-block-start: 0;
+  inset-inline: var(--container-padding-inline);
+  height: 1px;
+  z-index: 1;
+  background-color: color-mix(
+    in srgb,
+    var(--color-text-primary) 14%,
+    transparent
+  );
+}
+
+/* ===== Media stage =====
+   Same visual language as Hero's stage (near-black surface, restrained glow,
+   dissolve mask, thin framing lines) — see Hero.module.css for the full
+   rationale. Mirrored to the left on desktop instead of the right, and kept
+   in normal document flow (after .canvas) on mobile so text leads. */
+
+.stage {
+  position: relative;
+  order: 2;
+  margin-block-start: calc(var(--space-3) * -1);
+  aspect-ratio: 4 / 3;
+}
+
+.stageSurface {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  background:
+    radial-gradient(
+      70% 70% at 30% 25%,
+      color-mix(in srgb, var(--color-accent-secondary) 30%, transparent),
+      transparent 72%
+    ),
+    radial-gradient(
+      60% 60% at 75% 85%,
+      color-mix(in srgb, var(--color-accent-primary) 24%, transparent),
+      transparent 72%
+    );
+  mask-image: linear-gradient(
+    to bottom,
+    transparent 0%,
+    rgb(0 0 0 / 45%) 14%,
+    rgb(0 0 0) 40%
+  );
+}
+
+.stageGuide {
+  position: absolute;
+  inset-inline: 12% 40%;
+  inset-block-start: 72%;
+  height: 1px;
+  background-color: color-mix(
+    in srgb,
+    var(--color-text-primary) 7%,
+    transparent
+  );
+}
+
+.stageCorner {
+  position: absolute;
+  inset-block-start: 12%;
+  inset-inline-start: 12%;
+  width: 1.75rem;
+  height: 1.75rem;
+  border-block-start: 1px solid
+    color-mix(in srgb, var(--color-accent-secondary) 55%, transparent);
+  border-inline-start: 1px solid
+    color-mix(in srgb, var(--color-accent-secondary) 55%, transparent);
+}
+
+.stageCornerEnd {
+  position: absolute;
+  inset-block-end: 14%;
+  inset-inline-end: 14%;
+  width: 1.75rem;
+  height: 1.75rem;
+  border-block-end: 1px solid
+    color-mix(in srgb, var(--color-accent-primary) 40%, transparent);
+  border-inline-end: 1px solid
+    color-mix(in srgb, var(--color-accent-primary) 40%, transparent);
+}
+
+/* Environmental numeral — picks up the "02 / Creator" metadata already
+   established in .meta and enlarges it into background texture, so the
+   fallback stage reads as intentional editorial art direction (large
+   cropped section numbering) rather than an empty box. A sibling of
+   .stageSurface, not a child of it: nesting translucent text inside a
+   masked, absolutely-positioned surface produced a visible compositing
+   seam around the glyphs in Chromium (a rendering artifact, not an
+   intentional line) — kept as a plain, unmasked layer instead. Cropped by
+   .creator's page-level overflow: clip when it bleeds past the stage.
+   Purely decorative — the parent .stage carries aria-hidden, so this
+   never reaches the a11y tree. */
+.stageNumeral {
+  position: absolute;
+  inset-block-start: 30%;
+  inset-inline-start: 6%;
+  font-family: var(--font-family-display);
+  font-size: clamp(8rem, 5rem + 20vw, 12rem);
+  font-weight: 700;
+  line-height: 0.8;
+  letter-spacing: -0.04em;
+  color: color-mix(in srgb, var(--color-text-primary) 14%, transparent);
+}
+
+/* ===== Canvas ===== */
+
+.canvas {
+  position: relative;
+  z-index: 1;
+  order: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: var(--space-4);
+  padding: var(--space-6) var(--container-padding-inline) var(--space-4);
+}
+
+.meta {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  font-size: 0.625rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--color-text-muted);
+}
+
+.metaRule {
+  width: clamp(1.5rem, 6vw, 5rem);
+  height: 1px;
+  background-color: color-mix(
+    in srgb,
+    var(--color-text-primary) 22%,
+    transparent
+  );
+}
+
+.type {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.kicker {
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: var(--color-accent-secondary);
+}
+
+.headline {
+  font-family: var(--font-family-display);
+  font-size: clamp(2.25rem, 1.75rem + 3vw, 3.75rem);
+  font-weight: 700;
+  line-height: 1.02;
+  letter-spacing: -0.02em;
+  max-width: 15ch;
+}
+
+.body {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  max-width: 52ch;
+  font-size: var(--font-size-body);
+  color: var(--color-text-muted);
+}
+
+.footer {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+  font-size: 0.8125rem;
+  letter-spacing: 0.05em;
+  color: var(--color-text-muted);
+}
+
+.tags {
+  color: var(--color-text-primary);
+  opacity: 0.85;
+}
+
+/* ===== Desktop: media resumes the left side, mirroring Hero's right ===== */
+
+@media (min-width: 1024px) {
+  .creator {
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    align-items: center;
+  }
+
+  .stage {
+    position: absolute;
+    inset-block: -6%;
+    inset-inline: -6% 58%;
+    order: initial;
+    margin-block-start: 0;
+    aspect-ratio: auto;
+  }
+
+  .stageSurface {
+    mask-image: linear-gradient(
+      to right,
+      rgb(0 0 0) 58%,
+      rgb(0 0 0 / 45%) 84%,
+      transparent 100%
+    );
+  }
+
+  .stageGuide {
+    inset-inline: 20% 55%;
+    inset-block-start: 80%;
+  }
+
+  .stageCorner {
+    inset-block-start: 10%;
+    inset-inline-start: 8%;
+  }
+
+  .stageCornerEnd {
+    inset-block-end: 12%;
+    inset-inline-end: 10%;
+  }
+
+  .stageNumeral {
+    inset-block-start: 32%;
+    inset-inline-start: 8%;
+    font-size: clamp(14rem, 9rem + 12vw, 20rem);
+    color: color-mix(in srgb, var(--color-text-primary) 12%, transparent);
+  }
+
+  .canvas {
+    order: initial;
+    grid-column: 7 / 13;
+    padding-block: var(--space-4);
+  }
+
+  .headline {
+    font-size: clamp(2.75rem, 1.25rem + 3.5vw, 5.5rem);
+  }
+}

@@ -2,6 +2,7 @@ import { useState } from 'react'
 import Nav from '../components/navigation/Nav'
 import Intro from '../sections/intro/Intro'
 import Hero from '../sections/hero/Hero'
+import Creator from '../sections/creator/Creator'
 import { useLenis } from '../hooks/useLenis'
 
 function App() {
@@ -18,6 +19,7 @@ function App() {
 
       <main id="main-content">
         <Hero ready={introComplete} />
+        <Creator />
       </main>
 
       {!introComplete && <Intro onComplete={() => setIntroComplete(true)} />}

@@ -5,6 +5,22 @@
   display: flex;
 }
 
+/* Hero → Creator transition: see the comment on this element in Hero.tsx
+   and on .seam in Creator.module.css. Purely additive — nothing else in the
+   approved Hero composition changes. */
+.seam {
+  position: absolute;
+  inset-block-end: 0;
+  inset-inline: var(--container-padding-inline);
+  height: 1px;
+  z-index: 1;
+  background-color: color-mix(
+    in srgb,
+    var(--color-text-primary) 14%,
+    transparent
+  );
+}
+
 /* ===== Media stage =====
    Development placeholder only (see data-dev-placeholder in Hero.tsx).
    Sits on the same near-black base as the page and is lit only by soft accent
