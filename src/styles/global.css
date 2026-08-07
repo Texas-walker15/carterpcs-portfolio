@@ -1,0 +1,57 @@
+/**
+ * Global styles: base document styling, accessibility baseline
+ * (focus-visible, reduced motion, skip link). See TECH_STACK.md §11.
+ */
+
+html,
+body {
+  min-height: 100%;
+}
+
+body {
+  background-color: var(--color-bg-base);
+  color: var(--color-text-primary);
+  font-family: var(--font-family-base);
+  font-size: var(--font-size-body);
+}
+
+#root {
+  min-height: 100vh;
+}
+
+/* Focus states — never removed without a replacement */
+:focus-visible {
+  outline: 2px solid var(--color-accent-primary);
+  outline-offset: 2px;
+}
+
+/* Skip-to-content link: visually hidden until focused */
+.skip-link {
+  position: fixed;
+  top: var(--space-1);
+  left: var(--space-1);
+  z-index: var(--z-skip-link);
+  padding: var(--space-1) var(--space-2);
+  background-color: var(--color-bg-surface);
+  color: var(--color-text-primary);
+  border: 2px solid var(--color-accent-primary);
+  border-radius: 0.25rem;
+  transform: translateY(-150%);
+  transition: transform var(--duration-fast) var(--ease-out);
+}
+
+.skip-link:focus {
+  transform: translateY(0);
+}
+
+/* Reduced motion: disable non-essential animation/transition/smooth-scroll sitewide */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
