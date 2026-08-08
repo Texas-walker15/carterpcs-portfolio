@@ -4,6 +4,7 @@ import Intro from '../sections/intro/Intro'
 import Hero from '../sections/hero/Hero'
 import Creator from '../sections/creator/Creator'
 import Featured from '../sections/featured/Featured'
+import Hardware from '../sections/hardware/Hardware'
 import { useLenis } from '../hooks/useLenis'
 
 function App() {
@@ -22,6 +23,7 @@ function App() {
         <Hero ready={introComplete} />
         <Creator />
         <Featured />
+        <Hardware />
       </main>
 
       {!introComplete && <Intro onComplete={() => setIntroComplete(true)} />}

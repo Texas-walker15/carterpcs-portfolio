@@ -26,6 +26,22 @@
   );
 }
 
+/* Featured → Hardware transition: same hairline motif, picked up by
+   Hardware's matching top seam. See the comment on this element in
+   Featured.tsx and on .seam in Hardware.module.css. */
+.seamEnd {
+  position: absolute;
+  inset-block-end: 0;
+  inset-inline: var(--container-padding-inline);
+  height: 1px;
+  z-index: 1;
+  background-color: color-mix(
+    in srgb,
+    var(--color-text-primary) 14%,
+    transparent
+  );
+}
+
 /* ===== Section intro — static, not part of the horizontal track ===== */
 
 .intro {

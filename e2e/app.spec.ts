@@ -80,8 +80,12 @@ test('desktop: the horizontal sequence progresses through all three stories on s
   // Not yet reached — still off-screen to the right of the pinned track.
   await expect(lastStory).not.toBeInViewport()
 
-  // Scroll well past the pinned track's distance so the sequence completes.
-  await page.evaluate(() => window.scrollBy(0, 4500))
+  // Scroll past the pinned track's distance so the sequence completes.
+  // Kept close to that distance (not a large overshoot): Hardware now
+  // follows Featured, so once the pin releases, scrolling continues
+  // normally into Hardware — too generous an overshoot here would carry
+  // the viewport past Featured's last panel and into Hardware instead.
+  await page.evaluate(() => window.scrollBy(0, 2200))
   await page.waitForTimeout(500)
 
   await expect(lastStory).toBeInViewport()
@@ -99,6 +103,82 @@ test('mobile: Featured stories are reachable through natural vertical scroll', a
   })
   await lastStory.scrollIntoViewIfNeeded()
   await expect(lastStory).toBeVisible()
+
+  const overflow = await page.evaluate(
+    () =>
+      document.documentElement.scrollWidth <=
+      document.documentElement.clientWidth,
+  )
+  expect(overflow).toBe(true)
+})
+
+test('scrolling from Featured reveals the Hardware section', async ({
+  page,
+}) => {
+  await page.goto('/')
+
+  const hardwareHeading = page.getByRole('heading', {
+    level: 2,
+    name: /built from the inside out/i,
+  })
+  await expect(hardwareHeading).toBeAttached()
+
+  await hardwareHeading.scrollIntoViewIfNeeded()
+  await expect(hardwareHeading).toBeVisible()
+})
+
+test('Hardware nav link scrolls to the Hardware section', async ({ page }) => {
+  await page.goto('/')
+
+  await page.getByRole('link', { name: /^hardware$/i }).click()
+  await expect(page).toHaveURL(/#hardware$/)
+})
+
+test('desktop: Hardware choreography resolves and normal scroll flow resumes after it', async ({
+  page,
+}) => {
+  await page.goto('/')
+
+  const hardwareHeading = page.getByRole('heading', {
+    level: 2,
+    name: /built from the inside out/i,
+  })
+  await hardwareHeading.scrollIntoViewIfNeeded()
+  await expect(hardwareHeading).toBeVisible()
+
+  // Scroll well past the brief pin's distance so it releases and normal
+  // vertical flow resumes, reaching the final beat below the stage.
+  await page.evaluate(() => window.scrollBy(0, 1400))
+  await page.waitForTimeout(500)
+
+  const overflow = await page.evaluate(
+    () =>
+      document.documentElement.scrollWidth <=
+      document.documentElement.clientWidth,
+  )
+  expect(overflow).toBe(true)
+
+  const lastBeat = page.getByText(/^performance$/i)
+  await lastBeat.scrollIntoViewIfNeeded()
+  await expect(lastBeat).toBeVisible()
+})
+
+test('mobile: Hardware section is reachable through natural vertical scroll with no overflow', async ({
+  page,
+}) => {
+  await page.setViewportSize({ width: 390, height: 844 })
+  await page.goto('/')
+
+  const hardwareHeading = page.getByRole('heading', {
+    level: 2,
+    name: /built from the inside out/i,
+  })
+  await hardwareHeading.scrollIntoViewIfNeeded()
+  await expect(hardwareHeading).toBeVisible()
+
+  const lastBeat = page.getByText(/^performance$/i)
+  await lastBeat.scrollIntoViewIfNeeded()
+  await expect(lastBeat).toBeVisible()
 
   const overflow = await page.evaluate(
     () =>

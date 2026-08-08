@@ -95,7 +95,31 @@ describe('App', () => {
     expect(screen.getByText(/03 — commentary/i)).toBeInTheDocument()
   })
 
-  it('has a main landmark containing Hero, Creator, and Featured with no duplicate headings', () => {
+  it('has a real navigation link to the Hardware section', () => {
+    render(<App />)
+
+    expect(screen.getByRole('link', { name: /^hardware$/i })).toHaveAttribute(
+      'href',
+      '#hardware',
+    )
+  })
+
+  it('renders the Hardware section with an accessible heading and all three beats', () => {
+    render(<App />)
+
+    expect(
+      screen.getByRole('heading', {
+        level: 2,
+        name: /built from the inside out/i,
+      }),
+    ).toBeInTheDocument()
+
+    expect(screen.getByText(/^build$/i)).toBeInTheDocument()
+    expect(screen.getByText(/^components$/i)).toBeInTheDocument()
+    expect(screen.getByText(/^performance$/i)).toBeInTheDocument()
+  })
+
+  it('has a main landmark containing Hero, Creator, Featured, and Hardware with no duplicate headings and logical heading order', () => {
     render(<App />)
 
     const main = screen.getByRole('main')
@@ -106,7 +130,7 @@ describe('App', () => {
     expect(main).toContainElement(h1s[0])
     expect(h1s[0]).toHaveAccessibleName(/^carterpcs$/i)
 
-    // One h2 per major section (Creator, Featured) — not a duplicate.
+    // One h2 per major section (Creator, Featured, Hardware) — not a duplicate.
     const h2Names = h2s.map((h) => h.textContent)
     expect(new Set(h2Names).size).toBe(h2Names.length)
     expect(main).toContainElement(
@@ -115,9 +139,24 @@ describe('App', () => {
     expect(main).toContainElement(
       screen.getByRole('heading', { level: 2, name: /selected stories/i }),
     )
+    expect(main).toContainElement(
+      screen.getByRole('heading', {
+        level: 2,
+        name: /built from the inside out/i,
+      }),
+    )
+
+    // Logical order: h1 first, then h2s in section order (Creator,
+    // Featured, Hardware) — no skipped or out-of-order levels.
+    const headingOrder = screen
+      .getAllByRole('heading')
+      .map((h) => Number(h.tagName[1]))
+    expect(headingOrder[0]).toBe(1)
+    expect(headingOrder.slice(1).every((level) => level >= 2)).toBe(true)
+    expect(h2Names.at(-1)).toMatch(/built from the inside out/i)
   })
 
-  it('renders Hero, Creator, and Featured content immediately when reduced motion is preferred', () => {
+  it('renders Hero, Creator, Featured, and Hardware content immediately when reduced motion is preferred', () => {
     mockMatchMedia(true)
     render(<App />)
 
@@ -134,5 +173,12 @@ describe('App', () => {
     expect(
       screen.getByRole('heading', { level: 3, name: /budget builds/i }),
     ).toBeInTheDocument()
+    expect(
+      screen.getByRole('heading', {
+        level: 2,
+        name: /built from the inside out/i,
+      }),
+    ).toBeInTheDocument()
+    expect(screen.getByText(/^build$/i)).toBeInTheDocument()
   })
 })

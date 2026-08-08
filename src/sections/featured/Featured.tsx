@@ -339,6 +339,13 @@ function Featured() {
           ))}
         </div>
       </div>
+
+      {/* Featured → Hardware transition: same minimal hairline-seam motif
+          used at every prior section boundary, picked up by Hardware's
+          matching top seam (see Hardware.module.css's .seam). Purely
+          additive — nothing else in the approved Featured composition
+          changes. */}
+      <span className={styles.seamEnd} aria-hidden="true" />
     </section>
   )
 }
