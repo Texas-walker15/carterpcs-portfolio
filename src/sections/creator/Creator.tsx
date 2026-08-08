@@ -154,6 +154,12 @@ function Creator() {
           02
         </span>
       </div>
+
+      {/* Creator → Featured transition: mirrors the Hero → Creator seam
+          above, picked up by Featured's matching top seam (see
+          Featured.module.css's .seam). Purely additive — nothing else in
+          the approved Creator composition changes. */}
+      <span className={styles.seamEnd} aria-hidden="true" />
     </section>
   )
 }

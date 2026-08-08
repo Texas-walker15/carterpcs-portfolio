@@ -23,6 +23,22 @@
   );
 }
 
+/* Creator → Featured transition: same hairline motif, picked up by
+   Featured's matching top seam. See the comment on this element in
+   Creator.tsx and on .seam in Featured.module.css. */
+.seamEnd {
+  position: absolute;
+  inset-block-end: 0;
+  inset-inline: var(--container-padding-inline);
+  height: 1px;
+  z-index: 1;
+  background-color: color-mix(
+    in srgb,
+    var(--color-text-primary) 14%,
+    transparent
+  );
+}
+
 /* ===== Media stage =====
    Same visual language as Hero's stage (near-black surface, restrained glow,
    dissolve mask, thin framing lines) — see Hero.module.css for the full

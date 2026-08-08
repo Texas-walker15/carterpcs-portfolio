@@ -1,0 +1,438 @@
+.featured {
+  position: relative;
+  overflow: clip;
+  /* Clears the fixed Nav on an anchor jump (the "Featured" nav link, or any
+     future deep link to #featured) — without this, the browser's native
+     scroll-into-view lands the section flush with the viewport top, behind
+     the fixed bar, leaving no room for .intro's own padding to register. */
+  scroll-margin-block-start: 6rem;
+}
+
+/* Creator → Featured transition: continues the same hairline motif used at
+   Hero → Creator (see Creator.module.css's new bottom .seam). Deliberately
+   just a continuity thread, not a spectacle transition — the pacing step-up
+   itself comes from this section's typography and (desktop) motion, not a
+   special transition effect. */
+.seam {
+  position: absolute;
+  inset-block-start: 0;
+  inset-inline: var(--container-padding-inline);
+  height: 1px;
+  z-index: 1;
+  background-color: color-mix(
+    in srgb,
+    var(--color-text-primary) 14%,
+    transparent
+  );
+}
+
+/* ===== Section intro — static, not part of the horizontal track ===== */
+
+.intro {
+  padding: calc(var(--space-7) + var(--space-1)) var(--container-padding-inline)
+    var(--space-5);
+}
+
+.meta {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  margin-block-end: var(--space-3);
+  font-size: 0.625rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--color-text-muted);
+}
+
+.metaRule {
+  width: clamp(1.5rem, 6vw, 5rem);
+  height: 1px;
+  background-color: color-mix(
+    in srgb,
+    var(--color-text-primary) 22%,
+    transparent
+  );
+}
+
+.title {
+  font-family: var(--font-family-display);
+  font-size: clamp(2.75rem, 2rem + 5vw, 6.5rem);
+  font-weight: 700;
+  line-height: 0.95;
+  letter-spacing: -0.03em;
+}
+
+/* ===== Track / rail =====
+   Mobile-first baseline: a plain vertical stack — works with animation
+   disabled, with media blank, and with JS absent entirely. The ≥1024px
+   query below is the ONLY thing that turns this into a horizontal
+   sequence, and it does so with a native scroll-snap fallback that works
+   with zero JS; GSAP (see Featured.tsx) only additionally pins + scrubs
+   that same layout when motion is allowed. */
+
+.track {
+  position: relative;
+}
+
+.rail {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-7);
+  padding-block-end: var(--space-7);
+}
+
+.panel {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+  padding: 0 var(--container-padding-inline);
+}
+
+.panelStage {
+  position: relative;
+  order: 2;
+  aspect-ratio: 4 / 3;
+}
+
+.panelStageSurface {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  mask-image: linear-gradient(
+    to bottom,
+    transparent 0%,
+    rgb(0 0 0 / 45%) 14%,
+    rgb(0 0 0) 40%
+  );
+}
+
+.panelGuide {
+  position: absolute;
+  background-color: color-mix(
+    in srgb,
+    var(--color-text-primary) 8%,
+    transparent
+  );
+}
+
+.panelCorner {
+  position: absolute;
+  inset-block-start: 10%;
+  inset-inline-start: 10%;
+  width: 1.75rem;
+  height: 1.75rem;
+  border-block-start: 1px solid
+    color-mix(in srgb, var(--color-text-primary) 20%, transparent);
+  border-inline-start: 1px solid
+    color-mix(in srgb, var(--color-text-primary) 20%, transparent);
+}
+
+.panelCornerEnd {
+  position: absolute;
+  inset-block-end: 12%;
+  inset-inline-end: 12%;
+  width: 1.75rem;
+  height: 1.75rem;
+  border-block-end: 1px solid
+    color-mix(in srgb, var(--color-accent-primary) 35%, transparent);
+  border-inline-end: 1px solid
+    color-mix(in srgb, var(--color-accent-primary) 35%, transparent);
+}
+
+/* Environmental numeral — same technique as Creator's "02": a plain,
+   unmasked sibling of the stage surface (nesting it inside a masked layer
+   produced a Chromium compositing seam around the glyphs there — see
+   Creator.module.css's note), cropped by .featured's page-level
+   overflow: clip. Positioned to sit near/behind its own headline (rather
+   than floating in otherwise-empty upper space) so the numeral reads as
+   anchoring the copy, not as disconnected texture — a visual-review fix. */
+.panelNumeral {
+  position: absolute;
+  inset-block-start: 28%;
+  inset-inline-start: 4%;
+  font-family: var(--font-family-display);
+  font-size: clamp(7rem, 4rem + 20vw, 11rem);
+  font-weight: 700;
+  line-height: 0.8;
+  letter-spacing: -0.04em;
+  color: color-mix(in srgb, var(--color-text-primary) 14%, transparent);
+}
+
+/* ---- Per-panel decorative variants ----
+   Same restrained system (near-black surface, dimmed accent glow, thin
+   framing lines) with just enough per-panel difference to feel curated
+   rather than three identical stamps — no icons, no grids, no stock
+   decoration. */
+
+.panel[data-variant='hardware'] .panelStageSurface {
+  background:
+    radial-gradient(
+      75% 65% at 22% 20%,
+      color-mix(in srgb, var(--color-accent-primary) 30%, transparent),
+      transparent 72%
+    ),
+    radial-gradient(
+      60% 55% at 80% 85%,
+      color-mix(in srgb, var(--color-accent-secondary) 20%, transparent),
+      transparent 72%
+    );
+}
+
+.panel[data-variant='hardware'] .panelGuide {
+  inset-inline: 55% 15%;
+  inset-block-start: 22%;
+  height: 1px;
+  transform: rotate(-8deg);
+}
+
+.panel[data-variant='tech'] .panelStageSurface {
+  background:
+    radial-gradient(
+      65% 75% at 78% 15%,
+      color-mix(in srgb, var(--color-accent-secondary) 32%, transparent),
+      transparent 72%
+    ),
+    radial-gradient(
+      55% 55% at 20% 90%,
+      color-mix(in srgb, var(--color-accent-primary) 18%, transparent),
+      transparent 72%
+    );
+}
+
+.panel[data-variant='tech'] .panelGuide {
+  inset-block: 14% 40%;
+  inset-inline-start: 68%;
+  width: 1px;
+}
+
+.panel[data-variant='commentary'] .panelStageSurface {
+  background: radial-gradient(
+    70% 60% at 50% 12%,
+    color-mix(in srgb, var(--color-accent-primary) 16%, transparent),
+    transparent 75%
+  );
+}
+
+.panel[data-variant='commentary'] .panelGuide {
+  inset-inline: 12% 45%;
+  inset-block-start: 85%;
+  height: 1px;
+}
+
+/* ===== Panel content ===== */
+
+.panelContent {
+  order: 1;
+}
+
+.panelIndex {
+  margin-block-end: var(--space-2);
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--color-accent-primary);
+}
+
+.panelHeadline {
+  display: flex;
+  flex-direction: column;
+  font-family: var(--font-family-display);
+  font-size: clamp(2.5rem, 2rem + 5vw, 4.5rem);
+  font-weight: 700;
+  line-height: 0.98;
+  letter-spacing: -0.03em;
+  max-width: 14ch;
+}
+
+.panelSupport {
+  margin-block-start: var(--space-3);
+  max-width: 42ch;
+  font-size: var(--font-size-body);
+  color: var(--color-text-muted);
+}
+
+.panelTags {
+  margin-block-start: var(--space-3);
+  font-size: 0.8125rem;
+  letter-spacing: 0.05em;
+  color: var(--color-text-muted);
+  opacity: 0.85;
+}
+
+/* ===== Progress ticks — desktop pin only, hidden otherwise ===== */
+
+.progress {
+  display: none;
+}
+
+.tick {
+  width: 1.5rem;
+  height: 2px;
+  background-color: color-mix(
+    in srgb,
+    var(--color-text-primary) 20%,
+    transparent
+  );
+  transition: background-color var(--duration-base) var(--ease-standard);
+}
+
+.tickActive {
+  background-color: var(--color-accent-primary);
+}
+
+/* ===== Desktop ===== */
+
+@media (min-width: 1024px) {
+  .intro {
+    padding-block: calc(var(--space-8) + var(--space-1)) var(--space-6);
+  }
+}
+
+/* Full-bleed horizontal panels, native scroll-snap fallback, enhanced by
+   GSAP's pin/scrub (see Featured.tsx) — gated on prefers-reduced-motion,
+   not just width. Reduced-motion visitors at any viewport get the plain
+   vertical stack above instead: it's already a fully keyboard/reading-order
+   accessible "natural layout" (per the task's reduced-motion requirement),
+   whereas the horizontal track's native scroll-snap fallback has no
+   standard keyboard path (nothing inside a panel is focusable) — fine as a
+   *progressive enhancement* layered under active motion, not acceptable as
+   the reduced-motion baseline itself. */
+@media (min-width: 1024px) and (prefers-reduced-motion: no-preference) {
+  .track {
+    height: 100vh;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+  }
+
+  .rail {
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-items: stretch;
+    width: max-content;
+    height: 100%;
+    gap: 0;
+    padding-block-end: 0;
+  }
+
+  .panel {
+    flex: 0 0 100vw;
+    width: 100vw;
+    padding: 0;
+    overflow: hidden;
+    scroll-snap-align: start;
+  }
+
+  .panelStage {
+    position: absolute;
+    inset: 0;
+    order: initial;
+    aspect-ratio: auto;
+    z-index: 0;
+  }
+
+  .panelNumeral {
+    inset-block-end: 6%;
+    inset-inline-start: 5%;
+    font-size: clamp(14rem, 9rem + 13vw, 21rem);
+    color: color-mix(in srgb, var(--color-text-primary) 16%, transparent);
+  }
+
+  /* Per-variant directional lighting + guide-line placement, tuned for
+     desktop's full-bleed stage — replaces the mobile/tablet top-fade with a
+     mask direction that fits each panel's personality, and moves each
+     guide line down into the same lower band as the (bottom-anchored)
+     headline so it reads as framing the copy, not floating in empty
+     upper-stage space. */
+  .panel[data-variant='hardware'] .panelStageSurface {
+    mask-image: linear-gradient(
+      to top,
+      rgb(0 0 0) 0%,
+      rgb(0 0 0) 55%,
+      rgb(0 0 0 / 35%) 82%,
+      transparent 100%
+    );
+  }
+
+  .panel[data-variant='hardware'] .panelGuide {
+    inset-inline: 8% 58%;
+    inset-block-start: 74%;
+    height: 1px;
+    transform: rotate(-4deg);
+  }
+
+  .panel[data-variant='tech'] .panelStageSurface {
+    mask-image: linear-gradient(
+      100deg,
+      rgb(0 0 0) 0%,
+      rgb(0 0 0) 60%,
+      rgb(0 0 0 / 30%) 82%,
+      transparent 100%
+    );
+  }
+
+  .panel[data-variant='tech'] .panelGuide {
+    inset-block: 30% 20%;
+    inset-inline-start: 34%;
+    width: 1px;
+  }
+
+  .panel[data-variant='commentary'] .panelStageSurface {
+    mask-image: linear-gradient(
+      132deg,
+      rgb(0 0 0) 0%,
+      rgb(0 0 0) 46%,
+      rgb(0 0 0 / 25%) 68%,
+      transparent 90%
+    );
+  }
+
+  .panel[data-variant='commentary'] .panelGuide {
+    inset-inline: 6% 68%;
+    inset-block-start: 70%;
+    height: 1px;
+    transform: rotate(-16deg);
+  }
+
+  /* Tech panel: a distinct, more deliberate vertical anchor (centered
+     rather than bottom-weighted like Hardware/Commentary) plus a modest
+     headline-scale bump — a visual-review fix for this panel reading as
+     the weakest/emptiest of the three. Kept short of the section intro's
+     own scale so it doesn't out-shout the rest of Featured. */
+  .panel[data-variant='tech'] .panelContent {
+    justify-content: center;
+    padding-block-end: 0;
+  }
+
+  .panel[data-variant='tech'] .panelHeadline {
+    font-size: clamp(2.75rem, 2.1rem + 5.8vw, 5.1rem);
+  }
+
+  .panel[data-variant='tech'] .panelNumeral {
+    inset-block-end: auto;
+    inset-block-start: 50%;
+    inset-inline-start: 4%;
+    transform: translateY(-50%);
+  }
+
+  .panelContent {
+    position: relative;
+    z-index: 1;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    max-width: 36rem;
+    padding: 0 calc(var(--container-padding-inline) * 1.4) var(--space-8);
+  }
+
+  .progress {
+    display: flex;
+    position: absolute;
+    inset-block-end: var(--space-4);
+    inset-inline-start: var(--container-padding-inline);
+    z-index: 1;
+    gap: var(--space-2);
+  }
+}

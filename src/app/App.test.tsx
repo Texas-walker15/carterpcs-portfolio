@@ -61,19 +61,63 @@ describe('App', () => {
     expect(screen.getByText(/youtube shorts/i)).toBeInTheDocument()
   })
 
-  it('has a main landmark containing both Hero and Creator', () => {
+  it('has a real navigation link to the Featured section', () => {
     render(<App />)
 
-    const main = screen.getByRole('main')
-    expect(main).toContainElement(
-      screen.getByRole('heading', { level: 1, name: /^carterpcs$/i }),
-    )
-    expect(main).toContainElement(
-      screen.getByRole('heading', { level: 2, name: /hardware knowledge/i }),
+    expect(screen.getByRole('link', { name: /^featured$/i })).toHaveAttribute(
+      'href',
+      '#featured',
     )
   })
 
-  it('renders Hero and Creator content immediately when reduced motion is preferred', () => {
+  it('renders the Featured section with an accessible heading and all three stories', () => {
+    render(<App />)
+
+    expect(
+      screen.getByRole('heading', { level: 2, name: /selected stories/i }),
+    ).toBeInTheDocument()
+
+    expect(
+      screen.getByRole('heading', { level: 3, name: /budget builds/i }),
+    ).toBeInTheDocument()
+    expect(
+      screen.getByRole('heading', { level: 3, name: /phones\.\s*features/i }),
+    ).toBeInTheDocument()
+    expect(
+      screen.getByRole('heading', {
+        level: 3,
+        name: /when the industry/i,
+      }),
+    ).toBeInTheDocument()
+
+    expect(screen.getByText(/01 — hardware/i)).toBeInTheDocument()
+    expect(screen.getByText(/02 — tech/i)).toBeInTheDocument()
+    expect(screen.getByText(/03 — commentary/i)).toBeInTheDocument()
+  })
+
+  it('has a main landmark containing Hero, Creator, and Featured with no duplicate headings', () => {
+    render(<App />)
+
+    const main = screen.getByRole('main')
+    const h1s = screen.getAllByRole('heading', { level: 1 })
+    const h2s = screen.getAllByRole('heading', { level: 2 })
+
+    expect(h1s).toHaveLength(1)
+    expect(main).toContainElement(h1s[0])
+    expect(h1s[0]).toHaveAccessibleName(/^carterpcs$/i)
+
+    // One h2 per major section (Creator, Featured) — not a duplicate.
+    const h2Names = h2s.map((h) => h.textContent)
+    expect(new Set(h2Names).size).toBe(h2Names.length)
+    expect(main).toContainElement(
+      screen.getByRole('heading', { level: 2, name: /hardware knowledge/i }),
+    )
+    expect(main).toContainElement(
+      screen.getByRole('heading', { level: 2, name: /selected stories/i }),
+    )
+  })
+
+  it('renders Hero, Creator, and Featured content immediately when reduced motion is preferred', () => {
     mockMatchMedia(true)
     render(<App />)
 
@@ -83,6 +127,12 @@ describe('App', () => {
     expect(screen.getByText(/making tech interesting\./i)).toBeInTheDocument()
     expect(
       screen.getByRole('heading', { level: 2, name: /hardware knowledge/i }),
+    ).toBeInTheDocument()
+    expect(
+      screen.getByRole('heading', { level: 2, name: /selected stories/i }),
+    ).toBeInTheDocument()
+    expect(
+      screen.getByRole('heading', { level: 3, name: /budget builds/i }),
     ).toBeInTheDocument()
   })
 })
