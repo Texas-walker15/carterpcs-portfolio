@@ -1,0 +1,542 @@
+CarterPCs - fix-v12 diagnostics
+Creator section (#creator) desktop composition refinement
+Generated 2026-08-09. All figures are measured in a real Chromium, not estimated.
+
+==============================================================================
+A. Creator composition sweep - BEFORE (12 viewports x 3 languages x 2 themes)
+==============================================================================
+320x568    en dark  ovf=0 colL=    20 colR= 296.3 sharedR=300 overhang=-3.7 dead=-300 topSlack=65 barToMeta=-131.4 numClip[l/r/t/b]=-19.2/-132.5/-802.4/-23 lh=24px fails=1 [{"cls":"_kicker","text":"The Creator","size":12,"need":4.5,"ratio":3.65}]
+320x568    en light ovf=0 colL=    20 colR= 296.3 sharedR=300 overhang=-3.7 dead=-300 topSlack=65 barToMeta=-131.4 numClip[l/r/t/b]=-19.2/-132.5/-802.4/-23 lh=24px fails=0
+320x568    fr dark  ovf=0 colL=    20 colR= 298.3 sharedR=300 overhang=-1.7 dead=-300 topSlack=65 barToMeta=-131.9 numClip[l/r/t/b]=-19.2/-132.5/-779/-23 lh=24px fails=1 [{"cls":"_kicker","text":"Le créateur","size":12,"need":4.5,"ratio":3.65}]
+320x568    fr light ovf=0 colL=    20 colR= 298.3 sharedR=300 overhang=-1.7 dead=-300 topSlack=65 barToMeta=-131.9 numClip[l/r/t/b]=-19.2/-132.5/-779/-23 lh=24px fails=0
+320x568    es dark  ovf=0 colL=    20 colR= 297.7 sharedR=300 overhang=-2.3 dead=-300 topSlack=65 barToMeta=-131.7 numClip[l/r/t/b]=-19.2/-132.5/-779/-23 lh=24px fails=1 [{"cls":"_kicker","text":"El creador","size":12,"need":4.5,"ratio":3.65}]
+320x568    es light ovf=0 colL=    20 colR= 297.7 sharedR=300 overhang=-2.3 dead=-300 topSlack=65 barToMeta=-131.7 numClip[l/r/t/b]=-19.2/-132.5/-779/-23 lh=24px fails=0
+360x800    en dark  ovf=0 colL=    20 colR= 338.8 sharedR=340 overhang=-1.2 dead=-340 topSlack=65 barToMeta=-132.1 numClip[l/r/t/b]=-21.6/-160.7/-748.2/-37 lh=24.15px fails=1 [{"cls":"_kicker","text":"The Creator","size":12,"need":4.5,"ratio":3.65}]
+360x800    en light ovf=0 colL=    20 colR= 338.8 sharedR=340 overhang=-1.2 dead=-340 topSlack=65 barToMeta=-132.1 numClip[l/r/t/b]=-21.6/-160.7/-748.2/-37 lh=24.15px fails=0
+360x800    fr dark  ovf=0 colL=    20 colR=   337 sharedR=340 overhang=-3.0 dead=-340 topSlack=65 barToMeta=-132.1 numClip[l/r/t/b]=-21.6/-160.7/-756.9/-37 lh=24.15px fails=1 [{"cls":"_kicker","text":"Le créateur","size":12,"need":4.5,"ratio":3.65}]
+360x800    fr light ovf=0 colL=    20 colR=   337 sharedR=340 overhang=-3.0 dead=-340 topSlack=65 barToMeta=-132.1 numClip[l/r/t/b]=-21.6/-160.7/-756.9/-37 lh=24.15px fails=0
+360x800    es dark  ovf=0 colL=    20 colR= 334.3 sharedR=340 overhang=-5.7 dead=-340 topSlack=65 barToMeta=-132.1 numClip[l/r/t/b]=-21.6/-160.7/-756.9/-37 lh=24.15px fails=1 [{"cls":"_kicker","text":"El creador","size":12,"need":4.5,"ratio":3.65}]
+360x800    es light ovf=0 colL=    20 colR= 334.3 sharedR=340 overhang=-5.7 dead=-340 topSlack=65 barToMeta=-132.1 numClip[l/r/t/b]=-21.6/-160.7/-756.9/-37 lh=24.15px fails=0
+390x844    en dark  ovf=0 colL=    20 colR=   366 sharedR=370 overhang=-4.0 dead=-370 topSlack=65 barToMeta=-131.6 numClip[l/r/t/b]=-23.4/-181.9/-758.6/-46.8 lh=24.2625px fails=1 [{"cls":"_kicker","text":"The Creator","size":12,"need":4.5,"ratio":3.65}]
+390x844    en light ovf=0 colL=    20 colR=   366 sharedR=370 overhang=-4.0 dead=-370 topSlack=65 barToMeta=-131.6 numClip[l/r/t/b]=-23.4/-181.9/-758.6/-46.8 lh=24.2625px fails=0
+390x844    fr dark  ovf=0 colL=    20 colR= 369.1 sharedR=370 overhang=-0.9 dead=-370 topSlack=65 barToMeta=-131.8 numClip[l/r/t/b]=-23.4/-181.9/-718.2/-46.8 lh=24.2625px fails=1 [{"cls":"_kicker","text":"Le créateur","size":12,"need":4.5,"ratio":3.65}]
+390x844    fr light ovf=0 colL=    20 colR= 369.1 sharedR=370 overhang=-0.9 dead=-370 topSlack=65 barToMeta=-131.8 numClip[l/r/t/b]=-23.4/-181.9/-718.2/-46.8 lh=24.2625px fails=0
+390x844    es dark  ovf=0 colL=    20 colR= 362.6 sharedR=370 overhang=-7.4 dead=-370 topSlack=65 barToMeta=-132 numClip[l/r/t/b]=-23.4/-181.9/-718.2/-46.7 lh=24.2625px fails=1 [{"cls":"_kicker","text":"El creador","size":12,"need":4.5,"ratio":3.65}]
+390x844    es light ovf=0 colL=    20 colR= 362.6 sharedR=370 overhang=-7.4 dead=-370 topSlack=65 barToMeta=-132 numClip[l/r/t/b]=-23.4/-181.9/-718.2/-46.7 lh=24.2625px fails=0
+414x896    en dark  ovf=0 colL=    20 colR= 384.8 sharedR=394 overhang=-9.2 dead=-394 topSlack=65 barToMeta=-131.9 numClip[l/r/t/b]=-24.8/-198.8/-742.6/-54.3 lh=24.3525px fails=1 [{"cls":"_kicker","text":"The Creator","size":12,"need":4.5,"ratio":3.65}]
+414x896    en light ovf=0 colL=    20 colR= 384.8 sharedR=394 overhang=-9.2 dead=-394 topSlack=65 barToMeta=-131.9 numClip[l/r/t/b]=-24.8/-198.8/-742.6/-54.3 lh=24.3525px fails=0
+414x896    fr dark  ovf=0 colL=    20 colR=   392 sharedR=394 overhang=-2.0 dead=-394 topSlack=65 barToMeta=-132.7 numClip[l/r/t/b]=-24.8/-198.8/-684.5/-54.4 lh=24.3525px fails=1 [{"cls":"_kicker","text":"Le créateur","size":12,"need":4.5,"ratio":3.65}]
+414x896    fr light ovf=0 colL=    20 colR=   392 sharedR=394 overhang=-2.0 dead=-394 topSlack=65 barToMeta=-132.7 numClip[l/r/t/b]=-24.8/-198.8/-684.5/-54.4 lh=24.3525px fails=0
+414x896    es dark  ovf=0 colL=    20 colR= 382.8 sharedR=394 overhang=-11.2 dead=-394 topSlack=65 barToMeta=-132.6 numClip[l/r/t/b]=-24.8/-198.8/-701.4/-54.4 lh=24.3525px fails=1 [{"cls":"_kicker","text":"El creador","size":12,"need":4.5,"ratio":3.65}]
+414x896    es light ovf=0 colL=    20 colR= 382.8 sharedR=394 overhang=-11.2 dead=-394 topSlack=65 barToMeta=-132.6 numClip[l/r/t/b]=-24.8/-198.8/-701.4/-54.4 lh=24.3525px fails=0
+844x390    en dark  ovf=0 colL=  33.8 colR= 578.9 sharedR=810.2 overhang=-231.3 dead=-810.2 topSlack=65 barToMeta=-62.9 numClip[l/r/t/b]=-50.6/-568.9/-748.8/-251.1 lh=25.965px fails=1 [{"cls":"_kicker","text":"The Creator","size":12,"need":4.5,"ratio":3.65}]
+844x390    en light ovf=0 colL=  33.8 colR= 578.9 sharedR=810.2 overhang=-231.3 dead=-810.2 topSlack=65 barToMeta=-62.9 numClip[l/r/t/b]=-50.6/-568.9/-748.8/-251.1 lh=25.965px fails=0
+844x390    fr dark  ovf=0 colL=  33.8 colR= 592.3 sharedR=810.2 overhang=-217.9 dead=-810.2 topSlack=65 barToMeta=-63.1 numClip[l/r/t/b]=-50.6/-568.9/-720.4/-251.1 lh=25.965px fails=1 [{"cls":"_kicker","text":"Le créateur","size":12,"need":4.5,"ratio":3.65}]
+844x390    fr light ovf=0 colL=  33.8 colR= 592.3 sharedR=810.2 overhang=-217.9 dead=-810.2 topSlack=65 barToMeta=-63.1 numClip[l/r/t/b]=-50.6/-568.9/-720.4/-251.1 lh=25.965px fails=0
+844x390    es dark  ovf=0 colL=  33.8 colR= 593.3 sharedR=810.2 overhang=-216.9 dead=-810.2 topSlack=65 barToMeta=-62.9 numClip[l/r/t/b]=-50.6/-568.9/-720.4/-251.1 lh=25.965px fails=1 [{"cls":"_kicker","text":"El creador","size":12,"need":4.5,"ratio":3.65}]
+844x390    es light ovf=0 colL=  33.8 colR= 593.3 sharedR=810.2 overhang=-216.9 dead=-810.2 topSlack=65 barToMeta=-62.9 numClip[l/r/t/b]=-50.6/-568.9/-720.4/-251.1 lh=25.965px fails=0
+768x1024   en dark  ovf=0 colL=  30.7 colR= 570.4 sharedR=737.3 overhang=-166.9 dead=-737.3 topSlack=65 barToMeta=-62.8 numClip[l/r/t/b]=-46.1/-497.5/-723.1/-211.3 lh=25.68px fails=1 [{"cls":"_kicker","text":"The Creator","size":12,"need":4.5,"ratio":3.65}]
+768x1024   en light ovf=0 colL=  30.7 colR= 570.4 sharedR=737.3 overhang=-166.9 dead=-737.3 topSlack=65 barToMeta=-62.8 numClip[l/r/t/b]=-46.1/-497.5/-723.1/-211.3 lh=25.68px fails=0
+768x1024   fr dark  ovf=0 colL=  30.7 colR= 583.7 sharedR=737.3 overhang=-153.6 dead=-737.3 topSlack=65 barToMeta=-62.9 numClip[l/r/t/b]=-46.1/-497.5/-696.7/-211.2 lh=25.68px fails=1 [{"cls":"_kicker","text":"Le créateur","size":12,"need":4.5,"ratio":3.65}]
+768x1024   fr light ovf=0 colL=  30.7 colR= 583.7 sharedR=737.3 overhang=-153.6 dead=-737.3 topSlack=65 barToMeta=-62.9 numClip[l/r/t/b]=-46.1/-497.5/-696.7/-211.2 lh=25.68px fails=0
+768x1024   es dark  ovf=0 colL=  30.7 colR= 584.7 sharedR=737.3 overhang=-152.6 dead=-737.3 topSlack=65 barToMeta=-62.8 numClip[l/r/t/b]=-46.1/-497.5/-696.8/-211.2 lh=25.68px fails=1 [{"cls":"_kicker","text":"El creador","size":12,"need":4.5,"ratio":3.65}]
+768x1024   es light ovf=0 colL=  30.7 colR= 584.7 sharedR=737.3 overhang=-152.6 dead=-737.3 topSlack=65 barToMeta=-62.8 numClip[l/r/t/b]=-46.1/-497.5/-696.8/-211.2 lh=25.68px fails=0
+820x1180   en dark  ovf=0 colL=  32.8 colR= 576.3 sharedR=787.2 overhang=-210.9 dead=-787.2 topSlack=65 barToMeta=-62.5 numClip[l/r/t/b]=-49.2/-546.4/-740.6/-238.5 lh=25.875px fails=1 [{"cls":"_kicker","text":"The Creator","size":12,"need":4.5,"ratio":3.65}]
+820x1180   en light ovf=0 colL=  32.8 colR= 576.3 sharedR=787.2 overhang=-210.9 dead=-787.2 topSlack=65 barToMeta=-62.5 numClip[l/r/t/b]=-49.2/-546.4/-740.6/-238.5 lh=25.875px fails=0
+820x1180   fr dark  ovf=0 colL=  32.8 colR= 589.7 sharedR=787.2 overhang=-197.5 dead=-787.2 topSlack=65 barToMeta=-62.7 numClip[l/r/t/b]=-49.2/-546.4/-712.9/-238.5 lh=25.875px fails=1 [{"cls":"_kicker","text":"Le créateur","size":12,"need":4.5,"ratio":3.65}]
+820x1180   fr light ovf=0 colL=  32.8 colR= 589.7 sharedR=787.2 overhang=-197.5 dead=-787.2 topSlack=65 barToMeta=-62.7 numClip[l/r/t/b]=-49.2/-546.4/-712.9/-238.5 lh=25.875px fails=0
+820x1180   es dark  ovf=0 colL=  32.8 colR= 590.8 sharedR=787.2 overhang=-196.4 dead=-787.2 topSlack=65 barToMeta=-62.5 numClip[l/r/t/b]=-49.2/-546.4/-712.9/-238.5 lh=25.875px fails=1 [{"cls":"_kicker","text":"El creador","size":12,"need":4.5,"ratio":3.65}]
+820x1180   es light ovf=0 colL=  32.8 colR= 590.8 sharedR=787.2 overhang=-196.4 dead=-787.2 topSlack=65 barToMeta=-62.5 numClip[l/r/t/b]=-49.2/-546.4/-712.9/-238.5 lh=25.875px fails=0
+1024x768   en dark  ovf=0 colL=   553 colR= 973.3 sharedR=983 overhang=-9.7 dead=122.9 topSlack=50.8 barToMeta=-29.2 numClip[l/r/t/b]=22.1/-734.1/-174.2/-270.8 lh=26.64px fails=1 [{"cls":"_kicker","text":"The Creator","size":12,"need":4.5,"ratio":3.65}]
+1024x768   en light ovf=0 colL=   553 colR= 973.3 sharedR=983 overhang=-9.7 dead=122.9 topSlack=50.8 barToMeta=-29.2 numClip[l/r/t/b]=22.1/-734.1/-174.2/-270.8 lh=26.64px fails=0
+1024x768   fr dark  ovf=0 colL=   553 colR= 982.7 sharedR=983 overhang=-0.3 dead=122.9 topSlack=66 barToMeta=-14.2 numClip[l/r/t/b]=22.1/-734.1/-174.2/-270.8 lh=26.64px fails=1 [{"cls":"_kicker","text":"Le créateur","size":12,"need":4.5,"ratio":3.65}]
+1024x768   fr light ovf=0 colL=   553 colR= 982.7 sharedR=983 overhang=-0.3 dead=122.9 topSlack=66 barToMeta=-14.2 numClip[l/r/t/b]=22.1/-734.1/-174.2/-270.8 lh=26.64px fails=0
+1024x768   es dark  ovf=0 colL=   553 colR= 981.3 sharedR=983 overhang=-1.7 dead=122.9 topSlack=65.9 barToMeta=-14.1 numClip[l/r/t/b]=22.1/-734.1/-174.2/-270.8 lh=26.64px fails=1 [{"cls":"_kicker","text":"El creador","size":12,"need":4.5,"ratio":3.65}]
+1024x768   es light ovf=0 colL=   553 colR= 981.3 sharedR=983 overhang=-1.7 dead=122.9 topSlack=65.9 barToMeta=-14.1 numClip[l/r/t/b]=22.1/-734.1/-174.2/-270.8 lh=26.64px fails=0
+1280x800   en dark  ovf=0 colL= 691.2 colR=  1226 sharedR=1228.8 overhang=-2.8 dead=153.6 topSlack=70.3 barToMeta=-9.7 numClip[l/r/t/b]=27.7/-959.7/-177.7/-262.3 lh=27px fails=1 [{"cls":"_kicker","text":"The Creator","size":12,"need":4.5,"ratio":3.65}]
+1280x800   en light ovf=0 colL= 691.2 colR=  1226 sharedR=1228.8 overhang=-2.8 dead=153.6 topSlack=70.3 barToMeta=-9.7 numClip[l/r/t/b]=27.7/-959.7/-177.7/-262.3 lh=27px fails=0
+1280x800   fr dark  ovf=0 colL= 691.2 colR=1224.9 sharedR=1228.8 overhang=-3.9 dead=153.6 topSlack=89.9 barToMeta=9.9 numClip[l/r/t/b]=27.7/-959.7/-177.7/-262.3 lh=27px fails=1 [{"cls":"_kicker","text":"Le créateur","size":12,"need":4.5,"ratio":3.65}]
+1280x800   fr light ovf=0 colL= 691.2 colR=1224.9 sharedR=1228.8 overhang=-3.9 dead=153.6 topSlack=89.9 barToMeta=9.9 numClip[l/r/t/b]=27.7/-959.7/-177.7/-262.3 lh=27px fails=0
+1280x800   es dark  ovf=0 colL= 691.2 colR=1228.1 sharedR=1228.8 overhang=-0.7 dead=153.6 topSlack=103.4 barToMeta=23.4 numClip[l/r/t/b]=27.7/-959.7/-177.7/-262.3 lh=27px fails=1 [{"cls":"_kicker","text":"El creador","size":12,"need":4.5,"ratio":3.65}]
+1280x800   es light ovf=0 colL= 691.2 colR=1228.1 sharedR=1228.8 overhang=-0.7 dead=153.6 topSlack=103.4 barToMeta=23.4 numClip[l/r/t/b]=27.7/-959.7/-177.7/-262.3 lh=27px fails=0
+1440x900   en dark  ovf=0 colL= 777.6 colR=1342.6 sharedR=1382.4 overhang=-39.8 dead=172.8 topSlack=122.4 barToMeta=42.4 numClip[l/r/t/b]=31.1/-1100.8/-203.5/-313.5 lh=27px fails=1 [{"cls":"_kicker","text":"The Creator","size":12,"need":4.5,"ratio":3.65}]
+1440x900   en light ovf=0 colL= 777.6 colR=1342.6 sharedR=1382.4 overhang=-39.8 dead=172.8 topSlack=122.4 barToMeta=42.4 numClip[l/r/t/b]=31.1/-1100.8/-203.5/-313.5 lh=27px fails=0
+1440x900   fr dark  ovf=0 colL= 777.6 colR=1356.8 sharedR=1382.4 overhang=-25.6 dead=172.8 topSlack=144.8 barToMeta=64.8 numClip[l/r/t/b]=31.1/-1100.8/-203.5/-313.5 lh=27px fails=1 [{"cls":"_kicker","text":"Le créateur","size":12,"need":4.5,"ratio":3.65}]
+1440x900   fr light ovf=0 colL= 777.6 colR=1356.8 sharedR=1382.4 overhang=-25.6 dead=172.8 topSlack=144.8 barToMeta=64.8 numClip[l/r/t/b]=31.1/-1100.8/-203.5/-313.5 lh=27px fails=0
+1440x900   es dark  ovf=0 colL= 777.6 colR=1357.7 sharedR=1382.4 overhang=-24.7 dead=172.8 topSlack=144.8 barToMeta=64.8 numClip[l/r/t/b]=31.1/-1100.8/-203.5/-313.5 lh=27px fails=1 [{"cls":"_kicker","text":"El creador","size":12,"need":4.5,"ratio":3.65}]
+1440x900   es light ovf=0 colL= 777.6 colR=1357.7 sharedR=1382.4 overhang=-24.7 dead=172.8 topSlack=144.8 barToMeta=64.8 numClip[l/r/t/b]=31.1/-1100.8/-203.5/-313.5 lh=27px fails=0
+1536x1024  en dark  ovf=0 colL= 829.4 colR=1398.1 sharedR=1474.6 overhang=-76.5 dead=184.3 topSlack=177.5 barToMeta=97.5 numClip[l/r/t/b]=33.2/-1195.1/-239.6/-397.4 lh=27px fails=1 [{"cls":"_kicker","text":"The Creator","size":12,"need":4.5,"ratio":3.65}]
+1536x1024  en light ovf=0 colL= 829.4 colR=1398.1 sharedR=1474.6 overhang=-76.5 dead=184.3 topSlack=177.5 barToMeta=97.5 numClip[l/r/t/b]=33.2/-1195.1/-239.6/-397.4 lh=27px fails=0
+1536x1024  fr dark  ovf=0 colL= 829.4 colR=1408.6 sharedR=1474.6 overhang=-66.0 dead=184.3 topSlack=201.6 barToMeta=121.6 numClip[l/r/t/b]=33.2/-1195.1/-239.6/-397.4 lh=27px fails=1 [{"cls":"_kicker","text":"Le créateur","size":12,"need":4.5,"ratio":3.65}]
+1536x1024  fr light ovf=0 colL= 829.4 colR=1408.6 sharedR=1474.6 overhang=-66.0 dead=184.3 topSlack=201.6 barToMeta=121.6 numClip[l/r/t/b]=33.2/-1195.1/-239.6/-397.4 lh=27px fails=0
+1536x1024  es dark  ovf=0 colL= 829.4 colR=1409.5 sharedR=1474.6 overhang=-65.1 dead=184.3 topSlack=201.6 barToMeta=121.6 numClip[l/r/t/b]=33.2/-1195.1/-239.6/-397.4 lh=27px fails=1 [{"cls":"_kicker","text":"El creador","size":12,"need":4.5,"ratio":3.65}]
+1536x1024  es light ovf=0 colL= 829.4 colR=1409.5 sharedR=1474.6 overhang=-65.1 dead=184.3 topSlack=201.6 barToMeta=121.6 numClip[l/r/t/b]=33.2/-1195.1/-239.6/-397.4 lh=27px fails=0
+1920x1080  en dark  ovf=0 colL=1031.7 colR=1722.5 sharedR=1748.5 overhang=-26.0 dead=225.3 topSlack=151.1 barToMeta=61.8 numClip[l/r/t/b]=41.5/-1542.5/-248.3/-398.7 lh=30.24px fails=1 [{"cls":"_kicker","text":"The Creator","size":13.4,"need":4.5,"ratio":3.65}]
+1920x1080  en light ovf=0 colL=1031.7 colR=1722.5 sharedR=1748.5 overhang=-26.0 dead=225.3 topSlack=151.1 barToMeta=61.8 numClip[l/r/t/b]=41.5/-1542.5/-248.3/-398.7 lh=30.24px fails=0
+1920x1080  fr dark  ovf=0 colL=1031.7 colR=1838.4 sharedR=1748.5 overhang=89.9 dead=225.3 topSlack=227.3 barToMeta=138 numClip[l/r/t/b]=41.5/-1542.5/-248.3/-398.7 lh=30.24px fails=1 [{"cls":"_kicker","text":"Le créateur","size":13.4,"need":4.5,"ratio":3.65}]
+1920x1080  fr light ovf=0 colL=1031.7 colR=1838.4 sharedR=1748.5 overhang=89.9 dead=225.3 topSlack=227.3 barToMeta=138 numClip[l/r/t/b]=41.5/-1542.5/-248.3/-398.7 lh=30.24px fails=0
+1920x1080  es dark  ovf=0 colL=1031.7 colR=1709.5 sharedR=1748.5 overhang=-39.0 dead=225.3 topSlack=181.7 barToMeta=92.4 numClip[l/r/t/b]=41.5/-1542.5/-248.3/-398.7 lh=30.24px fails=1 [{"cls":"_kicker","text":"El creador","size":13.4,"need":4.5,"ratio":3.65}]
+1920x1080  es light ovf=0 colL=1031.7 colR=1709.5 sharedR=1748.5 overhang=-39.0 dead=225.3 topSlack=181.7 barToMeta=92.4 numClip[l/r/t/b]=41.5/-1542.5/-248.3/-398.7 lh=30.24px fails=0
+written creator-before.json
+
+
+==============================================================================
+B. Creator composition sweep - AFTER (same 72 combinations)
+==============================================================================
+320x568    en dark  ovf=0 colL=    20 colR= 296.3 sharedR=300 overhang=-3.7 dead=-300 topSlack=65 barToMeta=-131.4 numClip[l/r/t/b]=-19.2/-132.5/-802.4/-23 lh=24px fails=1 [{"cls":"_kicker","text":"The Creator","size":12,"need":4.5,"ratio":3.65}]
+320x568    en light ovf=0 colL=    20 colR= 296.3 sharedR=300 overhang=-3.7 dead=-300 topSlack=65 barToMeta=-131.4 numClip[l/r/t/b]=-19.2/-132.5/-802.4/-23 lh=24px fails=0
+320x568    fr dark  ovf=0 colL=    20 colR= 298.3 sharedR=300 overhang=-1.7 dead=-300 topSlack=65 barToMeta=-131.9 numClip[l/r/t/b]=-19.2/-132.5/-779/-23 lh=24px fails=1 [{"cls":"_kicker","text":"Le créateur","size":12,"need":4.5,"ratio":3.65}]
+320x568    fr light ovf=0 colL=    20 colR= 298.3 sharedR=300 overhang=-1.7 dead=-300 topSlack=65 barToMeta=-131.9 numClip[l/r/t/b]=-19.2/-132.5/-779/-23 lh=24px fails=0
+320x568    es dark  ovf=0 colL=    20 colR= 297.7 sharedR=300 overhang=-2.3 dead=-300 topSlack=65 barToMeta=-131.7 numClip[l/r/t/b]=-19.2/-132.5/-779/-23 lh=24px fails=1 [{"cls":"_kicker","text":"El creador","size":12,"need":4.5,"ratio":3.65}]
+320x568    es light ovf=0 colL=    20 colR= 297.7 sharedR=300 overhang=-2.3 dead=-300 topSlack=65 barToMeta=-131.7 numClip[l/r/t/b]=-19.2/-132.5/-779/-23 lh=24px fails=0
+360x800    en dark  ovf=0 colL=    20 colR= 338.8 sharedR=340 overhang=-1.2 dead=-340 topSlack=65 barToMeta=-132.1 numClip[l/r/t/b]=-21.6/-160.7/-748.2/-37 lh=24.15px fails=1 [{"cls":"_kicker","text":"The Creator","size":12,"need":4.5,"ratio":3.65}]
+360x800    en light ovf=0 colL=    20 colR= 338.8 sharedR=340 overhang=-1.2 dead=-340 topSlack=65 barToMeta=-132.1 numClip[l/r/t/b]=-21.6/-160.7/-748.2/-37 lh=24.15px fails=0
+360x800    fr dark  ovf=0 colL=    20 colR=   337 sharedR=340 overhang=-3.0 dead=-340 topSlack=65 barToMeta=-132.1 numClip[l/r/t/b]=-21.6/-160.7/-756.9/-37 lh=24.15px fails=1 [{"cls":"_kicker","text":"Le créateur","size":12,"need":4.5,"ratio":3.65}]
+360x800    fr light ovf=0 colL=    20 colR=   337 sharedR=340 overhang=-3.0 dead=-340 topSlack=65 barToMeta=-132.1 numClip[l/r/t/b]=-21.6/-160.7/-756.9/-37 lh=24.15px fails=0
+360x800    es dark  ovf=0 colL=    20 colR= 334.3 sharedR=340 overhang=-5.7 dead=-340 topSlack=65 barToMeta=-132.1 numClip[l/r/t/b]=-21.6/-160.7/-756.9/-37 lh=24.15px fails=1 [{"cls":"_kicker","text":"El creador","size":12,"need":4.5,"ratio":3.65}]
+360x800    es light ovf=0 colL=    20 colR= 334.3 sharedR=340 overhang=-5.7 dead=-340 topSlack=65 barToMeta=-132.1 numClip[l/r/t/b]=-21.6/-160.7/-756.9/-37 lh=24.15px fails=0
+390x844    en dark  ovf=0 colL=    20 colR=   366 sharedR=370 overhang=-4.0 dead=-370 topSlack=65 barToMeta=-131.6 numClip[l/r/t/b]=-23.4/-181.9/-758.6/-46.8 lh=24.2625px fails=1 [{"cls":"_kicker","text":"The Creator","size":12,"need":4.5,"ratio":3.65}]
+390x844    en light ovf=0 colL=    20 colR=   366 sharedR=370 overhang=-4.0 dead=-370 topSlack=65 barToMeta=-131.6 numClip[l/r/t/b]=-23.4/-181.9/-758.6/-46.8 lh=24.2625px fails=0
+390x844    fr dark  ovf=0 colL=    20 colR= 369.1 sharedR=370 overhang=-0.9 dead=-370 topSlack=65 barToMeta=-131.8 numClip[l/r/t/b]=-23.4/-181.9/-718.2/-46.8 lh=24.2625px fails=1 [{"cls":"_kicker","text":"Le créateur","size":12,"need":4.5,"ratio":3.65}]
+390x844    fr light ovf=0 colL=    20 colR= 369.1 sharedR=370 overhang=-0.9 dead=-370 topSlack=65 barToMeta=-131.8 numClip[l/r/t/b]=-23.4/-181.9/-718.2/-46.8 lh=24.2625px fails=0
+390x844    es dark  ovf=0 colL=    20 colR= 362.6 sharedR=370 overhang=-7.4 dead=-370 topSlack=65 barToMeta=-132 numClip[l/r/t/b]=-23.4/-181.9/-718.2/-46.7 lh=24.2625px fails=1 [{"cls":"_kicker","text":"El creador","size":12,"need":4.5,"ratio":3.65}]
+390x844    es light ovf=0 colL=    20 colR= 362.6 sharedR=370 overhang=-7.4 dead=-370 topSlack=65 barToMeta=-132 numClip[l/r/t/b]=-23.4/-181.9/-718.2/-46.7 lh=24.2625px fails=0
+414x896    en dark  ovf=0 colL=    20 colR= 384.8 sharedR=394 overhang=-9.2 dead=-394 topSlack=65 barToMeta=-131.9 numClip[l/r/t/b]=-24.8/-198.8/-742.6/-54.3 lh=24.3525px fails=1 [{"cls":"_kicker","text":"The Creator","size":12,"need":4.5,"ratio":3.65}]
+414x896    en light ovf=0 colL=    20 colR= 384.8 sharedR=394 overhang=-9.2 dead=-394 topSlack=65 barToMeta=-131.9 numClip[l/r/t/b]=-24.8/-198.8/-742.6/-54.3 lh=24.3525px fails=0
+414x896    fr dark  ovf=0 colL=    20 colR=   392 sharedR=394 overhang=-2.0 dead=-394 topSlack=65 barToMeta=-132.7 numClip[l/r/t/b]=-24.8/-198.8/-684.5/-54.4 lh=24.3525px fails=1 [{"cls":"_kicker","text":"Le créateur","size":12,"need":4.5,"ratio":3.65}]
+414x896    fr light ovf=0 colL=    20 colR=   392 sharedR=394 overhang=-2.0 dead=-394 topSlack=65 barToMeta=-132.7 numClip[l/r/t/b]=-24.8/-198.8/-684.5/-54.4 lh=24.3525px fails=0
+414x896    es dark  ovf=0 colL=    20 colR= 382.8 sharedR=394 overhang=-11.2 dead=-394 topSlack=65 barToMeta=-132.6 numClip[l/r/t/b]=-24.8/-198.8/-701.4/-54.4 lh=24.3525px fails=1 [{"cls":"_kicker","text":"El creador","size":12,"need":4.5,"ratio":3.65}]
+414x896    es light ovf=0 colL=    20 colR= 382.8 sharedR=394 overhang=-11.2 dead=-394 topSlack=65 barToMeta=-132.6 numClip[l/r/t/b]=-24.8/-198.8/-701.4/-54.4 lh=24.3525px fails=0
+844x390    en dark  ovf=0 colL=  33.8 colR= 578.9 sharedR=810.2 overhang=-231.3 dead=-810.2 topSlack=65 barToMeta=-62.9 numClip[l/r/t/b]=-50.6/-568.9/-748.8/-251.1 lh=25.965px fails=1 [{"cls":"_kicker","text":"The Creator","size":12,"need":4.5,"ratio":3.65}]
+844x390    en light ovf=0 colL=  33.8 colR= 578.9 sharedR=810.2 overhang=-231.3 dead=-810.2 topSlack=65 barToMeta=-62.9 numClip[l/r/t/b]=-50.6/-568.9/-748.8/-251.1 lh=25.965px fails=0
+844x390    fr dark  ovf=0 colL=  33.8 colR= 592.3 sharedR=810.2 overhang=-217.9 dead=-810.2 topSlack=65 barToMeta=-63.1 numClip[l/r/t/b]=-50.6/-568.9/-720.4/-251.1 lh=25.965px fails=1 [{"cls":"_kicker","text":"Le créateur","size":12,"need":4.5,"ratio":3.65}]
+844x390    fr light ovf=0 colL=  33.8 colR= 592.3 sharedR=810.2 overhang=-217.9 dead=-810.2 topSlack=65 barToMeta=-63.1 numClip[l/r/t/b]=-50.6/-568.9/-720.4/-251.1 lh=25.965px fails=0
+844x390    es dark  ovf=0 colL=  33.8 colR= 593.3 sharedR=810.2 overhang=-216.9 dead=-810.2 topSlack=65 barToMeta=-62.9 numClip[l/r/t/b]=-50.6/-568.9/-720.4/-251.1 lh=25.965px fails=1 [{"cls":"_kicker","text":"El creador","size":12,"need":4.5,"ratio":3.65}]
+844x390    es light ovf=0 colL=  33.8 colR= 593.3 sharedR=810.2 overhang=-216.9 dead=-810.2 topSlack=65 barToMeta=-62.9 numClip[l/r/t/b]=-50.6/-568.9/-720.4/-251.1 lh=25.965px fails=0
+768x1024   en dark  ovf=0 colL=  30.7 colR= 570.4 sharedR=737.3 overhang=-166.9 dead=-737.3 topSlack=65 barToMeta=-62.8 numClip[l/r/t/b]=-46.1/-497.5/-723.1/-211.3 lh=25.68px fails=1 [{"cls":"_kicker","text":"The Creator","size":12,"need":4.5,"ratio":3.65}]
+768x1024   en light ovf=0 colL=  30.7 colR= 570.4 sharedR=737.3 overhang=-166.9 dead=-737.3 topSlack=65 barToMeta=-62.8 numClip[l/r/t/b]=-46.1/-497.5/-723.1/-211.3 lh=25.68px fails=0
+768x1024   fr dark  ovf=0 colL=  30.7 colR= 583.7 sharedR=737.3 overhang=-153.6 dead=-737.3 topSlack=65 barToMeta=-62.9 numClip[l/r/t/b]=-46.1/-497.5/-696.7/-211.2 lh=25.68px fails=1 [{"cls":"_kicker","text":"Le créateur","size":12,"need":4.5,"ratio":3.65}]
+768x1024   fr light ovf=0 colL=  30.7 colR= 583.7 sharedR=737.3 overhang=-153.6 dead=-737.3 topSlack=65 barToMeta=-62.9 numClip[l/r/t/b]=-46.1/-497.5/-696.7/-211.2 lh=25.68px fails=0
+768x1024   es dark  ovf=0 colL=  30.7 colR= 584.7 sharedR=737.3 overhang=-152.6 dead=-737.3 topSlack=65 barToMeta=-62.8 numClip[l/r/t/b]=-46.1/-497.5/-696.8/-211.2 lh=25.68px fails=1 [{"cls":"_kicker","text":"El creador","size":12,"need":4.5,"ratio":3.65}]
+768x1024   es light ovf=0 colL=  30.7 colR= 584.7 sharedR=737.3 overhang=-152.6 dead=-737.3 topSlack=65 barToMeta=-62.8 numClip[l/r/t/b]=-46.1/-497.5/-696.8/-211.2 lh=25.68px fails=0
+820x1180   en dark  ovf=0 colL=  32.8 colR= 576.3 sharedR=787.2 overhang=-210.9 dead=-787.2 topSlack=65 barToMeta=-62.5 numClip[l/r/t/b]=-49.2/-546.4/-740.6/-238.5 lh=25.875px fails=1 [{"cls":"_kicker","text":"The Creator","size":12,"need":4.5,"ratio":3.65}]
+820x1180   en light ovf=0 colL=  32.8 colR= 576.3 sharedR=787.2 overhang=-210.9 dead=-787.2 topSlack=65 barToMeta=-62.5 numClip[l/r/t/b]=-49.2/-546.4/-740.6/-238.5 lh=25.875px fails=0
+820x1180   fr dark  ovf=0 colL=  32.8 colR= 589.7 sharedR=787.2 overhang=-197.5 dead=-787.2 topSlack=65 barToMeta=-62.7 numClip[l/r/t/b]=-49.2/-546.4/-712.9/-238.5 lh=25.875px fails=1 [{"cls":"_kicker","text":"Le créateur","size":12,"need":4.5,"ratio":3.65}]
+820x1180   fr light ovf=0 colL=  32.8 colR= 589.7 sharedR=787.2 overhang=-197.5 dead=-787.2 topSlack=65 barToMeta=-62.7 numClip[l/r/t/b]=-49.2/-546.4/-712.9/-238.5 lh=25.875px fails=0
+820x1180   es dark  ovf=0 colL=  32.8 colR= 590.8 sharedR=787.2 overhang=-196.4 dead=-787.2 topSlack=65 barToMeta=-62.5 numClip[l/r/t/b]=-49.2/-546.4/-712.9/-238.5 lh=25.875px fails=1 [{"cls":"_kicker","text":"El creador","size":12,"need":4.5,"ratio":3.65}]
+820x1180   es light ovf=0 colL=  32.8 colR= 590.8 sharedR=787.2 overhang=-196.4 dead=-787.2 topSlack=65 barToMeta=-62.5 numClip[l/r/t/b]=-49.2/-546.4/-712.9/-238.5 lh=25.875px fails=0
+1024x768   en dark  ovf=0 colL= 467.6 colR=   888 sharedR=983 overhang=-95.0 dead=37.5 topSlack=108.5 barToMeta=28.5 numClip[l/r/t/b]=-41/-671/-194.6/-318.7 lh=30.192px fails=1 [{"cls":"_kicker","text":"The Creator","size":12,"need":4.5,"ratio":3.65}]
+1024x768   en light ovf=0 colL= 467.6 colR=   888 sharedR=983 overhang=-95.0 dead=37.5 topSlack=108.5 barToMeta=28.5 numClip[l/r/t/b]=-41/-671/-194.6/-318.7 lh=30.192px fails=0
+1024x768   fr dark  ovf=0 colL= 467.6 colR= 897.4 sharedR=983 overhang=-85.6 dead=37.5 topSlack=108.6 barToMeta=28.4 numClip[l/r/t/b]=-41/-671/-186.6/-300 lh=30.192px fails=1 [{"cls":"_kicker","text":"Le créateur","size":12,"need":4.5,"ratio":3.65}]
+1024x768   fr light ovf=0 colL= 467.6 colR= 897.4 sharedR=983 overhang=-85.6 dead=37.5 topSlack=108.6 barToMeta=28.4 numClip[l/r/t/b]=-41/-671/-186.6/-300 lh=30.192px fails=0
+1024x768   es dark  ovf=0 colL= 467.6 colR= 895.9 sharedR=983 overhang=-87.1 dead=37.5 topSlack=108.5 barToMeta=28.5 numClip[l/r/t/b]=-41/-671/-186.6/-300 lh=30.192px fails=1 [{"cls":"_kicker","text":"El creador","size":12,"need":4.5,"ratio":3.65}]
+1024x768   es light ovf=0 colL= 467.6 colR= 895.9 sharedR=983 overhang=-87.1 dead=37.5 topSlack=108.5 barToMeta=28.5 numClip[l/r/t/b]=-41/-671/-186.6/-300 lh=30.192px fails=0
+1280x800   en dark  ovf=0 colL= 584.5 colR=1119.4 sharedR=1228.8 overhang=-109.4 dead=46.9 topSlack=113 barToMeta=33 numClip[l/r/t/b]=-51.2/-880.9/-186.8/-283.7 lh=30.6px fails=1 [{"cls":"_kicker","text":"The Creator","size":12,"need":4.5,"ratio":3.65}]
+1280x800   en light ovf=0 colL= 584.5 colR=1119.4 sharedR=1228.8 overhang=-109.4 dead=46.9 topSlack=113 barToMeta=33 numClip[l/r/t/b]=-51.2/-880.9/-186.8/-283.7 lh=30.6px fails=0
+1280x800   fr dark  ovf=0 colL= 584.5 colR=1118.2 sharedR=1228.8 overhang=-110.6 dead=46.9 topSlack=113 barToMeta=33 numClip[l/r/t/b]=-51.2/-880.9/-177.7/-262.3 lh=30.6px fails=1 [{"cls":"_kicker","text":"Le créateur","size":12,"need":4.5,"ratio":3.65}]
+1280x800   fr light ovf=0 colL= 584.5 colR=1118.2 sharedR=1228.8 overhang=-110.6 dead=46.9 topSlack=113 barToMeta=33 numClip[l/r/t/b]=-51.2/-880.9/-177.7/-262.3 lh=30.6px fails=0
+1280x800   es dark  ovf=0 colL= 584.5 colR=1121.4 sharedR=1228.8 overhang=-107.4 dead=46.9 topSlack=113 barToMeta=33 numClip[l/r/t/b]=-51.2/-880.9/-177.7/-262.3 lh=30.6px fails=1 [{"cls":"_kicker","text":"El creador","size":12,"need":4.5,"ratio":3.65}]
+1280x800   es light ovf=0 colL= 584.5 colR=1121.4 sharedR=1228.8 overhang=-107.4 dead=46.9 topSlack=113 barToMeta=33 numClip[l/r/t/b]=-51.2/-880.9/-177.7/-262.3 lh=30.6px fails=0
+1440x900   en dark  ovf=0 colL= 657.6 colR=1222.6 sharedR=1382.4 overhang=-159.8 dead=52.8 topSlack=117 barToMeta=37 numClip[l/r/t/b]=-57.6/-1012/-203.5/-313.5 lh=30.6px fails=1 [{"cls":"_kicker","text":"The Creator","size":12,"need":4.5,"ratio":3.65}]
+1440x900   en light ovf=0 colL= 657.6 colR=1222.6 sharedR=1382.4 overhang=-159.8 dead=52.8 topSlack=117 barToMeta=37 numClip[l/r/t/b]=-57.6/-1012/-203.5/-313.5 lh=30.6px fails=0
+1440x900   fr dark  ovf=0 colL= 657.6 colR=1236.8 sharedR=1382.4 overhang=-145.6 dead=52.8 topSlack=117 barToMeta=37 numClip[l/r/t/b]=-57.6/-1012/-203.5/-313.5 lh=30.6px fails=1 [{"cls":"_kicker","text":"Le créateur","size":12,"need":4.5,"ratio":3.65}]
+1440x900   fr light ovf=0 colL= 657.6 colR=1236.8 sharedR=1382.4 overhang=-145.6 dead=52.8 topSlack=117 barToMeta=37 numClip[l/r/t/b]=-57.6/-1012/-203.5/-313.5 lh=30.6px fails=0
+1440x900   es dark  ovf=0 colL= 657.6 colR=1237.7 sharedR=1382.4 overhang=-144.7 dead=52.8 topSlack=117 barToMeta=37 numClip[l/r/t/b]=-57.6/-1012/-203.5/-313.5 lh=30.6px fails=1 [{"cls":"_kicker","text":"El creador","size":12,"need":4.5,"ratio":3.65}]
+1440x900   es light ovf=0 colL= 657.6 colR=1237.7 sharedR=1382.4 overhang=-144.7 dead=52.8 topSlack=117 barToMeta=37 numClip[l/r/t/b]=-57.6/-1012/-203.5/-313.5 lh=30.6px fails=0
+1536x1024  en dark  ovf=0 colL= 701.4 colR=1270.1 sharedR=1474.6 overhang=-204.5 dead=56.3 topSlack=117 barToMeta=37 numClip[l/r/t/b]=-61.4/-1100.5/-239.6/-397.4 lh=30.6px fails=1 [{"cls":"_kicker","text":"The Creator","size":12,"need":4.5,"ratio":3.65}]
+1536x1024  en light ovf=0 colL= 701.4 colR=1270.1 sharedR=1474.6 overhang=-204.5 dead=56.3 topSlack=117 barToMeta=37 numClip[l/r/t/b]=-61.4/-1100.5/-239.6/-397.4 lh=30.6px fails=0
+1536x1024  fr dark  ovf=0 colL= 701.4 colR=1280.6 sharedR=1474.6 overhang=-194.0 dead=56.3 topSlack=117 barToMeta=37 numClip[l/r/t/b]=-61.4/-1100.5/-239.6/-397.4 lh=30.6px fails=1 [{"cls":"_kicker","text":"Le créateur","size":12,"need":4.5,"ratio":3.65}]
+1536x1024  fr light ovf=0 colL= 701.4 colR=1280.6 sharedR=1474.6 overhang=-194.0 dead=56.3 topSlack=117 barToMeta=37 numClip[l/r/t/b]=-61.4/-1100.5/-239.6/-397.4 lh=30.6px fails=0
+1536x1024  es dark  ovf=0 colL= 701.4 colR=1281.5 sharedR=1474.6 overhang=-193.1 dead=56.3 topSlack=117 barToMeta=37 numClip[l/r/t/b]=-61.4/-1100.5/-239.6/-397.4 lh=30.6px fails=1 [{"cls":"_kicker","text":"El creador","size":12,"need":4.5,"ratio":3.65}]
+1536x1024  es light ovf=0 colL= 701.4 colR=1281.5 sharedR=1474.6 overhang=-193.1 dead=56.3 topSlack=117 barToMeta=37 numClip[l/r/t/b]=-61.4/-1100.5/-239.6/-397.4 lh=30.6px fails=0
+1920x1080  en dark  ovf=0 colL= 871.7 colR=1562.5 sharedR=1748.5 overhang=-186.0 dead=65.3 topSlack=130.9 barToMeta=41.6 numClip[l/r/t/b]=-71.7/-1429.3/-248.3/-398.7 lh=34.272px fails=1 [{"cls":"_kicker","text":"The Creator","size":13.4,"need":4.5,"ratio":3.65}]
+1920x1080  en light ovf=0 colL= 871.7 colR=1562.5 sharedR=1748.5 overhang=-186.0 dead=65.3 topSlack=130.9 barToMeta=41.6 numClip[l/r/t/b]=-71.7/-1429.3/-248.3/-398.7 lh=34.272px fails=0
+1920x1080  fr dark  ovf=0 colL= 871.7 colR=1678.4 sharedR=1748.5 overhang=-70.1 dead=65.3 topSlack=130.9 barToMeta=41.6 numClip[l/r/t/b]=-71.7/-1429.3/-248.3/-398.7 lh=34.272px fails=1 [{"cls":"_kicker","text":"Le créateur","size":13.4,"need":4.5,"ratio":3.65}]
+1920x1080  fr light ovf=0 colL= 871.7 colR=1678.4 sharedR=1748.5 overhang=-70.1 dead=65.3 topSlack=130.9 barToMeta=41.6 numClip[l/r/t/b]=-71.7/-1429.3/-248.3/-398.7 lh=34.272px fails=0
+1920x1080  es dark  ovf=0 colL= 871.7 colR=1549.5 sharedR=1748.5 overhang=-199.0 dead=65.3 topSlack=130.9 barToMeta=41.6 numClip[l/r/t/b]=-71.7/-1429.3/-248.3/-398.7 lh=34.272px fails=1 [{"cls":"_kicker","text":"El creador","size":13.4,"need":4.5,"ratio":3.65}]
+1920x1080  es light ovf=0 colL= 871.7 colR=1549.5 sharedR=1748.5 overhang=-199.0 dead=65.3 topSlack=130.9 barToMeta=41.6 numClip[l/r/t/b]=-71.7/-1429.3/-248.3/-398.7 lh=34.272px fails=0
+written creator-after.json
+
+
+==============================================================================
+C. Before/after comparison table
+==============================================================================
+viewport   lg  text column left      numeral->type gap   numeral clipped L   bar->metadata band   section height     ovf
+1024x768   en      553 ->   467.6     263.1 ->   114.6    22.1 ->   -41    -29.2 ->   28.5      768 ->  836.3  0 -> 0
+1024x768   fr      553 ->   467.6     263.1 ->   114.6    22.1 ->   -41    -14.2 ->   28.4      768 ->  809.6  0 -> 0
+1024x768   es      553 ->   467.6     263.1 ->   114.6    22.1 ->   -41    -14.1 ->   28.5      768 ->  809.6  0 -> 0
+1280x800   en    691.2 ->   584.5     370.9 ->   185.4    27.7 -> -51.2     -9.7 ->     33      800 ->  830.5  0 -> 0
+1280x800   fr    691.2 ->   584.5     370.9 ->   185.4    27.7 -> -51.2      9.9 ->     33      800 ->    800  0 -> 0
+1280x800   es    691.2 ->   584.5     370.9 ->   185.4    27.7 -> -51.2     23.4 ->     33      800 ->    800  0 -> 0
+1440x900   en    777.6 ->   657.6     438.4 ->   229.6    31.1 -> -57.6     42.4 ->     37      900 ->    900  0 -> 0
+1440x900   fr    777.6 ->   657.6     438.4 ->   229.6    31.1 -> -57.6     64.8 ->     37      900 ->    900  0 -> 0
+1440x900   es    777.6 ->   657.6     438.4 ->   229.6    31.1 -> -57.6     64.8 ->     37      900 ->    900  0 -> 0
+1536x1024  en    829.4 ->   701.4     488.5 ->   265.9    33.2 -> -61.4     97.5 ->     37     1024 ->   1024  0 -> 0
+1536x1024  fr    829.4 ->   701.4     488.5 ->   265.9    33.2 -> -61.4    121.6 ->     37     1024 ->   1024  0 -> 0
+1536x1024  es    829.4 ->   701.4     488.5 ->   265.9    33.2 -> -61.4    121.6 ->     37     1024 ->   1024  0 -> 0
+1920x1080  en   1031.7 ->   871.7     654.2 ->     381    41.5 -> -71.7     61.8 ->   41.6     1080 ->   1080  0 -> 0
+1920x1080  fr   1031.7 ->   871.7     654.2 ->     381    41.5 -> -71.7      138 ->   41.6     1080 ->   1080  0 -> 0
+1920x1080  es   1031.7 ->   871.7     654.2 ->     381    41.5 -> -71.7     92.4 ->   41.6     1080 ->   1080  0 -> 0
+
+--- mobile / tablet (desktop rules do not apply) ---
+320x568    en  textL      20 ->      20   secH 1000.4 -> 1000.4   lh      24px ->      24px   ovf 0 -> 0
+320x568    fr  textL      20 ->      20   secH    977 ->    977   lh      24px ->      24px   ovf 0 -> 0
+320x568    es  textL      20 ->      20   secH    977 ->    977   lh      24px ->      24px   ovf 0 -> 0
+360x800    en  textL      20 ->      20   secH  969.2 ->  969.2   lh   24.15px ->   24.15px   ovf 0 -> 0
+360x800    fr  textL      20 ->      20   secH  977.9 ->  977.9   lh   24.15px ->   24.15px   ovf 0 -> 0
+360x800    es  textL      20 ->      20   secH  977.9 ->  977.9   lh   24.15px ->   24.15px   ovf 0 -> 0
+390x844    en  textL      20 ->      20   secH  996.4 ->  996.4   lh 24.2625px -> 24.2625px   ovf 0 -> 0
+390x844    fr  textL      20 ->      20   secH    956 ->    956   lh 24.2625px -> 24.2625px   ovf 0 -> 0
+390x844    es  textL      20 ->      20   secH    956 ->    956   lh 24.2625px -> 24.2625px   ovf 0 -> 0
+414x896    en  textL      20 ->      20   secH    994 ->    994   lh 24.3525px -> 24.3525px   ovf 0 -> 0
+414x896    fr  textL      20 ->      20   secH  935.9 ->  935.9   lh 24.3525px -> 24.3525px   ovf 0 -> 0
+414x896    es  textL      20 ->      20   secH  952.8 ->  952.8   lh 24.3525px -> 24.3525px   ovf 0 -> 0
+844x390    en  textL    33.8 ->    33.8   secH 1231.9 -> 1231.9   lh  25.965px ->  25.965px   ovf 0 -> 0
+844x390    fr  textL    33.8 ->    33.8   secH 1203.5 -> 1203.5   lh  25.965px ->  25.965px   ovf 0 -> 0
+844x390    es  textL    33.8 ->    33.8   secH 1203.5 -> 1203.5   lh  25.965px ->  25.965px   ovf 0 -> 0
+768x1024   en  textL    30.7 ->    30.7   secH 1166.3 -> 1166.3   lh   25.68px ->   25.68px   ovf 0 -> 0
+768x1024   fr  textL    30.7 ->    30.7   secH 1139.9 -> 1139.9   lh   25.68px ->   25.68px   ovf 0 -> 0
+768x1024   es  textL    30.7 ->    30.7   secH 1139.9 -> 1139.9   lh   25.68px ->   25.68px   ovf 0 -> 0
+820x1180   en  textL    32.8 ->    32.8   secH 1211.2 -> 1211.2   lh  25.875px ->  25.875px   ovf 0 -> 0
+820x1180   fr  textL    32.8 ->    32.8   secH 1183.4 -> 1183.4   lh  25.875px ->  25.875px   ovf 0 -> 0
+820x1180   es  textL    32.8 ->    32.8   secH 1183.4 -> 1183.4   lh  25.875px ->  25.875px   ovf 0 -> 0
+
+--- body copy line-height, desktop ---
+320x568         24px ->      24px
+360x800      24.15px ->   24.15px
+390x844    24.2625px -> 24.2625px
+414x896    24.3525px -> 24.3525px
+844x390     25.965px ->  25.965px
+768x1024     25.68px ->   25.68px
+820x1180    25.875px ->  25.875px
+1024x768     26.64px ->  30.192px
+1280x800        27px ->    30.6px
+1440x900        27px ->    30.6px
+1536x1024       27px ->    30.6px
+1920x1080    30.24px ->  34.272px
+
+contrast: unparsed colours = 0; worst ratio/requirement before = 0.811, after = 0.811
+after failures (36):
+  320x568/en/dark _kicker 3.65
+before 1440 dark body copy: P=7.69
+before 1440 light body copy: P=5.76
+after 1440 dark body copy: P=10.21
+after 1440 light body copy: P=8.22
+
+
+==============================================================================
+D. Anchor-jump landing, real click on the bar "Process" link - BEFORE
+==============================================================================
+1024x768  Process -> #creator    secTop=      0 barBottom=    80 firstInk=   50.8 clearance=  -29.2 behindBar=2  "02 / Creator"
+1024x768  Systems -> #hardware   secTop=     96 barBottom=    80 firstInk=    241 clearance=    161 behindBar=0  "04 / Hardware"
+1280x800  Process -> #creator    secTop=      0 barBottom=    80 firstInk=   70.3 clearance=   -9.7 behindBar=2  "02 / Creator"
+1280x800  Systems -> #hardware   secTop=   96.2 barBottom=    80 firstInk=  241.2 clearance=  161.2 behindBar=0  "04 / Hardware"
+1440x900  Process -> #creator    secTop=      0 barBottom=    80 firstInk=  122.4 clearance=   42.4 behindBar=0  "02 / Creator"
+1440x900  Systems -> #hardware   secTop=   95.8 barBottom=    80 firstInk=  240.8 clearance=  160.8 behindBar=0  "04 / Hardware"
+ 390x844  Process -> #creator    secTop=    0.4 barBottom=   197 firstInk=   65.4 clearance= -131.6 behindBar=4  "02 / Creator"
+ 390x844  Systems -> #hardware   secTop=   96.5 barBottom=   197 firstInk=  201.5 clearance=    4.5 behindBar=0  "04 / Hardware"
+
+
+==============================================================================
+E. Anchor-jump landing - AFTER
+==============================================================================
+1024x768  Process -> #creator    secTop=     96 barBottom=    80 firstInk=  204.5 clearance=  124.5 behindBar=0  "02 / Creator"
+1024x768  Systems -> #hardware   secTop=   96.4 barBottom=    80 firstInk=  241.4 clearance=  161.4 behindBar=0  "04 / Hardware"
+1280x800  Process -> #creator    secTop=     96 barBottom=    80 firstInk=    209 clearance=    129 behindBar=0  "02 / Creator"
+1280x800  Systems -> #hardware   secTop=   95.7 barBottom=    80 firstInk=  240.7 clearance=  160.7 behindBar=0  "04 / Hardware"
+1440x900  Process -> #creator    secTop=     96 barBottom=    80 firstInk=    213 clearance=    133 behindBar=0  "02 / Creator"
+1440x900  Systems -> #hardware   secTop=   95.8 barBottom=    80 firstInk=  240.8 clearance=  160.8 behindBar=0  "04 / Hardware"
+ 390x844  Process -> #creator    secTop=   96.4 barBottom=   197 firstInk=  161.4 clearance=  -35.6 behindBar=2  "02 / Creator"
+ 390x844  Systems -> #hardware   secTop=   96.5 barBottom=   197 firstInk=  201.5 clearance=    4.5 behindBar=0  "04 / Hardware"
+
+
+==============================================================================
+F. New .anchor element: decorative, inert, desktop-only; reduced motion; 200% zoom
+==============================================================================
+=== anchor element: decorative, inert, desktop-only ===
+ 390x844 present=true display=none  text=0 aria-hidden=true pointer-events=auto z=auto clickLandsOn=null focusablesInSection=0
+ 768x1024 present=true display=none  text=0 aria-hidden=true pointer-events=auto z=auto clickLandsOn=null focusablesInSection=0
+1024x768 present=true display=block text=0 aria-hidden=true pointer-events=none z=0 clickLandsOn=_stageNumeral focusablesInSection=0
+1440x900 present=true display=block text=0 aria-hidden=true pointer-events=none z=0 clickLandsOn=_stageNumeral focusablesInSection=0
+1920x1080 present=true display=block text=0 aria-hidden=true pointer-events=none z=0 clickLandsOn=_stageNumeral focusablesInSection=0
+
+=== reduced motion ===
+{"inlineStyled":0,"faded":1,"clipped":0,"anchorAnimated":"none/all"}
+
+=== 200% zoom (1440x900 at deviceScaleFactor 1, 720x450 CSS) ===
+{"pageOverflow":0,"anchorDisplay":"none","layout":"flex"}
+
+
+==============================================================================
+G. Site content frame per section (why the text column was NOT out of line)
+==============================================================================
+
+=== 1024px (clientWidth 1024, root 16px) ===
+  #hero              ink      41 ..   867.9   canvas 0.0..1024.0 maxW=1536px padL=0px
+  #creator           ink     553 ..   973.3   canvas 512.0..1024.0 maxW=none padL=40.96px
+  #featured          ink      41 ..  2556.2   canvas none
+  #hardware          ink      41 ..   431.4   canvas 0.0..1024.0 maxW=none padL=40.96px
+  #content-universe  ink      41 ..     983   canvas 0.0..1024.0 maxW=none padL=40.96px
+  #closing           ink      41 ..   282.9   canvas 0.0..1024.0 maxW=1536px padL=40.96px
+  footer             ink      41 ..     983   canvas 0.0..1024.0 maxW=1536px padL=40.96px
+
+=== 1280px (clientWidth 1280, root 16px) ===
+  #hero              ink   140.8 ..  1237.1   canvas 0.0..1280.0 maxW=1536px padL=0px
+  #creator           ink   691.2 ..    1226   canvas 640.0..1280.0 maxW=none padL=51.2px
+  #featured          ink    51.2 ..    3054   canvas none
+  #hardware          ink    51.2 ..   441.6   canvas 0.0..1280.0 maxW=none padL=51.2px
+  #content-universe  ink    51.2 ..  1228.8   canvas 0.0..1280.0 maxW=none padL=51.2px
+  #closing           ink    51.2 ..   293.2   canvas 0.0..1280.0 maxW=1536px padL=51.2px
+  footer             ink    51.2 ..  1228.8   canvas 0.0..1280.0 maxW=1536px padL=51.2px
+
+=== 1440px (clientWidth 1440, root 16px) ===
+  #hero              ink   158.4 ..  1383.7   canvas 0.0..1440.0 maxW=1536px padL=0px
+  #creator           ink   777.6 ..  1342.6   canvas 720.0..1440.0 maxW=none padL=57.6px
+  #featured          ink    57.6 ..  3365.6   canvas none
+  #hardware          ink    57.6 ..     570   canvas 0.0..1440.0 maxW=none padL=57.6px
+  #content-universe  ink    57.6 ..  1382.4   canvas 0.0..1440.0 maxW=none padL=57.6px
+  #closing           ink    57.6 ..   299.6   canvas 0.0..1440.0 maxW=1536px padL=57.6px
+  footer             ink    57.6 ..  1382.4   canvas 0.0..1440.0 maxW=1536px padL=57.6px
+
+=== 1536px (clientWidth 1536, root 16px) ===
+  #hero              ink     169 ..  1476.4   canvas 0.0..1536.0 maxW=1536px padL=0px
+  #creator           ink   829.4 ..  1398.1   canvas 768.0..1536.0 maxW=none padL=61.44px
+  #featured          ink    61.4 ..  3508.3   canvas none
+  #hardware          ink    61.4 ..   573.8   canvas 0.0..1536.0 maxW=none padL=61.44px
+  #content-universe  ink    61.4 ..  1474.5   canvas 0.0..1536.0 maxW=none padL=61.44px
+  #closing           ink    61.4 ..   303.4   canvas 0.0..1536.0 maxW=1536px padL=61.44px
+  footer             ink    61.4 ..  1474.6   canvas 0.0..1536.0 maxW=1536px padL=61.44px
+
+=== 1920px (clientWidth 1920, root 16.362px) ===
+  #hero              ink   347.4 ..  1684.3   canvas 174.6..1745.4 maxW=1570.75px padL=0px
+  #creator           ink  1025.4 ..  1848.4   canvas 960.0..1920.0 maxW=none padL=65.448px
+  #featured          ink    65.4 ..  4288.8   canvas none
+  #hardware          ink    65.4 ..   589.4   canvas 0.0..1920.0 maxW=none padL=65.448px
+  #content-universe  ink    65.4 ..  1854.5   canvas 0.0..1920.0 maxW=none padL=65.448px
+  #closing           ink   240.1 ..     487   canvas 174.6..1745.4 maxW=1570.75px padL=65.448px
+  footer             ink   240.1 ..  1679.9   canvas 174.6..1745.4 maxW=1570.75px padL=65.448px
+
+
+==============================================================================
+H. Screenshot pixel diff of other sections - INSTRUMENT REJECTED, see report
+==============================================================================
+      9684 px (  1.56%)  closing-1024x768-es-dark.png
+      3607 px (  0.39%)  closing-1440x900-en-dark.png
+       676 px (  0.05%)  closing-1920x1080-fr-light.png
+         0 px (  0.00%)  closing-320x568-fr-light.png
+         0 px (  0.00%)  closing-390x844-en-dark.png
+     62434 px (  2.63%)  content-universe-1024x768-es-dark.png
+     14726 px (  0.41%)  content-universe-1440x900-en-dark.png
+      4793 px (  0.09%)  content-universe-1920x1080-fr-light.png
+     18623 px (  2.79%)  content-universe-320x568-fr-light.png
+         0 px (  0.00%)  content-universe-390x844-en-dark.png
+     37806 px (  1.33%)  featured-1024x768-es-dark.png
+   1634613 px ( 31.54%)  featured-1440x900-en-dark.png
+   2716688 px ( 30.71%)  featured-1920x1080-fr-light.png
+         0 px (  0.00%)  featured-320x568-fr-light.png
+         0 px (  0.00%)  featured-390x844-en-dark.png
+      5021 px (  3.25%)  footer-1024x768-es-dark.png
+         0 px (  0.00%)  footer-1440x900-en-dark.png
+         0 px (  0.00%)  footer-1920x1080-fr-light.png
+         0 px (  0.00%)  footer-320x568-fr-light.png
+         0 px (  0.00%)  footer-390x844-en-dark.png
+     38388 px (  2.85%)  hardware-1024x768-es-dark.png
+      3067 px (  0.19%)  hardware-1440x900-en-dark.png
+     18497 px (  0.77%)  hardware-1920x1080-fr-light.png
+         0 px (  0.00%)  hardware-320x568-fr-light.png
+      5551 px (  0.99%)  hardware-390x844-en-dark.png
+         0 px (  0.00%)  hero-1024x768-es-dark.png
+     37977 px (  2.93%)  hero-1440x900-en-dark.png
+    139255 px (  6.72%)  hero-1920x1080-fr-light.png
+      9652 px (  1.03%)  hero-320x568-fr-light.png
+      1475 px (  0.17%)  hero-390x844-en-dark.png
+  total changed: 4762533
+
+
+==============================================================================
+I. Noise floor: the SAME build screenshotted twice, proving H is unusable
+==============================================================================
+         0 px (  0.00%)  closing-1024x768-es-dark.png
+      3607 px (  0.39%)  closing-1440x900-en-dark.png
+         0 px (  0.00%)  closing-1920x1080-fr-light.png
+         0 px (  0.00%)  closing-320x568-fr-light.png
+         0 px (  0.00%)  closing-390x844-en-dark.png
+      6851 px (  0.29%)  content-universe-1024x768-es-dark.png
+     39899 px (  1.12%)  content-universe-1440x900-en-dark.png
+         0 px (  0.00%)  content-universe-1920x1080-fr-light.png
+     19624 px (  2.94%)  content-universe-320x568-fr-light.png
+     36916 px (  4.53%)  content-universe-390x844-en-dark.png
+         0 px (  0.00%)  featured-1024x768-es-dark.png
+   1634613 px ( 31.54%)  featured-1440x900-en-dark.png
+         0 px (  0.00%)  featured-1920x1080-fr-light.png
+         0 px (  0.00%)  featured-320x568-fr-light.png
+         0 px (  0.00%)  featured-390x844-en-dark.png
+         0 px (  0.00%)  footer-1024x768-es-dark.png
+         0 px (  0.00%)  footer-1440x900-en-dark.png
+         0 px (  0.00%)  footer-1920x1080-fr-light.png
+         0 px (  0.00%)  footer-320x568-fr-light.png
+         0 px (  0.00%)  footer-390x844-en-dark.png
+      9646 px (  0.72%)  hardware-1024x768-es-dark.png
+      3067 px (  0.19%)  hardware-1440x900-en-dark.png
+         0 px (  0.00%)  hardware-1920x1080-fr-light.png
+     13074 px (  2.80%)  hardware-320x568-fr-light.png
+     19171 px (  3.40%)  hardware-390x844-en-dark.png
+         0 px (  0.00%)  hero-1024x768-es-dark.png
+     35477 px (  2.74%)  hero-1440x900-en-dark.png
+    147408 px (  7.11%)  hero-1920x1080-fr-light.png
+    181299 px ( 19.42%)  hero-320x568-fr-light.png
+       196 px (  0.02%)  hero-390x844-en-dark.png
+  total changed: 2150848
+
+
+==============================================================================
+J. Layout regression, all other sections, 42 combinations - all elements
+==============================================================================
+combinations: 42, identical: 34, with differences: 8
+differing elements in total: 104
+by section: {"#featured":32,"#content-universe":72}
+  1024x768|en|dark #featured
+    A: 54|DIV||0.0|-3905.0|0.0|0.0|rgb(245, 245, 243)|rgba(0, 0, 0, 0)|17.76px|26.64px|1|none|none|
+    B: 54|DIV||0.0|-3973.3|0.0|0.0|rgb(245, 245, 243)|rgba(0, 0, 0, 0)|17.76px|26.64px|1|none|none|
+  1024x768|en|dark #featured
+    A: 55|SPAN|.|0.0|-3905.0|0.0|0.0|rgb(245, 245, 243)|rgb(53, 199, 214)|17.76px|26.64px|1|inline|none|
+    B: 55|SPAN|.|0.0|-3973.3|0.0|0.0|rgb(245, 245, 243)|rgb(53, 199, 214)|17.76px|26.64px|1|inline|none|
+  1024x768|en|dark #featured
+    A: 56|SPAN||0.0|-3905.0|0.0|0.0|rgb(245, 245, 243)|color(srgb 0.960784 0.960784 0.952941 / 0.2)|17.76px|26.64px|1|inline|none|
+    B: 56|SPAN||0.0|-3973.3|0.0|0.0|rgb(245, 245, 243)|color(srgb 0.960784 0.960784 0.952941 / 0.2)|17.76px|26.64px|1|inline|none|
+  1024x768|en|dark #featured
+    A: 57|SPAN||0.0|-3905.0|0.0|0.0|rgb(245, 245, 243)|color(srgb 0.960784 0.960784 0.952941 / 0.2)|17.76px|26.64px|1|inline|none|
+    B: 57|SPAN||0.0|-3973.3|0.0|0.0|rgb(245, 245, 243)|color(srgb 0.960784 0.960784 0.952941 / 0.2)|17.76px|26.64px|1|inline|none|
+  1024x768|en|dark #content-universe
+    A: 13|SPAN||0.0|-9046.3|0.0|0.0|rgb(245, 245, 243)|rgba(0, 0, 0, 0)|17.76px|26.64px|0.35|none|none|
+    B: 13|SPAN||0.0|-9114.7|0.0|0.0|rgb(245, 245, 243)|rgba(0, 0, 0, 0)|17.76px|26.64px|0.35|none|none|
+  1024x768|en|dark #content-universe
+    A: 15|defs||0.0|-9046.3|0.0|0.0|rgb(245, 245, 243)|rgba(0, 0, 0, 0)|17.76px|26.64px|1|inline|none|
+    B: 15|defs||0.0|-9114.7|0.0|0.0|rgb(245, 245, 243)|rgba(0, 0, 0, 0)|17.76px|26.64px|1|inline|none|
+  1024x768|en|dark #content-universe
+    A: 16|linearGradient||0.0|-9046.3|0.0|0.0|rgb(245, 245, 243)|rgba(0, 0, 0, 0)|17.76px|26.64px|1|inline|none|
+    B: 16|linearGradient||0.0|-9114.7|0.0|0.0|rgb(245, 245, 243)|rgba(0, 0, 0, 0)|17.76px|26.64px|1|inline|none|
+  1024x768|en|dark #content-universe
+    A: 17|stop||0.0|-9046.3|0.0|0.0|rgb(245, 245, 243)|rgba(0, 0, 0, 0)|17.76px|26.64px|1|inline|none|
+    B: 17|stop||0.0|-9114.7|0.0|0.0|rgb(245, 245, 243)|rgba(0, 0, 0, 0)|17.76px|26.64px|1|inline|none|
+  1024x768|en|dark #content-universe
+    A: 18|stop||0.0|-9046.3|0.0|0.0|rgb(245, 245, 243)|rgba(0, 0, 0, 0)|17.76px|26.64px|1|inline|none|
+    B: 18|stop||0.0|-9114.7|0.0|0.0|rgb(245, 245, 243)|rgba(0, 0, 0, 0)|17.76px|26.64px|1|inline|none|
+  1024x768|en|dark #content-universe
+    A: 19|stop||0.0|-9046.3|0.0|0.0|rgb(245, 245, 243)|rgba(0, 0, 0, 0)|17.76px|26.64px|1|inline|none|
+    B: 19|stop||0.0|-9114.7|0.0|0.0|rgb(245, 245, 243)|rgba(0, 0, 0, 0)|17.76px|26.64px|1|inline|none|
+  1024x768|en|dark #content-universe
+    A: 21|DIV||0.0|-9046.3|0.0|0.0|rgb(245, 245, 243)|rgba(0, 0, 0, 0)|17.76px|26.64px|1|contents|none|HardwareCustom BuildsBudget rigs, extrem
+    B: 21|DIV||0.0|-9114.7|0.0|0.0|rgb(245, 245, 243)|rgba(0, 0, 0, 0)|17.76px|26.64px|1|contents|none|HardwareCustom BuildsBudget rigs, extrem
+  1024x768|en|dark #content-universe
+    A: 39|DIV||0.0|-9046.3|0.0|0.0|rgb(245, 245, 243)|rgba(0, 0, 0, 0)|17.76px|26.64px|1|contents|none|TechNewsControversiesScamTechBudget Gear
+    B: 39|DIV||0.0|-9114.7|0.0|0.0|rgb(245, 245, 243)|rgba(0, 0, 0, 0)|17.76px|26.64px|1|contents|none|TechNewsControversiesScamTechBudget Gear
+  1024x768|en|dark #content-universe
+    A: 50|DIV||0.0|-9046.3|0.0|0.0|rgb(245, 245, 243)|rgba(0, 0, 0, 0)|17.76px|26.64px|1|contents|none|EmergingTechAI ToolsCommunityStorytellin
+    B: 50|DIV||0.0|-9114.7|0.0|0.0|rgb(245, 245, 243)|rgba(0, 0, 0, 0)|17.76px|26.64px|1|contents|none|EmergingTechAI ToolsCommunityStorytellin
+  1024x768|en|light #featured
+    A: 54|DIV||0.0|-3905.0|0.0|0.0|rgb(21, 21, 22)|rgba(0, 0, 0, 0)|17.76px|26.64px|1|none|none|
+    B: 54|DIV||0.0|-3973.3|0.0|0.0|rgb(21, 21, 22)|rgba(0, 0, 0, 0)|17.76px|26.64px|1|none|none|
+  1024x768|en|light #featured
+    A: 55|SPAN|.|0.0|-3905.0|0.0|0.0|rgb(21, 21, 22)|rgb(20, 114, 123)|17.76px|26.64px|1|inline|none|
+    B: 55|SPAN|.|0.0|-3973.3|0.0|0.0|rgb(21, 21, 22)|rgb(20, 114, 123)|17.76px|26.64px|1|inline|none|
+  1024x768|en|light #featured
+    A: 56|SPAN||0.0|-3905.0|0.0|0.0|rgb(21, 21, 22)|color(srgb 0.0823529 0.0823529 0.0862745 / 0.2)|17.76px|26.64px|1|inline|none|
+    B: 56|SPAN||0.0|-3973.3|0.0|0.0|rgb(21, 21, 22)|color(srgb 0.0823529 0.0823529 0.0862745 / 0.2)|17.76px|26.64px|1|inline|none|
+  1024x768|en|light #featured
+    A: 57|SPAN||0.0|-3905.0|0.0|0.0|rgb(21, 21, 22)|color(srgb 0.0823529 0.0823529 0.0862745 / 0.2)|17.76px|26.64px|1|inline|none|
+    B: 57|SPAN||0.0|-3973.3|0.0|0.0|rgb(21, 21, 22)|color(srgb 0.0823529 0.0823529 0.0862745 / 0.2)|17.76px|26.64px|1|inline|none|
+  1024x768|en|light #content-universe
+    A: 13|SPAN||0.0|-9046.3|0.0|0.0|rgb(21, 21, 22)|rgba(0, 0, 0, 0)|17.76px|26.64px|0.35|none|none|
+    B: 13|SPAN||0.0|-9114.7|0.0|0.0|rgb(21, 21, 22)|rgba(0, 0, 0, 0)|17.76px|26.64px|0.35|none|none|
+  1024x768|en|light #content-universe
+    A: 15|defs||0.0|-9046.3|0.0|0.0|rgb(21, 21, 22)|rgba(0, 0, 0, 0)|17.76px|26.64px|1|inline|none|
+    B: 15|defs||0.0|-9114.7|0.0|0.0|rgb(21, 21, 22)|rgba(0, 0, 0, 0)|17.76px|26.64px|1|inline|none|
+  1024x768|en|light #content-universe
+    A: 16|linearGradient||0.0|-9046.3|0.0|0.0|rgb(21, 21, 22)|rgba(0, 0, 0, 0)|17.76px|26.64px|1|inline|none|
+    B: 16|linearGradient||0.0|-9114.7|0.0|0.0|rgb(21, 21, 22)|rgba(0, 0, 0, 0)|17.76px|26.64px|1|inline|none|
+  1024x768|en|light #content-universe
+    A: 17|stop||0.0|-9046.3|0.0|0.0|rgb(21, 21, 22)|rgba(0, 0, 0, 0)|17.76px|26.64px|1|inline|none|
+    B: 17|stop||0.0|-9114.7|0.0|0.0|rgb(21, 21, 22)|rgba(0, 0, 0, 0)|17.76px|26.64px|1|inline|none|
+  1024x768|en|light #content-universe
+    A: 18|stop||0.0|-9046.3|0.0|0.0|rgb(21, 21, 22)|rgba(0, 0, 0, 0)|17.76px|26.64px|1|inline|none|
+    B: 18|stop||0.0|-9114.7|0.0|0.0|rgb(21, 21, 22)|rgba(0, 0, 0, 0)|17.76px|26.64px|1|inline|none|
+  1024x768|en|light #content-universe
+    A: 19|stop||0.0|-9046.3|0.0|0.0|rgb(21, 21, 22)|rgba(0, 0, 0, 0)|17.76px|26.64px|1|inline|none|
+    B: 19|stop||0.0|-9114.7|0.0|0.0|rgb(21, 21, 22)|rgba(0, 0, 0, 0)|17.76px|26.64px|1|inline|none|
+  1024x768|en|light #content-universe
+    A: 21|DIV||0.0|-9046.3|0.0|0.0|rgb(21, 21, 22)|rgba(0, 0, 0, 0)|17.76px|26.64px|1|contents|none|HardwareCustom BuildsBudget rigs, extrem
+    B: 21|DIV||0.0|-9114.7|0.0|0.0|rgb(21, 21, 22)|rgba(0, 0, 0, 0)|17.76px|26.64px|1|contents|none|HardwareCustom BuildsBudget rigs, extrem
+  1024x768|en|light #content-universe
+    A: 39|DIV||0.0|-9046.3|0.0|0.0|rgb(21, 21, 22)|rgba(0, 0, 0, 0)|17.76px|26.64px|1|contents|none|TechNewsControversiesScamTechBudget Gear
+    B: 39|DIV||0.0|-9114.7|0.0|0.0|rgb(21, 21, 22)|rgba(0, 0, 0, 0)|17.76px|26.64px|1|contents|none|TechNewsControversiesScamTechBudget Gear
+  1024x768|en|light #content-universe
+    A: 50|DIV||0.0|-9046.3|0.0|0.0|rgb(21, 21, 22)|rgba(0, 0, 0, 0)|17.76px|26.64px|1|contents|none|EmergingTechAI ToolsCommunityStorytellin
+    B: 50|DIV||0.0|-9114.7|0.0|0.0|rgb(21, 21, 22)|rgba(0, 0, 0, 0)|17.76px|26.64px|1|contents|none|EmergingTechAI ToolsCommunityStorytellin
+  1024x768|fr|dark #featured
+    A: 54|DIV||0.0|-3919.8|0.0|0.0|rgb(245, 245, 243)|rgba(0, 0, 0, 0)|17.76px|26.64px|1|none|none|
+    B: 54|DIV||0.0|-3961.4|0.0|0.0|rgb(245, 245, 243)|rgba(0, 0, 0, 0)|17.76px|26.64px|1|none|none|
+  1024x768|fr|dark #featured
+    A: 55|SPAN|.|0.0|-3919.8|0.0|0.0|rgb(245, 245, 243)|rgb(53, 199, 214)|17.76px|26.64px|1|inline|none|
+    B: 55|SPAN|.|0.0|-3961.4|0.0|0.0|rgb(245, 245, 243)|rgb(53, 199, 214)|17.76px|26.64px|1|inline|none|
+  1024x768|fr|dark #featured
+    A: 56|SPAN||0.0|-3919.8|0.0|0.0|rgb(245, 245, 243)|color(srgb 0.960784 0.960784 0.952941 / 0.2)|17.76px|26.64px|1|inline|none|
+    B: 56|SPAN||0.0|-3961.4|0.0|0.0|rgb(245, 245, 243)|color(srgb 0.960784 0.960784 0.952941 / 0.2)|17.76px|26.64px|1|inline|none|
+  1024x768|fr|dark #featured
+    A: 57|SPAN||0.0|-3919.8|0.0|0.0|rgb(245, 245, 243)|color(srgb 0.960784 0.960784 0.952941 / 0.2)|17.76px|26.64px|1|inline|none|
+    B: 57|SPAN||0.0|-3961.4|0.0|0.0|rgb(245, 245, 243)|color(srgb 0.960784 0.960784 0.952941 / 0.2)|17.76px|26.64px|1|inline|none|
+
+document height / Creator box, per combination:
+   320x568|en|dark        doc  10669 ->  10669   #creator  320.0x1000.4 ->  320.0x1000.4   hOverflow 0 -> 0
+   320x568|en|light       doc  10669 ->  10669   #creator  320.0x1000.4 ->  320.0x1000.4   hOverflow 0 -> 0
+   320x568|fr|dark        doc  10902 ->  10902   #creator   320.0x977.0 ->   320.0x977.0   hOverflow 0 -> 0
+   320x568|fr|light       doc  10902 ->  10902   #creator   320.0x977.0 ->   320.0x977.0   hOverflow 0 -> 0
+   320x568|es|dark        doc  10953 ->  10953   #creator   320.0x977.0 ->   320.0x977.0   hOverflow 0 -> 0
+   320x568|es|light       doc  10953 ->  10953   #creator   320.0x977.0 ->   320.0x977.0   hOverflow 0 -> 0
+   390x844|en|dark        doc  10108 ->  10108   #creator   390.0x996.4 ->   390.0x996.4   hOverflow 0 -> 0
+   390x844|en|light       doc  10108 ->  10108   #creator   390.0x996.4 ->   390.0x996.4   hOverflow 0 -> 0
+   390x844|fr|dark        doc  10164 ->  10164   #creator   390.0x956.0 ->   390.0x956.0   hOverflow 0 -> 0
+   390x844|fr|light       doc  10164 ->  10164   #creator   390.0x956.0 ->   390.0x956.0   hOverflow 0 -> 0
+   390x844|es|dark        doc  10278 ->  10278   #creator   390.0x956.0 ->   390.0x956.0   hOverflow 0 -> 0
+   390x844|es|light       doc  10278 ->  10278   #creator   390.0x956.0 ->   390.0x956.0   hOverflow 0 -> 0
+   768x1024|en|dark       doc  12045 ->  12045   #creator  768.0x1166.3 ->  768.0x1166.3   hOverflow 0 -> 0
+   768x1024|en|light      doc  12045 ->  12045   #creator  768.0x1166.3 ->  768.0x1166.3   hOverflow 0 -> 0
+   768x1024|fr|dark       doc  12138 ->  12138   #creator  768.0x1139.9 ->  768.0x1139.9   hOverflow 0 -> 0
+   768x1024|fr|light      doc  12138 ->  12138   #creator  768.0x1139.9 ->  768.0x1139.9   hOverflow 0 -> 0
+   768x1024|es|dark       doc  12174 ->  12174   #creator  768.0x1139.9 ->  768.0x1139.9   hOverflow 0 -> 0
+   768x1024|es|light      doc  12174 ->  12174   #creator  768.0x1139.9 ->  768.0x1139.9   hOverflow 0 -> 0
+ * 1024x768|en|dark       doc  11278 ->  11346   #creator  1024.0x768.0 ->  1024.0x836.3   hOverflow 0 -> 0
+ * 1024x768|en|light      doc  11278 ->  11346   #creator  1024.0x768.0 ->  1024.0x836.3   hOverflow 0 -> 0
+ * 1024x768|fr|dark       doc  11349 ->  11391   #creator  1024.0x768.0 ->  1024.0x809.6   hOverflow 0 -> 0
+ * 1024x768|fr|light      doc  11349 ->  11391   #creator  1024.0x768.0 ->  1024.0x809.6   hOverflow 0 -> 0
+ * 1024x768|es|dark       doc  11497 ->  11538   #creator  1024.0x768.0 ->  1024.0x809.6   hOverflow 0 -> 0
+ * 1024x768|es|light      doc  11497 ->  11538   #creator  1024.0x768.0 ->  1024.0x809.6   hOverflow 0 -> 0
+ * 1280x800|en|dark       doc   9627 ->   9657   #creator  1280.0x800.0 ->  1280.0x830.5   hOverflow 0 -> 0
+ * 1280x800|en|light      doc   9627 ->   9657   #creator  1280.0x800.0 ->  1280.0x830.5   hOverflow 0 -> 0
+   1280x800|fr|dark       doc   9646 ->   9646   #creator  1280.0x800.0 ->  1280.0x800.0   hOverflow 0 -> 0
+   1280x800|fr|light      doc   9646 ->   9646   #creator  1280.0x800.0 ->  1280.0x800.0   hOverflow 0 -> 0
+   1280x800|es|dark       doc   9778 ->   9778   #creator  1280.0x800.0 ->  1280.0x800.0   hOverflow 0 -> 0
+   1280x800|es|light      doc   9778 ->   9778   #creator  1280.0x800.0 ->  1280.0x800.0   hOverflow 0 -> 0
+   1440x900|en|dark       doc   9989 ->   9989   #creator  1440.0x900.0 ->  1440.0x900.0   hOverflow 0 -> 0
+   1440x900|en|light      doc   9989 ->   9989   #creator  1440.0x900.0 ->  1440.0x900.0   hOverflow 0 -> 0
+   1440x900|fr|dark       doc  10087 ->  10087   #creator  1440.0x900.0 ->  1440.0x900.0   hOverflow 0 -> 0
+   1440x900|fr|light      doc  10087 ->  10087   #creator  1440.0x900.0 ->  1440.0x900.0   hOverflow 0 -> 0
+   1440x900|es|dark       doc  10141 ->  10141   #creator  1440.0x900.0 ->  1440.0x900.0   hOverflow 0 -> 0
+   1440x900|es|light      doc  10141 ->  10141   #creator  1440.0x900.0 ->  1440.0x900.0   hOverflow 0 -> 0
+   1920x1080|en|dark      doc  12009 ->  12009   #creator 1920.0x1080.0 -> 1920.0x1080.0   hOverflow 0 -> 0
+   1920x1080|en|light     doc  12009 ->  12009   #creator 1920.0x1080.0 -> 1920.0x1080.0   hOverflow 0 -> 0
+   1920x1080|fr|dark      doc  12088 ->  12088   #creator 1920.0x1080.0 -> 1920.0x1080.0   hOverflow 0 -> 0
+   1920x1080|fr|light     doc  12088 ->  12088   #creator 1920.0x1080.0 -> 1920.0x1080.0   hOverflow 0 -> 0
+   1920x1080|es|dark      doc  12149 ->  12149   #creator 1920.0x1080.0 -> 1920.0x1080.0   hOverflow 0 -> 0
+   1920x1080|es|light     doc  12149 ->  12149   #creator 1920.0x1080.0 -> 1920.0x1080.0   hOverflow 0 -> 0
+
+
+==============================================================================
+K. Layout regression - counting only elements that occupy space
+==============================================================================
+combinations: 42, identical: 42, with differences: 0
+differing elements in total: 0
+
+document height / Creator box, per combination:
+
+

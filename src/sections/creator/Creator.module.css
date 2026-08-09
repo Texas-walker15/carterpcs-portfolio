@@ -4,6 +4,13 @@
   min-height: 100vh;
   display: flex;
   flex-direction: column;
+  /* The bar's "Process" link targets this section. Without this, the jump
+     landed the section flush at scroll 0 and the metadata line and kicker
+     were printed INSIDE the fixed bar — measured: 2 elements behind the bar
+     at 1024x768 and 1280x800, 4 at 390px. Every other bar target already
+     carries the same 6rem (see Featured/Hardware/Content Universe/Closing);
+     this section was the one that did not. */
+  scroll-margin-block-start: 6rem;
 }
 
 /* Hero → Creator transition: a hairline that picks up exactly where Hero's
@@ -37,6 +44,26 @@
     var(--color-text-primary) 14%,
     transparent
   );
+}
+
+/* ===== Left anchor =====
+   An environmental drafting grid the numeral sits on, so the left half reads
+   as a deliberate technical field rather than as unused space. Three CSS
+   gradients, no asset and no extra glyph: a vertical rule on the section's
+   own left content margin, then a square grid phased to start from that same
+   margin, all dissolved by a radial mask so the field has no hard edges and
+   fades out well before the type column.
+
+   Desktop and tablet only — see the display: none default. Below 1024px the
+   stage is a normal in-flow block and the approved mobile composition has no
+   room for a background field.
+
+   Painted UNDER the stage: it is a sibling that comes first in the DOM, so
+   with .canvas at z-index 1 and .stage positioned after it, the order is
+   anchor -> stage glow -> numeral -> type. */
+
+.anchor {
+  display: none;
 }
 
 /* ===== Media stage =====
@@ -196,7 +223,17 @@
   gap: var(--space-2);
   max-width: 52ch;
   font-size: var(--font-size-body);
-  color: var(--color-text-muted);
+  /* Lifted off the muted token without reaching for the primary one: the copy
+     read too dim against the near-black ground, but it must stay clearly
+     subordinate to the headline, which IS primary. Measured on the dark
+     ground: 7.68:1 before, 10.2:1 now, against the headline's 17.6:1 — so it
+     gains readability and still loses to the headline. Light theme moves
+     5.77:1 -> 8.29:1 by the same rule, no per-theme override needed. */
+  color: color-mix(
+    in srgb,
+    var(--color-text-primary) 30%,
+    var(--color-text-muted)
+  );
 }
 
 .footer {
@@ -220,6 +257,58 @@
     display: grid;
     grid-template-columns: repeat(12, 1fr);
     align-items: center;
+  }
+
+  .anchor {
+    display: block;
+    position: absolute;
+    z-index: 0;
+    inset-block: 0;
+    inset-inline-start: 0;
+    inline-size: min(46%, 46rem);
+    /* Decorative and behind everything, but it still covers the left half —
+       it must never take a click. */
+    pointer-events: none;
+    background-image:
+      /* 1. the section's own left content margin, drawn */
+      linear-gradient(
+        to right,
+        color-mix(in srgb, var(--color-text-primary) 9%, transparent),
+        color-mix(in srgb, var(--color-text-primary) 9%, transparent)
+      ),
+      /* 2. verticals, phased from that same margin */
+        linear-gradient(
+          to right,
+          color-mix(in srgb, var(--color-text-primary) 5%, transparent) 0 1px,
+          transparent 1px
+        ),
+      /* 3. horizontals */
+        linear-gradient(
+          to bottom,
+          color-mix(in srgb, var(--color-text-primary) 5%, transparent) 0 1px,
+          transparent 1px
+        );
+    /* Sized per layer so the pitch is exact and the tiles never wrap with a
+       seam, which is what a repeating-linear-gradient would do here. */
+    background-size:
+      1px 100%,
+      5.5rem 100%,
+      100% 5.5rem;
+    background-position:
+      var(--container-padding-inline) 0,
+      var(--container-padding-inline) 0,
+      0 50%;
+    background-repeat: no-repeat, repeat, repeat;
+    /* Dissolves the field on every side. The vertical radius is deliberately
+       short so the grid — and especially the margin rule — fades out before
+       it reaches either seam; run edge to edge it read as a stray border
+       rather than as texture. */
+    mask-image: radial-gradient(
+      116% 58% at 22% 47%,
+      rgb(0 0 0) 0%,
+      rgb(0 0 0 / 52%) 40%,
+      transparent 76%
+    );
   }
 
   .stage {
@@ -257,15 +346,55 @@
 
   .stageNumeral {
     inset-block-start: 32%;
-    inset-inline-start: 8%;
+    /* Landed ON the section's left content margin instead of bled off the
+       viewport edge. The stage starts at -6% of the section and is 48% of it
+       wide, so its overhang is exactly 6/48 = 12.5% of the stage's own width;
+       adding the shared page margin to that puts the glyph's left edge on the
+       same line as every other section's copy. Before, the "0" lost 22px at
+       1024 and 41px at 1920 to overflow: clip — a thin, width-dependent slice
+       that read as an accident rather than as a crop. */
+    inset-inline-start: calc(12.5% + var(--container-padding-inline));
     font-size: clamp(14rem, 9rem + 12vw, 20rem);
-    color: color-mix(in srgb, var(--color-text-primary) 12%, transparent);
+    /* Slightly firmer now that it is fully present and no longer half of it
+       is off-screen. Still environmental, still aria-hidden. */
+    color: color-mix(in srgb, var(--color-text-primary) 16%, transparent);
   }
 
   .canvas {
     order: initial;
-    grid-column: 7 / 13;
-    padding-block: var(--space-4);
+    /* One grid column further left, same six-column measure. Columns 6..11
+       instead of 7..12 keeps the block's width — and therefore every line
+       break in the headline and body — byte-identical, and only moves it.
+       Measured at 1440: the gap between the numeral's ink and the first
+       character of the type ran 438px; this and the numeral's own move close
+       it to 230px. */
+    grid-column: 6 / 12;
+    /* Anchored to the top of the row rather than centred in it. Centring split
+       the section's leftover height evenly, so the band above the metadata line
+       was a function of how tall the copy happened to be — 122px in English at
+       1440x900 but 227px in French at 1920x1080, for the same design. Anchoring
+       makes that band one value in every language, and moves the slack below the
+       type where the stage's glow already occupies it.
+
+       The offset is near-constant on purpose: the floor is set by the fixed bar
+       (80px tall, 89px at 1920 where the root font grows), so the band cannot
+       usefully shrink below it, and above that there is nothing to gain by
+       letting it grow with the viewport. Measured gap from the bar to the
+       metadata line, before -> after: -29.2 -> 28.5 at 1024x768 and -9.7 -> 33
+       at 1280x800 (both negative before, i.e. the copy was inside the bar),
+       42.4 -> 37 at 1440x900, 97.5 -> 37 at 1536x1024, 61.8 -> 41.6 at
+       1920x1080, and the French worst case 138 -> 41.6. The vh term only pulls
+       the offset back in on short viewports, where the section has no height to
+       spare. */
+    align-self: start;
+    padding-block: min(7.25rem, 14vh) var(--space-4);
+  }
+
+  .body {
+    /* Matches Hero's support paragraph (1.7). At 1.5 this was the tightest
+       body measure on the site, under the largest headline. Desktop only:
+       the approved mobile block keeps its own rhythm. */
+    line-height: 1.7;
   }
 
   .headline {

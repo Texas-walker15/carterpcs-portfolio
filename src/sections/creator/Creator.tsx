@@ -113,6 +113,12 @@ function Creator() {
     <section id="creator" className={styles.creator} ref={rootRef}>
       <span className={styles.seam} aria-hidden="true" />
 
+      {/* Environmental drafting grid under the numeral — three CSS gradients,
+          no asset and no extra copy. First in the DOM so it paints beneath
+          the stage's glow and the numeral. Desktop/tablet only; see .anchor
+          in Creator.module.css. */}
+      <span className={styles.anchor} aria-hidden="true" />
+
       <div className={styles.canvas}>
         <p className={styles.meta} data-reveal>
           <span>{t.creator.metaLabel}</span>
