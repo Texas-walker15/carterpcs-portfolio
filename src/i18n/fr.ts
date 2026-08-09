@@ -144,4 +144,16 @@ export const fr: Dictionary = {
     headlineLineTwo: 'intéressante.',
     backToTop: 'Haut de page',
   },
+
+  /* `copyright` is the name only — the "©" and the year are composed in
+     Footer.tsx. It follows this file's own `meta.title` wording. */
+  footer: {
+    copyright: 'CarterPCs — Concept de portfolio',
+    disclaimer: 'Aucune affiliation ni approbation impliquée.',
+    a11y: {
+      footerNavigation: 'Pied de page',
+      socialLinks: 'Réseaux sociaux',
+      opensInNewTab: 'ouvre dans un nouvel onglet',
+    },
+  },
 }

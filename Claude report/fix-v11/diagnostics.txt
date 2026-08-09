@@ -1,0 +1,301 @@
+CarterPCs fix-v11 — Footer diagnostics
+Generated 2026-08-09. Measured in headless Chromium against a production
+build served by vite preview.
+
+############################################################
+# 1. FOOTER SWEEP
+#    12 viewports x 3 languages x 2 themes = 72 combinations.
+#    h            footer height (px)
+#    ovf          page horizontal overflow
+#    pastCanvas   furthest ink past the canvas padding box
+#    links        anchors in the footer (expected 9)
+#    overlaps     pairwise overlapping link boxes
+#    small        links whose hit-tested target is under 24px
+#    unsafe       external links missing target=_blank or rel=noreferrer
+############################################################
+
+320x568    en dark  h= 274.3 ovf=0 pastCanvas=     0 links=9 overlaps=0 small=0 unsafe=0 contrastFails=0
+320x568    en light h= 274.3 ovf=0 pastCanvas=     0 links=9 overlaps=0 small=0 unsafe=0 contrastFails=0
+320x568    fr dark  h= 274.3 ovf=0 pastCanvas=     0 links=9 overlaps=0 small=0 unsafe=0 contrastFails=0
+320x568    fr light h= 274.3 ovf=0 pastCanvas=     0 links=9 overlaps=0 small=0 unsafe=0 contrastFails=0
+320x568    es dark  h= 274.3 ovf=0 pastCanvas=     0 links=9 overlaps=0 small=0 unsafe=0 contrastFails=0
+320x568    es light h= 274.3 ovf=0 pastCanvas=     0 links=9 overlaps=0 small=0 unsafe=0 contrastFails=0
+360x800    en dark  h= 274.3 ovf=0 pastCanvas=     0 links=9 overlaps=0 small=0 unsafe=0 contrastFails=0
+360x800    en light h= 274.3 ovf=0 pastCanvas=     0 links=9 overlaps=0 small=0 unsafe=0 contrastFails=0
+360x800    fr dark  h= 274.3 ovf=0 pastCanvas=     0 links=9 overlaps=0 small=0 unsafe=0 contrastFails=0
+360x800    fr light h= 274.3 ovf=0 pastCanvas=     0 links=9 overlaps=0 small=0 unsafe=0 contrastFails=0
+360x800    es dark  h= 274.3 ovf=0 pastCanvas=     0 links=9 overlaps=0 small=0 unsafe=0 contrastFails=0
+360x800    es light h= 274.3 ovf=0 pastCanvas=     0 links=9 overlaps=0 small=0 unsafe=0 contrastFails=0
+390x844    en dark  h= 274.3 ovf=0 pastCanvas=     0 links=9 overlaps=0 small=0 unsafe=0 contrastFails=0
+390x844    en light h= 274.3 ovf=0 pastCanvas=     0 links=9 overlaps=0 small=0 unsafe=0 contrastFails=0
+390x844    fr dark  h= 274.3 ovf=0 pastCanvas=     0 links=9 overlaps=0 small=0 unsafe=0 contrastFails=0
+390x844    fr light h= 274.3 ovf=0 pastCanvas=     0 links=9 overlaps=0 small=0 unsafe=0 contrastFails=0
+390x844    es dark  h= 274.3 ovf=0 pastCanvas=     0 links=9 overlaps=0 small=0 unsafe=0 contrastFails=0
+390x844    es light h= 274.3 ovf=0 pastCanvas=     0 links=9 overlaps=0 small=0 unsafe=0 contrastFails=0
+414x896    en dark  h= 274.3 ovf=0 pastCanvas=     0 links=9 overlaps=0 small=0 unsafe=0 contrastFails=0
+414x896    en light h= 274.3 ovf=0 pastCanvas=     0 links=9 overlaps=0 small=0 unsafe=0 contrastFails=0
+414x896    fr dark  h= 274.3 ovf=0 pastCanvas=     0 links=9 overlaps=0 small=0 unsafe=0 contrastFails=0
+414x896    fr light h= 274.3 ovf=0 pastCanvas=     0 links=9 overlaps=0 small=0 unsafe=0 contrastFails=0
+414x896    es dark  h= 274.3 ovf=0 pastCanvas=     0 links=9 overlaps=0 small=0 unsafe=0 contrastFails=0
+414x896    es light h= 274.3 ovf=0 pastCanvas=     0 links=9 overlaps=0 small=0 unsafe=0 contrastFails=0
+844x390    en dark  h= 152.7 ovf=0 pastCanvas=     0 links=9 overlaps=0 small=0 unsafe=0 contrastFails=0
+844x390    en light h= 152.7 ovf=0 pastCanvas=     0 links=9 overlaps=0 small=0 unsafe=0 contrastFails=0
+844x390    fr dark  h= 152.7 ovf=0 pastCanvas=     0 links=9 overlaps=0 small=0 unsafe=0 contrastFails=0
+844x390    fr light h= 152.7 ovf=0 pastCanvas=     0 links=9 overlaps=0 small=0 unsafe=0 contrastFails=0
+844x390    es dark  h= 152.7 ovf=0 pastCanvas=     0 links=9 overlaps=0 small=0 unsafe=0 contrastFails=0
+844x390    es light h= 152.7 ovf=0 pastCanvas=     0 links=9 overlaps=0 small=0 unsafe=0 contrastFails=0
+768x1024   en dark  h= 152.7 ovf=0 pastCanvas=     0 links=9 overlaps=0 small=0 unsafe=0 contrastFails=0
+768x1024   en light h= 152.7 ovf=0 pastCanvas=     0 links=9 overlaps=0 small=0 unsafe=0 contrastFails=0
+768x1024   fr dark  h= 188.2 ovf=0 pastCanvas=     0 links=9 overlaps=0 small=0 unsafe=0 contrastFails=0
+768x1024   fr light h= 188.2 ovf=0 pastCanvas=     0 links=9 overlaps=0 small=0 unsafe=0 contrastFails=0
+768x1024   es dark  h= 188.2 ovf=0 pastCanvas=     0 links=9 overlaps=0 small=0 unsafe=0 contrastFails=0
+768x1024   es light h= 188.2 ovf=0 pastCanvas=     0 links=9 overlaps=0 small=0 unsafe=0 contrastFails=0
+820x1180   en dark  h= 152.7 ovf=0 pastCanvas=     0 links=9 overlaps=0 small=0 unsafe=0 contrastFails=0
+820x1180   en light h= 152.7 ovf=0 pastCanvas=     0 links=9 overlaps=0 small=0 unsafe=0 contrastFails=0
+820x1180   fr dark  h= 152.7 ovf=0 pastCanvas=     0 links=9 overlaps=0 small=0 unsafe=0 contrastFails=0
+820x1180   fr light h= 152.7 ovf=0 pastCanvas=     0 links=9 overlaps=0 small=0 unsafe=0 contrastFails=0
+820x1180   es dark  h= 152.7 ovf=0 pastCanvas=     0 links=9 overlaps=0 small=0 unsafe=0 contrastFails=0
+820x1180   es light h= 152.7 ovf=0 pastCanvas=     0 links=9 overlaps=0 small=0 unsafe=0 contrastFails=0
+1024x768   en dark  h= 150.1 ovf=0 pastCanvas=     0 links=9 overlaps=0 small=0 unsafe=0 contrastFails=0
+1024x768   en light h= 150.1 ovf=0 pastCanvas=     0 links=9 overlaps=0 small=0 unsafe=0 contrastFails=0
+1024x768   fr dark  h= 150.1 ovf=0 pastCanvas=     0 links=9 overlaps=0 small=0 unsafe=0 contrastFails=0
+1024x768   fr light h= 150.1 ovf=0 pastCanvas=     0 links=9 overlaps=0 small=0 unsafe=0 contrastFails=0
+1024x768   es dark  h= 150.1 ovf=0 pastCanvas=     0 links=9 overlaps=0 small=0 unsafe=0 contrastFails=0
+1024x768   es light h= 150.1 ovf=0 pastCanvas=     0 links=9 overlaps=0 small=0 unsafe=0 contrastFails=0
+1280x800   en dark  h= 150.1 ovf=0 pastCanvas=     0 links=9 overlaps=0 small=0 unsafe=0 contrastFails=0
+1280x800   en light h= 150.1 ovf=0 pastCanvas=     0 links=9 overlaps=0 small=0 unsafe=0 contrastFails=0
+1280x800   fr dark  h= 150.1 ovf=0 pastCanvas=     0 links=9 overlaps=0 small=0 unsafe=0 contrastFails=0
+1280x800   fr light h= 150.1 ovf=0 pastCanvas=     0 links=9 overlaps=0 small=0 unsafe=0 contrastFails=0
+1280x800   es dark  h= 150.1 ovf=0 pastCanvas=     0 links=9 overlaps=0 small=0 unsafe=0 contrastFails=0
+1280x800   es light h= 150.1 ovf=0 pastCanvas=     0 links=9 overlaps=0 small=0 unsafe=0 contrastFails=0
+1440x900   en dark  h= 150.1 ovf=0 pastCanvas=     0 links=9 overlaps=0 small=0 unsafe=0 contrastFails=0
+1440x900   en light h= 150.1 ovf=0 pastCanvas=     0 links=9 overlaps=0 small=0 unsafe=0 contrastFails=0
+1440x900   fr dark  h= 150.1 ovf=0 pastCanvas=     0 links=9 overlaps=0 small=0 unsafe=0 contrastFails=0
+1440x900   fr light h= 150.1 ovf=0 pastCanvas=     0 links=9 overlaps=0 small=0 unsafe=0 contrastFails=0
+1440x900   es dark  h= 150.1 ovf=0 pastCanvas=     0 links=9 overlaps=0 small=0 unsafe=0 contrastFails=0
+1440x900   es light h= 150.1 ovf=0 pastCanvas=     0 links=9 overlaps=0 small=0 unsafe=0 contrastFails=0
+1536x1024  en dark  h= 150.1 ovf=0 pastCanvas=     0 links=9 overlaps=0 small=0 unsafe=0 contrastFails=0
+1536x1024  en light h= 150.1 ovf=0 pastCanvas=     0 links=9 overlaps=0 small=0 unsafe=0 contrastFails=0
+1536x1024  fr dark  h= 150.1 ovf=0 pastCanvas=     0 links=9 overlaps=0 small=0 unsafe=0 contrastFails=0
+1536x1024  fr light h= 150.1 ovf=0 pastCanvas=     0 links=9 overlaps=0 small=0 unsafe=0 contrastFails=0
+1536x1024  es dark  h= 150.1 ovf=0 pastCanvas=     0 links=9 overlaps=0 small=0 unsafe=0 contrastFails=0
+1536x1024  es light h= 150.1 ovf=0 pastCanvas=     0 links=9 overlaps=0 small=0 unsafe=0 contrastFails=0
+1920x1080  en dark  h= 168.1 ovf=0 pastCanvas=     0 links=9 overlaps=0 small=0 unsafe=0 contrastFails=0
+1920x1080  en light h= 168.1 ovf=0 pastCanvas=     0 links=9 overlaps=0 small=0 unsafe=0 contrastFails=0
+1920x1080  fr dark  h= 168.1 ovf=0 pastCanvas=     0 links=9 overlaps=0 small=0 unsafe=0 contrastFails=0
+1920x1080  fr light h= 168.1 ovf=0 pastCanvas=     0 links=9 overlaps=0 small=0 unsafe=0 contrastFails=0
+1920x1080  es dark  h= 168.1 ovf=0 pastCanvas=     0 links=9 overlaps=0 small=0 unsafe=0 contrastFails=0
+1920x1080  es light h= 168.1 ovf=0 pastCanvas=     0 links=9 overlaps=0 small=0 unsafe=0 contrastFails=0
+
+  Every row is clean. pastCanvas=0 is the expected value, not a
+  near-miss: the copy is left-aligned and starts exactly on the
+  canvas's padding edge.
+
+  Height, for the 'quieter than Closing' requirement:
+     footer   150-274px depending on viewport and language
+     Closing  495-734px over the same matrix (fix-v10 diagnostics)
+  Largest type in the footer is 13px; the Closing headline runs to 98px.
+
+############################################################
+# 2. LINKS — what the footer points at, in every language
+############################################################
+
+  language: en
+    internal  #featured                                      target=null rel=null
+    internal  #hardware                                      target=null rel=null
+    internal  #creator                                       target=null rel=null
+    internal  #featured                                      target=null rel=null
+    internal  #content-universe                              target=null rel=null
+    internal  #content-universe                              target=null rel=null
+    EXTERNAL  https://www.youtube.com/@actuallycarterpcs     target=_blank rel=noreferrer
+    EXTERNAL  https://www.instagram.com/carterpcs_/?hl=en    target=_blank rel=noreferrer
+    EXTERNAL  https://www.tiktok.com/@carterpcs?lang=en      target=_blank rel=noreferrer
+
+  language: fr
+    internal  #featured                                      target=null rel=null
+    internal  #hardware                                      target=null rel=null
+    internal  #creator                                       target=null rel=null
+    internal  #featured                                      target=null rel=null
+    internal  #content-universe                              target=null rel=null
+    internal  #content-universe                              target=null rel=null
+    EXTERNAL  https://www.youtube.com/@actuallycarterpcs     target=_blank rel=noreferrer
+    EXTERNAL  https://www.instagram.com/carterpcs_/?hl=en    target=_blank rel=noreferrer
+    EXTERNAL  https://www.tiktok.com/@carterpcs?lang=en      target=_blank rel=noreferrer
+
+  language: es
+    internal  #featured                                      target=null rel=null
+    internal  #hardware                                      target=null rel=null
+    internal  #creator                                       target=null rel=null
+    internal  #featured                                      target=null rel=null
+    internal  #content-universe                              target=null rel=null
+    internal  #content-universe                              target=null rel=null
+    EXTERNAL  https://www.youtube.com/@actuallycarterpcs     target=_blank rel=noreferrer
+    EXTERNAL  https://www.instagram.com/carterpcs_/?hl=en    target=_blank rel=noreferrer
+    EXTERNAL  https://www.tiktok.com/@carterpcs?lang=en      target=_blank rel=noreferrer
+
+  9 links exactly: the bar's six destinations (read from the one shared
+  list in components/navigation/sections.ts, so the two rows cannot
+  drift) and the three supplied profiles. No others, in any language.
+
+  Accessible names, per language — the visible platform name STARTS the
+  accessible name, so the new-tab warning does not replace the label
+  (WCAG 2.5.3 Label in Name):
+    en  'YouTube — opens in a new tab'
+    fr  'YouTube — ouvre dans un nouvel onglet'
+    es  'YouTube — se abre en una pestaña nueva'
+
+  Copyright line, rendered:
+    en  © 2026 CarterPCs Portfolio Concept
+    fr  © 2026 CarterPCs — Concept de portfolio
+    es  © 2026 CarterPCs — Concepto de portafolio
+
+  Audited for invention (footer only):
+    total anchors             9
+    internal                  6
+    external hosts            www.youtube.com, www.instagram.com, www.tiktok.com
+    unsafe external links     0
+    button/form/input         0
+    mailto: or tel:           none
+    digits in visible text    2026 (the copyright year) and nothing else
+
+############################################################
+# 3. TAP TARGETS — real hit test (elementFromPoint walked
+#    outward from each link's centre)
+############################################################
+
+  internal destination   smallest target 32.4 x 34  (432 samples)  PASS
+  external profile       smallest target 54.3 x 35  (216 samples)  PASS
+
+  WCAG 2.2 AA SC 2.5.8 asks for 24x24. The labels set a 16px line box;
+  vertical padding takes the target to 32px. Unlike the bar's links
+  there is no approved geometry to preserve here, so the target is
+  simply the right size rather than being enlarged by an overlay.
+
+  Pairwise overlap between footer links: 0 in all 72 combinations,
+  including 320px French and Spanish where the destinations wrap onto
+  two rows and the platforms onto their own.
+
+############################################################
+# 4. TEXT CONTRAST — every text node against its real painted
+#    ground. Colours are read back through a 1x1 canvas, so
+#    color-mix() values cannot be silently skipped (the
+#    mistake corrected in fix-v10).
+############################################################
+
+  samples: 1080   unparsed colours: 0
+
+  THEME dark
+      7.69:1  need 4.5    13px  _link         PASS
+      7.69:1  need 4.5    11px  _external     PASS
+      7.69:1  need 4.5    12px  _copyright    PASS
+      7.69:1  need 4.5    12px  SPAN          PASS
+
+  THEME light
+      5.76:1  need 4.5    13px  _link         PASS
+      5.76:1  need 4.5    11px  _external     PASS
+      5.76:1  need 4.5    12px  _copyright    PASS
+      5.76:1  need 4.5    12px  SPAN          PASS
+
+  0 failures in 72 of 72 combinations, in both themes. Nothing in the
+  footer is hard-coded — every colour resolves from a token, so light
+  and the system setting that resolves to it follow the palette with no
+  per-theme rules.
+
+############################################################
+# 5. REDUCED MOTION
+############################################################
+
+  The footer has NO entrance animation by design — no GSAP context, no
+  ScrollTrigger, no reveal. There is nothing to disable and nothing that
+  can strand an element at opacity 0 (the failure mode that hit the
+  Closing section's back-to-top control in fix-v10).
+
+  Measured with prefers-reduced-motion: reduce at 390x844:
+    elements carrying an inline style   0   (nothing animated it)
+    elements below full opacity         0
+    page horizontal overflow            0
+
+  The only transition in the stylesheet is the links' hover colour,
+  which the global reduced-motion rule already collapses to 0.01ms.
+
+############################################################
+# 6. REGRESSION — is anything above the footer different?
+#    Same captures, same pipeline, before vs after.
+############################################################
+
+         0 px (  0.00%)  1024x768-en-dark-content-universe.png
+         0 px (  0.00%)  1024x768-en-dark-creator.png
+         0 px (  0.00%)  1024x768-en-dark-featured.png
+         0 px (  0.00%)  1024x768-en-dark-hardware.png
+         0 px (  0.00%)  1024x768-en-dark-hero.png
+         0 px (  0.00%)  1440x900-en-light-content-universe.png
+         0 px (  0.00%)  1440x900-en-light-creator.png
+         0 px (  0.00%)  1440x900-en-light-featured.png
+         0 px (  0.00%)  1440x900-en-light-hardware.png
+         0 px (  0.00%)  1440x900-en-light-hero.png
+         0 px (  0.00%)  320x568-fr-dark-content-universe.png
+         0 px (  0.00%)  320x568-fr-dark-creator.png
+         0 px (  0.00%)  320x568-fr-dark-featured.png
+         0 px (  0.00%)  320x568-fr-dark-hardware.png
+         0 px (  0.00%)  320x568-fr-dark-hero.png
+         0 px (  0.00%)  390x844-es-light-content-universe.png
+         0 px (  0.00%)  390x844-es-light-creator.png
+         0 px (  0.00%)  390x844-es-light-featured.png
+         0 px (  0.00%)  390x844-es-light-hardware.png
+         0 px (  0.00%)  390x844-es-light-hero.png
+         0 px (  0.00%)  768x1024-es-dark-content-universe.png
+         0 px (  0.00%)  768x1024-es-dark-creator.png
+         0 px (  0.00%)  768x1024-es-dark-featured.png
+         0 px (  0.00%)  768x1024-es-dark-hardware.png
+         0 px (  0.00%)  768x1024-es-dark-hero.png
+         0 px (  0.00%)  844x390-en-dark-content-universe.png
+         0 px (  0.00%)  844x390-en-dark-creator.png
+         0 px (  0.00%)  844x390-en-dark-featured.png
+         0 px (  0.00%)  844x390-en-dark-hardware.png
+         0 px (  0.00%)  844x390-en-dark-hero.png
+  total changed: 0
+
+  All 30 section captures byte-identical. Adding the footer moved
+  nothing above it.
+
+  The Closing section was re-measured in full over its own 72
+  combinations (12 viewports x 3 languages x 2 themes) and is unchanged:
+  no overflow, no ink outside its canvas, no residual clip-path, 0
+  contrast failures. Its two source files are untouched in git.
+
+############################################################
+# 7. SITE-WIDE SWEEP WITH THE FOOTER IN PLACE
+#    12 viewports x 3 languages x 6 anchors.
+############################################################
+
+=== 1. PAGE HORIZONTAL OVERFLOW ===
+  none
+
+=== 2. CLIPPED / HIDDEN TEXT ===
+  none
+
+=== 3. RESIDUAL CLIP-PATH, measured only after each section revealed ===
+  none
+
+=== 4. TAP TARGETS UNDER 24x24 (WCAG 2.2 AA 2.5.8) ===
+  (Section 4's element-box tap-target list is unchanged from fix-v9 and
+  is expected: the BAR's links are enlarged by an overlay, so the element
+  box still reads 17px while the hit-tested target is 25-27px. The
+  footer's own links are excluded — they are 32px by their own box.)
+
+############################################################
+# 8. VALIDATION
+############################################################
+
+npm run typecheck    PASS
+npm run lint         PASS
+npm run test:run     PASS  32/32  (was 29; +3 added, 4 updated)
+npm run build        PASS
+npm run test:e2e     PASS  54/54  (was 46; +8 added, 6 updated)
+git diff --check     PASS  (exit 0; CRLF advisories only)
+npm run format:check FAIL — 3 files, all pre-existing:
+                      Claude report/fix-v1/report.md
+                      Claude report/fix-v2/report.md
+                      Claude report/fix-v3/report.md
+                      Prior fix folders, which this task does not touch.
+                      Every file created or edited this pass is clean.

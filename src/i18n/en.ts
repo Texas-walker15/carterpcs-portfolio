@@ -164,4 +164,30 @@ export const en = {
     headlineLineTwo: 'interesting.',
     backToTop: 'Back to top',
   },
+
+  /**
+   * Footer — the site's last, quietest row.
+   *
+   * `copyright` holds only the NAME. The "©" and the year are language-neutral
+   * and are composed in Footer.tsx from a single constant, so the year is one
+   * edit rather than three.
+   *
+   * The three platform names are proper nouns and are NOT translated; they
+   * appear here only so `opensInNewTab` can be appended to each accessible
+   * name in the right language. Those are the only three destinations that
+   * exist — see Footer.tsx.
+   *
+   * `disclaimer` is a SINGLE line. The Closing statement above already says
+   * "Independent creative concept.", so the footer does not repeat it.
+   */
+  footer: {
+    copyright: 'CarterPCs Portfolio Concept',
+    disclaimer: 'No affiliation or endorsement implied.',
+    a11y: {
+      footerNavigation: 'Footer',
+      socialLinks: 'Social',
+      /** Appended after the platform name, so the visible label is preserved. */
+      opensInNewTab: 'opens in a new tab',
+    },
+  },
 }

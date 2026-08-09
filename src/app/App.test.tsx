@@ -1,5 +1,5 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
-import { render, screen, waitFor } from '@testing-library/react'
+import { render, screen, waitFor, within } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import App from './App'
 import { en } from '../i18n/en'
@@ -19,6 +19,15 @@ function mockMatchMedia(matches: boolean) {
     removeEventListener: () => {},
     dispatchEvent: () => false,
   })) as unknown as typeof window.matchMedia
+}
+
+/**
+ * The six section labels now appear TWICE — once in the bar and once in the
+ * footer's compact row — so every query for one has to say which. Scoping to
+ * the landmark is also a stronger assertion than the bare name was.
+ */
+function primaryNav(name: string = en.a11y.primaryNavigation) {
+  return within(screen.getByRole('navigation', { name }))
 }
 
 describe('App', () => {
@@ -77,8 +86,10 @@ describe('App', () => {
         name: /hardware knowledge/i,
       }),
     ).toBeInTheDocument()
-    expect(screen.getByText(/tiktok/i)).toBeInTheDocument()
-    expect(screen.getByText(/youtube shorts/i)).toBeInTheDocument()
+    // Scoped to the section: "TikTok" is also a Footer destination now.
+    const creator = within(document.querySelector('#creator') as HTMLElement)
+    expect(creator.getByText(/tiktok/i)).toBeInTheDocument()
+    expect(creator.getByText(/youtube shorts/i)).toBeInTheDocument()
   })
 
   // Reference nav labels (Work / Systems / Process / Impact / Content /
@@ -87,7 +98,7 @@ describe('App', () => {
   it('has a real navigation link to the Featured section', () => {
     render(<App />)
 
-    expect(screen.getByRole('link', { name: /^work$/i })).toHaveAttribute(
+    expect(primaryNav().getByRole('link', { name: /^work$/i })).toHaveAttribute(
       'href',
       '#featured',
     )
@@ -122,10 +133,9 @@ describe('App', () => {
   it('has a real navigation link to the Hardware section', () => {
     render(<App />)
 
-    expect(screen.getByRole('link', { name: /^systems$/i })).toHaveAttribute(
-      'href',
-      '#hardware',
-    )
+    expect(
+      primaryNav().getByRole('link', { name: /^systems$/i }),
+    ).toHaveAttribute('href', '#hardware')
   })
 
   it('renders the Hardware section with an accessible heading and all three beats', () => {
@@ -146,10 +156,9 @@ describe('App', () => {
   it('has a real navigation link to the Content Universe section', () => {
     render(<App />)
 
-    expect(screen.getByRole('link', { name: /^content$/i })).toHaveAttribute(
-      'href',
-      '#content-universe',
-    )
+    expect(
+      primaryNav().getByRole('link', { name: /^content$/i }),
+    ).toHaveAttribute('href', '#content-universe')
   })
 
   it('renders the Content Universe section with an accessible heading and all six content categories', () => {
@@ -279,11 +288,17 @@ describe('App', () => {
         name: /^making tech interesting\.$/i,
       }),
     ).toBeInTheDocument()
+    // Scoped to the section: "Independent creative concept." belongs to the
+    // Closing statement and is stated here only.
     expect(
-      screen.getByText(/^independent creative concept\.$/i),
+      within(closing as HTMLElement).getByText(
+        /^independent creative concept\.$/i,
+      ),
     ).toBeInTheDocument()
     expect(
-      screen.getByText(/^not affiliated with carterpcs\.$/i),
+      within(closing as HTMLElement).getByText(
+        /^not affiliated with carterpcs\.$/i,
+      ),
     ).toBeInTheDocument()
 
     const backToTop = screen.getByRole('link', { name: /back to top/i })
@@ -291,6 +306,103 @@ describe('App', () => {
     expect(backToTop).toHaveAttribute('href', '#hero')
     // The target it claims to return to actually exists.
     expect(document.querySelector('#hero')).toBeInTheDocument()
+  })
+
+  it('renders the Footer after main as a contentinfo landmark, with the same six destinations as the bar', () => {
+    render(<App />)
+
+    const footer = screen.getByRole('contentinfo')
+    const main = screen.getByRole('main')
+
+    // A landmark of its own — not part of the document's main content.
+    expect(main).not.toContainElement(footer)
+    expect(main.compareDocumentPosition(footer)).toBe(
+      Node.DOCUMENT_POSITION_FOLLOWING,
+    )
+
+    const footerNav = within(
+      within(footer).getByRole('navigation', {
+        name: en.footer.a11y.footerNavigation,
+      }),
+    )
+    // Same labels, same targets, same order as the bar — both read the one
+    // shared list in components/navigation/sections.ts.
+    en.nav.sections.forEach((label) => {
+      const barLink = primaryNav().getByRole('link', { name: label })
+      const footerLink = footerNav.getByRole('link', { name: label })
+      expect(footerLink).toHaveAttribute(
+        'href',
+        barLink.getAttribute('href') as string,
+      )
+    })
+    expect(footerNav.getAllByRole('link')).toHaveLength(6)
+
+    expect(
+      within(footer).getByText('© 2026 CarterPCs Portfolio Concept'),
+    ).toBeInTheDocument()
+    expect(within(footer).getByText(en.footer.disclaimer)).toBeInTheDocument()
+
+    // The footer states the affiliation disclaimer ONCE and does not repeat
+    // the Closing statement's "Independent creative concept." line.
+    expect(
+      within(footer).queryByText(/^independent creative concept\.$/i),
+    ).toBeNull()
+  })
+
+  it('links to exactly the three supplied social destinations, opened safely', () => {
+    render(<App />)
+
+    const footer = screen.getByRole('contentinfo')
+    const expected = [
+      ['YouTube', 'https://www.youtube.com/@actuallycarterpcs'],
+      ['Instagram', 'https://www.instagram.com/carterpcs_/?hl=en'],
+      ['TikTok', 'https://www.tiktok.com/@carterpcs?lang=en'],
+    ]
+
+    const external = Array.from(
+      footer.querySelectorAll('a[href^="http"]'),
+    ) as HTMLAnchorElement[]
+    expect(external).toHaveLength(3)
+
+    external.forEach((link, index) => {
+      const [name, href] = expected[index]
+      expect(link).toHaveAttribute('href', href)
+      expect(link).toHaveAttribute('target', '_blank')
+      expect(link).toHaveAttribute('rel', 'noreferrer')
+      // The visible platform name STARTS the accessible name, so the
+      // new-tab warning does not replace the label (WCAG 2.5.3).
+      expect(link).toHaveAccessibleName(
+        `${name} — ${en.footer.a11y.opensInNewTab}`,
+      )
+      expect(link.textContent).toContain(name)
+    })
+  })
+
+  it('invents nothing in the Footer — no extra destinations, contact details, or counts', () => {
+    render(<App />)
+
+    const footer = screen.getByRole('contentinfo') as HTMLElement
+
+    // Six internal + three external, and nothing else.
+    expect(footer.querySelectorAll('a')).toHaveLength(9)
+    expect(footer.querySelectorAll('a[href^="#"]')).toHaveLength(6)
+    expect(footer.querySelectorAll('button, form, input')).toHaveLength(0)
+    expect(footer.innerHTML).not.toMatch(/mailto:|tel:/i)
+
+    // No other social destinations crept in.
+    const hosts = Array.from(footer.querySelectorAll('a[href^="http"]')).map(
+      (a) => new URL((a as HTMLAnchorElement).href).hostname,
+    )
+    expect(hosts).toEqual([
+      'www.youtube.com',
+      'www.instagram.com',
+      'www.tiktok.com',
+    ])
+
+    // No follower counts or other figures: the only digits in visible text
+    // are the copyright year.
+    const digits = (footer.innerText ?? footer.textContent ?? '').match(/\d+/g)
+    expect(digits).toEqual(['2026'])
   })
 
   it('invents nothing in the Closing section — no links other than back-to-top, and no contact or audience claims', () => {
@@ -360,7 +472,9 @@ describe('App', () => {
       }),
     ).toBeInTheDocument()
     expect(
-      screen.getByText(/^independent creative concept\.$/i),
+      within(document.querySelector('#closing') as HTMLElement).getByText(
+        /^independent creative concept\.$/i,
+      ),
     ).toBeInTheDocument()
     expect(
       screen.getByRole('link', { name: /back to top/i }),
@@ -539,7 +653,9 @@ describe('localization', () => {
         screen.getByRole('link', { name: dictionary.a11y.skipToContent }),
       ).toHaveAttribute('href', '#main-content')
       expect(
-        screen.getByRole('link', { name: dictionary.nav.sections[0] }),
+        primaryNav(dictionary.a11y.primaryNavigation).getByRole('link', {
+          name: dictionary.nav.sections[0],
+        }),
       ).toHaveAttribute('href', '#featured')
       expect(
         screen.getByRole('link', { name: dictionary.nav.about }),

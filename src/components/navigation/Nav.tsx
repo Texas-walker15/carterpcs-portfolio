@@ -9,6 +9,7 @@ import {
   type RefObject,
 } from 'react'
 import styles from './Nav.module.css'
+import { SECTION_HREFS } from './sections'
 import {
   usePreferences,
   type Language,
@@ -20,13 +21,9 @@ import {
  * bar: mark + wordmark + violet indicator left, six section labels
  * centred, "About Carter ↗" pill and the square theme utility right.
  *
- * LINK TARGETS: the reference's labels (Work / Systems / Process /
- * Impact / Content / Universe) describe the full 11-section site, most
- * of which is not built yet. Every label therefore anchors to the
- * nearest EXISTING section so no link is ever dead; the mapping tightens
- * as later sections land. "About Carter" remains the sole #creator
- * entry in spirit — Process points there too only until a real process
- * section exists.
+ * LINK TARGETS: see ./sections.ts.
+ *
+ * The link targets themselves live in ./sections.ts, shared with the footer.
  *
  * PREFERENCE MENUS
  * The theme and language dropdowns are state-driven disclosures, not the
@@ -46,15 +43,6 @@ import {
  * menu and land on an item, arrows and Home/End move within it, Tab still
  * walks through naturally, and Escape returns to the trigger.
  */
-
-const SECTIONS = [
-  '#featured',
-  '#hardware',
-  '#creator',
-  '#featured',
-  '#content-universe',
-  '#content-universe',
-]
 
 const LANGUAGES: { code: Language; flag: string }[] = [
   { code: 'en', flag: '🇺🇸' },
@@ -237,7 +225,7 @@ function Nav() {
         </a>
 
         <ul className={styles.sections}>
-          {SECTIONS.map((href, index) => (
+          {SECTION_HREFS.map((href, index) => (
             <li key={`${href}-${index}`}>
               <a className={styles.link} href={href}>
                 {navigationLabels[index]}

@@ -1,0 +1,135 @@
+/**
+ * Footer — compact, quiet, token-only.
+ *
+ * Every colour resolves from a token, so dark, light and the system setting
+ * that resolves to either follow the palette with no per-theme rules.
+ *
+ * Register: everything sits at or below 0.8125rem and in muted ink, so the
+ * row reads as trailing information rather than as a seventh section. The
+ * Closing statement above it keeps the display type to itself.
+ */
+
+.footer {
+  position: relative;
+  background-color: var(--color-bg-base);
+}
+
+/* The same hairline motif every section boundary uses. */
+.seam {
+  position: absolute;
+  inset-block-start: 0;
+  inset-inline: var(--container-padding-inline);
+  height: 1px;
+  background-color: color-mix(
+    in srgb,
+    var(--color-text-primary) 14%,
+    transparent
+  );
+}
+
+/* The shared 96rem composition frame, so the footer lines up with everything
+   above it instead of spreading to the window edges on wide viewports. */
+.canvas {
+  display: grid;
+  gap: var(--space-2) var(--space-4);
+  width: 100%;
+  max-width: 96rem;
+  margin-inline: auto;
+  padding: var(--space-4) var(--container-padding-inline);
+}
+
+.navList,
+.social {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  /* Column gap only — the links carry their own vertical padding for the tap
+     target, so a row gap on top of it would open the rows too far. */
+  gap: 0 var(--space-3);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+/* WCAG 2.2 AA SC 2.5.8 wants 24x24, and the "inline within a sentence"
+   exemption does not apply to a standalone list of destinations. These labels
+   set a 16px line box, so the padding takes the target to 32px. Unlike the
+   bar's links there is no approved geometry to preserve here, so the target
+   can simply BE the right size rather than being enlarged by an overlay. */
+.link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3125rem;
+  padding-block: 0.5rem;
+  border-radius: 0.25rem;
+  font-size: 0.8125rem;
+  letter-spacing: 0.005em;
+  color: var(--color-text-muted);
+  text-decoration: none;
+  transition: color var(--duration-fast) var(--ease-out);
+}
+
+.link:hover {
+  color: var(--color-text-primary);
+}
+
+.external {
+  font-size: 0.6875rem;
+  /* Optical: the arrow sits slightly above the label's baseline. */
+  translate: 0 -0.0625rem;
+}
+
+.copyright,
+.disclaimer {
+  font-size: 0.75rem;
+  line-height: 1.55;
+  color: var(--color-text-muted);
+}
+
+.copyright {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+/* The footer's single accent — the same indicator the bar sets beside the
+   identity, at the same size. */
+.accentDot {
+  flex: none;
+  width: 0.25rem;
+  height: 0.25rem;
+  border-radius: 50%;
+  background-color: var(--color-accent-secondary);
+}
+
+/* ===== From 640px: two compact rows =====
+   destinations | platforms
+   ownership    | disclaimer
+   Below this the four groups stack in source order, which is already the
+   reading order. */
+
+@media (min-width: 640px) {
+  .canvas {
+    grid-template-columns: 1fr auto;
+    align-items: center;
+    gap: var(--space-2) var(--space-5);
+  }
+
+  .social {
+    justify-content: flex-end;
+  }
+
+  .disclaimer {
+    text-align: end;
+  }
+}
+
+/* ===== From 1024px =====
+   A little more breathing room below, matching the bar's own single-row
+   breakpoint. */
+
+@media (min-width: 1024px) {
+  .canvas {
+    padding-block: var(--space-4) var(--space-5);
+  }
+}

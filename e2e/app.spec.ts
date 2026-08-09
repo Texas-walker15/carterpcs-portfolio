@@ -6,6 +6,14 @@ import { getContentCategories } from '../src/data/contentUniverse'
 import { getFeaturedStories } from '../src/data/featured'
 import { getHardwareBeats } from '../src/data/hardware'
 
+/**
+ * The six section labels now appear twice — once in the bar and once in the
+ * footer's compact row — so a bare name is ambiguous. Scoping to the landmark
+ * is also a stronger assertion than the bare name was.
+ */
+const primaryNav = (page: Page) =>
+  page.getByRole('navigation', { name: en.a11y.primaryNavigation })
+
 test('Hero loads with heading, subhead, and navigation', async ({ page }) => {
   await page.goto('/')
 
@@ -69,7 +77,9 @@ test('Featured nav link scrolls to the Featured section', async ({ page }) => {
   await page.goto('/')
 
   // "Work" is the reference bar's Featured entry (see Nav.tsx).
-  await page.getByRole('link', { name: /^work$/i }).click()
+  await primaryNav(page)
+    .getByRole('link', { name: /^work$/i })
+    .click()
   await expect(page).toHaveURL(/#featured$/)
 })
 
@@ -143,7 +153,9 @@ test('Hardware nav link scrolls to the Hardware section', async ({ page }) => {
   await page.goto('/')
 
   // "Systems" is the reference bar's Hardware entry (see Nav.tsx).
-  await page.getByRole('link', { name: /^systems$/i }).click()
+  await primaryNav(page)
+    .getByRole('link', { name: /^systems$/i })
+    .click()
   await expect(page).toHaveURL(/#hardware$/)
 })
 
@@ -221,7 +233,9 @@ test('Content nav link scrolls to the Content Universe section', async ({
 }) => {
   await page.goto('/')
 
-  await page.getByRole('link', { name: /^content$/i }).click()
+  await primaryNav(page)
+    .getByRole('link', { name: /^content$/i })
+    .click()
   await expect(page).toHaveURL(/#content-universe$/)
 })
 
@@ -365,7 +379,9 @@ test('language menu opens on click and switches the page without a reload', asyn
     page.getByRole('heading', { level: 1, name: fr.hero.headlineLabel }),
   ).toBeVisible()
   await expect(
-    page.getByRole('link', { name: fr.nav.sections[0], exact: true }),
+    page
+      .getByRole('navigation', { name: fr.a11y.primaryNavigation })
+      .getByRole('link', { name: fr.nav.sections[0], exact: true }),
   ).toHaveAttribute('href', '#featured')
 
   // Switching again from within French uses the French control labels.
@@ -548,7 +564,9 @@ for (const [sizeName, size] of [
     // 3. Focus leaving the wrapper closes it.
     await trigger.click()
     await expect(menu).toBeVisible()
-    await page.getByRole('link', { name: en.nav.about, exact: true }).focus()
+    await primaryNav(page)
+      .getByRole('link', { name: en.nav.about, exact: true })
+      .focus()
     await expect(menu).toBeHidden()
 
     // 4. A pointer press outside closes it.
@@ -576,7 +594,13 @@ test('mobile: an open menu clears the bar’s own section links', async ({
     if (!panel) return { found: false, coversNavLinks: false, height: 0 }
     const r = panel.getBoundingClientRect()
     let coversNavLinks = false
-    for (const link of document.querySelectorAll('nav ul a')) {
+    // The BAR's own links — the footer has a `nav ul a` row too now, and it
+    // sits far below; including it would weaken this assertion to nothing.
+    // Both navs carry an aria-label, so the footer is excluded explicitly.
+    const barLinks = [...document.querySelectorAll('nav ul a')].filter(
+      (a) => !a.closest('footer'),
+    )
+    for (const link of barLinks) {
       const l = link.getBoundingClientRect()
       if (
         r.left < l.right &&
@@ -602,7 +626,7 @@ test('mobile: an open menu clears the bar’s own section links', async ({
 
   // Every section link stays clickable while the menu is open.
   await expect(
-    page.getByRole('link', { name: 'Work', exact: true }),
+    primaryNav(page).getByRole('link', { name: 'Work', exact: true }),
   ).toBeVisible()
   expect(await hasHorizontalOverflow(page)).toBe(false)
 })
@@ -879,15 +903,19 @@ test('mobile: nav section links meet the 24px minimum target size', async ({
       const found = document.elementFromPoint(x, y)
       return !!found && (found === el || el.contains(found))
     }
-    return [...document.querySelectorAll('nav ul a')].map((el) => {
-      const r = el.getBoundingClientRect()
-      const [cx, cy] = [r.left + r.width / 2, r.top + r.height / 2]
-      let up = 0
-      let down = 0
-      while (up < 20 && hits(el, cx, cy - (up + 1))) up += 1
-      while (down < 20 && hits(el, cx, cy + (down + 1))) down += 1
-      return { name: el.textContent, height: up + down, width: r.width }
-    })
+    // Scoped to the bar: the footer now has a `nav ul a` row of its own,
+    // and both navs carry an aria-label — so exclude the footer explicitly.
+    return [...document.querySelectorAll('nav ul a')]
+      .filter((a) => !a.closest('footer'))
+      .map((el) => {
+        const r = el.getBoundingClientRect()
+        const [cx, cy] = [r.left + r.width / 2, r.top + r.height / 2]
+        let up = 0
+        let down = 0
+        while (up < 20 && hits(el, cx, cy - (up + 1))) up += 1
+        while (down < 20 && hits(el, cx, cy + (down + 1))) down += 1
+        return { name: el.textContent, height: up + down, width: r.width }
+      })
   })
 
   expect(targets).toHaveLength(6)
@@ -1109,4 +1137,264 @@ test('reduced motion: the Closing section is fully present with no animation lef
 
   expect(state.stranded).toBe(0)
   expect(state.backToTop).toBe(true)
+})
+
+/* ------------------------------------------------------------------ *
+ * Footer
+ *
+ * The site's last row, after the Closing statement. Exactly nine links: the
+ * bar's six destinations and the three supplied social profiles.
+ * ------------------------------------------------------------------ */
+
+const SOCIAL = [
+  ['YouTube', 'https://www.youtube.com/@actuallycarterpcs'],
+  ['Instagram', 'https://www.instagram.com/carterpcs_/?hl=en'],
+  ['TikTok', 'https://www.tiktok.com/@carterpcs?lang=en'],
+] as const
+
+for (const language of ['en', 'fr', 'es'] as const) {
+  test(`${language}: the Footer renders its destinations, platforms and copy`, async ({
+    page,
+  }) => {
+    const dictionary = DICTIONARIES[language]
+    await page.setViewportSize(DESKTOP)
+    await page.addInitScript((lang) => {
+      window.localStorage.setItem('carterpcs-language', lang)
+    }, language)
+    await page.goto('/')
+
+    const footer = page.getByRole('contentinfo')
+    await footer.scrollIntoViewIfNeeded()
+
+    // After the Closing section, and outside main.
+    expect(
+      await page.evaluate(() => {
+        const el = document.querySelector('footer')!
+        const closing = document.querySelector('#closing')!
+        return {
+          follows:
+            closing.compareDocumentPosition(el) ===
+            Node.DOCUMENT_POSITION_FOLLOWING,
+          outsideMain: !el.closest('main'),
+        }
+      }),
+    ).toEqual({ follows: true, outsideMain: true })
+
+    const footerNav = footer.getByRole('navigation', {
+      name: dictionary.footer.a11y.footerNavigation,
+    })
+    await expect(footerNav.getByRole('link')).toHaveCount(6)
+    for (const label of dictionary.nav.sections) {
+      await expect(
+        footerNav.getByRole('link', { name: label, exact: true }),
+      ).toBeVisible()
+    }
+
+    // Copy, in this language.
+    await expect(
+      footer.getByText(`© 2026 ${dictionary.footer.copyright}`),
+    ).toBeVisible()
+    await expect(footer.getByText(dictionary.footer.disclaimer)).toBeVisible()
+
+    // Stated once: the footer does not repeat the Closing statement's
+    // "Independent creative concept." line above it.
+    await expect(
+      footer.getByText(dictionary.closing.disclaimerLineOne),
+    ).toHaveCount(0)
+
+    // Exactly the three supplied destinations, opened safely, with the
+    // new-tab warning appended AFTER the visible platform name.
+    for (const [name, href] of SOCIAL) {
+      const link = footer.getByRole('link', {
+        name: `${name} — ${dictionary.footer.a11y.opensInNewTab}`,
+        exact: true,
+      })
+      await expect(link).toHaveAttribute('href', href)
+      await expect(link).toHaveAttribute('target', '_blank')
+      await expect(link).toHaveAttribute('rel', 'noreferrer')
+      await expect(link).toContainText(name)
+    }
+  })
+}
+
+test('the Footer links nowhere it was not told to, and claims nothing', async ({
+  page,
+}) => {
+  await page.setViewportSize(DESKTOP)
+  await page.goto('/')
+  await page.getByRole('contentinfo').scrollIntoViewIfNeeded()
+
+  const audit = await page.evaluate(() => {
+    const footer = document.querySelector('footer')!
+    const links = [...footer.querySelectorAll('a')]
+    const external = links.filter((a) =>
+      a.getAttribute('href')!.startsWith('http'),
+    )
+    return {
+      total: links.length,
+      internal: links.filter((a) => a.getAttribute('href')!.startsWith('#'))
+        .length,
+      hosts: external.map((a) => new URL(a.href).hostname),
+      unsafe: external.filter(
+        (a) =>
+          a.getAttribute('target') !== '_blank' ||
+          !(a.getAttribute('rel') ?? '').includes('noreferrer'),
+      ).length,
+      controls: footer.querySelectorAll('button, form, input').length,
+      contact: /mailto:|tel:/i.test(footer.innerHTML),
+      digits: (footer.innerText.match(/\d+/g) ?? []).join(','),
+    }
+  })
+
+  expect(audit).toEqual({
+    total: 9,
+    internal: 6,
+    hosts: ['www.youtube.com', 'www.instagram.com', 'www.tiktok.com'],
+    unsafe: 0,
+    controls: 0,
+    contact: false,
+    // The copyright year is the only figure the footer states.
+    digits: '2026',
+  })
+})
+
+for (const width of [320, 390]) {
+  test(`mobile @ ${width}px: the Footer fits, with no overlap and 24px targets`, async ({
+    page,
+  }) => {
+    for (const language of ['en', 'fr', 'es'] as const) {
+      await page.setViewportSize({ width, height: 844 })
+      await page.addInitScript((lang) => {
+        window.localStorage.setItem('carterpcs-language', lang)
+      }, language)
+      await page.goto('/')
+      await page.getByRole('contentinfo').scrollIntoViewIfNeeded()
+      await page.waitForTimeout(400)
+
+      const measured = await page.evaluate(() => {
+        const footer = document.querySelector('footer')!
+        const canvas = footer.querySelector('[class*="canvas"]')!
+        const cs = getComputedStyle(canvas)
+        const box = canvas.getBoundingClientRect()
+        const [padLeft, padRight] = [
+          parseFloat(cs.paddingLeft),
+          parseFloat(cs.paddingRight),
+        ]
+        const links = [...footer.querySelectorAll('a')]
+
+        let pastCanvas = -Infinity
+        for (const el of footer.querySelectorAll('a, p, p span')) {
+          if (!el.textContent?.trim()) continue
+          const range = document.createRange()
+          range.selectNodeContents(el)
+          const rects = [...range.getClientRects()]
+          if (!rects.length) continue
+          pastCanvas = Math.max(
+            pastCanvas,
+            Math.max(...rects.map((r) => r.right)) - (box.right - padRight),
+            box.left + padLeft - Math.min(...rects.map((r) => r.left)),
+          )
+        }
+
+        let overlaps = 0
+        for (let i = 0; i < links.length; i += 1) {
+          for (let j = i + 1; j < links.length; j += 1) {
+            const [a, b] = [
+              links[i].getBoundingClientRect(),
+              links[j].getBoundingClientRect(),
+            ]
+            if (
+              Math.min(a.right, b.right) - Math.max(a.left, b.left) > 0.5 &&
+              Math.min(a.bottom, b.bottom) - Math.max(a.top, b.top) > 0.5
+            )
+              overlaps += 1
+          }
+        }
+
+        return {
+          pastCanvas,
+          overlaps,
+          smallest: Math.min(
+            ...links.map((a) => {
+              const r = a.getBoundingClientRect()
+              return Math.min(r.width, r.height)
+            }),
+          ),
+          overflow:
+            document.documentElement.scrollWidth >
+            document.documentElement.clientWidth,
+        }
+      })
+
+      expect(
+        measured.pastCanvas,
+        `${language} footer copy runs outside the canvas at ${width}px`,
+      ).toBeLessThanOrEqual(0.5)
+      expect(measured.overlaps, 'footer links overlap').toBe(0)
+      expect(
+        measured.smallest,
+        'smallest footer target',
+      ).toBeGreaterThanOrEqual(24)
+      expect(measured.overflow).toBe(false)
+    }
+  })
+}
+
+test('light theme: the Footer copy meets AA contrast', async ({ page }) => {
+  await page.setViewportSize(DESKTOP)
+  await page.addInitScript(() => {
+    window.localStorage.setItem('carterpcs-theme', 'light')
+  })
+  await page.goto('/')
+  await page.getByRole('contentinfo').scrollIntoViewIfNeeded()
+
+  const samples = await page.evaluate(() => {
+    const parse = (value: string) =>
+      value
+        .match(/\d+(\.\d+)?/g)!
+        .slice(0, 3)
+        .map(Number)
+    const background = parse(getComputedStyle(document.body).backgroundColor)
+    return [...document.querySelectorAll('footer a, footer p')].map((el) => {
+      const style = getComputedStyle(el)
+      return {
+        text: (el.textContent ?? '').trim().slice(0, 24),
+        size: parseFloat(style.fontSize),
+        color: parse(style.color),
+        background,
+      }
+    })
+  })
+
+  expect(samples.length).toBeGreaterThan(0)
+  for (const sample of samples) {
+    expect(
+      contrastRatio(sample.color as Rgb, sample.background as Rgb),
+      `"${sample.text}" contrast`,
+    ).toBeGreaterThanOrEqual(4.5)
+  }
+})
+
+test('reduced motion: the Footer carries no animation at all', async ({
+  page,
+}) => {
+  await page.emulateMedia({ reducedMotion: 'reduce' })
+  await page.setViewportSize(MOBILE)
+  await page.goto('/')
+  await page.getByRole('contentinfo').scrollIntoViewIfNeeded()
+
+  const state = await page.evaluate(() => {
+    const footer = document.querySelector('footer')!
+    return {
+      // Nothing animates it, so nothing should have written an inline style.
+      inlineStyled: [...footer.querySelectorAll('*')].filter((el) =>
+        el.getAttribute('style'),
+      ).length,
+      notVisible: [...footer.querySelectorAll('a, p, span')]
+        .filter((el) => el.textContent?.trim())
+        .filter((el) => parseFloat(getComputedStyle(el).opacity) < 0.99).length,
+    }
+  })
+
+  expect(state).toEqual({ inlineStyled: 0, notVisible: 0 })
 })
