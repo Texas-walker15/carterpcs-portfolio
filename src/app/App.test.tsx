@@ -204,7 +204,7 @@ describe('App', () => {
     ).toBeInTheDocument()
   })
 
-  it('has a main landmark containing Hero, Creator, Featured, Hardware, and Content Universe with no duplicate headings and logical heading order', () => {
+  it('has a main landmark containing Hero, Creator, Featured, Hardware, Content Universe, and Closing with no duplicate headings and logical heading order', () => {
     render(<App />)
 
     const main = screen.getByRole('main')
@@ -219,7 +219,7 @@ describe('App', () => {
     expect(h1s[0]).toHaveAccessibleName(/^carterpcs — built different$/i)
 
     // One h2 per major section (Creator, Featured, Hardware, Content
-    // Universe) — not a duplicate.
+    // Universe, Closing) — not a duplicate.
     const h2Names = h2s.map((h) => h.textContent)
     expect(new Set(h2Names).size).toBe(h2Names.length)
     expect(main).toContainElement(
@@ -237,19 +237,85 @@ describe('App', () => {
     expect(main).toContainElement(
       screen.getByRole('heading', { level: 2, name: /six territories/i }),
     )
+    // Closing is the last section, and its heading is art-directed onto two
+    // lines the same way the Hero's h1 is — so it is matched on its
+    // accessible name, not on the run-together text content.
+    expect(main).toContainElement(
+      screen.getByRole('heading', {
+        level: 2,
+        name: /^making tech interesting\.$/i,
+      }),
+    )
 
     // Logical order: h1 first, then h2s in section order (Creator,
-    // Featured, Hardware, Content Universe) — no skipped or out-of-order
-    // levels.
+    // Featured, Hardware, Content Universe, Closing) — no skipped or
+    // out-of-order levels.
     const headingOrder = screen
       .getAllByRole('heading')
       .map((h) => Number(h.tagName[1]))
     expect(headingOrder[0]).toBe(1)
     expect(headingOrder.slice(1).every((level) => level >= 2)).toBe(true)
-    expect(h2Names.at(-1)).toMatch(/six territories/i)
+    expect(h2s.at(-2)).toHaveAccessibleName(/six territories/i)
+    expect(h2s.at(-1)).toHaveAccessibleName(/^making tech interesting\.$/i)
   })
 
-  it('renders Hero, Creator, Featured, Hardware, and Content Universe content immediately when reduced motion is preferred', () => {
+  it('renders the Closing section with the identity, statement, disclaimer, and a back-to-top link', () => {
+    render(<App />)
+
+    const closing = document.querySelector('#closing')
+    expect(closing).toBeInTheDocument()
+
+    // Directly after Content Universe, and the last thing in main.
+    const main = screen.getByRole('main')
+    expect(main.lastElementChild).toBe(closing)
+    expect(
+      document.querySelector('#content-universe')?.nextElementSibling,
+    ).toBe(closing)
+
+    expect(closing).toHaveTextContent('CarterPCs')
+    expect(
+      screen.getByRole('heading', {
+        level: 2,
+        name: /^making tech interesting\.$/i,
+      }),
+    ).toBeInTheDocument()
+    expect(
+      screen.getByText(/^independent creative concept\.$/i),
+    ).toBeInTheDocument()
+    expect(
+      screen.getByText(/^not affiliated with carterpcs\.$/i),
+    ).toBeInTheDocument()
+
+    const backToTop = screen.getByRole('link', { name: /back to top/i })
+    expect(closing).toContainElement(backToTop)
+    expect(backToTop).toHaveAttribute('href', '#hero')
+    // The target it claims to return to actually exists.
+    expect(document.querySelector('#hero')).toBeInTheDocument()
+  })
+
+  it('invents nothing in the Closing section — no links other than back-to-top, and no contact or audience claims', () => {
+    render(<App />)
+
+    const closing = document.querySelector('#closing') as HTMLElement
+
+    // The back-to-top control is the ONLY interactive element in the section.
+    const links = Array.from(closing.querySelectorAll('a'))
+    expect(links).toHaveLength(1)
+    expect(links[0]).toHaveAttribute('href', '#hero')
+    expect(closing.querySelectorAll('button, form, input')).toHaveLength(0)
+
+    // No external destinations, mail/tel handles, or social handles.
+    expect(closing.innerHTML).not.toMatch(/https?:|mailto:|tel:|@/i)
+    // No invented figures — the section carries no numbers except its own
+    // decorative section numeral, which is aria-hidden.
+    const visibleText = Array.from(closing.querySelectorAll('*'))
+      .filter((el) => !el.closest('[aria-hidden="true"]'))
+      .map((el) => el.textContent)
+      .join(' ')
+    expect(visibleText).not.toMatch(/\d/)
+  })
+
+  it('renders Hero, Creator, Featured, Hardware, Content Universe, and Closing content immediately when reduced motion is preferred', () => {
     mockMatchMedia(true)
     render(<App />)
 
@@ -284,6 +350,20 @@ describe('App', () => {
         level: 3,
         name: /pc hardware & custom builds/i,
       }),
+    ).toBeInTheDocument()
+    // Closing's reveal is skipped entirely under reduced motion, so its copy
+    // and its one control must already be in their resting state.
+    expect(
+      screen.getByRole('heading', {
+        level: 2,
+        name: /^making tech interesting\.$/i,
+      }),
+    ).toBeInTheDocument()
+    expect(
+      screen.getByText(/^independent creative concept\.$/i),
+    ).toBeInTheDocument()
+    expect(
+      screen.getByRole('link', { name: /back to top/i }),
     ).toBeInTheDocument()
   })
 })

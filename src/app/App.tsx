@@ -6,6 +6,7 @@ import Creator from '../sections/creator/Creator'
 import Featured from '../sections/featured/Featured'
 import Hardware from '../sections/hardware/Hardware'
 import ContentUniverse from '../sections/content-universe/ContentUniverse'
+import Closing from '../sections/closing/Closing'
 import { ScrollTrigger } from '../animations/gsap'
 import { useLenis } from '../hooks/useLenis'
 import { PreferencesProvider, usePreferences } from './Preferences'
@@ -42,6 +43,7 @@ function Site() {
         <Featured />
         <Hardware />
         <ContentUniverse />
+        <Closing />
       </main>
 
       {!introComplete && <Intro onComplete={() => setIntroComplete(true)} />}

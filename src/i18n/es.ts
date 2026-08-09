@@ -130,4 +130,15 @@ export const es: Dictionary = {
     support:
       'El terreno recurrente al que vuelve cada vídeo: desde los PC a medida hasta las historias que no tienen nada que ver con el hardware.',
   },
+
+  /* The headline reuses this file's own opening of `hero.support`
+     ("Tecnología que engancha"), broken after the subject so the verb phrase
+     carries the second display line. */
+  closing: {
+    disclaimerLineOne: 'Concepto creativo independiente.',
+    disclaimerLineTwo: 'Sin afiliación con CarterPCs.',
+    headlineLineOne: 'Tecnología',
+    headlineLineTwo: 'que engancha.',
+    backToTop: 'Volver arriba',
+  },
 }

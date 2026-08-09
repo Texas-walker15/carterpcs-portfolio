@@ -1,0 +1,313 @@
+CarterPCs fix-v10 — Closing section (06) diagnostics
+Generated 2026-08-09. Measured in headless Chromium against a production
+build served by vite preview.
+
+############################################################
+# 1. CLOSING SECTION SWEEP
+#    12 viewports x 3 languages x 2 themes = 72 combinations.
+#    ovf         page horizontal overflow (px)
+#    pastVp      furthest ink past the viewport edge (negative = inside)
+#    pastCanvas  furthest COPY ink past the canvas padding box
+#                (the section numeral is a deliberate bleed, excluded)
+#    clip        headline lines still carrying an animation clip-path
+#    link        back-to-top target: width x hit-tested height
+############################################################
+
+320x568    en dark  h= 494.7 ovf=0 pastVp=   -6.4 pastCanvas=      0 (_wordmark) clip=0 link=93.5x43 contrastFails=0
+320x568    en light h= 494.7 ovf=0 pastVp=   -6.4 pastCanvas=      0 (_wordmark) clip=0 link=93.5x43 contrastFails=0
+320x568    fr dark  h= 494.7 ovf=0 pastVp=   -6.4 pastCanvas=      0 (_wordmark) clip=0 link=107.7x43 contrastFails=0
+320x568    fr light h= 494.7 ovf=0 pastVp=   -6.4 pastCanvas=      0 (_wordmark) clip=0 link=107.7x43 contrastFails=0
+320x568    es dark  h= 494.7 ovf=0 pastVp=   -6.4 pastCanvas=      0 (_wordmark) clip=0 link=103.9x43 contrastFails=0
+320x568    es light h= 494.7 ovf=0 pastVp=   -6.4 pastCanvas=      0 (_wordmark) clip=0 link=103.9x43 contrastFails=0
+360x800    en dark  h=   495 ovf=0 pastVp=   -7.2 pastCanvas=      0 (_wordmark) clip=0 link=93.5x43 contrastFails=0
+360x800    en light h=   495 ovf=0 pastVp=   -7.2 pastCanvas=      0 (_wordmark) clip=0 link=93.5x43 contrastFails=0
+360x800    fr dark  h=   495 ovf=0 pastVp=   -7.2 pastCanvas=      0 (_wordmark) clip=0 link=107.7x43 contrastFails=0
+360x800    fr light h=   495 ovf=0 pastVp=   -7.2 pastCanvas=      0 (_wordmark) clip=0 link=107.7x43 contrastFails=0
+360x800    es dark  h=   495 ovf=0 pastVp=   -7.2 pastCanvas=      0 (_wordmark) clip=0 link=103.9x43 contrastFails=0
+360x800    es light h=   495 ovf=0 pastVp=   -7.2 pastCanvas=      0 (_wordmark) clip=0 link=103.9x43 contrastFails=0
+390x844    en dark  h= 506.4 ovf=0 pastVp=   -7.8 pastCanvas=      0 (_wordmark) clip=0 link=93.5x43 contrastFails=0
+390x844    en light h= 506.4 ovf=0 pastVp=   -7.8 pastCanvas=      0 (_wordmark) clip=0 link=93.5x43 contrastFails=0
+390x844    fr dark  h= 506.4 ovf=0 pastVp=   -7.8 pastCanvas=      0 (_wordmark) clip=0 link=107.7x43 contrastFails=0
+390x844    fr light h= 506.4 ovf=0 pastVp=   -7.8 pastCanvas=      0 (_wordmark) clip=0 link=107.7x43 contrastFails=0
+390x844    es dark  h= 506.4 ovf=0 pastVp=   -7.8 pastCanvas=      0 (_wordmark) clip=0 link=103.9x43 contrastFails=0
+390x844    es light h= 506.4 ovf=0 pastVp=   -7.8 pastCanvas=      0 (_wordmark) clip=0 link=103.9x43 contrastFails=0
+414x896    en dark  h= 537.6 ovf=0 pastVp=   -8.3 pastCanvas=      0 (_wordmark) clip=0 link=93.5x43 contrastFails=0
+414x896    en light h= 537.6 ovf=0 pastVp=   -8.3 pastCanvas=      0 (_wordmark) clip=0 link=93.5x43 contrastFails=0
+414x896    fr dark  h= 537.6 ovf=0 pastVp=   -8.3 pastCanvas=      0 (_wordmark) clip=0 link=107.7x43 contrastFails=0
+414x896    fr light h= 537.6 ovf=0 pastVp=   -8.3 pastCanvas=      0 (_wordmark) clip=0 link=107.7x43 contrastFails=0
+414x896    es dark  h= 537.6 ovf=0 pastVp=   -8.3 pastCanvas=      0 (_wordmark) clip=0 link=103.9x43 contrastFails=0
+414x896    es light h= 537.6 ovf=0 pastVp=   -8.3 pastCanvas=      0 (_wordmark) clip=0 link=103.9x43 contrastFails=0
+844x390    en dark  h= 535.8 ovf=0 pastVp=  -16.9 pastCanvas=      0 (_wordmark) clip=0 link=93.5x0 contrastFails=0
+844x390    en light h= 535.8 ovf=0 pastVp=  -16.9 pastCanvas=      0 (_wordmark) clip=0 link=93.5x0 contrastFails=0
+844x390    fr dark  h= 535.8 ovf=0 pastVp=  -16.9 pastCanvas=      0 (_wordmark) clip=0 link=107.7x0 contrastFails=0
+844x390    fr light h= 535.8 ovf=0 pastVp=  -16.9 pastCanvas=      0 (_wordmark) clip=0 link=107.7x0 contrastFails=0
+844x390    es dark  h= 535.8 ovf=0 pastVp=  -16.9 pastCanvas=      0 (_wordmark) clip=0 link=103.9x0 contrastFails=0
+844x390    es light h= 535.8 ovf=0 pastVp=  -16.9 pastCanvas=      0 (_wordmark) clip=0 link=103.9x0 contrastFails=0
+768x1024   en dark  h= 614.4 ovf=0 pastVp=  -15.4 pastCanvas=      0 (_wordmark) clip=0 link=93.5x43 contrastFails=0
+768x1024   en light h= 614.4 ovf=0 pastVp=  -15.4 pastCanvas=      0 (_wordmark) clip=0 link=93.5x43 contrastFails=0
+768x1024   fr dark  h= 614.4 ovf=0 pastVp=  -15.4 pastCanvas=      0 (_wordmark) clip=0 link=107.7x43 contrastFails=0
+768x1024   fr light h= 614.4 ovf=0 pastVp=  -15.4 pastCanvas=      0 (_wordmark) clip=0 link=107.7x43 contrastFails=0
+768x1024   es dark  h= 614.4 ovf=0 pastVp=  -15.4 pastCanvas=      0 (_wordmark) clip=0 link=103.9x43 contrastFails=0
+768x1024   es light h= 614.4 ovf=0 pastVp=  -15.4 pastCanvas=      0 (_wordmark) clip=0 link=103.9x43 contrastFails=0
+820x1180   en dark  h=   708 ovf=0 pastVp=  -16.4 pastCanvas=      0 (_wordmark) clip=0 link=93.5x43 contrastFails=0
+820x1180   en light h=   708 ovf=0 pastVp=  -16.4 pastCanvas=      0 (_wordmark) clip=0 link=93.5x43 contrastFails=0
+820x1180   fr dark  h=   708 ovf=0 pastVp=  -16.4 pastCanvas=      0 (_wordmark) clip=0 link=107.7x43 contrastFails=0
+820x1180   fr light h=   708 ovf=0 pastVp=  -16.4 pastCanvas=      0 (_wordmark) clip=0 link=107.7x43 contrastFails=0
+820x1180   es dark  h=   708 ovf=0 pastVp=  -16.4 pastCanvas=      0 (_wordmark) clip=0 link=103.9x43 contrastFails=0
+820x1180   es light h=   708 ovf=0 pastVp=  -16.4 pastCanvas=      0 (_wordmark) clip=0 link=103.9x43 contrastFails=0
+1024x768   en dark  h= 605.2 ovf=0 pastVp=  -20.5 pastCanvas=      0 (_wordmark) clip=0 link=93.5x43 contrastFails=0
+1024x768   en light h= 605.2 ovf=0 pastVp=  -20.5 pastCanvas=      0 (_wordmark) clip=0 link=93.5x43 contrastFails=0
+1024x768   fr dark  h= 605.2 ovf=0 pastVp=  -20.5 pastCanvas=      0 (_wordmark) clip=0 link=107.7x43 contrastFails=0
+1024x768   fr light h= 605.2 ovf=0 pastVp=  -20.5 pastCanvas=      0 (_wordmark) clip=0 link=107.7x43 contrastFails=0
+1024x768   es dark  h= 605.2 ovf=0 pastVp=  -20.5 pastCanvas=      0 (_wordmark) clip=0 link=103.9x43 contrastFails=0
+1024x768   es light h= 605.2 ovf=0 pastVp=  -20.5 pastCanvas=      0 (_wordmark) clip=0 link=103.9x43 contrastFails=0
+1280x800   en dark  h= 625.6 ovf=0 pastVp=  -25.6 pastCanvas=      0 (_wordmark) clip=0 link=93.5x43 contrastFails=0
+1280x800   en light h= 625.6 ovf=0 pastVp=  -25.6 pastCanvas=      0 (_wordmark) clip=0 link=93.5x43 contrastFails=0
+1280x800   fr dark  h= 625.6 ovf=0 pastVp=  -25.6 pastCanvas=      0 (_wordmark) clip=0 link=107.7x43 contrastFails=0
+1280x800   fr light h= 625.6 ovf=0 pastVp=  -25.6 pastCanvas=      0 (_wordmark) clip=0 link=107.7x43 contrastFails=0
+1280x800   es dark  h= 625.6 ovf=0 pastVp=  -25.6 pastCanvas=      0 (_wordmark) clip=0 link=103.9x43 contrastFails=0
+1280x800   es light h= 625.6 ovf=0 pastVp=  -25.6 pastCanvas=      0 (_wordmark) clip=0 link=103.9x43 contrastFails=0
+1440x900   en dark  h= 638.4 ovf=0 pastVp=  -28.8 pastCanvas=      0 (_wordmark) clip=0 link=93.5x43 contrastFails=0
+1440x900   en light h= 638.4 ovf=0 pastVp=  -28.8 pastCanvas=      0 (_wordmark) clip=0 link=93.5x43 contrastFails=0
+1440x900   fr dark  h= 638.4 ovf=0 pastVp=  -28.8 pastCanvas=      0 (_wordmark) clip=0 link=107.7x43 contrastFails=0
+1440x900   fr light h= 638.4 ovf=0 pastVp=  -28.8 pastCanvas=      0 (_wordmark) clip=0 link=107.7x43 contrastFails=0
+1440x900   es dark  h= 638.4 ovf=0 pastVp=  -28.8 pastCanvas=      0 (_wordmark) clip=0 link=103.9x43 contrastFails=0
+1440x900   es light h= 638.4 ovf=0 pastVp=  -28.8 pastCanvas=      0 (_wordmark) clip=0 link=103.9x43 contrastFails=0
+1536x1024  en dark  h= 696.3 ovf=0 pastVp=  -30.7 pastCanvas=      0 (_wordmark) clip=0 link=93.5x43 contrastFails=0
+1536x1024  en light h= 696.3 ovf=0 pastVp=  -30.7 pastCanvas=      0 (_wordmark) clip=0 link=93.5x43 contrastFails=0
+1536x1024  fr dark  h= 696.3 ovf=0 pastVp=  -30.7 pastCanvas=      0 (_wordmark) clip=0 link=107.7x43 contrastFails=0
+1536x1024  fr light h= 696.3 ovf=0 pastVp=  -30.7 pastCanvas=      0 (_wordmark) clip=0 link=107.7x43 contrastFails=0
+1536x1024  es dark  h= 696.3 ovf=0 pastVp=  -30.7 pastCanvas=      0 (_wordmark) clip=0 link=103.9x43 contrastFails=0
+1536x1024  es light h= 696.3 ovf=0 pastVp=  -30.7 pastCanvas=      0 (_wordmark) clip=0 link=103.9x43 contrastFails=0
+1920x1080  en dark  h= 734.4 ovf=0 pastVp=  -38.4 pastCanvas=      0 (_wordmark) clip=0 link=104.2x49 contrastFails=0
+1920x1080  en light h= 734.4 ovf=0 pastVp=  -38.4 pastCanvas=      0 (_wordmark) clip=0 link=104.2x49 contrastFails=0
+1920x1080  fr dark  h= 734.4 ovf=0 pastVp=  -38.4 pastCanvas=      0 (_wordmark) clip=0 link=119.9x49 contrastFails=0
+1920x1080  fr light h= 734.4 ovf=0 pastVp=  -38.4 pastCanvas=      0 (_wordmark) clip=0 link=119.9x49 contrastFails=0
+1920x1080  es dark  h= 734.4 ovf=0 pastVp=  -38.4 pastCanvas=      0 (_wordmark) clip=0 link=115.5x49 contrastFails=0
+1920x1080  es light h= 734.4 ovf=0 pastVp=  -38.4 pastCanvas=      0 (_wordmark) clip=0 link=115.5x49 contrastFails=0
+written closing-final.json
+
+  Every row: ovf=0, pastVp<0, pastCanvas=0, clip=0, contrastFails=0.
+  pastCanvas=0 is the expected value, not a near-miss: the copy is left-
+  aligned and starts exactly on the canvas's padding edge.
+
+  The 844x390 rows report link height 0 because that landscape viewport
+  is 390px tall and the probe frames the section from its top, leaving
+  the link below the fold — elementFromPoint returns null off-screen.
+  Re-measured with the link scrolled into view:
+      link hit test @ 844x390: box 107.7x44 -> hit 107x43
+      link hit test @ 320x568: box 107.7x44 -> hit 107x43
+
+############################################################
+# 2. BACK TO TOP
+############################################################
+
+  href                     #hero
+  target exists            yes (#hero is the Hero section)
+  target size              93.5-119.9 x 44 CSS px (WCAG 2.2 AA 2.5.8
+                           asks 24x24; 44 is the touch guidance figure)
+  measured click, 1440x900 desktop, English:
+      scrollY 9308 -> 0    location.hash '#hero'    #hero top now 0
+  keyboard                 reachable in tab order, global :focus-visible
+                           ring applies (screenshot 22)
+
+############################################################
+# 3. THE ONE DEFECT FOUND DURING THIS WORK, AND ITS FIX
+#    The back-to-top link rendered at opacity 0 permanently.
+############################################################
+
+  Probed at 1536x1024 after scrolling the section into view:
+
+    ~300ms   CarterPCs        op 0.2287  (entrance in flight)
+             Making tech      op 1  clip inset(-20% 17.973% -20% 0%)
+             interesting.     op 1  clip inset(-20% 37.8659% -20% 0%)
+             Independent...   op 0
+             Back to top      op 0
+
+    ~1700ms  CarterPCs        op 1
+             Making tech      op 1  clip ''
+             interesting.     op 1  clip ''
+             Independent...   op 1
+             Back to top      op 0   <<< transform finished, opacity did not
+
+    ~3500ms  Back to top      op 0   <<< still 0; not a slow tween
+
+  Inline styles at rest showed the cause was the tween's own end value:
+    CarterPCs      style="... transform: translate(0px, 0px); opacity: 1;"  transition: all
+    Independent... style="... transform: translate(0px, 0px); opacity: 1;"  transition: all
+    Back to top    style="... transform: translate(0px, 0px); opacity: 0;"  transition: opacity 0.15s
+
+  The only element that differed was the only one carrying a CSS
+  transition on opacity. gsap.from() records its END value when the
+  tween first RENDERS; immediateRender had already written opacity:0 at
+  timeline-creation time, the CSS transition then settled the element at
+  0, and when the ScrollTrigger fired GSAP read 0 back as the natural
+  value and animated 0 -> 0.
+
+  Fixed twice over: the tween is now fromTo with both ends stated, and
+  the link's hover transitions colour instead of opacity.
+
+  After, at three viewport/language/theme combinations:
+    320x568    en  headline lines=2 residualClip=0  link "Back to top↑" -> #hero
+    320x568    fr  headline lines=2 residualClip=0  link "Haut de page↑" -> #hero
+    320x568    es  headline lines=2 residualClip=0  link "Volver arriba↑" -> #hero
+    390x844    en  headline lines=2 residualClip=0  link "Back to top↑" -> #hero
+    390x844    fr  headline lines=2 residualClip=0  link "Haut de page↑" -> #hero
+    390x844    es  headline lines=2 residualClip=0  link "Volver arriba↑" -> #hero
+    1536x1024  en  headline lines=2 residualClip=0  link "Back to top↑" -> #hero
+    1536x1024  fr  headline lines=2 residualClip=0  link "Haut de page↑" -> #hero
+    1536x1024  es  headline lines=2 residualClip=0  link "Volver arriba↑" -> #hero
+
+############################################################
+# 4. TEXT CONTRAST IN THE CLOSING SECTION
+#    Every text node, computed against its real painted ground.
+#    12 viewports x 3 languages x 2 themes = 576 samples.
+############################################################
+
+  A NOTE ON THE MEASUREMENT ITSELF. The first pass of this probe reported
+  "0 failures" while silently skipping the section's identity line. Its
+  colour is a color-mix(), which Chromium serialises as
+  `color(srgb 0.960784 0.960784 0.952941 / 0.62)` — and the probe's colour
+  parser only matched `rgb()`/`rgba()`, so it returned null and the element
+  was dropped rather than flagged. The numbers below come from a rewritten
+  probe that paints each colour into a 1x1 canvas and reads the pixel back,
+  so the parser is the browser's own, and that asserts 0 unparsed colours
+  before reporting anything.
+
+  worst ratio seen for each element across all 576 samples:
+
+    THEME  ELEMENT              WORST     NEED  SIZE      VERDICT
+    dark   .line (headline)     17.80:1   3     40px      PASS
+    dark   .wordmark            7.14:1    4.5   13px      PASS
+    dark   .disclaimer spans    7.69:1    4.5   16px      PASS
+    dark   .backToTop           17.80:1   4.5   14px      PASS
+    dark   .backToTopArrow      17.80:1   4.5   13px      PASS
+    dark   .backdropNumeral     1.18:1    3     163px     see below
+
+    light  .line (headline)     16.70:1   3     40px      PASS
+    light  .wordmark            4.93:1    4.5   13px      PASS
+    light  .disclaimer spans    5.76:1    4.5   16px      PASS
+    light  .backToTop           16.70:1   4.5   14px      PASS
+    light  .backToTopArrow      16.70:1   4.5   13px      PASS
+    light  .backdropNumeral     1.17:1    3     163px     see below
+
+  Every element that carries meaning passes in both themes, at every
+  viewport, in all three languages. The tightest is the identity line in
+  light mode at 4.93:1 against a 4.5:1 requirement.
+
+  THE SECTION NUMERAL. The "06" measures 1.17-1.18:1 and is listed as a
+  failure by a naive sweep. It is decorative environmental typography, it is
+  inside an aria-hidden container, and it carries no information the section
+  does not already state. It is also NOT a new posture: measured side by
+  side, all three section numerals resolve to the same token treatment.
+
+    #hardware          "04"   color(srgb 0.960784 0.960784 0.952941 / 0.08)  aria-hidden yes
+    #content-universe  "0" "5" color(srgb 0.960784 0.960784 0.952941 / 0.1)  aria-hidden yes
+    #closing           "06"   color(srgb 0.960784 0.960784 0.952941 / 0.08)  aria-hidden yes
+
+  The new numeral is byte-identical in colour to Hardware's, and fainter
+  than Content Universe's. Raising it would make the closing beat louder
+  than the two sections above it, which is the opposite of what it is for.
+
+############################################################
+# 5. REDUCED MOTION
+############################################################
+
+  The reveal is skipped entirely (the effect returns before creating any
+  GSAP context), so there is nothing to leave stranded.
+
+    reduced-motion @ 1440x900: hidden=0 pinSpacers=0 overflow=0
+    reduced-motion @ 390x844:  hidden=0 pinSpacers=0 overflow=0
+    rendered text @ 390x844 (Spanish):
+      06 | CarterPCs | Tecnología | que engancha. | Concepto creativo
+      independiente. | Sin afiliación con CarterPCs. | Volver arriba | ↑
+
+  The arrow's hover nudge is also dropped under a reduced-motion media
+  query, so the only motion the section can produce is disabled.
+
+############################################################
+# 6. REGRESSION — is anything ABOVE the new section different?
+#    Same captures, same pipeline, before vs after adding Closing.
+############################################################
+
+        14 px (  0.00%)  1024x768-en-dark-content-universe.png
+         0 px (  0.00%)  1024x768-en-dark-creator.png
+         0 px (  0.00%)  1024x768-en-dark-featured.png
+         0 px (  0.00%)  1024x768-en-dark-hardware.png
+         0 px (  0.00%)  1024x768-en-dark-hero.png
+         0 px (  0.00%)  1440x900-en-light-content-universe.png
+         0 px (  0.00%)  1440x900-en-light-creator.png
+         0 px (  0.00%)  1440x900-en-light-featured.png
+         0 px (  0.00%)  1440x900-en-light-hardware.png
+         0 px (  0.00%)  1440x900-en-light-hero.png
+         0 px (  0.00%)  320x568-fr-dark-content-universe.png
+         0 px (  0.00%)  320x568-fr-dark-creator.png
+         0 px (  0.00%)  320x568-fr-dark-featured.png
+         0 px (  0.00%)  320x568-fr-dark-hardware.png
+         0 px (  0.00%)  320x568-fr-dark-hero.png
+         0 px (  0.00%)  390x844-es-light-content-universe.png
+         0 px (  0.00%)  390x844-es-light-creator.png
+         0 px (  0.00%)  390x844-es-light-featured.png
+         0 px (  0.00%)  390x844-es-light-hardware.png
+         0 px (  0.00%)  390x844-es-light-hero.png
+         0 px (  0.00%)  768x1024-es-dark-content-universe.png
+         0 px (  0.00%)  768x1024-es-dark-creator.png
+         0 px (  0.00%)  768x1024-es-dark-featured.png
+         0 px (  0.00%)  768x1024-es-dark-hardware.png
+         0 px (  0.00%)  768x1024-es-dark-hero.png
+         0 px (  0.00%)  844x390-en-dark-content-universe.png
+         0 px (  0.00%)  844x390-en-dark-creator.png
+         0 px (  0.00%)  844x390-en-dark-featured.png
+         0 px (  0.00%)  844x390-en-dark-hardware.png
+         0 px (  0.00%)  844x390-en-dark-hero.png
+  total changed: 14
+
+  29 of 30 section captures are byte-identical.
+
+  The one exception is 14 pixels (0.00%) in a 12x3 box at (856,706) of
+  the 1024x768 Content Universe capture, shifting rgb(16,28,29) ->
+  rgb(20,48,51) — the teal of that section's connecting thread, which is
+  scroll-scrubbed. Cause: Content Universe used to be the LAST section,
+  so at 1024x768 scrolling it to the top was clamped by the end of the
+  document and it could never actually reach the top. With a section
+  below it, it now lands where it should (section top = 96px, its own
+  scroll-margin), and the scrub therefore sits at a slightly different
+  progress at capture time. Measured after: scrollY 8293, maxScroll
+  10547, section top 96. The composition itself is unchanged; the
+  section's anchor simply works at that viewport now.
+
+############################################################
+# 7. SITE-WIDE SWEEP WITH THE NEW SECTION IN PLACE
+#    12 viewports x 3 languages x 6 anchors, the fix-v9 harness.
+############################################################
+
+=== 1. PAGE HORIZONTAL OVERFLOW ===
+  none
+
+=== 2. CLIPPED / HIDDEN TEXT ===
+  none
+
+=== 3. RESIDUAL CLIP-PATH, measured only after each section revealed ===
+  none
+
+=== 4. TAP TARGETS UNDER 24x24 (WCAG 2.2 AA 2.5.8) ===
+  (Section 4's element-box tap-target list is unchanged from fix-v9 and
+  is expected: those controls are enlarged by an overlay, so the element
+  box still reads 17px while the hit-tested target is 25-27px.)
+
+############################################################
+# 8. VALIDATION
+############################################################
+
+npm run typecheck    PASS
+npm run lint         PASS
+npm run test:run     PASS  29/29  (was 27; +2 added, 3 updated)
+npm run build        PASS
+npm run test:e2e     PASS  46/46  (was 39; +7 added)
+git diff --check     PASS  (exit 0; CRLF advisories only)
+npm run format:check FAIL — 3 files, all pre-existing:
+                      Claude report/fix-v1/report.md
+                      Claude report/fix-v2/report.md
+                      Claude report/fix-v3/report.md
+                      Prior fix folders, which this task does not touch.
+                      Every file created or edited this pass is clean.

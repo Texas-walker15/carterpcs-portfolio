@@ -133,4 +133,15 @@ export const fr: Dictionary = {
     support:
       'Le terrain récurrent auquel chaque vidéo revient — des PC sur mesure aux histoires qui n’ont rien à voir avec le matériel.',
   },
+
+  /* The headline reuses this file's own opening of `hero.support` ("La tech
+     rendue intéressante"), broken where French breaks naturally: the article
+     stays with its noun on line one. */
+  closing: {
+    disclaimerLineOne: 'Concept créatif indépendant.',
+    disclaimerLineTwo: 'Sans affiliation avec CarterPCs.',
+    headlineLineOne: 'La tech rendue',
+    headlineLineTwo: 'intéressante.',
+    backToTop: 'Haut de page',
+  },
 }

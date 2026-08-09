@@ -902,3 +902,211 @@ test('mobile: nav section links meet the 24px minimum target size', async ({
     ).toBeGreaterThanOrEqual(24)
   }
 })
+
+/* ------------------------------------------------------------------ *
+ * Closing statement (06)
+ *
+ * The site's last beat, directly after Content Universe. Nothing here
+ * anticipates the footer, which is a separate task.
+ * ------------------------------------------------------------------ */
+
+const DICTIONARIES = { en, fr, es } as const
+
+for (const language of ['en', 'fr', 'es'] as const) {
+  test(`${language}: the Closing section renders its statement and returns to the Hero`, async ({
+    page,
+  }) => {
+    const dictionary = DICTIONARIES[language]
+    await page.setViewportSize(DESKTOP)
+    await page.addInitScript((lang) => {
+      window.localStorage.setItem('carterpcs-language', lang)
+    }, language)
+    await page.goto('/')
+
+    const closing = page.locator('#closing')
+    await closing.scrollIntoViewIfNeeded()
+    // The reveal is one-shot; the resting state is what matters.
+    await page.waitForTimeout(1600)
+
+    // Directly after Content Universe.
+    expect(
+      await page.evaluate(
+        () =>
+          document.querySelector('#content-universe')?.nextElementSibling?.id,
+      ),
+    ).toBe('closing')
+
+    // The identity is a proper noun and reads the same in every language.
+    await expect(closing.getByText('CarterPCs', { exact: true })).toBeVisible()
+    await expect(
+      page.getByRole('heading', {
+        level: 2,
+        name: `${dictionary.closing.headlineLineOne} ${dictionary.closing.headlineLineTwo}`,
+      }),
+    ).toBeVisible()
+    await expect(
+      closing.getByText(dictionary.closing.disclaimerLineOne),
+    ).toBeVisible()
+    await expect(
+      closing.getByText(dictionary.closing.disclaimerLineTwo),
+    ).toBeVisible()
+
+    // Every revealed element settles fully visible with no cropping rectangle
+    // left behind — the entrance tween states both ends explicitly precisely
+    // so this cannot regress (see Closing.tsx).
+    const resting = await page.evaluate(() =>
+      [
+        ...document.querySelectorAll(
+          '#closing [data-reveal], #closing [data-headline-line]',
+        ),
+      ].map((el) => ({
+        text: (el.textContent ?? '').trim().slice(0, 20),
+        opacity: getComputedStyle(el).opacity,
+        clip: (el as HTMLElement).style.clipPath || '',
+      })),
+    )
+    expect(resting).toHaveLength(5)
+    for (const item of resting) {
+      expect(item.opacity, `"${item.text}" never became visible`).toBe('1')
+      expect(item.clip, `"${item.text}" kept a clip-path`).toBe('')
+    }
+
+    // Back to top actually goes back to the top.
+    const backToTop = closing.getByRole('link', {
+      name: dictionary.closing.backToTop,
+    })
+    await expect(backToTop).toHaveAttribute('href', '#hero')
+    await backToTop.click()
+    await page.waitForTimeout(1500)
+    expect(await page.evaluate(() => Math.round(window.scrollY))).toBe(0)
+    await expect(page).toHaveURL(/#hero$/)
+  })
+}
+
+for (const width of [320, 390]) {
+  test(`mobile @ ${width}px: the Closing section fits without overflow in every language`, async ({
+    page,
+  }) => {
+    for (const language of ['en', 'fr', 'es'] as const) {
+      await page.setViewportSize({ width, height: 844 })
+      await page.addInitScript((lang) => {
+        window.localStorage.setItem('carterpcs-language', lang)
+      }, language)
+      await page.goto('/')
+
+      await page.locator('#closing').scrollIntoViewIfNeeded()
+      await page.waitForTimeout(1600)
+
+      const measured = await page.evaluate(() => {
+        const section = document.querySelector('#closing')!
+        const canvas = section.querySelector('[class*="canvas"]')!
+        const cs = getComputedStyle(canvas)
+        const box = canvas.getBoundingClientRect()
+        const [padLeft, padRight] = [
+          parseFloat(cs.paddingLeft),
+          parseFloat(cs.paddingRight),
+        ]
+        let worst = -Infinity
+        // Copy only: the section numeral is a decorative bleed by design.
+        for (const el of section.querySelectorAll('h2 span, p, p span, a')) {
+          if (!el.textContent?.trim()) continue
+          const range = document.createRange()
+          range.selectNodeContents(el)
+          const rects = [...range.getClientRects()]
+          if (!rects.length) continue
+          worst = Math.max(
+            worst,
+            Math.max(...rects.map((r) => r.right)) - (box.right - padRight),
+            box.left + padLeft - Math.min(...rects.map((r) => r.left)),
+          )
+        }
+        return {
+          pastCanvas: worst,
+          overflow:
+            document.documentElement.scrollWidth >
+            document.documentElement.clientWidth,
+        }
+      })
+
+      expect(
+        measured.pastCanvas,
+        `${language} copy runs outside the canvas at ${width}px`,
+      ).toBeLessThanOrEqual(0.5)
+      expect(measured.overflow).toBe(false)
+    }
+  })
+}
+
+test('light theme: the Closing copy meets AA contrast on its own ground', async ({
+  page,
+}) => {
+  await page.setViewportSize(DESKTOP)
+  await page.addInitScript(() => {
+    window.localStorage.setItem('carterpcs-theme', 'light')
+  })
+  await page.goto('/')
+  await page.locator('#closing').scrollIntoViewIfNeeded()
+  await page.waitForTimeout(1600)
+
+  const samples = await page.evaluate(() => {
+    const parse = (value: string) =>
+      value
+        .match(/\d+(\.\d+)?/g)!
+        .slice(0, 3)
+        .map(Number) as [number, number, number]
+    const body = parse(getComputedStyle(document.body).backgroundColor)
+    return [
+      ...document.querySelectorAll('#closing h2, #closing p, #closing a'),
+    ].map((el) => {
+      const style = getComputedStyle(el)
+      return {
+        text: (el.textContent ?? '').trim().slice(0, 24),
+        size: parseFloat(style.fontSize),
+        weight: parseInt(style.fontWeight, 10) || 400,
+        color: parse(style.color),
+        background: body,
+      }
+    })
+  })
+
+  expect(samples.length).toBeGreaterThan(0)
+  for (const sample of samples) {
+    const large =
+      sample.size >= 24 || (sample.size >= 18.66 && sample.weight >= 700)
+    expect(
+      contrastRatio(sample.color as Rgb, sample.background as Rgb),
+      `"${sample.text}" contrast`,
+    ).toBeGreaterThanOrEqual(large ? 3 : 4.5)
+  }
+})
+
+test('reduced motion: the Closing section is fully present with no animation left running', async ({
+  page,
+}) => {
+  await page.emulateMedia({ reducedMotion: 'reduce' })
+  await page.setViewportSize(MOBILE)
+  await page.goto('/')
+
+  await page.locator('#closing').scrollIntoViewIfNeeded()
+  await page.waitForTimeout(500)
+
+  const state = await page.evaluate(() => {
+    const section = document.querySelector('#closing')!
+    return {
+      stranded: [...section.querySelectorAll('h2, p, a, span')]
+        .filter((el) => el.textContent?.trim())
+        .filter((el) => {
+          const style = getComputedStyle(el)
+          return (
+            parseFloat(style.opacity) < 0.99 ||
+            style.visibility === 'hidden' ||
+            !!(el as HTMLElement).style.clipPath
+          )
+        }).length,
+      backToTop: !!section.querySelector('a[href="#hero"]'),
+    }
+  })
+
+  expect(state.stranded).toBe(0)
+  expect(state.backToTop).toBe(true)
+})

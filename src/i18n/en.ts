@@ -141,4 +141,27 @@ export const en = {
     support:
       'The recurring ground every video comes back to — from custom builds to the stories that have nothing to do with hardware at all.',
   },
+
+  /**
+   * Closing statement — the site's last beat before the footer (a separate
+   * task; nothing here belongs to it).
+   *
+   * `wordmark` is absent on purpose: the identity is the proper noun
+   * "CarterPCs" and is rendered as a literal in Closing.tsx, exactly as the
+   * nav bar and Hero's Featured-In strip already do.
+   *
+   * `headlineLineOne`/`headlineLineTwo` are one sentence broken across two
+   * display lines, so each language keeps its own natural break point rather
+   * than inheriting English's. The sentence deliberately restates
+   * `hero.support`'s opening claim — it is the bookend to it — so each
+   * language reuses its own existing phrasing rather than inventing a second
+   * translation of the same line.
+   */
+  closing: {
+    disclaimerLineOne: 'Independent creative concept.',
+    disclaimerLineTwo: 'Not affiliated with CarterPCs.',
+    headlineLineOne: 'Making tech',
+    headlineLineTwo: 'interesting.',
+    backToTop: 'Back to top',
+  },
 }
