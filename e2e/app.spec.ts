@@ -667,3 +667,238 @@ for (const width of [320, 390]) {
     })
   }
 }
+
+/* ------------------------------------------------------------------ *
+ * Responsive QA — the narrow-desktop nav band (1024–1239)
+ *
+ * `.nav` is position:fixed, so anything the bar pushes past the end never
+ * reaches documentElement.scrollWidth — the language button sat 25px OFF the
+ * right edge of a 1024px viewport in French while every page-overflow check
+ * read clean. Asserted against the viewport and the bar's own padding box,
+ * plus glyph ink for the identity/link collision in the same band.
+ * ------------------------------------------------------------------ */
+
+/** Every nav control's box, plus the bar's content box, in one round trip. */
+async function barGeometry(page: Page) {
+  return page.evaluate(() => {
+    const nav = document.querySelector('nav')!
+    const bar = nav.firstElementChild as HTMLElement
+    const cs = getComputedStyle(bar)
+    const barRect = bar.getBoundingClientRect()
+    const ink = (el: Element) => {
+      const range = document.createRange()
+      range.selectNodeContents(el)
+      const rects = [...range.getClientRects()]
+      return {
+        left: Math.min(...rects.map((r) => r.left)),
+        right: Math.max(...rects.map((r) => r.right)),
+      }
+    }
+    const controls = [
+      ...nav.querySelectorAll<HTMLElement>('a[href], button[aria-haspopup]'),
+    ]
+    const links = [...nav.querySelectorAll('ul a')]
+    const wordmark = nav.querySelector('a[href="#hero"]')!
+    return {
+      viewportWidth: document.documentElement.clientWidth,
+      contentLeft: barRect.left + parseFloat(cs.paddingLeft),
+      contentRight: barRect.right - parseFloat(cs.paddingRight),
+      controls: controls.map((el) => {
+        const r = el.getBoundingClientRect()
+        return {
+          name: (el.getAttribute('aria-label') ?? el.textContent ?? '').trim(),
+          left: r.left,
+          right: r.right,
+        }
+      }),
+      identityToFirstLink: ink(links[0]).left - ink(wordmark).right,
+    }
+  })
+}
+
+for (const language of ['en', 'fr', 'es'] as const) {
+  test(`${language} @ 1024x768: every nav control stays inside the bar`, async ({
+    page,
+  }) => {
+    await page.setViewportSize({ width: 1024, height: 768 })
+    await page.addInitScript((lang) => {
+      window.localStorage.setItem('carterpcs-language', lang)
+    }, language)
+    await page.goto('/')
+
+    const bar = await barGeometry(page)
+
+    for (const control of bar.controls) {
+      expect(
+        control.right,
+        `"${control.name}" runs off the right of the viewport`,
+      ).toBeLessThanOrEqual(bar.viewportWidth)
+      expect(
+        control.right,
+        `"${control.name}" runs past the bar's padding edge`,
+      ).toBeLessThanOrEqual(bar.contentRight + 0.5)
+      expect(
+        control.left,
+        `"${control.name}" runs off the left`,
+      ).toBeGreaterThanOrEqual(bar.contentLeft - 0.5)
+    }
+
+    // Glyph ink, not the inline box: side bearings mean overlapping boxes are
+    // not by themselves overlapping letters, and vice versa.
+    expect(
+      bar.identityToFirstLink,
+      'the wordmark collides with the first section link',
+    ).toBeGreaterThan(8)
+  })
+}
+
+test('the approved 1240+ bar geometry keeps its optical centre-shift', async ({
+  page,
+}) => {
+  await page.setViewportSize({ width: 1240, height: 800 })
+  await page.goto('/')
+
+  // The shift is calibrated on the 1536 frame and must still be in force from
+  // 1240 up — it is only held back below it.
+  const shift = await page.evaluate(
+    () => getComputedStyle(document.querySelector('nav ul')!).translate,
+  )
+  expect(shift).not.toBe('none')
+})
+
+/* ------------------------------------------------------------------ *
+ * Responsive QA — light theme
+ *
+ * The Hero's light-mode overrides were scoped by a `.hero` class that CSS
+ * Modules hashes away, so they matched nothing: the section kept its
+ * hard-coded near-black environment while every text token flipped to
+ * near-black. Asserted as measured luminance and contrast, not by eye.
+ * ------------------------------------------------------------------ */
+
+type Rgb = [number, number, number]
+
+const relativeLuminance = (rgb: Rgb) => {
+  const channel = (value: number) => {
+    const v = value / 255
+    return v <= 0.03928 ? v / 12.92 : ((v + 0.055) / 1.055) ** 2.4
+  }
+  return (
+    0.2126 * channel(rgb[0]) +
+    0.7152 * channel(rgb[1]) +
+    0.0722 * channel(rgb[2])
+  )
+}
+
+const contrastRatio = (a: Rgb, b: Rgb) => {
+  const [l1, l2] = [relativeLuminance(a), relativeLuminance(b)]
+  return (Math.max(l1, l2) + 0.05) / (Math.min(l1, l2) + 0.05)
+}
+
+test('light theme: the Hero renders on a light ground, not the dark one', async ({
+  page,
+}) => {
+  await page.setViewportSize(DESKTOP)
+  await page.addInitScript(() => {
+    window.localStorage.setItem('carterpcs-theme', 'light')
+  })
+  await page.goto('/')
+  await expect(page.locator('html')).toHaveAttribute('data-theme', 'light')
+
+  // Sampled from rendered pixels rather than from the stylesheet, so a rule
+  // that silently matches nothing cannot pass this.
+  const shot = await page.locator('#hero').screenshot()
+  const sample = (await page.evaluate(
+    async (bytes) => {
+      const blob = new Blob([new Uint8Array(bytes)], { type: 'image/png' })
+      const bitmap = await createImageBitmap(blob)
+      const canvas = document.createElement('canvas')
+      canvas.width = bitmap.width
+      canvas.height = bitmap.height
+      const context = canvas.getContext('2d')!
+      context.drawImage(bitmap, 0, 0)
+      // Top-left corner of the Hero — environment only, no type over it.
+      const { data } = context.getImageData(4, 4, 1, 1)
+      return [data[0], data[1], data[2]]
+    },
+    [...shot],
+  )) as Rgb
+
+  expect(
+    relativeLuminance(sample),
+    `Hero environment rendered as rgb(${sample.join(',')}) in light mode`,
+  ).toBeGreaterThan(0.5)
+})
+
+test('light theme: the primary Hero CTA label is readable on its pill', async ({
+  page,
+}) => {
+  await page.setViewportSize(DESKTOP)
+  await page.addInitScript(() => {
+    window.localStorage.setItem('carterpcs-theme', 'light')
+  })
+  await page.goto('/')
+
+  const measured = await page.evaluate(() => {
+    const cta = document.querySelector<HTMLElement>(
+      '#hero a[href="#content-universe"]',
+    )!
+    const parse = (value: string) =>
+      value
+        .match(/\d+(\.\d+)?/g)!
+        .slice(0, 3)
+        .map(Number)
+    const style = getComputedStyle(cta)
+    return {
+      color: parse(style.color),
+      background: parse(style.backgroundColor),
+    }
+  })
+
+  expect(
+    contrastRatio(measured.color as Rgb, measured.background as Rgb),
+    'the primary CTA label does not meet 4.5:1 against its own pill',
+  ).toBeGreaterThanOrEqual(4.5)
+})
+
+/* ------------------------------------------------------------------ *
+ * Responsive QA — target size (WCAG 2.2 AA, SC 2.5.8)
+ *
+ * The six section labels set a 17px line box. The area is enlarged with an
+ * overlay rather than padding, so the element's own rect still reports 17px —
+ * this asserts what the browser actually hit-tests.
+ * ------------------------------------------------------------------ */
+
+test('mobile: nav section links meet the 24px minimum target size', async ({
+  page,
+}) => {
+  await page.setViewportSize(MOBILE)
+  await page.goto('/')
+
+  const targets = await page.evaluate(() => {
+    const hits = (el: Element, x: number, y: number) => {
+      const found = document.elementFromPoint(x, y)
+      return !!found && (found === el || el.contains(found))
+    }
+    return [...document.querySelectorAll('nav ul a')].map((el) => {
+      const r = el.getBoundingClientRect()
+      const [cx, cy] = [r.left + r.width / 2, r.top + r.height / 2]
+      let up = 0
+      let down = 0
+      while (up < 20 && hits(el, cx, cy - (up + 1))) up += 1
+      while (down < 20 && hits(el, cx, cy + (down + 1))) down += 1
+      return { name: el.textContent, height: up + down, width: r.width }
+    })
+  })
+
+  expect(targets).toHaveLength(6)
+  for (const target of targets) {
+    expect(
+      target.height,
+      `"${target.name}" target height`,
+    ).toBeGreaterThanOrEqual(24)
+    expect(
+      target.width,
+      `"${target.name}" target width`,
+    ).toBeGreaterThanOrEqual(24)
+  }
+})

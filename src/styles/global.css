@@ -22,8 +22,17 @@ body {
 }
 
 /* Light mode keeps the editorial composition intact while swapping the
-   Hero's otherwise hard-coded dark environment for a high-key equivalent. */
-html[data-theme='light'] .hero [class*='env'] {
+   Hero's otherwise hard-coded dark environment for a high-key equivalent.
+
+   Scoped by #hero, NOT by a `.hero` class: the section's class comes from a
+   CSS module and is hashed at build time (`_hero_1ed0a_20`), so a literal
+   `.hero` ancestor matched nothing and every rule below was dead. The Hero
+   therefore kept its hard-coded near-black environment in light mode while
+   every text token flipped to near-black — headline, support copy, CTAs and
+   nav labels all rendered black-on-black. The `[class*='…']` selectors do
+   work against hashed names (substring match), so only the ancestor needed
+   fixing. The id is stable markup and is what the nav already links to. */
+html[data-theme='light'] #hero [class*='env'] {
   background:
     radial-gradient(
       28% 34% at 66% 28%,
@@ -33,13 +42,21 @@ html[data-theme='light'] .hero [class*='env'] {
     linear-gradient(180deg, #fafaf7 0%, #eeeeea 100%);
 }
 
-html[data-theme='light'] .hero [class*='envDisc'] {
+html[data-theme='light'] #hero [class*='envDisc'] {
   background: radial-gradient(circle, rgb(77 79 87 / 12%) 0%, transparent 72%);
 }
 
-html[data-theme='light'] .hero [class*='ctaPrimary'] {
+html[data-theme='light'] #hero [class*='ctaPrimary'] {
   color: #151516;
   border-color: #151516;
+}
+
+/* The one Featured-In mark that is an image rather than type is forced to
+   flat white for the dark ground (`brightness(0) invert(1)`), which left it
+   invisible on the light one — measured as a blank crop where the glyph
+   should be. Dropping the invert keeps the same flattening, in ink. */
+html[data-theme='light'] #hero [class*='markGlyph'] img {
+  filter: brightness(0);
 }
 
 /* LARGE-DESKTOP PRESENTATION SCALE

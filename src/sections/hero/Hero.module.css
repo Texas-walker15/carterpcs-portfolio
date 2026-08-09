@@ -281,7 +281,11 @@
   width: 2.125rem;
   height: 2.125rem;
   border-radius: 50%;
-  border: 1px solid color-mix(in srgb, var(--color-bg-base) 36%, transparent);
+  /* Derived from the pill's own ink rather than from --color-bg-base. In the
+     dark theme the two are the same colour, so this is byte-identical there;
+     in light mode bg-base is near-white and the ring vanished into the white
+     pill. currentcolor tracks whatever the label is set to. */
+  border: 1px solid color-mix(in srgb, currentcolor 36%, transparent);
   font-size: 0.8125rem;
   line-height: 1;
   transition: transform var(--duration-base) var(--ease-out);
@@ -412,7 +416,12 @@
   color: color-mix(in srgb, var(--color-text-primary) 58%, transparent);
 }
 
+/* 19.5px tall — under WCAG 2.2 AA 2.5.8's 24px minimum for a standalone
+   link. Enlarged with an overlay, not padding: the card's interior rows are
+   ink-calibrated to the reference (link baseline at y433) and padding would
+   move them. See Nav.module.css's .link for the same technique. */
 .aboutLink {
+  position: relative;
   display: inline-flex;
   align-items: center;
   gap: 0.4375rem;
@@ -423,6 +432,13 @@
   color: var(--color-text-primary);
   text-decoration: none;
   transition: opacity var(--duration-fast) var(--ease-out);
+}
+
+.aboutLink::after {
+  content: '';
+  position: absolute;
+  inset-block: -0.1875rem;
+  inset-inline: 0;
 }
 
 .aboutLink:hover {

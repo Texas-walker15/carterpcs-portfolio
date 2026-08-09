@@ -1,0 +1,391 @@
+CarterPCs fix-v9 — responsive QA diagnostics
+Generated 2026-08-09. All measurements taken in headless Chromium against
+a production build served by vite preview. Every viewport listed in the
+brief was exercised in English, French and Spanish.
+
+############################################################
+# 1. VIEWPORT / LANGUAGE SWEEP  (12 viewports x 3 languages
+#    x 6 scroll anchors = 216 measurements per run)
+############################################################
+
+--- BEFORE ---
+=== 1. PAGE HORIZONTAL OVERFLOW ===
+  none
+
+=== 2. CLIPPED / HIDDEN TEXT ===
+  none
+
+=== 3. RESIDUAL CLIP-PATH, measured only after each section revealed ===
+  none
+
+=== 4. TAP TARGETS UNDER 24x24 (WCAG 2.2 AA 2.5.8) ===
+  34.9x17  div._bar_1vqy8_23>ul._sections_1vqy8_123>li>a._link_1vqy8_172 "Work"
+      320x568 360x800 390x844 414x896 844x390 768x1024 820x1180 1024x768 1280x800 1440x900 1536x1024 1920x1080
+
+--- AFTER ---
+=== 1. PAGE HORIZONTAL OVERFLOW ===
+  none
+
+=== 2. CLIPPED / HIDDEN TEXT ===
+  none
+
+=== 3. RESIDUAL CLIP-PATH, measured only after each section revealed ===
+  none
+
+=== 4. TAP TARGETS UNDER 24x24 (WCAG 2.2 AA 2.5.8) ===
+  34.9x17  div._bar_1vrhp_23>ul._sections_1vrhp_123>li>a._link_1vrhp_143 "Work"
+      320x568 360x800 390x844 414x896 844x390 768x1024 820x1180 1024x768 1280x800 1440x900 1536x1024 1920x1080
+
+############################################################
+# 2. NAV BAR FIT  (does the single-row bar actually fit?)
+#    'pastViewport' > 0 means a control is OFF-SCREEN.
+#    nav is position:fixed, so this never reaches scrollWidth.
+############################################################
+
+--- BEFORE ---
+en  1024  pastViewport=  -36.9 (language)  pastPadding=      0 (language)
+en  1060  pastViewport=  -38.2 (language)  pastPadding=      0 (wordmark)
+en  1100  pastViewport=  -39.6 (language)  pastPadding=      0 (language)
+en  1140  pastViewport=    -41 (language)  pastPadding=      0 (wordmark)
+en  1180  pastViewport=  -42.5 (language)  pastPadding=      0 (language)
+en  1220  pastViewport=  -43.9 (language)  pastPadding=      0 (wordmark)
+en  1240  pastViewport=  -44.6 (language)  pastPadding=      0 (wordmark)
+en  1280  pastViewport=  -46.1 (language)  pastPadding=      0 (language)
+en  1366  pastViewport=  -49.2 (language)  pastPadding=      0 (language)
+en  1440  pastViewport=  -51.8 (language)  pastPadding=      0 (language)
+en  1536  pastViewport=    -52 (language)  pastPadding=      0 (wordmark)
+en  1600  pastViewport=    -84 (language)  pastPadding=      0 (wordmark)
+en  1920  pastViewport=   -244 (language)  pastPadding=      0 (wordmark)
+fr  1024  pastViewport=   25.3 (language)  pastPadding=   62.2 (language)  <<< OFF-SCREEN
+fr  1060  pastViewport=   -3.1 (language)  pastPadding=     35 (language)  <<< past bar padding
+fr  1100  pastViewport=  -34.6 (language)  pastPadding=      5 (language)  <<< past bar padding
+fr  1140  pastViewport=    -41 (language)  pastPadding=      0 (wordmark)
+fr  1180  pastViewport=  -42.5 (language)  pastPadding=      0 (language)
+fr  1220  pastViewport=  -43.9 (language)  pastPadding=      0 (wordmark)
+fr  1240  pastViewport=  -44.6 (language)  pastPadding=      0 (wordmark)
+fr  1280  pastViewport=  -46.1 (language)  pastPadding=      0 (language)
+fr  1366  pastViewport=  -49.2 (language)  pastPadding=      0 (language)
+fr  1440  pastViewport=  -51.8 (language)  pastPadding=      0 (language)
+fr  1536  pastViewport=    -52 (language)  pastPadding=      0 (wordmark)
+fr  1600  pastViewport=    -84 (language)  pastPadding=      0 (wordmark)
+fr  1920  pastViewport=   -244 (language)  pastPadding=      0 (wordmark)
+es  1024  pastViewport=   14.8 (language)  pastPadding=   51.6 (language)  <<< OFF-SCREEN
+es  1060  pastViewport=  -13.7 (language)  pastPadding=   24.5 (language)  <<< past bar padding
+es  1100  pastViewport=  -39.6 (language)  pastPadding=      0 (language)
+es  1140  pastViewport=    -41 (language)  pastPadding=      0 (wordmark)
+es  1180  pastViewport=  -42.5 (language)  pastPadding=      0 (language)
+es  1220  pastViewport=  -43.9 (language)  pastPadding=      0 (wordmark)
+es  1240  pastViewport=  -44.6 (language)  pastPadding=      0 (wordmark)
+es  1280  pastViewport=  -46.1 (language)  pastPadding=      0 (language)
+es  1366  pastViewport=  -49.2 (language)  pastPadding=      0 (language)
+es  1440  pastViewport=  -51.8 (language)  pastPadding=      0 (language)
+es  1536  pastViewport=    -52 (language)  pastPadding=      0 (wordmark)
+es  1600  pastViewport=    -84 (language)  pastPadding=      0 (wordmark)
+es  1920  pastViewport=   -244 (language)  pastPadding=      0 (wordmark)
+
+--- AFTER ---
+en  1024  rows=2  pastViewport=  -36.9 (language)  pastPadding=      0 (language)
+en  1060  rows=2  pastViewport=  -38.2 (language)  pastPadding=      0 (wordmark)
+en  1100  rows=2  pastViewport=  -39.6 (language)  pastPadding=      0 (language)
+en  1140  rows=2  pastViewport=    -41 (language)  pastPadding=      0 (wordmark)
+en  1180  rows=2  pastViewport=  -42.5 (language)  pastPadding=      0 (language)
+en  1220  rows=2  pastViewport=  -43.9 (language)  pastPadding=      0 (wordmark)
+en  1240  rows=2  pastViewport=  -44.6 (language)  pastPadding=      0 (wordmark)
+en  1280  rows=2  pastViewport=  -46.1 (language)  pastPadding=      0 (language)
+en  1366  rows=2  pastViewport=  -49.2 (language)  pastPadding=      0 (language)
+en  1440  rows=2  pastViewport=  -51.8 (language)  pastPadding=      0 (language)
+en  1536  rows=2  pastViewport=    -52 (language)  pastPadding=      0 (wordmark)
+en  1600  rows=2  pastViewport=    -84 (language)  pastPadding=      0 (wordmark)
+en  1920  rows=2  pastViewport=   -244 (language)  pastPadding=      0 (wordmark)
+fr  1024  rows=2  pastViewport=  -36.9 (language)  pastPadding=      0 (language)
+fr  1060  rows=2  pastViewport=  -38.2 (language)  pastPadding=      0 (wordmark)
+fr  1100  rows=2  pastViewport=  -39.6 (language)  pastPadding=      0 (language)
+fr  1140  rows=2  pastViewport=    -41 (language)  pastPadding=      0 (wordmark)
+fr  1180  rows=2  pastViewport=  -42.5 (language)  pastPadding=      0 (language)
+fr  1220  rows=2  pastViewport=  -43.9 (language)  pastPadding=      0 (wordmark)
+fr  1240  rows=2  pastViewport=  -44.6 (language)  pastPadding=      0 (wordmark)
+fr  1280  rows=2  pastViewport=  -46.1 (language)  pastPadding=      0 (language)
+fr  1366  rows=2  pastViewport=  -49.2 (language)  pastPadding=      0 (language)
+fr  1440  rows=2  pastViewport=  -51.8 (language)  pastPadding=      0 (language)
+fr  1536  rows=2  pastViewport=    -52 (language)  pastPadding=      0 (wordmark)
+fr  1600  rows=2  pastViewport=    -84 (language)  pastPadding=      0 (wordmark)
+fr  1920  rows=2  pastViewport=   -244 (language)  pastPadding=      0 (wordmark)
+es  1024  rows=2  pastViewport=  -36.9 (language)  pastPadding=      0 (language)
+es  1060  rows=2  pastViewport=  -38.2 (language)  pastPadding=      0 (wordmark)
+es  1100  rows=2  pastViewport=  -39.6 (language)  pastPadding=      0 (language)
+es  1140  rows=2  pastViewport=    -41 (language)  pastPadding=      0 (wordmark)
+es  1180  rows=2  pastViewport=  -42.5 (language)  pastPadding=      0 (language)
+es  1220  rows=2  pastViewport=  -43.9 (language)  pastPadding=      0 (wordmark)
+es  1240  rows=2  pastViewport=  -44.6 (language)  pastPadding=      0 (wordmark)
+es  1280  rows=2  pastViewport=  -46.1 (language)  pastPadding=      0 (language)
+es  1366  rows=2  pastViewport=  -49.2 (language)  pastPadding=      0 (language)
+es  1440  rows=2  pastViewport=  -51.8 (language)  pastPadding=      0 (language)
+es  1536  rows=2  pastViewport=    -52 (language)  pastPadding=      0 (wordmark)
+es  1600  rows=2  pastViewport=    -84 (language)  pastPadding=      0 (wordmark)
+es  1920  rows=2  pastViewport=   -244 (language)  pastPadding=      0 (wordmark)
+written barfit-final.json
+
+############################################################
+# 3. IDENTITY vs FIRST SECTION LINK — GLYPH INK GAP
+#    Negative = the letters overlap. Range rects, not boxes.
+############################################################
+
+--- BEFORE (px between 'CarterPCs' ink and the first link's ink) ---
+en: 1040=1.53  1060=15.94  1080=30.28  1100=44.69  1120=59.1  1140=73.43  1160=87.84  1180=102.25  1200=116.57  1220=123.4  1240=130.28
+fr: 1040=-1.9  1060=-2.56  1080=-3.21  1100=-3.86  1120=-4.51  1140=2.88  1160=17.29  1180=31.7  1200=46.11  1220=60.45  1240=74.86
+es: 1040=-1.9  1060=-2.56  1080=-3.21  1100=-3.86  1120=-0.9  1140=13.43  1160=27.84  1180=42.25  1200=56.66  1220=70.99  1240=85.4
+  measured separately at the 1024 breakpoint itself, on the pristine build:
+    en 1024=-1.38   fr 1024=-1.38   es 1024=-1.38   (all three overlap)
+
+  With ONLY the gap ramp applied (i.e. proving it is not sufficient):
+    en 1024=68.01   fr 1024=-1.38   es 1024=8.01    (French still overlaps)
+
+--- AFTER ---
+  en: 1024=101.39  1040=108.78  1080=127.19  1140=147.23  1200=161.08  1239=170.05  1240=130.28  1280=144.04  1440=198.95  1536=233.67
+  fr: 1024=32.00   1040=38.23   1080=56.64   1140=84.33   1200=112.02  1239=129.97  1240=74.86   1280=103.66  1440=183.88  1536=218.61
+  es: 1024=41.39   1040=48.78   1080=67.19   1140=94.88   1200=122.56  1239=139.70  1240=85.40   1280=113.68  1440=168.60  1536=203.33
+  1240 and above are identical to the pre-fix values (74.86 / 85.40 /
+  130.28), i.e. the approved composition is untouched.
+
+############################################################
+# 4. TAP TARGETS — real hit test (document.elementFromPoint
+#    walked outward from each control's centre)
+#    12 viewports x 3 languages x 6 anchors = 1909 samples
+############################################################
+
+--- BEFORE (element box, WCAG 2.2 AA SC 2.5.8 wants 24x24) ---
+  103.4x19.5  div._canvas_1ed0a_35>div._cards_1ed0a_333>aside._about_1ed0a_10>a._aboutLink_1ed0a_415 "En savoir plus↗"
+  113.2x22.5  div#root>nav._nav_1vqy8_12>div._bar_1vqy8_23>a._wordmark_1vqy8_38 "CarterPCs"
+  34.9x17  div._bar_1vqy8_23>ul._sections_1vqy8_123>li>a._link_1vqy8_172 "Work"
+  45.6x17  div._bar_1vqy8_23>ul._sections_1vqy8_123>li>a._link_1vqy8_172 "Impact"
+  46.3x17  div._bar_1vqy8_23>ul._sections_1vqy8_123>li>a._link_1vqy8_172 "Projets"
+  51x17  div._bar_1vqy8_23>ul._sections_1vqy8_123>li>a._link_1vqy8_172 "Univers"
+  52.8x17  div._bar_1vqy8_23>ul._sections_1vqy8_123>li>a._link_1vqy8_172 "Content"
+  53.8x17  div._bar_1vqy8_23>ul._sections_1vqy8_123>li>a._link_1vqy8_172 "Process"
+  53.9x17  div._bar_1vqy8_23>ul._sections_1vqy8_123>li>a._link_1vqy8_172 "Impacto"
+  54.8x17  div._bar_1vqy8_23>ul._sections_1vqy8_123>li>a._link_1vqy8_172 "Proceso"
+  56.5x17  div._bar_1vqy8_23>ul._sections_1vqy8_123>li>a._link_1vqy8_172 "Contenu"
+  57x17  div._bar_1vqy8_23>ul._sections_1vqy8_123>li>a._link_1vqy8_172 "Systems"
+  59.2x17  div._bar_1vqy8_23>ul._sections_1vqy8_123>li>a._link_1vqy8_172 "Universe"
+  59.5x17  div._bar_1vqy8_23>ul._sections_1vqy8_123>li>a._link_1vqy8_172 "Universo"
+  60.5x17  div._bar_1vqy8_23>ul._sections_1vqy8_123>li>a._link_1vqy8_172 "Sistemas"
+  64.5x17  div._bar_1vqy8_23>ul._sections_1vqy8_123>li>a._link_1vqy8_172 "Systèmes"
+  66.7x17  div._bar_1vqy8_23>ul._sections_1vqy8_123>li>a._link_1vqy8_172 "Proyectos"
+  68.8x17  div._bar_1vqy8_23>ul._sections_1vqy8_123>li>a._link_1vqy8_172 "Contenido"
+  69.6x17  div._bar_1vqy8_23>ul._sections_1vqy8_123>li>a._link_1vqy8_172 "Processus"
+  82.4x19.5  div._canvas_1ed0a_35>div._cards_1ed0a_333>aside._about_1ed0a_10>a._aboutLink_1ed0a_415 "Saber más↗"
+  87.9x19.5  div._canvas_1ed0a_35>div._cards_1ed0a_333>aside._about_1ed0a_10>a._aboutLink_1ed0a_415 "Learn more↗"
+
+--- AFTER (hit-tested target size) ---
+=== targets still under 24x24 by real hit test ===
+  none
+
+=== the four previously-failing controls, hit height by viewport ===
+  _link: boxH 17–19  →  hitH 25–27, hitW min 34
+  _wordmark: boxH 22.5–35.3  →  hitH 29–40, hitW min 80
+  _aboutLink: boxH 19.5–21.8  →  hitH 25–29, hitW min 80
+written targets-final.json 1909 samples
+
+############################################################
+# 5. THEME CONTRAST (dark / light / system, all sections)
+############################################################
+
+--- BEFORE ---
+THEME dark (resolved dark) failures: 8
+     3.65:1  need 4.5  15px  _cardIndex_1ed0a_388  rgb(124, 79, 214) on rgb(13,13,13)  "01"
+     3.65:1  need 4.5  15px  _cardIndex_1ed0a_388  rgb(124, 79, 214) on rgb(13,13,13)  "02"
+     3.65:1  need 4.5  10px  _tileIndex_1ed0a_580  rgb(124, 79, 214) on rgb(13,13,13)  "03"
+     3.65:1  need 4.5  10px  _tileIndex_1ed0a_580  rgb(124, 79, 214) on rgb(13,13,13)  "04"
+     3.65:1  need 4.5  10px  _tileIndex_1ed0a_580  rgb(124, 79, 214) on rgb(13,13,13)  "05"
+     3.65:1  need 4.5  12px  _kicker_1hzl3_176  rgb(124, 79, 214) on rgb(13,13,13)  "The Creator"
+     3.65:1  need 4.5  12px  _entrySecondary_1njec_195  rgb(124, 79, 214) on rgb(13,13,13)  "Custom Builds"
+     3.65:1  need 4.5  12px  _entrySecondary_1njec_195  rgb(124, 79, 214) on rgb(13,13,13)  "Controversies"
+THEME light (resolved light) failures: 9
+     1.07:1  need 4.5  14px  _cta_1ed0a_243  rgb(245, 245, 241) on rgb(252,252,252)  "Explore the Universe→"
+     1.07:1  need 4.5  13px  _ctaBadge_1ed0a_278  rgb(245, 245, 241) on rgb(252,252,252)  "→"
+     4.34:1  need 4.5  12px  _panelIndex_mbnau_245  rgb(22, 127, 137) on rgb(245,245,241)  "01 — Hardware"
+     4.34:1  need 4.5  12px  _panelIndex_mbnau_245  rgb(22, 127, 137) on rgb(245,245,241)  "02 — Tech"
+     4.34:1  need 4.5  12px  _panelIndex_mbnau_245  rgb(22, 127, 137) on rgb(245,245,241)  "03 — Commentary"
+     4.34:1  need 4.5  12px  _kicker_lr5d1_108  rgb(22, 127, 137) on rgb(245,245,241)  "Inside the build"
+     4.34:1  need 4.5  16px  _beatIndex_lr5d1_287  rgb(22, 127, 137) on rgb(245,245,241)  "01"
+     4.34:1  need 4.5  16px  _beatIndex_lr5d1_287  rgb(22, 127, 137) on rgb(245,245,241)  "02"
+     4.34:1  need 4.5  12px  _kicker_1njec_78  rgb(22, 127, 137) on rgb(245,245,241)  "Beyond the featured stories"
+THEME system (resolved light) failures: 9
+     1.07:1  need 4.5  14px  _cta_1ed0a_243  rgb(245, 245, 241) on rgb(252,252,252)  "Explore the Universe→"
+     1.07:1  need 4.5  13px  _ctaBadge_1ed0a_278  rgb(245, 245, 241) on rgb(252,252,252)  "→"
+     4.34:1  need 4.5  12px  _panelIndex_mbnau_245  rgb(22, 127, 137) on rgb(245,245,241)  "01 — Hardware"
+     4.34:1  need 4.5  12px  _panelIndex_mbnau_245  rgb(22, 127, 137) on rgb(245,245,241)  "02 — Tech"
+     4.34:1  need 4.5  12px  _panelIndex_mbnau_245  rgb(22, 127, 137) on rgb(245,245,241)  "03 — Commentary"
+     4.34:1  need 4.5  12px  _kicker_lr5d1_108  rgb(22, 127, 137) on rgb(245,245,241)  "Inside the build"
+     4.34:1  need 4.5  16px  _beatIndex_lr5d1_287  rgb(22, 127, 137) on rgb(245,245,241)  "01"
+     4.34:1  need 4.5  16px  _beatIndex_lr5d1_287  rgb(22, 127, 137) on rgb(245,245,241)  "02"
+     4.34:1  need 4.5  12px  _kicker_1njec_78  rgb(22, 127, 137) on rgb(245,245,241)  "Beyond the featured stories"
+
+--- AFTER ---
+THEME dark (resolved dark) failures: 8
+     3.65:1  need 4.5  15px  _cardIndex_1cq5w_392  rgb(124, 79, 214) on rgb(13,13,13)  "01"
+     3.65:1  need 4.5  15px  _cardIndex_1cq5w_392  rgb(124, 79, 214) on rgb(13,13,13)  "02"
+     3.65:1  need 4.5  10px  _tileIndex_1cq5w_596  rgb(124, 79, 214) on rgb(13,13,13)  "03"
+     3.65:1  need 4.5  10px  _tileIndex_1cq5w_596  rgb(124, 79, 214) on rgb(13,13,13)  "04"
+     3.65:1  need 4.5  10px  _tileIndex_1cq5w_596  rgb(124, 79, 214) on rgb(13,13,13)  "05"
+     3.65:1  need 4.5  12px  _kicker_1hzl3_176  rgb(124, 79, 214) on rgb(13,13,13)  "The Creator"
+     3.65:1  need 4.5  12px  _entrySecondary_1njec_195  rgb(124, 79, 214) on rgb(13,13,13)  "Custom Builds"
+     3.65:1  need 4.5  12px  _entrySecondary_1njec_195  rgb(124, 79, 214) on rgb(13,13,13)  "Controversies"
+THEME light (resolved light) failures: 0
+THEME system (resolved light) failures: 0
+
+  NOTE: the eight remaining dark-theme entries are all the same value,
+  the brand violet #7c4fd6 on #0d0d0d = 3.65:1. Left unchanged on
+  purpose — see report.md, 'Found but not fixed'.
+
+############################################################
+# 6. PREFERENCE MENUS — behaviour and placement, all 12
+#    viewports (unchanged by this pass; re-verified)
+############################################################
+
+columns: covNav=covers the bar's own links | covH1=covers the Hero h1 |
+offR/offB = px the panel is INSIDE the right/bottom edge (negative is good)
+sel/esc/out/blur = closes on selection / Escape / outside press / focus loss
+kbd = opens by keyboard / focus lands on an item / language actually applied
+
+320x568 open=true covNav=false covH1=true offR=-20 offB=-247.5 share=0.211 sel=true esc=true out=true blur=true kbd=true/true/fr
+360x800 open=true covNav=false covH1=true offR=-20 offB=-479.2 share=0.15 sel=true esc=true out=true blur=true kbd=true/true/fr
+390x844 open=true covNav=false covH1=true offR=-20 offB=-523 share=0.142 sel=true esc=true out=true blur=true kbd=true/true/fr
+414x896 open=true covNav=false covH1=false offR=-20 offB=-574.8 share=0.134 sel=true esc=true out=true blur=true kbd=true/true/fr
+844x390 open=true covNav=false covH1=false offR=-33.8 offB=-138 share=0.308 sel=true esc=true out=true blur=true kbd=true/true/fr
+768x1024 open=true covNav=false covH1=false offR=-30.7 offB=-772.3 share=0.117 sel=true esc=true out=true blur=true kbd=true/true/fr
+820x1180 open=true covNav=false covH1=false offR=-32.8 offB=-928.1 share=0.102 sel=true esc=true out=true blur=true kbd=true/true/fr
+1024x768 open=true covNav=false covH1=false offR=-36.9 offB=-561 share=0.156 sel=true esc=true out=true blur=true kbd=true/true/fr
+1280x800 open=true covNav=false covH1=false offR=-46.1 offB=-593 share=0.15 sel=true esc=true out=true blur=true kbd=true/true/fr
+1440x900 open=true covNav=false covH1=false offR=-51.8 offB=-693 share=0.133 sel=true esc=true out=true blur=true kbd=true/true/fr
+1536x1024 open=true covNav=false covH1=false offR=-52 offB=-817 share=0.117 sel=true esc=true out=true blur=true kbd=true/true/fr
+1920x1080 open=true covNav=false covH1=false offR=-158.1 offB=-848.6 share=0.124 sel=true esc=true out=true blur=true kbd=true/true/fr
+written menus-after.json
+
+############################################################
+# 7. 200% BROWSER ZOOM and PREFERS-REDUCED-MOTION
+#    Zoom emulated the way real zoom works: halving the CSS-px
+#    viewport (1280x800 @200% == a 640x400 CSS viewport).
+############################################################
+
+--- BEFORE ---
+zoom 1280x800 @200% en overflow=0,0,0,0,0 clipped=0
+zoom 1280x800 @200% fr overflow=0,0,0,0,0 clipped=0
+zoom 1440x900 @200% en overflow=0,0,0,0,0 clipped=0
+zoom 1440x900 @200% fr overflow=0,0,0,0,0 clipped=0
+zoom 1920x1080 @200% en overflow=0,0,0,0,0 clipped=0
+zoom 1920x1080 @200% fr overflow=0,0,0,0,0 clipped=0
+zoom 390x844 @200% en overflow=0,0,0,0,0 clipped=0
+zoom 390x844 @200% fr overflow=0,0,0,0,0 clipped=0
+reduced-motion 1440x900 hidden=6 pinSpacers=0,0,0,0,0 overflow=0,0,0,0,0
+reduced-motion 390x844 hidden=7 pinSpacers=0,0,0,0,0 overflow=0,0,0,0,0
+
+--- AFTER ---
+zoom 1280x800 @200% en overflow=0,0,0,0,0 clipped=0
+zoom 1280x800 @200% fr overflow=0,0,0,0,0 clipped=0
+zoom 1440x900 @200% en overflow=0,0,0,0,0 clipped=0
+zoom 1440x900 @200% fr overflow=0,0,0,0,0 clipped=0
+zoom 1920x1080 @200% en overflow=0,0,0,0,0 clipped=0
+zoom 1920x1080 @200% fr overflow=0,0,0,0,0 clipped=0
+zoom 390x844 @200% en overflow=0,0,0,0,0 clipped=0
+zoom 390x844 @200% fr overflow=0,0,0,0,0 clipped=0
+reduced-motion 1440x900 hidden=6 pinSpacers=0,0,0,0,0 overflow=0,0,0,0,0
+reduced-motion 390x844 hidden=7 pinSpacers=0,0,0,0,0 overflow=0,0,0,0,0
+
+  'hidden=6/7' counts elements below opacity 0.99. All of them are the
+  section .tags line, which carries a STATIC 'opacity: 0.85' in its own
+  stylesheet (Creator/Featured/Hardware/ContentUniverse/Hero .module.css),
+  plus the desktop-only index rail which is display:none on mobile.
+  Nothing is stranded mid-animation; pinSpacers=0 confirms no pinning.
+
+############################################################
+# 8. PIN / SCRUB SEQUENCES — can the page always be finished?
+#    Scrolled in 0.6-viewport steps to the document end.
+############################################################
+
+PIN 320x568: reachedEnd=true y=9351/9351 maxOverflowSeen=0 cuBottom=568 vh=568
+PIN 360x800: reachedEnd=true y=9136/9136 maxOverflowSeen=0 cuBottom=800 vh=800
+PIN 390x844: reachedEnd=true y=8502/8502 maxOverflowSeen=0 cuBottom=844 vh=844
+PIN 414x896: reachedEnd=true y=8473/8473 maxOverflowSeen=0 cuBottom=896 vh=896
+PIN 844x390: reachedEnd=true y=11465/11465 maxOverflowSeen=0 cuBottom=390 vh=390
+PIN 768x1024: reachedEnd=true y=10272/10272 maxOverflowSeen=0 cuBottom=1024 vh=1024
+PIN 820x1180: reachedEnd=true y=10503/10503 maxOverflowSeen=0 cuBottom=1180 vh=1180
+PIN 1024x768: reachedEnd=true y=9942/9942 maxOverflowSeen=0 cuBottom=768 vh=768
+PIN 1280x800: reachedEnd=true y=8214/8214 maxOverflowSeen=0 cuBottom=800 vh=800
+PIN 1440x900: reachedEnd=true y=8670/8670 maxOverflowSeen=0 cuBottom=900 vh=900
+PIN 1536x1024: reachedEnd=true y=9299/9299 maxOverflowSeen=0 cuBottom=1024 vh=1024
+PIN 1920x1080: reachedEnd=true y=10484/10484 maxOverflowSeen=0 cuBottom=1080 vh=1080
+
+############################################################
+# 9. PIXEL DIFF — before vs after, same build pipeline
+#    Anything reported as 0 is provably untouched.
+############################################################
+
+--- headline before/after pairs ---
+     16966 px ( 64.51%)  hero-cta-light-1440.png
+         0 px (  0.00%)  hero-dark-1440x900.png
+         0 px (  0.00%)  hero-dark-390x844.png
+   1101493 px ( 84.99%)  hero-light-1440x900.png
+    288478 px ( 87.64%)  hero-light-390x844.png
+      8054 px (  8.74%)  nav-1024x768-en.png
+     11682 px ( 12.68%)  nav-1024x768-es.png
+      6620 px (  6.69%)  nav-1100x768-en.png
+         0 px (  0.00%)  nav-320x568.png
+         0 px (  0.00%)  nav-390x844.png
+  total changed: 1433293
+
+--- section captures across the matrix ---
+      8048 px (  1.02%)  1024x768-en-dark-content-universe.png
+      8045 px (  1.02%)  1024x768-en-dark-creator.png
+      8049 px (  1.02%)  1024x768-en-dark-featured.png
+      8049 px (  1.02%)  1024x768-en-dark-hardware.png
+      8054 px (  1.02%)  1024x768-en-dark-hero.png
+     27533 px (  2.12%)  1440x900-en-light-content-universe.png
+      6321 px (  0.49%)  1440x900-en-light-creator.png
+     12343 px (  0.95%)  1440x900-en-light-featured.png
+      1716 px (  0.13%)  1440x900-en-light-hardware.png
+   1100786 px ( 84.94%)  1440x900-en-light-hero.png
+         0 px (  0.00%)  320x568-fr-dark-content-universe.png
+         0 px (  0.00%)  320x568-fr-dark-creator.png
+         0 px (  0.00%)  320x568-fr-dark-featured.png
+         0 px (  0.00%)  320x568-fr-dark-hardware.png
+         0 px (  0.00%)  320x568-fr-dark-hero.png
+      7763 px (  2.36%)  390x844-es-light-content-universe.png
+         0 px (  0.00%)  390x844-es-light-creator.png
+      6098 px (  1.85%)  390x844-es-light-featured.png
+      1097 px (  0.33%)  390x844-es-light-hardware.png
+    288298 px ( 87.59%)  390x844-es-light-hero.png
+         0 px (  0.00%)  768x1024-es-dark-content-universe.png
+         0 px (  0.00%)  768x1024-es-dark-creator.png
+         0 px (  0.00%)  768x1024-es-dark-featured.png
+         0 px (  0.00%)  768x1024-es-dark-hardware.png
+         0 px (  0.00%)  768x1024-es-dark-hero.png
+         0 px (  0.00%)  844x390-en-dark-content-universe.png
+         0 px (  0.00%)  844x390-en-dark-creator.png
+         0 px (  0.00%)  844x390-en-dark-featured.png
+         0 px (  0.00%)  844x390-en-dark-hardware.png
+         0 px (  0.00%)  844x390-en-dark-hero.png
+  total changed: 1492200
+
+  Reading: every DARK capture at 320, 768 and 844 is 0 — the approved
+  composition at those sizes is byte-identical. 1024 dark changes by
+  ~1% in every section because the fixed nav bar appears in all of them.
+  Light-theme sections change by 0.1-2.4% (the accent token) and the
+  light Hero by 85-88% (the dead-selector fix).
+
+############################################################
+# 10. VALIDATION
+############################################################
+
+npm run typecheck   PASS
+npm run lint        PASS
+npm run test:run    PASS  27/27
+npm run build       PASS
+npm run test:e2e    PASS  39/39  (was 32; +7 added this pass)
+git diff --check    PASS  (exit 0; CRLF advisories only)
+npm run format:check FAIL — 3 files, all pre-existing:
+                     Claude report/fix-v1/report.md
+                     Claude report/fix-v2/report.md
+                     Claude report/fix-v3/report.md
+                     This task forbids overwriting prior fix folders.
+                     Every file created or edited this pass is clean.

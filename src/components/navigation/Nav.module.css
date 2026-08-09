@@ -127,6 +127,7 @@
 
 .wordmark {
   pointer-events: auto;
+  position: relative;
   display: inline-flex;
   align-items: center;
   gap: 0.5625rem;
@@ -137,6 +138,14 @@
   text-decoration: none;
   border-radius: 0.25rem;
   transition: opacity var(--duration-fast) var(--ease-out);
+}
+
+/* 22.5px tall on phones — same 2.5.8 shortfall as .link, same overlay fix. */
+.wordmark::after {
+  content: '';
+  position: absolute;
+  inset-block: -0.1875rem;
+  inset-inline: 0;
 }
 
 .wordmark:hover {
@@ -169,14 +178,31 @@
   list-style: none;
 }
 
+/* HIT AREA
+   These labels set a 17px line box, so the target a finger actually gets was
+   17px tall against WCAG 2.2 AA 2.5.8's 24px minimum — and the "inline within
+   a sentence" exemption does not apply to a standalone list of destinations.
+   The area is enlarged with an overlay rather than with padding because
+   padding would grow the wrapped two-row bar and move the approved geometry;
+   an absolutely-positioned pseudo-element is part of the link's own hit test
+   and changes no box at all. ±4px lands the target at 25px; the wrapped rows
+   sit 8px apart, so neighbouring areas meet without overlapping. */
 .link {
   pointer-events: auto;
+  position: relative;
   font-size: 0.875rem;
   letter-spacing: 0.005em;
   color: color-mix(in srgb, var(--color-text-primary) 64%, transparent);
   text-decoration: none;
   border-radius: 0.25rem;
   transition: color var(--duration-fast) var(--ease-out);
+}
+
+.link::after {
+  content: '';
+  position: absolute;
+  inset-block: -0.25rem;
+  inset-inline: 0;
 }
 
 .link:hover {
@@ -327,11 +353,6 @@
        than true centring would suggest. */
     gap: clamp(1.5rem, 3.38vw, 3.25rem);
     width: auto;
-    /* The reference places the centre cluster optically (≈50px left of
-       true centre at the 1536 frame), between the wordmark and the
-       utilities — not mechanically centred. Proportional below the
-       canvas width, capped at the canvas value above it. */
-    translate: max(-3.125rem, -3.26vw) 0;
   }
 
   .utils {
@@ -361,5 +382,53 @@
   .menu {
     inset-block-start: calc(100% + 0.5rem);
     inset-inline-end: 0;
+  }
+}
+
+/* NARROW-DESKTOP BAND — the single row does not actually fit here.
+   The gaps above are the reference's, measured from the 1536 frame with the
+   six ENGLISH labels. The translated labels are wider (the French cluster
+   runs ~61px past the English one), and because `.nav` is position:fixed,
+   anything the grid pushes past the end never reaches documentElement's
+   scrollWidth — so the bar could overflow while every page-overflow check
+   read clean. Measured at 1024px, the language button's box ran to x1049.3
+   on a 1024px viewport: 25.3px OFF-SCREEN in French and 14.8px in Spanish,
+   i.e. the language switcher was simply unreachable. It stayed past the
+   bar's own padding edge up to 1139px (French) and 1099px (Spanish).
+
+   The band therefore rides a tighter gap that ramps back to exactly the
+   reference value at 1240 (9.2vw − 72px resolves to 22.2px at 1024 and
+   41.9px at 1239, which is what 3.38vw gives there), so the approved
+   1240–1536+ composition is untouched.
+
+   A SECOND, INDEPENDENT failure lives in the same band: "CarterPCs"
+   overlapped the first section link by 1.38px of glyph ink at 1024 in all
+   three languages. The gap ramp above does not fix it — measured, French
+   still read −1.38px at 1024 with the ramp in place. When the row overflows,
+   the two 1fr tracks collapse to min-content and the auto track absorbs the
+   remainder, so narrowing the cluster removes the surplus from the RIGHT end
+   without moving its left edge at all. What drives it into the identity is
+   the optical centre-shift, which is calibrated against the 1536 frame and
+   was being applied from 1024 down, where the identity has not shrunk with
+   the viewport. Holding it back to the frame it was measured on restores a
+   ≥32px gap across the whole band. */
+@media (min-width: 1024px) and (max-width: 1239px) {
+  .sections {
+    gap: clamp(1.375rem, 9.2vw - 72px, 3.25rem);
+  }
+
+  .utils {
+    gap: 0.75rem;
+  }
+}
+
+/* The reference places the centre cluster optically (≈50px left of true
+   centre at the 1536 frame), between the wordmark and the utilities — not
+   mechanically centred. Proportional below the canvas width, capped at the
+   canvas value above it. See the band above for why it starts at the frame
+   rather than at 1024. */
+@media (min-width: 1240px) {
+  .sections {
+    translate: max(-3.125rem, -3.26vw) 0;
   }
 }

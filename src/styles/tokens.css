@@ -68,6 +68,12 @@ html[data-theme='light'] {
   --color-bg-surface: #e8e8e2;
   --color-text-primary: #151516;
   --color-text-muted: #5f6062;
-  --color-accent-primary: #167f89;
+  /* Measured, not eyeballed: #167f89 resolved to 4.34:1 against the light
+     base and 3.85:1 against the light surface, so every accent LABEL set in
+     it (Featured panel indices, the Hardware/Content Universe kickers, the
+     beat numerals) missed WCAG AA's 4.5:1 for normal text. This is the
+     smallest darkening that clears 4.5:1 on both light grounds — 5.16:1 on
+     the base, 4.59:1 on the surface — and it stays the same teal. */
+  --color-accent-primary: #14727b;
   --color-accent-secondary: #5f3ca7;
 }
