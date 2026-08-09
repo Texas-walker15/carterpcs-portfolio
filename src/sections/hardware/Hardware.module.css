@@ -24,6 +24,22 @@
   );
 }
 
+/* Hardware → Content Universe transition: same hairline motif, picked up by
+   Content Universe's matching top seam. See the comment on this element in
+   Hardware.tsx and on .seam in ContentUniverse.module.css. */
+.seamEnd {
+  position: absolute;
+  inset-block-end: 0;
+  inset-inline: var(--container-padding-inline);
+  height: 1px;
+  z-index: 2;
+  background-color: color-mix(
+    in srgb,
+    var(--color-text-primary) 14%,
+    transparent
+  );
+}
+
 /* ===== Background layer — environmental "04" =====
    A full-bleed backdrop the stage visually sits "in", not a corner accent
    beside it (see top-of-file comment in Hardware.tsx for why this differs

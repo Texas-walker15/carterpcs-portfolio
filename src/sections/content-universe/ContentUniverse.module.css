@@ -1,0 +1,619 @@
+.contentUniverse {
+  position: relative;
+  overflow: clip;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  scroll-margin-block-start: 6rem;
+}
+
+/* Hardware -> Content Universe transition: same hairline motif used at
+   every prior section boundary. */
+.seam {
+  position: absolute;
+  inset-block-start: 0;
+  inset-inline: var(--container-padding-inline);
+  height: 1px;
+  z-index: 2;
+  background-color: color-mix(
+    in srgb,
+    var(--color-text-primary) 14%,
+    transparent
+  );
+}
+
+.seamEnd {
+  position: absolute;
+  inset-block-end: 0;
+  inset-inline: var(--container-padding-inline);
+  height: 1px;
+  z-index: 2;
+  background-color: color-mix(
+    in srgb,
+    var(--color-text-primary) 14%,
+    transparent
+  );
+}
+
+/* ===== Canvas ===== */
+
+.canvas {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-5);
+  padding: calc(var(--space-7) + var(--space-1)) var(--container-padding-inline)
+    var(--space-6);
+}
+
+.intro {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  max-width: 34rem;
+}
+
+.meta {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  margin-block-end: var(--space-1);
+  font-size: 0.625rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--color-text-muted);
+}
+
+.metaRule {
+  width: clamp(1.5rem, 6vw, 5rem);
+  height: 1px;
+  background-color: color-mix(
+    in srgb,
+    var(--color-text-primary) 22%,
+    transparent
+  );
+}
+
+.kicker {
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: var(--color-accent-primary);
+}
+
+.headline {
+  font-family: var(--font-family-display);
+  font-size: clamp(2.5rem, 1.9rem + 4vw, 5rem);
+  font-weight: 700;
+  line-height: 0.98;
+  letter-spacing: -0.03em;
+  max-width: 18ch;
+}
+
+.support {
+  margin-block-start: var(--space-1);
+  max-width: 46ch;
+  font-size: var(--font-size-body);
+  color: var(--color-text-muted);
+}
+
+/* ===== Field — the connected composition =====
+   Layering model (why the ecosystem reads as one space):
+     z 0 — the two "05" digits: shared environmental ground
+     z 1 — the connecting thread: travels OVER the digits...
+     z 2 — entries (type + media crops): ...and UNDER the territories,
+           so media visibly interrupts the thread — real occlusion depth,
+           not three flat decorations stacked side by side. */
+
+.field {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-7);
+  padding-inline-start: var(--space-4);
+}
+
+.tierRow {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-6);
+}
+
+/* ---- Environmental digits ---- */
+
+.digitZero,
+.digitFive {
+  position: absolute;
+  z-index: 0;
+  font-family: var(--font-family-display);
+  font-weight: 700;
+  line-height: 0.75;
+  letter-spacing: -0.04em;
+  color: color-mix(in srgb, var(--color-text-primary) 7%, transparent);
+  pointer-events: none;
+}
+
+/* Mobile/tablet: each digit shadows its dominant territory in the stack —
+   the 0 behind Hardware at the top, the 5 behind Mobile Tech below it. */
+.digitZero {
+  inset-block-start: -2rem;
+  inset-inline-end: -1rem;
+  font-size: clamp(9rem, 42vw, 15rem);
+}
+
+.digitFive {
+  inset-block-start: 24%;
+  inset-inline-start: -1.25rem;
+  font-size: clamp(9rem, 42vw, 15rem);
+}
+
+/* ---- Connective spine (below desktop) ---- */
+
+.spine {
+  position: absolute;
+  inset-block: 0.5em 0;
+  inset-inline-start: 0;
+  width: 1px;
+  z-index: 1;
+  background: linear-gradient(
+    to bottom,
+    var(--color-accent-primary),
+    var(--color-accent-secondary)
+  );
+  opacity: 0.35;
+}
+
+/* ---- Connecting thread (desktop only) ---- */
+
+.thread {
+  display: none;
+}
+
+.threadPath {
+  fill: none;
+  stroke: url(#content-universe-thread-gradient);
+  stroke-width: 1.75;
+  stroke-linecap: round;
+  vector-effect: non-scaling-stroke;
+  opacity: 0.75;
+}
+
+/* ---- Entries ---- */
+
+.entry {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+}
+
+/* Type always sits above the entry's own media crop. */
+.entryName,
+.entrySecondary,
+.entryDescription {
+  position: relative;
+  z-index: 1;
+}
+
+.entryName {
+  display: flex;
+  flex-direction: column;
+  font-family: var(--font-family-display);
+  font-weight: 700;
+  letter-spacing: -0.03em;
+}
+
+.entryLine {
+  display: block;
+}
+
+.entrySecondary {
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--color-accent-secondary);
+}
+
+.entryDescription {
+  margin-block-start: var(--space-1);
+  max-width: 32ch;
+  font-size: var(--font-size-body);
+  color: var(--color-text-muted);
+}
+
+/* ---- Media windows =====
+   Deliberately obscured future footage, not empty rectangles: an
+   asymmetric silhouette (hard clipped corners — different per territory),
+   a directional internal gradient, and ONE oversized blurred light source.
+   No icons, grids, captions, or fake screenshots. Real approved media
+   later replaces .mediaSurface's background without structural change. */
+
+.entryMedia {
+  position: relative;
+  z-index: 0;
+  order: -1;
+  overflow: hidden;
+}
+
+.mediaSurface {
+  position: absolute;
+  inset: 0;
+}
+
+.mediaGlow {
+  position: absolute;
+  width: 58%;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  filter: blur(2.5rem);
+  opacity: 0.55;
+  pointer-events: none;
+}
+
+/* Hardware: wide crop, hard diagonal-cut upper-right corner — landscape
+   b-roll energy. Overlaps its own headline on mobile via negative margin. */
+.entryMedia[data-media='hardware'] {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  margin-block-end: calc(-1 * var(--space-4));
+  clip-path: polygon(0% 0%, 70% 0%, 86% 28%, 86% 100%, 8% 100%, 0% 84%);
+}
+
+.entryMedia[data-media='hardware'] .mediaSurface {
+  background:
+    radial-gradient(
+      60% 70% at 24% 30%,
+      color-mix(in srgb, var(--color-accent-primary) 18%, transparent),
+      transparent 70%
+    ),
+    linear-gradient(
+      105deg,
+      color-mix(in srgb, var(--color-bg-surface) 96%, transparent) 0%,
+      var(--color-bg-base) 78%
+    );
+}
+
+.entryMedia[data-media='hardware'] .mediaGlow {
+  inset-block-start: -14%;
+  inset-inline-start: 8%;
+  background: radial-gradient(
+    circle,
+    color-mix(in srgb, var(--color-accent-primary) 32%, transparent),
+    transparent 70%
+  );
+}
+
+/* Mobile Tech: vertical 9:16-proportioned crop — the native shape of the
+   short-form content this site documents — with a clipped top-left corner.
+   Different silhouette from Hardware's on purpose. */
+.entryMedia[data-media='mobile'] {
+  width: 66%;
+  margin-inline-start: auto;
+  aspect-ratio: 4 / 5;
+  margin-block-end: calc(-1 * var(--space-5));
+  clip-path: polygon(22% 0%, 100% 0%, 100% 100%, 0% 100%, 0% 22%);
+}
+
+.entryMedia[data-media='mobile'] .mediaSurface {
+  background:
+    radial-gradient(
+      70% 55% at 70% 78%,
+      color-mix(in srgb, var(--color-accent-secondary) 20%, transparent),
+      transparent 72%
+    ),
+    linear-gradient(
+      195deg,
+      color-mix(in srgb, var(--color-bg-surface) 94%, transparent) 0%,
+      var(--color-bg-base) 74%
+    );
+}
+
+.entryMedia[data-media='mobile'] .mediaGlow {
+  inset-block-end: 2%;
+  inset-inline-end: -16%;
+  background: radial-gradient(
+    circle,
+    color-mix(in srgb, var(--color-accent-secondary) 30%, transparent),
+    transparent 70%
+  );
+}
+
+/* ---- Tier scale — deliberately unequal ---- */
+
+.entry[data-tier='1'] .entryName {
+  font-size: clamp(3rem, 2rem + 6vw, 5.5rem);
+  line-height: 0.9;
+}
+
+.entry[data-tier='2'] .entryName {
+  font-size: clamp(1.9rem, 1.5rem + 2.8vw, 3rem);
+  line-height: 0.96;
+}
+
+.entry[data-tier='2'] {
+  max-width: 24rem;
+}
+
+.entry[data-tier='3'] {
+  max-width: 18rem;
+  opacity: 0.6;
+}
+
+.entry[data-tier='3'] .entryName {
+  font-size: clamp(1.3rem, 1.15rem + 1vw, 1.75rem);
+  line-height: 1.05;
+}
+
+.entry[data-tier='3'] .entrySecondary {
+  color: var(--color-text-muted);
+}
+
+/* ===== Index — the resolved, connected list ===== */
+
+.index {
+  padding-block-start: var(--space-4);
+  border-block-start: 1px solid
+    color-mix(in srgb, var(--color-text-primary) 12%, transparent);
+  font-size: 0.8125rem;
+  letter-spacing: 0.05em;
+  color: var(--color-text-primary);
+  opacity: 0.85;
+}
+
+/* ===== Tablet (768–1023): authored asymmetric stack =====
+   Not the desktop grid, but no longer a flat left-aligned list either:
+   territories alternate alignment axes down the page, media keeps its
+   two distinct silhouettes, and the digits shadow their territories. */
+
+@media (min-width: 768px) and (max-width: 1023px) {
+  .digitZero {
+    font-size: clamp(14rem, 34vw, 18rem);
+    inset-inline-end: 0;
+  }
+
+  /* Measured against the real tablet stack: Mobile Tech's headline sits
+     ~26% down the field, so the 5 shadows it as a left-side counterweight
+     to the right-aligned territory (22% left it floating against
+     Hardware's bottom edge instead). */
+  .digitFive {
+    font-size: clamp(14rem, 34vw, 18rem);
+    inset-block-start: 26%;
+  }
+
+  .entry[data-cat='hardware'] {
+    max-width: 88%;
+  }
+
+  .entry[data-cat='mobile'] {
+    align-self: flex-end;
+    max-width: 88%;
+    text-align: right;
+  }
+
+  .entry[data-cat='mobile'] .entryName {
+    align-items: flex-end;
+  }
+
+  .entry[data-cat='mobile'] .entryDescription {
+    margin-inline-start: auto;
+  }
+
+  .entryMedia[data-media='mobile'] {
+    width: 52%;
+    margin-inline-start: auto;
+    margin-inline-end: -4%;
+  }
+
+  .entry[data-cat='tech-news'] {
+    margin-inline-start: 34%;
+  }
+
+  .entry[data-cat='scam-tech'] {
+    transform: rotate(-1.2deg);
+  }
+
+  .entry[data-cat='emerging-tech'] {
+    align-self: flex-end;
+    text-align: right;
+    margin-inline-end: 6%;
+  }
+
+  .entry[data-cat='emerging-tech'] .entryName {
+    align-items: flex-end;
+  }
+
+  .entry[data-cat='community'] {
+    margin-inline-start: 14%;
+    transform: rotate(1deg);
+  }
+}
+
+/* ===== Desktop: one connected field, digit-to-digit diagonal =====
+   The tierRow wrappers keep mobile/tablet reading order but drop out of
+   layout (display: contents) so every entry places directly on the field's
+   12-column grid. The composition's main axis runs from the "0" (upper
+   left, Hardware's ground) to the "5" (lower right, Mobile Tech's ground);
+   media crops cross the former dead center and genuinely occlude digits
+   and thread. */
+
+@media (min-width: 1024px) {
+  .canvas {
+    padding-block: calc(var(--space-7) + var(--space-3)) var(--space-6);
+    min-height: 100vh;
+  }
+
+  .intro {
+    max-width: 34rem;
+  }
+
+  .field {
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    /* Equal-fraction rows + an explicit near-viewport height: the pin
+       freezes this exact frame, so the field must be a designed full
+       canvas, not an auto-collapsed stack of content heights. */
+    grid-template-rows: repeat(8, 1fr);
+    min-height: min(53rem, calc(100vh - 9rem));
+    column-gap: var(--space-4);
+    row-gap: var(--space-2);
+    flex: 1;
+    /* Clears the fixed nav while the field is pinned at viewport top —
+       without this the breadcrumb renders across the Hardware headline
+       for the entire pin. */
+    padding-block-start: 3.25rem;
+    padding-inline-start: 0;
+  }
+
+  .tierRow {
+    display: contents;
+  }
+
+  .spine {
+    display: none;
+  }
+
+  .thread {
+    display: block;
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    width: 100%;
+    height: 100%;
+    overflow: visible;
+  }
+
+  .entry {
+    max-width: none;
+  }
+
+  /* ---- Digits: the composition's two anchors ---- */
+
+  /* "0" sits directly under the "Hardware" headline — the word overlaps
+     the glyph's top, the glyph's bulk fills the otherwise-empty left-middle
+     band between Hardware and Scam Tech. NOT centered behind the media
+     crop, which would (and in an earlier pass did) hide it entirely. */
+  .digitZero {
+    inset-block-start: -6%;
+    inset-inline-start: 1%;
+    inset-inline-end: auto;
+    font-size: clamp(18rem, 26vw, 25rem);
+    color: color-mix(in srgb, var(--color-text-primary) 10%, transparent);
+  }
+
+  /* "5" anchors Mobile Tech: its left edge slips behind the vertical media
+     crop and the "Tech" word overlaps it — occluded on both sides, so it
+     reads as part of the territory rather than wallpaper behind it. */
+  .digitFive {
+    inset-block-start: auto;
+    inset-block-end: -10%;
+    inset-inline-start: auto;
+    inset-inline-end: 12%;
+    font-size: clamp(18rem, 26vw, 25rem);
+    color: color-mix(in srgb, var(--color-text-primary) 10%, transparent);
+  }
+
+  /* ---- Hardware — dominant, upper-left, inhabiting the "0" ---- */
+
+  .entry[data-tier='1']:nth-of-type(1) {
+    grid-column: 1 / 8;
+    grid-row: 1 / 4;
+    align-self: start;
+  }
+
+  .entryMedia[data-media='hardware'] {
+    position: absolute;
+    inset-block-start: -10%;
+    inset-inline-start: 42%;
+    width: 86%;
+    aspect-ratio: 16 / 7.5;
+    margin: 0;
+  }
+
+  /* ---- Mobile Tech — dominant, lower-right, inhabiting the "5" ---- */
+
+  .entry[data-tier='1']:nth-of-type(2) {
+    grid-column: 5 / 13;
+    grid-row: 4 / 9;
+    align-self: end;
+    text-align: right;
+  }
+
+  .entry[data-tier='1']:nth-of-type(2) .entryName {
+    align-items: flex-end;
+  }
+
+  .entry[data-tier='1']:nth-of-type(2) .entryDescription {
+    margin-inline-start: auto;
+  }
+
+  .entryMedia[data-media='mobile'] {
+    position: absolute;
+    inset-block-end: -2%;
+    inset-inline-start: 10%;
+    width: 44%;
+    aspect-ratio: 9 / 13;
+    margin: 0;
+  }
+
+  /* ---- Tech News — secondary, right anchor at the top ---- */
+
+  .entry[data-tier='2']:nth-of-type(1) {
+    grid-column: 10 / 13;
+    grid-row: 1 / 3;
+    align-self: start;
+    justify-self: end;
+    text-align: right;
+  }
+
+  .entry[data-tier='2']:nth-of-type(1) .entryName {
+    align-items: flex-end;
+  }
+
+  /* ---- Scam Tech — secondary, left margin between the dominants ---- */
+
+  .entry[data-tier='2']:nth-of-type(2) {
+    grid-column: 1 / 5;
+    grid-row: 4 / 6;
+    align-self: start;
+    transform: rotate(-1.4deg);
+  }
+
+  /* ---- Emerging Tech — tertiary annotation, right margin ---- */
+
+  .entry[data-tier='3']:nth-of-type(1) {
+    grid-column: 10 / 13;
+    grid-row: 3 / 4;
+    align-self: center;
+    justify-self: end;
+    text-align: right;
+  }
+
+  .entry[data-tier='3']:nth-of-type(1) .entryName {
+    align-items: flex-end;
+  }
+
+  /* ---- Community — tertiary annotation, lower left ---- */
+
+  .entry[data-tier='3']:nth-of-type(2) {
+    grid-column: 2 / 5;
+    grid-row: 7 / 9;
+    align-self: end;
+    transform: rotate(1deg);
+  }
+
+  .entry[data-tier='1'] .entryName {
+    font-size: clamp(3.25rem, 1.9rem + 5.4vw, 7rem);
+  }
+
+  .headline {
+    font-size: clamp(2.75rem, 1.8rem + 3vw, 4rem);
+  }
+
+  .index {
+    margin-block-start: var(--space-1);
+  }
+}

@@ -1,0 +1,121 @@
+CarterPCs Hero wide-screen diagnostics — 2026-08-09T09:57:43.809Z
+
+=== Playwright viewport 1536x1024, deviceScaleFactor 1, zoom 100% ===
+{
+  "innerWidth": 1536,
+  "innerHeight": 1024,
+  "clientWidth": 1536,
+  "clientHeight": 1024,
+  "devicePixelRatio": 1,
+  "visualViewportScale": 1,
+  "rootFontSize": "16px",
+  "hero": {
+    "w": 1536,
+    "h": 1024
+  },
+  "canvas": {
+    "x": 0,
+    "w": 1536,
+    "h": 1024
+  },
+  "h1": {
+    "x": 164,
+    "y": 212.3,
+    "w": 586.1,
+    "h": 256.2
+  },
+  "h1FontSize": "140px",
+  "ancestorTransformsOrZoom": "NONE"
+}
+
+=== Playwright viewport 2048x1015, deviceScaleFactor 1, zoom 100% ===
+{
+  "innerWidth": 2048,
+  "innerHeight": 1015,
+  "clientWidth": 2048,
+  "clientHeight": 1015,
+  "devicePixelRatio": 1,
+  "visualViewportScale": 1,
+  "rootFontSize": "16px",
+  "hero": {
+    "w": 2048,
+    "h": 1015
+  },
+  "canvas": {
+    "x": 256,
+    "w": 1536,
+    "h": 1015
+  },
+  "h1": {
+    "x": 420,
+    "y": 210.8,
+    "w": 586.1,
+    "h": 256.2
+  },
+  "h1FontSize": "140px",
+  "ancestorTransformsOrZoom": "NONE"
+}
+
+=== Playwright viewport 1920x1080, deviceScaleFactor 1, zoom 100% ===
+{
+  "innerWidth": 1920,
+  "innerHeight": 1080,
+  "clientWidth": 1920,
+  "clientHeight": 1080,
+  "devicePixelRatio": 1,
+  "visualViewportScale": 1,
+  "rootFontSize": "16px",
+  "hero": {
+    "w": 1920,
+    "h": 1080
+  },
+  "canvas": {
+    "x": 192,
+    "w": 1536,
+    "h": 1080
+  },
+  "h1": {
+    "x": 356,
+    "y": 212.3,
+    "w": 586.1,
+    "h": 256.2
+  },
+  "h1FontSize": "140px",
+  "ancestorTransformsOrZoom": "NONE"
+}
+
+=== Playwright viewport 2560x1440, deviceScaleFactor 1, zoom 100% ===
+{
+  "innerWidth": 2560,
+  "innerHeight": 1440,
+  "clientWidth": 2560,
+  "clientHeight": 1440,
+  "devicePixelRatio": 1,
+  "visualViewportScale": 1,
+  "rootFontSize": "16px",
+  "hero": {
+    "w": 2560,
+    "h": 1440
+  },
+  "canvas": {
+    "x": 512,
+    "w": 1536,
+    "h": 1440
+  },
+  "h1": {
+    "x": 676,
+    "y": 212.3,
+    "w": 586.1,
+    "h": 256.2
+  },
+  "h1FontSize": "140px",
+  "ancestorTransformsOrZoom": "NONE"
+}
+
+=== AFTER FIX — 2048x1015 ===
+{
+  "rootFontSize": "18.4527px",
+  "canvasWidth": "1771.5",
+  "h1FontSize": "155.695px"
+}
+(rem scale = min(width slope, height/880 governor, 1.32 cap); 1536 control byte-identical: mean diff 0.0000)

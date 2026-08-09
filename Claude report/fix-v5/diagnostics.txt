@@ -1,0 +1,3 @@
+1536x1024: tiles bottom y=913; divider y=937; width=1312.5px.
+No console errors. No horizontal overflow.
+typecheck PASS. lint PASS. unit tests 11/11 PASS. git diff --check PASS.

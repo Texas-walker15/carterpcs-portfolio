@@ -3,9 +3,72 @@
  * (focus-visible, reduced motion, skip link). See TECH_STACK.md §11.
  */
 
+/* Inter (variable, Latin subset, self-hosted — SIL OFL 1.1, license at
+   /fonts/Inter-LICENSE.txt). Chosen by rasterized A/B comparison as the
+   closest legally distributable match to the approved reference's
+   grotesk; preloaded from index.html so it is ready before first paint
+   (the subset is ~37 kB, smaller than the app bundle it never races). */
+@font-face {
+  font-family: 'Inter';
+  src: url('/fonts/InterVariable.woff2') format('woff2');
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: block;
+}
+
 html,
 body {
   min-height: 100%;
+}
+
+/* Light mode keeps the editorial composition intact while swapping the
+   Hero's otherwise hard-coded dark environment for a high-key equivalent. */
+html[data-theme='light'] .hero [class*='env'] {
+  background:
+    radial-gradient(
+      28% 34% at 66% 28%,
+      rgb(214 215 222 / 88%),
+      transparent 72%
+    ),
+    linear-gradient(180deg, #fafaf7 0%, #eeeeea 100%);
+}
+
+html[data-theme='light'] .hero [class*='envDisc'] {
+  background: radial-gradient(circle, rgb(77 79 87 / 12%) 0%, transparent 72%);
+}
+
+html[data-theme='light'] .hero [class*='ctaPrimary'] {
+  color: #151516;
+  border-color: #151516;
+}
+
+/* LARGE-DESKTOP PRESENTATION SCALE
+   The whole composition system (the Hero's shared 96rem canvas, the nav
+   bar, every card/tile/type dimension) is specified in rem and
+   canvas-relative %, with 16px rem reproducing the approved 1536×1024
+   reference exactly. Above the reference width the root rem grows
+   gently with the viewport, so the entire composition scales as one
+   coherent system — real layout dimensions, crisp text, correct hit
+   areas; no zoom, no transform hacks. 1536px and below is untouched.
+   Slope: +0.005px per viewport px → ×1.12 at 1920, ×1.16 at 2048,
+   capped at ×1.32 from 2560 up. The second term is the HEIGHT
+   governor: the Hero's compressed art direction (see Hero.module.css)
+   can hold a scale of at most viewport-height/880 before its cards
+   would reach the tile row, so short-wide displays (2560×1080,
+   1920×900) get exactly the scale their height affords instead of the
+   full width-driven scale. Floored at 16px — below-reference heights
+   never shrink the approved composition. */
+@media (min-width: 1537px) {
+  html {
+    font-size: max(
+      16px,
+      min(
+        calc(16px + (100vw - 1536px) * 0.005),
+        calc(100vh * 0.01818),
+        21.125px
+      )
+    );
+  }
 }
 
 body {

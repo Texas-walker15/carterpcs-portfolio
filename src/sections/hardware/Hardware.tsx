@@ -1,7 +1,13 @@
-import { useLayoutEffect, useRef } from 'react'
-import { gsap, ScrollTrigger } from '../../animations/gsap'
+import { useLayoutEffect, useMemo, useRef } from 'react'
+import {
+  gsap,
+  ScrollTrigger,
+  HEADLINE_WIPE_FROM,
+  HEADLINE_WIPE_TO,
+} from '../../animations/gsap'
 import { useReducedMotion } from '../../hooks/useReducedMotion'
-import { hardwareBeats } from '../../data/hardware'
+import { usePreferences } from '../../app/Preferences'
+import { getHardwareBeats } from '../../data/hardware'
 import styles from './Hardware.module.css'
 
 /**
@@ -52,6 +58,8 @@ import styles from './Hardware.module.css'
  */
 function Hardware() {
   const reducedMotion = useReducedMotion()
+  const { t, language } = usePreferences()
+  const beats = useMemo(() => getHardwareBeats(language), [language])
   const rootRef = useRef<HTMLElement>(null)
 
   useLayoutEffect(() => {
@@ -60,6 +68,12 @@ function Hardware() {
     }
 
     const ctx = gsap.context(() => {
+      // Resolved once, inside the context, so the onComplete below acts on
+      // the same scoped elements (see Creator.tsx for the same note).
+      const headlineLines = gsap.utils.toArray<HTMLElement>(
+        '[data-headline-line]',
+      )
+
       gsap
         .timeline({
           defaults: { ease: 'power3.out' },
@@ -70,9 +84,15 @@ function Hardware() {
           },
         })
         .fromTo(
-          '[data-headline-line]',
-          { clipPath: 'inset(0 100% 0 0)' },
-          { clipPath: 'inset(0 0% 0 0)', duration: 0.9 },
+          headlineLines,
+          { clipPath: HEADLINE_WIPE_FROM },
+          {
+            clipPath: HEADLINE_WIPE_TO,
+            duration: 0.9,
+            // See HEADLINE_WIPE_* — no live cropping rectangle at rest.
+            onComplete: () =>
+              gsap.set(headlineLines, { clearProps: 'clipPath' }),
+          },
         )
         .from(
           '[data-reveal-stage]',
@@ -159,18 +179,18 @@ function Hardware() {
       <div className={styles.canvas}>
         <div className={styles.intro}>
           <p className={styles.meta} data-reveal>
-            <span>04 / Hardware</span>
+            <span>{t.hardware.metaLabel}</span>
             <span className={styles.metaRule} aria-hidden="true" />
-            <span>Hardware experience</span>
+            <span>{t.hardware.metaNote}</span>
           </p>
           <p className={styles.kicker} data-reveal>
-            Inside the build
+            {t.hardware.kicker}
           </p>
           <h2 className={styles.headline} data-headline-line>
-            Built from the inside out.
+            {t.hardware.headline}
           </h2>
           <p className={styles.support} data-reveal>
-            Every component judged on what it does, not what the box promises.
+            {t.hardware.support}
           </p>
         </div>
 
@@ -194,7 +214,7 @@ function Hardware() {
         </figure>
 
         <ul className={styles.beats}>
-          {hardwareBeats.map((beat) => (
+          {beats.map((beat) => (
             <li key={beat.index} className={styles.beat} data-reveal>
               <p className={styles.beatMeta}>
                 <span className={styles.beatIndex}>{beat.index}</span>
@@ -206,9 +226,16 @@ function Hardware() {
         </ul>
 
         <p className={styles.tags} data-reveal>
-          Custom Builds — Component Testing — Value vs. Prebuilt
+          {t.hardware.tags}
         </p>
       </div>
+
+      {/* Hardware → Content Universe transition: same hairline motif used
+          at every prior section boundary, picked up by Content Universe's
+          matching top seam (see ContentUniverse.module.css's .seam).
+          Purely additive — nothing else in the approved Hardware
+          composition changes. */}
+      <span className={styles.seamEnd} aria-hidden="true" />
     </section>
   )
 }

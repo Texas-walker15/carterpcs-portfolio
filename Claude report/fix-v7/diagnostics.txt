@@ -1,0 +1,200 @@
+CarterPCs fix-v7 — validation diagnostics
+Working tree clean of temporary tooling at capture time.
+
+########## npm run typecheck ##########
+
+> carterpcs-portfolio@0.0.0 typecheck
+> tsc -b
+
+EXIT: 0
+
+########## npm run lint ##########
+
+> carterpcs-portfolio@0.0.0 lint
+> eslint .
+
+EXIT: 0
+
+########## npm run format:check ##########
+
+> carterpcs-portfolio@0.0.0 format:check
+> prettier --check .
+
+Checking formatting...
+[[33mwarn[39m] Claude report/fix-v1/report.md
+[[33mwarn[39m] Claude report/fix-v2/report.md
+[[33mwarn[39m] Claude report/fix-v3/report.md
+[[33mwarn[39m] src/styles/global.css
+[[33mwarn[39m] Code style issues found in 4 files. Run Prettier with --write to fix.
+EXIT: 1
+
+########## npm run test:run ##########
+
+> carterpcs-portfolio@0.0.0 test:run
+> vitest run
+
+
+ RUN  v4.1.10 C:/Users/Vu Nhat Minh/Documents/Github Repo/Site Web/Profolio/CarterPCs
+
+Not implemented: Window's scrollTo() method
+Not implemented: Window's scrollTo() method
+Not implemented: Window's scrollTo() method
+Not implemented: Window's scrollTo() method
+Not implemented: Window's scrollTo() method
+Not implemented: Window's scrollTo() method
+Not implemented: Window's scrollTo() method
+Not implemented: Window's scrollTo() method
+Not implemented: Window's scrollTo() method
+Not implemented: Window's scrollTo() method
+Not implemented: Window's scrollTo() method
+Not implemented: Window's scrollTo() method
+Not implemented: Window's scrollTo() method
+Not implemented: Window's scrollTo() method
+Not implemented: Window's scrollTo() method
+Not implemented: Window's scrollTo() method
+Not implemented: Window's scrollTo() method
+Not implemented: Window's scrollTo() method
+Not implemented: Window's scrollTo() method
+Not implemented: Window's scrollTo() method
+Not implemented: Window's scrollTo() method
+Not implemented: Window's scrollTo() method
+Not implemented: Window's scrollTo() method
+Not implemented: Window's scrollTo() method
+Not implemented: Window's scrollTo() method
+Not implemented: Window's scrollTo() method
+Not implemented: Window's scrollTo() method
+Not implemented: Window's scrollTo() method
+Not implemented: Window's scrollTo() method
+Not implemented: Window's scrollTo() method
+Not implemented: Window's scrollTo() method
+Not implemented: Window's scrollTo() method
+Not implemented: Window's scrollTo() method
+Not implemented: Window's scrollTo() method
+Not implemented: Window's scrollTo() method
+Not implemented: Window's scrollTo() method
+Not implemented: Window's scrollTo() method
+Not implemented: Window's scrollTo() method
+Not implemented: Window's scrollTo() method
+Not implemented: Window's scrollTo() method
+Not implemented: Window's scrollTo() method
+Not implemented: Window's scrollTo() method
+Not implemented: Window's scrollTo() method
+Not implemented: Window's scrollTo() method
+Not implemented: Window's scrollTo() method
+Not implemented: Window's scrollTo() method
+Not implemented: Window's scrollTo() method
+Not implemented: Window's scrollTo() method
+Not implemented: Window's scrollTo() method
+Not implemented: Window's scrollTo() method
+Not implemented: Window's scrollTo() method
+Not implemented: Window's scrollTo() method
+Not implemented: Window's scrollTo() method
+Not implemented: Window's scrollTo() method
+
+ Test Files  1 passed (1)
+      Tests  20 passed (20)
+   Start at  15:31:54
+   Duration  16.39s (transform 1.94s, setup 563ms, import 2.65s, tests 10.08s, environment 2.54s)
+
+EXIT: 0
+
+########## npm run build ##########
+
+> carterpcs-portfolio@0.0.0 build
+> tsc -b && vite build
+
+[36mvite v8.2.1 [32mbuilding client environment for production...[36m[39m
+[2Ktransforming...✓ 53 modules transformed.
+rendering chunks...
+computing gzip size...
+dist/index.html                                          0.73 kB │ gzip:   0.40 kB
+dist/assets/tile-media-studio-DmYAaV3k.webp              4.54 kB
+dist/assets/about-audience-avatars-DSvlztft.webp         7.34 kB
+dist/assets/tile-media-builds-BGUjQnGC.webp              7.62 kB
+dist/assets/carter-hero-portrait-cutout-BIo7azrn.webp  184.40 kB
+dist/assets/index-9flAJsIE.css                          51.08 kB │ gzip:   9.45 kB
+dist/assets/index-DgbfTaR8.js                          375.33 kB │ gzip: 127.31 kB
+
+[32m✓ built in 875ms[39m
+EXIT: 0
+
+########## npm run test:e2e ##########
+
+> carterpcs-portfolio@0.0.0 test:e2e
+> playwright test
+
+
+Running 23 tests using 10 workers
+
+[1/23] [chromium] › e2e\app.spec.ts:44:1 › Creator nav link scrolls to the Creator section
+[2/23] [chromium] › e2e\app.spec.ts:53:1 › scrolling from Creator reveals the Featured section
+[3/23] [chromium] › e2e\app.spec.ts:76:1 › desktop: the horizontal sequence progresses through all three stories on scroll
+[4/23] [chromium] › e2e\app.spec.ts:22:1 › skip link is keyboard-reachable and targets main content
+[5/23] [chromium] › e2e\app.spec.ts:9:1 › Hero loads with heading, subhead, and navigation
+[6/23] [chromium] › e2e\app.spec.ts:106:1 › mobile: Featured stories are reachable through natural vertical scroll
+[7/23] [chromium] › e2e\app.spec.ts:31:1 › scrolling from Hero reveals the Creator section
+[8/23] [chromium] › e2e\app.spec.ts:68:1 › Featured nav link scrolls to the Featured section
+[9/23] [chromium] › e2e\app.spec.ts:142:1 › Hardware nav link scrolls to the Hardware section
+[10/23] [chromium] › e2e\app.spec.ts:127:1 › scrolling from Featured reveals the Hardware section
+[11/23] [chromium] › e2e\app.spec.ts:150:1 › desktop: Hardware choreography resolves and normal scroll flow resumes after it
+[12/23] [chromium] › e2e\app.spec.ts:179:1 › mobile: Hardware section is reachable through natural vertical scroll with no overflow
+[13/23] [chromium] › e2e\app.spec.ts:204:1 › scrolling from Hardware reveals the Content Universe section
+[14/23] [chromium] › e2e\app.spec.ts:219:1 › Content nav link scrolls to the Content Universe section
+[15/23] [chromium] › e2e\app.spec.ts:228:1 › desktop: Content Universe choreography progresses and resolves with all six categories reachable
+[16/23] [chromium] › e2e\app.spec.ts:275:1 › mobile: Content Universe categories are reachable through natural vertical scroll with no overflow
+[17/23] [chromium] › e2e\app.spec.ts:340:1 › language menu opens on hover and switches the page without a reload
+[18/23] [chromium] › e2e\app.spec.ts:377:1 › the chosen language persists across a reload
+[19/23] [chromium] › e2e\app.spec.ts:401:5 › fr @ desktop 1536x1024: every section renders with no horizontal overflow
+[20/23] [chromium] › e2e\app.spec.ts:401:5 › fr @ mobile 390x844: every section renders with no horizontal overflow
+[21/23] [chromium] › e2e\app.spec.ts:401:5 › es @ desktop 1536x1024: every section renders with no horizontal overflow
+[22/23] [chromium] › e2e\app.spec.ts:401:5 › es @ mobile 390x844: every section renders with no horizontal overflow
+[23/23] [chromium] › e2e\app.spec.ts:467:1 › desktop: the Featured horizontal sequence still completes in French
+  23 passed (34.6s)
+EXIT: 0
+
+########## git diff --check ##########
+warning: in the working copy of 'e2e/app.spec.ts', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'index.html', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'src/app/App.test.tsx', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'src/app/App.tsx', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'src/components/navigation/Nav.module.css', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'src/components/navigation/Nav.tsx', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'src/data/featured.ts', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'src/data/hardware.ts', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'src/sections/creator/Creator.tsx', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'src/sections/featured/Featured.tsx', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'src/sections/hardware/Hardware.module.css', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'src/sections/hardware/Hardware.tsx', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'src/sections/hero/Hero.module.css', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'src/sections/hero/Hero.tsx', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'src/styles/global.css', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'src/styles/tokens.css', LF will be replaced by CRLF the next time Git touches it
+EXIT: 0
+
+########## git status --short ##########
+ M e2e/app.spec.ts
+ M index.html
+ M src/app/App.test.tsx
+ M src/app/App.tsx
+ M src/components/navigation/Nav.module.css
+ M src/components/navigation/Nav.tsx
+ M src/data/featured.ts
+ M src/data/hardware.ts
+ M src/sections/creator/Creator.tsx
+ M src/sections/featured/Featured.tsx
+ M src/sections/hardware/Hardware.module.css
+ M src/sections/hardware/Hardware.tsx
+ M src/sections/hero/Hero.module.css
+ M src/sections/hero/Hero.tsx
+ M src/styles/global.css
+ M src/styles/tokens.css
+?? "Claude report/"
+?? public/fonts/
+?? src/app/Preferences.tsx
+?? src/assets/
+?? src/data/contentUniverse.ts
+?? src/i18n/
+?? src/sections/content-universe/
+
+########## HEAD (unchanged, nothing committed) ##########
+275d9d9 feat: add hardware experience section

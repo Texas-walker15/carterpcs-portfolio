@@ -1,0 +1,4 @@
+Theme: Dark, Light, System persisted in localStorage.
+Language: English, French, Spanish persisted in localStorage; html lang updates.
+Validation: typecheck PASS; lint PASS; unit tests 11/11 PASS; diff check PASS.
+Remaining: unlisted long-form editorial strings require complete localization.

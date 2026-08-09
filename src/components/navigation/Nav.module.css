@@ -1,43 +1,365 @@
+/**
+ * Three-zone navigation matched to the approved Hero reference:
+ * mark + wordmark + violet dot / six muted section labels / About pill
+ * + square theme utility. No bar background — typography and spacing
+ * carry it, exactly as in the reference.
+ */
+
+/* Below 768 the three zones cannot share a row without crowding, so the
+   bar wraps deliberately instead of stranding the pill on its own line:
+   identity and the right utilities on the first row, section links
+   beneath. Nothing is hidden — every destination stays reachable. */
 .nav {
   position: fixed;
   inset-block-start: 0;
   inset-inline: 0;
   z-index: var(--z-nav);
+  pointer-events: none;
+}
+
+/* The bar shares the Hero's ~1536px composition canvas: on viewports
+   wider than the canvas it stays centred with the content instead of
+   spreading to the window edges. */
+.bar {
+  /* Positioned so the mobile dropdown can anchor to the WHOLE bar rather
+     than to its trigger — see .menu. Nothing is positioned against it at
+     desktop, where .menuWrap takes the containing block back. */
+  position: relative;
+  max-width: 96rem;
+  margin-inline: auto;
   display: flex;
   align-items: center;
-  gap: var(--space-1);
+  flex-wrap: wrap;
+  row-gap: var(--space-2);
+  column-gap: var(--space-3);
   padding: var(--space-3) var(--container-padding-inline);
-  pointer-events: none;
+}
+
+.wordmark {
+  order: 1;
+}
+
+.utils {
+  order: 2;
+  margin-inline-start: auto;
+}
+
+/* The bar itself is pointer-events: none (see .nav) so the Hero stays
+   clickable underneath it; every real control re-enables hit-testing on
+   itself. The whole wrap opts in rather than just the trigger, because a
+   dropdown that opens but whose items cannot be clicked is worse than no
+   dropdown: without this the language menu could only ever be reached by
+   keyboard (via :focus-within) and its items never activated by mouse. */
+/* The bar itself is pointer-events: none (see .nav) so the Hero stays
+   clickable underneath it; every real control re-enables hit-testing on
+   itself. The whole wrap opts in rather than just the trigger, because a
+   dropdown that opens but whose items cannot be clicked is worse than no
+   dropdown: without this the language menu could only ever be reached by
+   keyboard and its items never activated by mouse.
+
+   Deliberately NOT position: relative below 1024px — see .menu. */
+.menuWrap {
+  pointer-events: auto;
+}
+
+/* MOBILE PLACEMENT
+   Anchored to .bar, not to the trigger, so the panel opens below the
+   ENTIRE bar. Below 1024px the bar wraps onto two rows (identity +
+   utilities, then the six section links), and a trigger-anchored dropdown
+   dropped straight over that second row — the menu covered the site's own
+   navigation while claiming to be navigation. Anchoring to the bar clears
+   the links completely and leaves only the unavoidable strip of Hero
+   beneath the bar covered. It stays content-width (min-width, no stretch)
+   and right-aligned to the bar's own padding edge, so it covers as little
+   as it can. */
+.menu {
+  position: absolute;
+  inset-block-start: calc(100% + 0.25rem);
+  inset-inline-end: var(--container-padding-inline);
+  display: none;
+  min-width: 8.5rem;
+  padding: 0.375rem;
+  border: 1px solid
+    color-mix(in srgb, var(--color-text-primary) 14%, transparent);
+  border-radius: 0.75rem;
+  background: color-mix(in srgb, var(--color-bg-surface) 94%, transparent);
+  box-shadow: 0 0.75rem 2rem
+    color-mix(in srgb, var(--color-bg-base) 20%, transparent);
+}
+
+/* Visibility is state-driven (see Nav.tsx). The old :hover/:focus-within
+   pair could not close on selection — the chosen item still held focus, so
+   :focus-within kept the panel open — and gave no hook for Escape or for
+   aria-expanded. */
+.menuOpen {
+  display: grid;
+  gap: 0.125rem;
+}
+
+.menu button {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 0.625rem;
+  border: 0;
+  border-radius: 0.5rem;
+  background: transparent;
+  color: var(--color-text-primary);
+  font: inherit;
+  font-size: 0.75rem;
+  text-align: left;
+  cursor: pointer;
+}
+
+.menu button:hover,
+.menuActive {
+  background: color-mix(
+    in srgb,
+    var(--color-text-primary) 10%,
+    transparent
+  ) !important;
+}
+
+.sections {
+  order: 3;
+  width: 100%;
 }
 
 .wordmark {
   pointer-events: auto;
-  font-size: var(--font-size-body);
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5625rem;
+  font-size: 0.9375rem;
   font-weight: 600;
-  letter-spacing: 0.02em;
+  letter-spacing: 0.01em;
   color: var(--color-text-primary);
   text-decoration: none;
   border-radius: 0.25rem;
+  transition: opacity var(--duration-fast) var(--ease-out);
 }
 
 .wordmark:hover {
-  color: var(--color-accent-primary);
+  opacity: 0.7;
 }
 
-.divider {
-  font-size: var(--font-size-body);
-  color: var(--color-text-muted);
-  opacity: 0.5;
+.mark {
+  width: 0.9375rem;
+  height: 0.9375rem;
+  color: color-mix(in srgb, var(--color-text-primary) 92%, transparent);
+}
+
+/* The reference's small violet indicator beside the wordmark. */
+.markDot {
+  width: 0.25rem;
+  height: 0.25rem;
+  border-radius: 50%;
+  background-color: var(--color-accent-secondary);
+}
+
+/* Centre zone. On small screens it simply flows after the wordmark; the
+   true three-zone centring only engages once there is room for it. */
+.sections {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-1) var(--space-3);
+  margin: 0;
+  padding: 0;
+  list-style: none;
 }
 
 .link {
   pointer-events: auto;
-  font-size: var(--font-size-body);
-  color: var(--color-text-muted);
+  font-size: 0.875rem;
+  letter-spacing: 0.005em;
+  color: color-mix(in srgb, var(--color-text-primary) 64%, transparent);
   text-decoration: none;
   border-radius: 0.25rem;
+  transition: color var(--duration-fast) var(--ease-out);
 }
 
 .link:hover {
-  color: var(--color-accent-primary);
+  color: var(--color-text-primary);
+}
+
+.utils {
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+}
+
+/* Quiet pill, ink-matched to the reference: 31px tall, near-invisible
+   border, text at ~90% white. */
+.about {
+  pointer-events: auto;
+  display: inline-flex;
+  align-items: center;
+  gap: 1rem;
+  white-space: nowrap;
+  padding: 0.375rem 1.0625rem;
+  border-radius: 999px;
+  border: 1px solid
+    color-mix(in srgb, var(--color-text-primary) 8%, transparent);
+  background-color: color-mix(
+    in srgb,
+    var(--color-text-primary) 4%,
+    transparent
+  );
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: color-mix(in srgb, var(--color-text-primary) 90%, transparent);
+  text-decoration: none;
+  transition:
+    background-color var(--duration-fast) var(--ease-out),
+    border-color var(--duration-fast) var(--ease-out);
+}
+
+.about:hover {
+  background-color: color-mix(
+    in srgb,
+    var(--color-text-primary) 9%,
+    transparent
+  );
+  border-color: color-mix(in srgb, var(--color-text-primary) 26%, transparent);
+}
+
+.aboutArrow {
+  font-size: 0.75rem;
+  transition: transform var(--duration-base) var(--ease-out);
+}
+
+.about:hover .aboutArrow {
+  transform: translate(0.125rem, -0.125rem);
+}
+
+/* The reference's square theme utility. Disabled until a light theme
+   exists — matched visually, never a dead interactive control. */
+.theme {
+  pointer-events: auto;
+  display: grid;
+  place-items: center;
+  width: 2.375rem;
+  height: 2.375rem;
+  padding: 0;
+  border-radius: 0.75rem;
+  border: 1px solid
+    color-mix(in srgb, var(--color-text-primary) 8%, transparent);
+  background-color: color-mix(
+    in srgb,
+    var(--color-text-primary) 3%,
+    transparent
+  );
+  color: color-mix(in srgb, var(--color-text-primary) 62%, transparent);
+}
+
+.language {
+  display: grid;
+  place-items: center;
+  width: 2.375rem;
+  height: 2.375rem;
+  padding: 0;
+  border: 1px solid
+    color-mix(in srgb, var(--color-text-primary) 8%, transparent);
+  border-radius: 0.75rem;
+  background-color: color-mix(
+    in srgb,
+    var(--color-text-primary) 3%,
+    transparent
+  );
+  color: color-mix(in srgb, var(--color-text-primary) 72%, transparent);
+  font-size: 1.1rem;
+}
+
+.theme:disabled {
+  cursor: not-allowed;
+}
+
+.theme svg {
+  width: 1rem;
+  height: 1rem;
+}
+
+/* Six centre links only fit a single row alongside both utilities from
+   1024 up — below that the bar keeps its deliberate two-row wrap. */
+@media (min-width: 1024px) {
+  .bar {
+    /* Wordmark left, sections optically centred, utilities right, at
+       the reference's bar geometry: the mark aligns with the index
+       rail's x, utilities tight to the canvas's right edge. */
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    column-gap: var(--space-4);
+    /* Percentages resolve against the viewport-wide nav, so cap them at
+       their 1536-canvas pixel values — beyond the canvas width the bar
+       must stop drifting outward. Top padding overlay-calibrated to the
+       reference's bar baseline. */
+    padding: 2.25rem min(3.6%, 3.25rem) 0 min(4.3%, 4.125rem);
+  }
+
+  .wordmark,
+  .utils,
+  .sections {
+    order: initial;
+  }
+
+  /* Grid items stretch by default — keep the link's hit area on the
+     identity itself, not the whole first column. */
+  .wordmark {
+    justify-self: start;
+  }
+
+  .wordmark {
+    /* Reference ink: the identity cluster spans 142px (x69→211) with a
+       ~17px-tall mark — larger than the section links. */
+    font-size: 1.3125rem;
+  }
+
+  .wordmark .mark {
+    width: 1.0625rem;
+    height: 1.0625rem;
+  }
+
+  .sections {
+    flex-wrap: nowrap;
+    justify-content: center;
+    /* Reference ink: six links spanning 562px (x443→1004) — wider gaps
+       than true centring would suggest. */
+    gap: clamp(1.5rem, 3.38vw, 3.25rem);
+    width: auto;
+    /* The reference places the centre cluster optically (≈50px left of
+       true centre at the 1536 frame), between the wordmark and the
+       utilities — not mechanically centred. Proportional below the
+       canvas width, capped at the canvas value above it. */
+    translate: max(-3.125rem, -3.26vw) 0;
+  }
+
+  .utils {
+    justify-self: end;
+    margin-inline-start: 0;
+  }
+
+  .about {
+    gap: 0.9375rem;
+    padding: 0.65625rem 0.96875rem;
+    border-radius: 0.75rem;
+  }
+
+  .theme,
+  .language {
+    width: 2.625rem;
+    height: 2.625rem;
+  }
+
+  /* Desktop keeps the approved trigger-anchored dropdown exactly as it
+     was: the bar is a single row here, so there is no navigation beneath
+     the trigger for the panel to cover. */
+  .menuWrap {
+    position: relative;
+  }
+
+  .menu {
+    inset-block-start: calc(100% + 0.5rem);
+    inset-inline-end: 0;
+  }
 }

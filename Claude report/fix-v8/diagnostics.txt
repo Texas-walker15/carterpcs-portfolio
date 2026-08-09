@@ -1,0 +1,332 @@
+CarterPCs fix-v8 — validation diagnostics
+Captured with the working tree free of temporary tooling.
+
+########## 1. MENU GEOMETRY / SEMANTICS (measured, before vs after) ##########
+before mobile   {"ariaExpanded":"(absent)","ariaHasPopup":"(absent)","rect":{"top":109,"bottom":229,"left":234,"right":370},"coversNavLinks":true}
+after  mobile   {"ariaExpanded":"true",    "ariaHasPopup":"menu",    "rect":{"top":201,"bottom":321,"left":234,"right":370},"coversNavLinks":false}
+before desktop  {"ariaExpanded":"(absent)","ariaHasPopup":"(absent)","rect":{"top":87,"bottom":207,"left":1348,"right":1484},"coversNavLinks":false}
+after  desktop  {"ariaExpanded":"true",    "ariaHasPopup":"menu",    "rect":{"top":87,"bottom":207,"left":1348,"right":1484},"coversNavLinks":false}
+
+########## 2. HEADLINE CLIP SWEEP — before vs after, pixel diff ##########
+3 headings x 3 languages x 8 widths (300-430px). changedPx>0 means the
+fix restored glyph ink the old clip-path was cutting.
+
+#creator h2          en 300px lines=5 changedPx=0
+#creator h2          en 320px lines=4 changedPx=0
+#creator h2          en 340px lines=4 changedPx=0
+#creator h2          en 360px lines=4 changedPx=0
+#creator h2          en 375px lines=4 changedPx=0
+#creator h2          en 390px lines=4 changedPx=0
+#creator h2          en 412px lines=4 changedPx=0
+#creator h2          en 430px lines=3 changedPx=0
+#creator h2          fr 300px lines=3 changedPx=48 <<< VISIBLE INK RESTORED
+#creator h2          fr 320px lines=3 changedPx=36 <<< VISIBLE INK RESTORED
+#creator h2          fr 340px lines=3 changedPx=48 <<< VISIBLE INK RESTORED
+#creator h2          fr 360px lines=3 changedPx=78 <<< VISIBLE INK RESTORED
+#creator h2          fr 375px lines=3 changedPx=65 <<< VISIBLE INK RESTORED
+#creator h2          fr 390px lines=3 changedPx=52 <<< VISIBLE INK RESTORED
+#creator h2          fr 412px lines=2 changedPx=65 <<< VISIBLE INK RESTORED
+#creator h2          fr 430px lines=2 changedPx=39 <<< VISIBLE INK RESTORED
+#creator h2          es 300px lines=3 changedPx=0
+#creator h2          es 320px lines=3 changedPx=0
+#creator h2          es 340px lines=3 changedPx=0
+#creator h2          es 360px lines=3 changedPx=0
+#creator h2          es 375px lines=3 changedPx=0
+#creator h2          es 390px lines=3 changedPx=0
+#creator h2          es 412px lines=3 changedPx=0
+#creator h2          es 430px lines=2 changedPx=0
+#hardware h2         en 300px lines=3 changedPx=0
+#hardware h2         en 320px lines=2 changedPx=0
+#hardware h2         en 340px lines=2 changedPx=0
+#hardware h2         en 360px lines=2 changedPx=0
+#hardware h2         en 375px lines=2 changedPx=0
+#hardware h2         en 390px lines=2 changedPx=0
+#hardware h2         en 412px lines=2 changedPx=0
+#hardware h2         en 430px lines=2 changedPx=0
+#hardware h2         fr 300px lines=2 changedPx=0
+#hardware h2         fr 320px lines=2 changedPx=0
+#hardware h2         fr 340px lines=2 changedPx=0
+#hardware h2         fr 360px lines=2 changedPx=0
+#hardware h2         fr 375px lines=2 changedPx=0
+#hardware h2         fr 390px lines=2 changedPx=0
+#hardware h2         fr 412px lines=2 changedPx=0
+#hardware h2         fr 430px lines=2 changedPx=0
+#hardware h2         es 300px lines=3 changedPx=0
+#hardware h2         es 320px lines=3 changedPx=0
+#hardware h2         es 340px lines=2 changedPx=0
+#hardware h2         es 360px lines=2 changedPx=0
+#hardware h2         es 375px lines=2 changedPx=0
+#hardware h2         es 390px lines=2 changedPx=0
+#hardware h2         es 412px lines=2 changedPx=0
+#hardware h2         es 430px lines=2 changedPx=0
+#content-universe h2 en 300px lines=4 changedPx=0
+#content-universe h2 en 320px lines=4 changedPx=0
+#content-universe h2 en 340px lines=3 changedPx=0
+#content-universe h2 en 360px lines=3 changedPx=0
+#content-universe h2 en 375px lines=3 changedPx=0
+#content-universe h2 en 390px lines=3 changedPx=0
+#content-universe h2 en 412px lines=2 changedPx=0
+#content-universe h2 en 430px lines=2 changedPx=0
+#content-universe h2 fr 300px lines=3 changedPx=0
+#content-universe h2 fr 320px lines=3 changedPx=0
+#content-universe h2 fr 340px lines=3 changedPx=0
+#content-universe h2 fr 360px lines=3 changedPx=0
+#content-universe h2 fr 375px lines=2 changedPx=0
+#content-universe h2 fr 390px lines=2 changedPx=0
+#content-universe h2 fr 412px lines=2 changedPx=0
+#content-universe h2 fr 430px lines=2 changedPx=0
+#content-universe h2 es 300px lines=4 changedPx=0
+#content-universe h2 es 320px lines=4 changedPx=0
+#content-universe h2 es 340px lines=3 changedPx=0
+#content-universe h2 es 360px lines=3 changedPx=0
+#content-universe h2 es 375px lines=3 changedPx=0
+#content-universe h2 es 390px lines=3 changedPx=0
+#content-universe h2 es 412px lines=2 changedPx=0
+#content-universe h2 es 430px lines=2 changedPx=0
+
+########## 3. FULL MATRIX (after) — language x theme x viewport ##########
+overflow = documentElement.scrollWidth > clientWidth at 5 scroll anchors
+clipArtifacts = headings still carrying an inline clip-path at rest
+MATRIX after en/dark(dark)/mobile      overflow=false clipArtifacts=0
+MATRIX after en/dark(dark)/desktop     overflow=false clipArtifacts=0
+MATRIX after en/light(light)/mobile    overflow=false clipArtifacts=0
+MATRIX after en/light(light)/desktop   overflow=false clipArtifacts=0
+MATRIX after en/system(light)/mobile   overflow=false clipArtifacts=0
+MATRIX after en/system(light)/desktop  overflow=false clipArtifacts=0
+MATRIX after fr/dark(dark)/mobile      overflow=false clipArtifacts=0
+MATRIX after fr/dark(dark)/desktop     overflow=false clipArtifacts=0
+MATRIX after fr/light(light)/mobile    overflow=false clipArtifacts=0
+MATRIX after fr/light(light)/desktop   overflow=false clipArtifacts=0
+MATRIX after fr/system(light)/mobile   overflow=false clipArtifacts=0
+MATRIX after fr/system(light)/desktop  overflow=false clipArtifacts=0
+MATRIX after es/dark(dark)/mobile      overflow=false clipArtifacts=0
+MATRIX after es/dark(dark)/desktop     overflow=false clipArtifacts=0
+MATRIX after es/light(light)/mobile    overflow=false clipArtifacts=0
+MATRIX after es/light(light)/desktop   overflow=false clipArtifacts=0
+MATRIX after es/system(light)/mobile   overflow=false clipArtifacts=0
+MATRIX after es/system(light)/desktop  overflow=false clipArtifacts=0
+
+("system" was exercised with the OS preference set to light, so the System
+option resolves to something other than Dark and is genuinely tested.)
+
+########## npm run typecheck ##########
+
+> carterpcs-portfolio@0.0.0 typecheck
+> tsc -b
+
+EXIT: 0
+
+########## npm run lint ##########
+
+> carterpcs-portfolio@0.0.0 lint
+> eslint .
+
+EXIT: 0
+
+########## npm run format:check ##########
+
+> carterpcs-portfolio@0.0.0 format:check
+> prettier --check .
+
+Checking formatting...
+[[33mwarn[39m] Claude report/fix-v1/report.md
+[[33mwarn[39m] Claude report/fix-v2/report.md
+[[33mwarn[39m] Claude report/fix-v3/report.md
+[[33mwarn[39m] Code style issues found in 3 files. Run Prettier with --write to fix.
+EXIT: 1
+
+########## npm run test:run ##########
+
+> carterpcs-portfolio@0.0.0 test:run
+> vitest run
+
+
+ RUN  v4.1.10 C:/Users/Vu Nhat Minh/Documents/Github Repo/Site Web/Profolio/CarterPCs
+
+Not implemented: Window's scrollTo() method
+Not implemented: Window's scrollTo() method
+Not implemented: Window's scrollTo() method
+Not implemented: Window's scrollTo() method
+Not implemented: Window's scrollTo() method
+Not implemented: Window's scrollTo() method
+Not implemented: Window's scrollTo() method
+Not implemented: Window's scrollTo() method
+Not implemented: Window's scrollTo() method
+Not implemented: Window's scrollTo() method
+Not implemented: Window's scrollTo() method
+Not implemented: Window's scrollTo() method
+Not implemented: Window's scrollTo() method
+Not implemented: Window's scrollTo() method
+Not implemented: Window's scrollTo() method
+Not implemented: Window's scrollTo() method
+Not implemented: Window's scrollTo() method
+Not implemented: Window's scrollTo() method
+Not implemented: Window's scrollTo() method
+Not implemented: Window's scrollTo() method
+Not implemented: Window's scrollTo() method
+Not implemented: Window's scrollTo() method
+Not implemented: Window's scrollTo() method
+Not implemented: Window's scrollTo() method
+Not implemented: Window's scrollTo() method
+Not implemented: Window's scrollTo() method
+Not implemented: Window's scrollTo() method
+Not implemented: Window's scrollTo() method
+Not implemented: Window's scrollTo() method
+Not implemented: Window's scrollTo() method
+Not implemented: Window's scrollTo() method
+Not implemented: Window's scrollTo() method
+Not implemented: Window's scrollTo() method
+Not implemented: Window's scrollTo() method
+Not implemented: Window's scrollTo() method
+Not implemented: Window's scrollTo() method
+Not implemented: Window's scrollTo() method
+Not implemented: Window's scrollTo() method
+Not implemented: Window's scrollTo() method
+Not implemented: Window's scrollTo() method
+Not implemented: Window's scrollTo() method
+Not implemented: Window's scrollTo() method
+Not implemented: Window's scrollTo() method
+Not implemented: Window's scrollTo() method
+Not implemented: Window's scrollTo() method
+Not implemented: Window's scrollTo() method
+Not implemented: Window's scrollTo() method
+Not implemented: Window's scrollTo() method
+Not implemented: Window's scrollTo() method
+Not implemented: Window's scrollTo() method
+Not implemented: Window's scrollTo() method
+Not implemented: Window's scrollTo() method
+Not implemented: Window's scrollTo() method
+Not implemented: Window's scrollTo() method
+Not implemented: Window's scrollTo() method
+Not implemented: Window's scrollTo() method
+Not implemented: Window's scrollTo() method
+Not implemented: Window's scrollTo() method
+Not implemented: Window's scrollTo() method
+Not implemented: Window's scrollTo() method
+Not implemented: Window's scrollTo() method
+Not implemented: Window's scrollTo() method
+Not implemented: Window's scrollTo() method
+Not implemented: Window's scrollTo() method
+Not implemented: Window's scrollTo() method
+Not implemented: Window's scrollTo() method
+Not implemented: Window's scrollTo() method
+Not implemented: Window's scrollTo() method
+
+ Test Files  1 passed (1)
+      Tests  27 passed (27)
+   Start at  17:52:12
+   Duration  14.11s (transform 1.73s, setup 474ms, import 2.35s, tests 8.74s, environment 2.11s)
+
+EXIT: 0
+
+########## npm run build ##########
+
+> carterpcs-portfolio@0.0.0 build
+> tsc -b && vite build
+
+[36mvite v8.2.1 [32mbuilding client environment for production...[36m[39m
+[2Ktransforming...✓ 53 modules transformed.
+rendering chunks...
+computing gzip size...
+dist/index.html                                          0.73 kB │ gzip:   0.40 kB
+dist/assets/tile-media-studio-DmYAaV3k.webp              4.54 kB
+dist/assets/about-audience-avatars-DSvlztft.webp         7.34 kB
+dist/assets/tile-media-builds-BGUjQnGC.webp              7.62 kB
+dist/assets/carter-hero-portrait-cutout-BIo7azrn.webp  184.40 kB
+dist/assets/index-DWIOI5no.css                          51.16 kB │ gzip:   9.46 kB
+dist/assets/index-CDRun6ev.js                          377.61 kB │ gzip: 127.99 kB
+
+[32m✓ built in 665ms[39m
+EXIT: 0
+
+########## npm run test:e2e ##########
+
+> carterpcs-portfolio@0.0.0 test:e2e
+> playwright test
+
+
+Running 32 tests using 10 workers
+
+[1/32] [chromium] › e2e\app.spec.ts:9:1 › Hero loads with heading, subhead, and navigation
+[2/32] [chromium] › e2e\app.spec.ts:31:1 › scrolling from Hero reveals the Creator section
+[3/32] [chromium] › e2e\app.spec.ts:22:1 › skip link is keyboard-reachable and targets main content
+[4/32] [chromium] › e2e\app.spec.ts:44:1 › Creator nav link scrolls to the Creator section
+[5/32] [chromium] › e2e\app.spec.ts:53:1 › scrolling from Creator reveals the Featured section
+[6/32] [chromium] › e2e\app.spec.ts:106:1 › mobile: Featured stories are reachable through natural vertical scroll
+[7/32] [chromium] › e2e\app.spec.ts:76:1 › desktop: the horizontal sequence progresses through all three stories on scroll
+[8/32] [chromium] › e2e\app.spec.ts:68:1 › Featured nav link scrolls to the Featured section
+[9/32] [chromium] › e2e\app.spec.ts:142:1 › Hardware nav link scrolls to the Hardware section
+[10/32] [chromium] › e2e\app.spec.ts:127:1 › scrolling from Featured reveals the Hardware section
+[11/32] [chromium] › e2e\app.spec.ts:150:1 › desktop: Hardware choreography resolves and normal scroll flow resumes after it
+[12/32] [chromium] › e2e\app.spec.ts:179:1 › mobile: Hardware section is reachable through natural vertical scroll with no overflow
+[13/32] [chromium] › e2e\app.spec.ts:204:1 › scrolling from Hardware reveals the Content Universe section
+[14/32] [chromium] › e2e\app.spec.ts:219:1 › Content nav link scrolls to the Content Universe section
+[15/32] [chromium] › e2e\app.spec.ts:228:1 › desktop: Content Universe choreography progresses and resolves with all six categories reachable
+[16/32] [chromium] › e2e\app.spec.ts:275:1 › mobile: Content Universe categories are reachable through natural vertical scroll with no overflow
+[17/32] [chromium] › e2e\app.spec.ts:340:1 › language menu opens on click and switches the page without a reload
+[18/32] [chromium] › e2e\app.spec.ts:377:1 › the chosen language persists across a reload
+[19/32] [chromium] › e2e\app.spec.ts:401:5 › fr @ desktop 1536x1024: every section renders with no horizontal overflow
+[20/32] [chromium] › e2e\app.spec.ts:401:5 › fr @ mobile 390x844: every section renders with no horizontal overflow
+[21/32] [chromium] › e2e\app.spec.ts:401:5 › es @ desktop 1536x1024: every section renders with no horizontal overflow
+[22/32] [chromium] › e2e\app.spec.ts:401:5 › es @ mobile 390x844: every section renders with no horizontal overflow
+[23/32] [chromium] › e2e\app.spec.ts:467:1 › desktop: the Featured horizontal sequence still completes in French
+[24/32] [chromium] › e2e\app.spec.ts:515:3 › desktop: the theme menu closes on selection, Escape, and focus loss
+[25/32] [chromium] › e2e\app.spec.ts:515:3 › mobile: the theme menu closes on selection, Escape, and focus loss
+[26/32] [chromium] › e2e\app.spec.ts:562:1 › mobile: an open menu clears the bar’s own section links
+[27/32] [chromium] › e2e\app.spec.ts:622:5 › en @ 320px: section headings wrap without clipped glyphs
+[28/32] [chromium] › e2e\app.spec.ts:622:5 › fr @ 320px: section headings wrap without clipped glyphs
+[29/32] [chromium] › e2e\app.spec.ts:622:5 › es @ 320px: section headings wrap without clipped glyphs
+[30/32] [chromium] › e2e\app.spec.ts:622:5 › en @ 390px: section headings wrap without clipped glyphs
+[31/32] [chromium] › e2e\app.spec.ts:622:5 › fr @ 390px: section headings wrap without clipped glyphs
+[32/32] [chromium] › e2e\app.spec.ts:622:5 › es @ 390px: section headings wrap without clipped glyphs
+  32 passed (30.5s)
+EXIT: 0
+
+########## git diff --check ##########
+warning: in the working copy of 'e2e/app.spec.ts', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'index.html', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'src/animations/gsap.ts', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'src/app/App.test.tsx', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'src/app/App.tsx', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'src/components/navigation/Nav.module.css', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'src/components/navigation/Nav.tsx', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'src/data/featured.ts', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'src/data/hardware.ts', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'src/sections/creator/Creator.tsx', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'src/sections/featured/Featured.tsx', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'src/sections/hardware/Hardware.module.css', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'src/sections/hardware/Hardware.tsx', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'src/sections/hero/Hero.module.css', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'src/sections/hero/Hero.tsx', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'src/styles/global.css', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'src/styles/tokens.css', LF will be replaced by CRLF the next time Git touches it
+EXIT: 0
+
+########## git status --short ##########
+ M e2e/app.spec.ts
+ M index.html
+ M src/animations/gsap.ts
+ M src/app/App.test.tsx
+ M src/app/App.tsx
+ M src/components/navigation/Nav.module.css
+ M src/components/navigation/Nav.tsx
+ M src/data/featured.ts
+ M src/data/hardware.ts
+ M src/sections/creator/Creator.tsx
+ M src/sections/featured/Featured.tsx
+ M src/sections/hardware/Hardware.module.css
+ M src/sections/hardware/Hardware.tsx
+ M src/sections/hero/Hero.module.css
+ M src/sections/hero/Hero.tsx
+ M src/styles/global.css
+ M src/styles/tokens.css
+?? "Claude report/"
+?? public/fonts/
+?? src/app/Preferences.tsx
+?? src/assets/
+?? src/data/contentUniverse.ts
+?? src/i18n/
+?? src/sections/content-universe/
+
+########## HEAD (nothing committed) ##########
+275d9d9 feat: add hardware experience section

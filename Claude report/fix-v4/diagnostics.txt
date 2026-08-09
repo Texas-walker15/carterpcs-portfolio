@@ -1,0 +1,6 @@
+fix-v4
+1536x1024: Explore 215.1x52; Watch Reel 167x51; both 12px radius.
+390x844: no overflow; Apple logo present.
+Console errors: 0.
+typecheck, lint, unit 11/11, build, E2E 16/16: PASS.
+Build JS gzip: 121.07 kB.

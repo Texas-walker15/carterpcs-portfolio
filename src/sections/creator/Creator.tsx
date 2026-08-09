@@ -1,6 +1,11 @@
 import { useLayoutEffect, useRef } from 'react'
-import { gsap } from '../../animations/gsap'
+import {
+  gsap,
+  HEADLINE_WIPE_FROM,
+  HEADLINE_WIPE_TO,
+} from '../../animations/gsap'
 import { useReducedMotion } from '../../hooks/useReducedMotion'
+import { usePreferences } from '../../app/Preferences'
 import styles from './Creator.module.css'
 
 /**
@@ -53,6 +58,7 @@ import styles from './Creator.module.css'
  */
 function Creator() {
   const reducedMotion = useReducedMotion()
+  const { t } = usePreferences()
   const rootRef = useRef<HTMLElement>(null)
 
   useLayoutEffect(() => {
@@ -61,6 +67,13 @@ function Creator() {
     }
 
     const ctx = gsap.context(() => {
+      // Resolved once, inside the context, so the onComplete below acts on
+      // the same scoped elements rather than re-running a selector that is
+      // no longer context-scoped by the time the callback fires.
+      const headlineLines = gsap.utils.toArray<HTMLElement>(
+        '[data-headline-line]',
+      )
+
       const tl = gsap.timeline({
         defaults: { ease: 'power3.out' },
         scrollTrigger: {
@@ -71,9 +84,15 @@ function Creator() {
       })
 
       tl.fromTo(
-        '[data-headline-line]',
-        { clipPath: 'inset(0 100% 0 0)' },
-        { clipPath: 'inset(0 0% 0 0)', duration: 0.9 },
+        headlineLines,
+        { clipPath: HEADLINE_WIPE_FROM },
+        {
+          clipPath: HEADLINE_WIPE_TO,
+          duration: 0.9,
+          // See HEADLINE_WIPE_* — the finished wipe must not leave a live
+          // cropping rectangle on the headline.
+          onComplete: () => gsap.set(headlineLines, { clearProps: 'clipPath' }),
+        },
       )
         .from(
           '[data-reveal-stage]',
@@ -96,41 +115,28 @@ function Creator() {
 
       <div className={styles.canvas}>
         <p className={styles.meta} data-reveal>
-          <span>02 / Creator</span>
+          <span>{t.creator.metaLabel}</span>
           <span className={styles.metaRule} aria-hidden="true" />
-          <span>Creator overview</span>
+          <span>{t.creator.metaNote}</span>
         </p>
 
         <div className={styles.type}>
           <p className={styles.kicker} data-reveal>
-            The Creator
+            {t.creator.kicker}
           </p>
           <h2 className={styles.headline} data-headline-line>
-            Hardware knowledge, delivered without the fluff.
+            {t.creator.headline}
           </h2>
 
           <div className={styles.body}>
-            <p data-reveal>
-              A daily short-form record of PC builds, smartphones, and everyday
-              tech decisions — filmed fast, tested by hand, and built for
-              viewers who want the point without losing the context.
-            </p>
-            <p data-reveal>
-              The tone stays direct on purpose: plain-English breakdowns, a
-              willingness to call out bad hardware and worse marketing, and a
-              sense of humor that never strays far from the internet it grew up
-              on.
-            </p>
+            <p data-reveal>{t.creator.bodyOne}</p>
+            <p data-reveal>{t.creator.bodyTwo}</p>
           </div>
         </div>
 
         <div className={styles.footer} data-reveal>
-          <p className={styles.tags}>
-            PC Hardware — Mobile Tech — Consumer Tech — Scam-Busting
-          </p>
-          <p className={styles.platforms}>
-            TikTok · YouTube Shorts · Instagram Reels
-          </p>
+          <p className={styles.tags}>{t.creator.tags}</p>
+          <p className={styles.platforms}>{t.creator.platforms}</p>
         </div>
       </div>
 

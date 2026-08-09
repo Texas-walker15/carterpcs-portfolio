@@ -1,7 +1,13 @@
-import { useLayoutEffect, useRef, useState } from 'react'
-import { gsap, ScrollTrigger } from '../../animations/gsap'
+import { useLayoutEffect, useMemo, useRef, useState } from 'react'
+import {
+  gsap,
+  ScrollTrigger,
+  HEADLINE_WIPE_FROM,
+  HEADLINE_WIPE_TO,
+} from '../../animations/gsap'
 import { useReducedMotion } from '../../hooks/useReducedMotion'
-import { featuredStories } from '../../data/featured'
+import { usePreferences } from '../../app/Preferences'
+import { featuredStoryCount, getFeaturedStories } from '../../data/featured'
 import styles from './Featured.module.css'
 
 /**
@@ -68,6 +74,8 @@ import styles from './Featured.module.css'
  */
 function Featured() {
   const reducedMotion = useReducedMotion()
+  const { t, language } = usePreferences()
+  const stories = useMemo(() => getFeaturedStories(language), [language])
   const rootRef = useRef<HTMLElement>(null)
   const trackRef = useRef<HTMLDivElement>(null)
   const railRef = useRef<HTMLDivElement>(null)
@@ -79,6 +87,10 @@ function Featured() {
     }
 
     const ctx = gsap.context(() => {
+      // Resolved once, inside the context, so the onComplete below acts on
+      // the same scoped elements (see Creator.tsx for the same note).
+      const introLines = gsap.utils.toArray<HTMLElement>('[data-intro-line]')
+
       gsap
         .timeline({
           defaults: { ease: 'power3.out' },
@@ -89,9 +101,14 @@ function Featured() {
           },
         })
         .fromTo(
-          '[data-intro-line]',
-          { clipPath: 'inset(0 100% 0 0)' },
-          { clipPath: 'inset(0 0% 0 0)', duration: 0.8 },
+          introLines,
+          { clipPath: HEADLINE_WIPE_FROM },
+          {
+            clipPath: HEADLINE_WIPE_TO,
+            duration: 0.8,
+            // See HEADLINE_WIPE_* — no live cropping rectangle at rest.
+            onComplete: () => gsap.set(introLines, { clearProps: 'clipPath' }),
+          },
         )
         .from(
           '[data-intro-reveal]',
@@ -116,7 +133,11 @@ function Featured() {
             '[data-panel-content]',
             rail,
           )
-          const panelCount = featuredStories.length
+          // Panel COUNT is language-independent by construction (one row per
+          // story in data/featured.ts, three translations inside it), so the
+          // pinned sequence's geometry never depends on which language the
+          // effect happened to be set up under.
+          const panelCount = featuredStoryCount
           // A panel's copy only ever risks being clipped by ONE edge at a
           // time, and it's a different edge depending on direction — never
           // both at once, and never the edge you'd naively guess from a
@@ -275,18 +296,18 @@ function Featured() {
 
       <div className={styles.intro}>
         <p className={styles.meta} data-intro-reveal>
-          <span>03 / Featured</span>
+          <span>{t.featured.metaLabel}</span>
           <span className={styles.metaRule} aria-hidden="true" />
-          <span>Selected editorial stories</span>
+          <span>{t.featured.metaNote}</span>
         </p>
         <h2 className={styles.title} data-intro-line>
-          Selected Stories
+          {t.featured.title}
         </h2>
       </div>
 
       <div className={styles.track} ref={trackRef}>
         <div className={styles.rail} ref={railRef}>
-          {featuredStories.map((story) => (
+          {stories.map((story) => (
             <article
               key={story.index}
               className={styles.panel}
@@ -312,9 +333,15 @@ function Featured() {
                 <p className={styles.panelIndex}>
                   {story.index} — {story.category}
                 </p>
+                {/* Keyed by position, not by text: a translated headline may
+                    legitimately repeat a word across its three lines, and a
+                    text key would then collide. */}
                 <h3 className={styles.panelHeadline}>
-                  {story.headlineLines.map((line) => (
-                    <span key={line} className={styles.panelLine}>
+                  {story.headlineLines.map((line, lineIndex) => (
+                    <span
+                      key={`${story.index}-${lineIndex}`}
+                      className={styles.panelLine}
+                    >
                       {line}
                     </span>
                   ))}
@@ -327,7 +354,7 @@ function Featured() {
         </div>
 
         <div className={styles.progress} aria-hidden="true">
-          {featuredStories.map((story, i) => (
+          {stories.map((story, i) => (
             <span
               key={story.index}
               className={

@@ -1,0 +1,27 @@
+CarterPCs fix-v2 diagnostics
+
+Root cause
+- Desktop labels were single-line with a 0.875rem grid gutter.
+- At 1536x1024 the second and third labels had only about 14px edge-to-edge separation, creating a run-together appearance.
+
+Applied correction
+- Desktop .statsList column-gap: 1rem.
+- Desktop .statLabel font-size: 0.625rem; letter-spacing: 0.
+- Values and labels remain frozen: 3.0M+ / YouTube Subscribers; 7.0B+ / Total YouTube Views; DOZENS / Custom PCs Built.
+
+Measured audit
+- 1536x1024: root 16px, no horizontal overflow, no browser console errors.
+- 1920x1080: root 17.92px, no horizontal overflow, no browser console errors.
+- 2048x1015: root 18.45px, no horizontal overflow, no browser console errors.
+- 2560x1080: root 19.63px, no horizontal overflow, no browser console errors.
+- 2560x1440: root 21.12px, no horizontal overflow, no browser console errors.
+- 1440x900, 1024x768, 768x1024, 390x844, 320x568: no horizontal overflow or browser console errors.
+
+Commands
+- typecheck PASS
+- lint PASS
+- format:check FAIL only on pre-existing Claude report/fix-v1/report.md
+- test:run PASS 11/11
+- build PASS; JS gzip 120.75 kB
+- test:e2e PASS 16/16
+- git diff --check PASS (line-ending warnings only)

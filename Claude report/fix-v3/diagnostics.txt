@@ -1,0 +1,25 @@
+fix-v3 diagnostics
+
+1536x1024
+- About Carter: x=1278.6, y=36, width=143.4, height=44
+- Theme: x=1442, y=37, width=42, height=42
+- Apple logo: 20x23.5, filter=brightness(0) invert(1)
+- Console errors: 0
+- Horizontal overflow: false
+
+2048x1015
+- Console errors: 0
+- Horizontal overflow: false
+
+390x844
+- Compact navigation preserved
+- Console errors: 0
+- Horizontal overflow: false
+
+Validation
+- typecheck PASS
+- lint PASS
+- unit tests PASS 11/11
+- build PASS; JS gzip 121.08 kB
+- E2E PASS 16/16
+- format:check blocked by pre-existing fix-v1 and fix-v2 reports only

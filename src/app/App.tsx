@@ -1,20 +1,37 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import Nav from '../components/navigation/Nav'
 import Intro from '../sections/intro/Intro'
 import Hero from '../sections/hero/Hero'
 import Creator from '../sections/creator/Creator'
 import Featured from '../sections/featured/Featured'
 import Hardware from '../sections/hardware/Hardware'
+import ContentUniverse from '../sections/content-universe/ContentUniverse'
+import { ScrollTrigger } from '../animations/gsap'
 import { useLenis } from '../hooks/useLenis'
+import { PreferencesProvider, usePreferences } from './Preferences'
 
-function App() {
-  useLenis()
+/**
+ * Everything below the provider, so it can read the active dictionary.
+ * `App` itself renders the provider and therefore cannot call
+ * `usePreferences()` at its own level.
+ */
+function Site() {
+  const { t, language } = usePreferences()
   const [introComplete, setIntroComplete] = useState(false)
+
+  // Translated copy changes how tall the sections are (French and Spanish
+  // paragraphs set to more lines than the English ones), which moves every
+  // pinned ScrollTrigger's start/end. Refreshing re-measures in place instead
+  // of tearing the timelines down and rebuilding them, so a language switch
+  // never restarts the choreography or jumps the scroll position.
+  useEffect(() => {
+    ScrollTrigger.refresh()
+  }, [language])
 
   return (
     <>
       <a className="skip-link" href="#main-content">
-        Skip to content
+        {t.a11y.skipToContent}
       </a>
 
       <Nav />
@@ -24,10 +41,21 @@ function App() {
         <Creator />
         <Featured />
         <Hardware />
+        <ContentUniverse />
       </main>
 
       {!introComplete && <Intro onComplete={() => setIntroComplete(true)} />}
     </>
+  )
+}
+
+function App() {
+  useLenis()
+
+  return (
+    <PreferencesProvider>
+      <Site />
+    </PreferencesProvider>
   )
 }
 
