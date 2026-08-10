@@ -1,0 +1,214 @@
+CarterPCs - fix-v13 diagnostics
+Section 02 / Creator - final visual treatment with the supplied photograph
+All figures measured in a real Chromium.
+
+==============================================================================
+A. Section 02 media sweep - 12 viewports x 3 languages x 2 themes (72 combinations)
+==============================================================================
+320x568    en dark  loaded=y box=320x213.3   r=1.5   shows x[0-1] y[0-1] cover=  100% subjectIntact=YES gutter=-299.8 numOverPlate=no  ovf=0 fails=1 [{"cls":"_kicker","text":"The Creator","size":12,"need":4.5,"ratio":3.65}]
+320x568    en light loaded=y box=320x213.3   r=1.5   shows x[0-1] y[0-1] cover=  100% subjectIntact=YES gutter=-299.9 numOverPlate=no  ovf=0 fails=0
+320x568    fr dark  loaded=y box=320x213.3   r=1.5   shows x[0-1] y[0-1] cover=  100% subjectIntact=YES gutter=-299.9 numOverPlate=no  ovf=0 fails=1 [{"cls":"_kicker","text":"Le créateur","size":12,"need":4.5,"ratio":3.65}]
+320x568    fr light loaded=y box=320x213.3   r=1.5   shows x[0-1] y[0-1] cover=  100% subjectIntact=YES gutter=-299.8 numOverPlate=no  ovf=0 fails=0
+320x568    es dark  loaded=y box=320x213.3   r=1.5   shows x[0-1] y[0-1] cover=  100% subjectIntact=YES gutter=-299.9 numOverPlate=no  ovf=0 fails=1 [{"cls":"_kicker","text":"El creador","size":12,"need":4.5,"ratio":3.65}]
+320x568    es light loaded=y box=320x213.3   r=1.5   shows x[0-1] y[0-1] cover=  100% subjectIntact=YES gutter=-299.8 numOverPlate=no  ovf=0 fails=0
+360x800    en dark  loaded=y box=360x240     r=1.5   shows x[0-1] y[0-1] cover=  100% subjectIntact=YES gutter=-339.8 numOverPlate=no  ovf=0 fails=1 [{"cls":"_kicker","text":"The Creator","size":12,"need":4.5,"ratio":3.65}]
+360x800    en light loaded=y box=360x240     r=1.5   shows x[0-1] y[0-1] cover=  100% subjectIntact=YES gutter=-339.8 numOverPlate=no  ovf=0 fails=0
+360x800    fr dark  loaded=y box=360x240     r=1.5   shows x[0-1] y[0-1] cover=  100% subjectIntact=YES gutter=-339.8 numOverPlate=no  ovf=0 fails=1 [{"cls":"_kicker","text":"Le créateur","size":12,"need":4.5,"ratio":3.65}]
+360x800    fr light loaded=y box=360x240     r=1.5   shows x[0-1] y[0-1] cover=  100% subjectIntact=YES gutter=-339.8 numOverPlate=no  ovf=0 fails=0
+360x800    es dark  loaded=y box=360x240     r=1.5   shows x[0-1] y[0-1] cover=  100% subjectIntact=YES gutter=-339.8 numOverPlate=no  ovf=0 fails=1 [{"cls":"_kicker","text":"El creador","size":12,"need":4.5,"ratio":3.65}]
+360x800    es light loaded=y box=360x240     r=1.5   shows x[0-1] y[0-1] cover=  100% subjectIntact=YES gutter=-339.8 numOverPlate=no  ovf=0 fails=0
+390x844    en dark  loaded=y box=390x260     r=1.5   shows x[0-1] y[0-1] cover=  100% subjectIntact=YES gutter=-369.8 numOverPlate=no  ovf=0 fails=1 [{"cls":"_kicker","text":"The Creator","size":12,"need":4.5,"ratio":3.65}]
+390x844    en light loaded=y box=390x260     r=1.5   shows x[0-1] y[0-1] cover=  100% subjectIntact=YES gutter=-369.8 numOverPlate=no  ovf=0 fails=0
+390x844    fr dark  loaded=y box=390x260     r=1.5   shows x[0-1] y[0-1] cover=  100% subjectIntact=YES gutter=-369.8 numOverPlate=no  ovf=0 fails=1 [{"cls":"_kicker","text":"Le créateur","size":12,"need":4.5,"ratio":3.65}]
+390x844    fr light loaded=y box=390x260     r=1.5   shows x[0-1] y[0-1] cover=  100% subjectIntact=YES gutter=-369.8 numOverPlate=no  ovf=0 fails=0
+390x844    es dark  loaded=y box=390x260     r=1.5   shows x[0-1] y[0-1] cover=  100% subjectIntact=YES gutter=-369.8 numOverPlate=no  ovf=0 fails=1 [{"cls":"_kicker","text":"El creador","size":12,"need":4.5,"ratio":3.65}]
+390x844    es light loaded=y box=390x260     r=1.5   shows x[0-1] y[0-1] cover=  100% subjectIntact=YES gutter=-369.8 numOverPlate=no  ovf=0 fails=0
+414x896    en dark  loaded=y box=414x276     r=1.5   shows x[0-1] y[0-1] cover=  100% subjectIntact=YES gutter=-393.8 numOverPlate=no  ovf=0 fails=1 [{"cls":"_kicker","text":"The Creator","size":12,"need":4.5,"ratio":3.65}]
+414x896    en light loaded=y box=414x276     r=1.5   shows x[0-1] y[0-1] cover=  100% subjectIntact=YES gutter=-393.8 numOverPlate=no  ovf=0 fails=0
+414x896    fr dark  loaded=y box=414x276     r=1.5   shows x[0-1] y[0-1] cover=  100% subjectIntact=YES gutter=-393.8 numOverPlate=no  ovf=0 fails=1 [{"cls":"_kicker","text":"Le créateur","size":12,"need":4.5,"ratio":3.65}]
+414x896    fr light loaded=y box=414x276     r=1.5   shows x[0-1] y[0-1] cover=  100% subjectIntact=YES gutter=-393.8 numOverPlate=no  ovf=0 fails=0
+414x896    es dark  loaded=y box=414x276     r=1.5   shows x[0-1] y[0-1] cover=  100% subjectIntact=YES gutter=-393.8 numOverPlate=no  ovf=0 fails=1 [{"cls":"_kicker","text":"El creador","size":12,"need":4.5,"ratio":3.65}]
+414x896    es light loaded=y box=414x276     r=1.5   shows x[0-1] y[0-1] cover=  100% subjectIntact=YES gutter=-393.8 numOverPlate=no  ovf=0 fails=0
+844x390    en dark  loaded=y box=844x562.7   r=1.5   shows x[0-1] y[0-1] cover=  100% subjectIntact=YES gutter=-809.8 numOverPlate=no  ovf=0 fails=1 [{"cls":"_kicker","text":"The Creator","size":12,"need":4.5,"ratio":3.65}]
+844x390    en light loaded=y box=844x562.7   r=1.5   shows x[0-1] y[0-1] cover=  100% subjectIntact=YES gutter=-809.8 numOverPlate=no  ovf=0 fails=0
+844x390    fr dark  loaded=y box=844x562.7   r=1.5   shows x[0-1] y[0-1] cover=  100% subjectIntact=YES gutter=-809.8 numOverPlate=no  ovf=0 fails=1 [{"cls":"_kicker","text":"Le créateur","size":12,"need":4.5,"ratio":3.65}]
+844x390    fr light loaded=y box=844x562.7   r=1.5   shows x[0-1] y[0-1] cover=  100% subjectIntact=YES gutter=-809.8 numOverPlate=no  ovf=0 fails=0
+844x390    es dark  loaded=y box=844x562.7   r=1.5   shows x[0-1] y[0-1] cover=  100% subjectIntact=YES gutter=-809.8 numOverPlate=no  ovf=0 fails=1 [{"cls":"_kicker","text":"El creador","size":12,"need":4.5,"ratio":3.65}]
+844x390    es light loaded=y box=844x562.7   r=1.5   shows x[0-1] y[0-1] cover=  100% subjectIntact=YES gutter=-809.8 numOverPlate=no  ovf=0 fails=0
+768x1024   en dark  loaded=y box=768x512     r=1.5   shows x[0-1] y[0-1] cover=  100% subjectIntact=YES gutter=-736.9 numOverPlate=no  ovf=0 fails=1 [{"cls":"_kicker","text":"The Creator","size":12,"need":4.5,"ratio":3.65}]
+768x1024   en light loaded=y box=768x512     r=1.5   shows x[0-1] y[0-1] cover=  100% subjectIntact=YES gutter=-736.9 numOverPlate=no  ovf=0 fails=0
+768x1024   fr dark  loaded=y box=768x512     r=1.5   shows x[0-1] y[0-1] cover=  100% subjectIntact=YES gutter=-736.9 numOverPlate=no  ovf=0 fails=1 [{"cls":"_kicker","text":"Le créateur","size":12,"need":4.5,"ratio":3.65}]
+768x1024   fr light loaded=y box=768x512     r=1.5   shows x[0-1] y[0-1] cover=  100% subjectIntact=YES gutter=-736.9 numOverPlate=no  ovf=0 fails=0
+768x1024   es dark  loaded=y box=768x512     r=1.5   shows x[0-1] y[0-1] cover=  100% subjectIntact=YES gutter=-736.9 numOverPlate=no  ovf=0 fails=1 [{"cls":"_kicker","text":"El creador","size":12,"need":4.5,"ratio":3.65}]
+768x1024   es light loaded=y box=768x512     r=1.5   shows x[0-1] y[0-1] cover=  100% subjectIntact=YES gutter=-736.9 numOverPlate=no  ovf=0 fails=0
+820x1180   en dark  loaded=y box=820x546.7   r=1.5   shows x[0-1] y[0-1] cover=  100% subjectIntact=YES gutter=-786.8 numOverPlate=no  ovf=0 fails=1 [{"cls":"_kicker","text":"The Creator","size":12,"need":4.5,"ratio":3.65}]
+820x1180   en light loaded=y box=820x546.7   r=1.5   shows x[0-1] y[0-1] cover=  100% subjectIntact=YES gutter=-786.8 numOverPlate=no  ovf=0 fails=0
+820x1180   fr dark  loaded=y box=820x546.7   r=1.5   shows x[0-1] y[0-1] cover=  100% subjectIntact=YES gutter=-786.8 numOverPlate=no  ovf=0 fails=1 [{"cls":"_kicker","text":"Le créateur","size":12,"need":4.5,"ratio":3.65}]
+820x1180   fr light loaded=y box=820x546.7   r=1.5   shows x[0-1] y[0-1] cover=  100% subjectIntact=YES gutter=-786.8 numOverPlate=no  ovf=0 fails=0
+820x1180   es dark  loaded=y box=820x546.7   r=1.5   shows x[0-1] y[0-1] cover=  100% subjectIntact=YES gutter=-786.8 numOverPlate=no  ovf=0 fails=1 [{"cls":"_kicker","text":"El creador","size":12,"need":4.5,"ratio":3.65}]
+820x1180   es light loaded=y box=820x546.7   r=1.5   shows x[0-1] y[0-1] cover=  100% subjectIntact=YES gutter=-786.8 numOverPlate=no  ovf=0 fails=0
+1024x768   en dark  loaded=y box=512x426.6   r=1.2   shows x[0-0.8001] y[0-1] cover=   80% subjectIntact=YES gutter=  41.2 numOverPlate=no  ovf=0 fails=1 [{"cls":"_kicker","text":"The Creator","size":12,"need":4.5,"ratio":3.65}]
+1024x768   en light loaded=y box=512x426.6   r=1.2   shows x[0-0.8001] y[0-1] cover=   80% subjectIntact=YES gutter=  41.2 numOverPlate=no  ovf=0 fails=0
+1024x768   fr dark  loaded=y box=512x426.6   r=1.2   shows x[0-0.8001] y[0-1] cover=   80% subjectIntact=YES gutter=  41.2 numOverPlate=no  ovf=0 fails=1 [{"cls":"_kicker","text":"Le créateur","size":12,"need":4.5,"ratio":3.65}]
+1024x768   fr light loaded=y box=512x426.6   r=1.2   shows x[0-0.8001] y[0-1] cover=   80% subjectIntact=YES gutter=  41.2 numOverPlate=no  ovf=0 fails=0
+1024x768   es dark  loaded=y box=512x426.6   r=1.2   shows x[0-0.8001] y[0-1] cover=   80% subjectIntact=YES gutter=  41.2 numOverPlate=no  ovf=0 fails=1 [{"cls":"_kicker","text":"El creador","size":12,"need":4.5,"ratio":3.65}]
+1024x768   es light loaded=y box=512x426.6   r=1.2   shows x[0-0.8001] y[0-1] cover=   80% subjectIntact=YES gutter=  41.2 numOverPlate=no  ovf=0 fails=0
+1280x800   en dark  loaded=y box=640x533.2   r=1.2   shows x[0-0.8001] y[0-1] cover=   80% subjectIntact=YES gutter=  51.5 numOverPlate=no  ovf=0 fails=1 [{"cls":"_kicker","text":"The Creator","size":12,"need":4.5,"ratio":3.65}]
+1280x800   en light loaded=y box=640x533.2   r=1.2   shows x[0-0.8001] y[0-1] cover=   80% subjectIntact=YES gutter=  51.5 numOverPlate=no  ovf=0 fails=0
+1280x800   fr dark  loaded=y box=640x533.2   r=1.2   shows x[0-0.8001] y[0-1] cover=   80% subjectIntact=YES gutter=  51.5 numOverPlate=no  ovf=0 fails=1 [{"cls":"_kicker","text":"Le créateur","size":12,"need":4.5,"ratio":3.65}]
+1280x800   fr light loaded=y box=640x533.2   r=1.2   shows x[0-0.8001] y[0-1] cover=   80% subjectIntact=YES gutter=  51.5 numOverPlate=no  ovf=0 fails=0
+1280x800   es dark  loaded=y box=640x533.2   r=1.2   shows x[0-0.8001] y[0-1] cover=   80% subjectIntact=YES gutter=  51.5 numOverPlate=no  ovf=0 fails=1 [{"cls":"_kicker","text":"El creador","size":12,"need":4.5,"ratio":3.65}]
+1280x800   es light loaded=y box=640x533.2   r=1.2   shows x[0-0.8001] y[0-1] cover=   80% subjectIntact=YES gutter=  51.5 numOverPlate=no  ovf=0 fails=0
+1440x900   en dark  loaded=y box=720x599.9   r=1.2   shows x[0-0.8001] y[0-1] cover=   80% subjectIntact=YES gutter=  57.9 numOverPlate=no  ovf=0 fails=1 [{"cls":"_kicker","text":"The Creator","size":12,"need":4.5,"ratio":3.65}]
+1440x900   en light loaded=y box=720x599.9   r=1.2   shows x[0-0.8001] y[0-1] cover=   80% subjectIntact=YES gutter=    58 numOverPlate=no  ovf=0 fails=0
+1440x900   fr dark  loaded=y box=720x599.9   r=1.2   shows x[0-0.8001] y[0-1] cover=   80% subjectIntact=YES gutter=    58 numOverPlate=no  ovf=0 fails=1 [{"cls":"_kicker","text":"Le créateur","size":12,"need":4.5,"ratio":3.65}]
+1440x900   fr light loaded=y box=720x599.9   r=1.2   shows x[0-0.8001] y[0-1] cover=   80% subjectIntact=YES gutter=  57.9 numOverPlate=no  ovf=0 fails=0
+1440x900   es dark  loaded=y box=720x599.9   r=1.2   shows x[0-0.8001] y[0-1] cover=   80% subjectIntact=YES gutter=    58 numOverPlate=no  ovf=0 fails=1 [{"cls":"_kicker","text":"El creador","size":12,"need":4.5,"ratio":3.65}]
+1440x900   es light loaded=y box=720x599.9   r=1.2   shows x[0-0.8001] y[0-1] cover=   80% subjectIntact=YES gutter=  57.9 numOverPlate=no  ovf=0 fails=0
+1536x1024  en dark  loaded=y box=768x639.9   r=1.2   shows x[0-0.8001] y[0-1] cover=   80% subjectIntact=YES gutter=  61.8 numOverPlate=no  ovf=0 fails=1 [{"cls":"_kicker","text":"The Creator","size":12,"need":4.5,"ratio":3.65}]
+1536x1024  en light loaded=y box=768x639.9   r=1.2   shows x[0-0.8001] y[0-1] cover=   80% subjectIntact=YES gutter=  61.8 numOverPlate=no  ovf=0 fails=0
+1536x1024  fr dark  loaded=y box=768x639.9   r=1.2   shows x[0-0.8001] y[0-1] cover=   80% subjectIntact=YES gutter=  61.8 numOverPlate=no  ovf=0 fails=1 [{"cls":"_kicker","text":"Le créateur","size":12,"need":4.5,"ratio":3.65}]
+1536x1024  fr light loaded=y box=768x639.9   r=1.2   shows x[0-0.8001] y[0-1] cover=   80% subjectIntact=YES gutter=  61.8 numOverPlate=no  ovf=0 fails=0
+1536x1024  es dark  loaded=y box=768x639.9   r=1.2   shows x[0-0.8001] y[0-1] cover=   80% subjectIntact=YES gutter=  61.8 numOverPlate=no  ovf=0 fails=1 [{"cls":"_kicker","text":"El creador","size":12,"need":4.5,"ratio":3.65}]
+1536x1024  es light loaded=y box=768x639.9   r=1.2   shows x[0-0.8001] y[0-1] cover=   80% subjectIntact=YES gutter=  61.8 numOverPlate=no  ovf=0 fails=0
+1920x1080  en dark  loaded=y box=960x799.9   r=1.2   shows x[0-0.8001] y[0-1] cover=   80% subjectIntact=YES gutter=  72.1 numOverPlate=no  ovf=0 fails=1 [{"cls":"_kicker","text":"The Creator","size":13.4,"need":4.5,"ratio":3.65}]
+1920x1080  en light loaded=y box=960x799.9   r=1.2   shows x[0-0.8001] y[0-1] cover=   80% subjectIntact=YES gutter=  72.2 numOverPlate=no  ovf=0 fails=0
+1920x1080  fr dark  loaded=y box=960x799.9   r=1.2   shows x[0-0.8001] y[0-1] cover=   80% subjectIntact=YES gutter=  72.2 numOverPlate=no  ovf=0 fails=1 [{"cls":"_kicker","text":"Le créateur","size":13.4,"need":4.5,"ratio":3.65}]
+1920x1080  fr light loaded=y box=960x799.9   r=1.2   shows x[0-0.8001] y[0-1] cover=   80% subjectIntact=YES gutter=  72.1 numOverPlate=no  ovf=0 fails=0
+1920x1080  es dark  loaded=y box=960x799.9   r=1.2   shows x[0-0.8001] y[0-1] cover=   80% subjectIntact=YES gutter=  72.2 numOverPlate=no  ovf=0 fails=1 [{"cls":"_kicker","text":"El creador","size":13.4,"need":4.5,"ratio":3.65}]
+1920x1080  es light loaded=y box=960x799.9   r=1.2   shows x[0-0.8001] y[0-1] cover=   80% subjectIntact=YES gutter=  72.2 numOverPlate=no  ovf=0 fails=0
+
+SUMMARY over 72 combinations:
+  image loaded ....................... 72/72
+  subject fully visible (no crop) .... 72/72
+  horizontal page overflow ........... 0
+  plate/type collisions .............. 42
+  numeral drawn over the plate ....... 0
+  contrast failures .................. 36
+    _kicker 3.65
+written media-v13.json
+
+
+==============================================================================
+B. Plate paint check on small screens - live pixels sampled through a canvas
+==============================================================================
+ 320x568   dark  box=320x213   ratio=1.5 inVP=yes lum mean= 19.8 min=  0 max=244 phone(orange)= 287 rig(teal)=  92
+ 320x568   light box=320x213   ratio=1.5 inVP=yes lum mean= 19.8 min=  0 max=244 phone(orange)= 287 rig(teal)=  92
+ 360x800   dark  box=360x240   ratio=1.5 inVP=yes lum mean= 19.8 min=  0 max=244 phone(orange)= 287 rig(teal)=  92
+ 360x800   light box=360x240   ratio=1.5 inVP=yes lum mean= 19.8 min=  0 max=244 phone(orange)= 287 rig(teal)=  92
+ 390x844   dark  box=390x260   ratio=1.5 inVP=yes lum mean= 19.8 min=  0 max=244 phone(orange)= 287 rig(teal)=  92
+ 390x844   light box=390x260   ratio=1.5 inVP=yes lum mean= 19.8 min=  0 max=244 phone(orange)= 287 rig(teal)=  92
+ 414x896   dark  box=414x276   ratio=1.5 inVP=yes lum mean= 19.8 min=  0 max=244 phone(orange)= 287 rig(teal)=  92
+ 414x896   light box=414x276   ratio=1.5 inVP=yes lum mean= 19.8 min=  0 max=244 phone(orange)= 287 rig(teal)=  92
+ 768x1024  dark  box=768x512   ratio=1.5 inVP=yes lum mean= 19.8 min=  0 max=244 phone(orange)= 287 rig(teal)=  92
+ 768x1024  light box=768x512   ratio=1.5 inVP=yes lum mean= 19.8 min=  0 max=244 phone(orange)= 287 rig(teal)=  92
+ 820x1180  dark  box=820x547   ratio=1.5 inVP=yes lum mean= 19.8 min=  0 max=244 phone(orange)= 287 rig(teal)=  92
+ 820x1180  light box=820x547   ratio=1.5 inVP=yes lum mean= 19.8 min=  0 max=244 phone(orange)= 287 rig(teal)=  92
+ 844x390   dark  box=844x563   ratio=1.5 inVP=yes lum mean= 19.8 min=  0 max=244 phone(orange)= 287 rig(teal)=  92
+ 844x390   light box=844x563   ratio=1.5 inVP=yes lum mean= 19.8 min=  0 max=244 phone(orange)= 287 rig(teal)=  92
+
+
+==============================================================================
+C. Reduced motion, image a11y contract, and the real "Process" nav anchor click
+==============================================================================
+=== reduced motion: section fully present, image included ===
+  1440x900: {"inlineStyled":0,"textFaded":1,"residualClip":0,"imgPainted":true,"imgOpacity":"1","stageOpacity":"1","imgTransition":"all","imgAnimation":"none"}
+  390x844: {"inlineStyled":0,"textFaded":1,"residualClip":0,"imgPainted":true,"imgOpacity":"1","stageOpacity":"1","imgTransition":"all","imgAnimation":"none"}
+
+=== image a11y contract ===
+  alt: ""
+  intrinsic: 1536x1024
+  lazy: null
+  insideAriaHidden: true
+  imagesInSection: 1
+  focusables: 0
+  headings: H2:Hardware knowledge, delivered 
+  anchorId: creator
+  scrollMargin: 96px
+
+=== nav anchor: real click on "Process" ===
+  1440x900: {"url":"#creator","secTop":96,"copyBehindBar":0}
+  1024x768: {"url":"#creator","secTop":96,"copyBehindBar":0}
+   390x844: {"url":"#creator","secTop":96.4,"copyBehindBar":2}
+
+
+==============================================================================
+D. Image element state per viewport (DOM, not screenshot)
+==============================================================================
+
+=== 320x568 ===
+  imgInDom: true
+  complete: true
+  natural: 1536x1024
+  currentSrc: creator-workshop-filming-setup-DrrdQ89B.png
+  imgBox: 0,760 320x213
+  imgOpacity: 1
+  stageBox: 0,760 320x213
+  stageInline: translate: none; rotate: none; scale: none; transform: translate(0px, 0px); opacity: 1;
+  stageOpacity: 1
+  stageTransform: matrix(1, 0, 0, 1, 0, 0)
+  surfaceBox: 0,760 320x213
+  surfaceOverflow: hidden
+  sectionBox: 0,0 320x974
+
+=== 360x800 ===
+  imgInDom: true
+  complete: true
+  natural: 1536x1024
+  currentSrc: creator-workshop-filming-setup-DrrdQ89B.png
+  imgBox: 0,699 360x240
+  imgOpacity: 1
+  stageBox: 0,699 360x240
+  stageInline: translate: none; rotate: none; scale: none; transform: translate(0px, 0px); opacity: 1;
+  stageOpacity: 1
+  stageTransform: matrix(1, 0, 0, 1, 0, 0)
+  surfaceBox: 0,699 360x240
+  surfaceOverflow: hidden
+  sectionBox: 0,-0 360x939
+
+=== 390x844 ===
+  imgInDom: true
+  complete: true
+  natural: 1536x1024
+  currentSrc: creator-workshop-filming-setup-DrrdQ89B.png
+  imgBox: 0,704 390x260
+  imgOpacity: 1
+  stageBox: 0,704 390x260
+  stageInline: translate: none; rotate: none; scale: none; transform: translate(0px, 0px); opacity: 1;
+  stageOpacity: 1
+  stageTransform: matrix(1, 0, 0, 1, 0, 0)
+  surfaceBox: 0,704 390x260
+  surfaceOverflow: hidden
+  sectionBox: 0,0 390x964
+
+=== 768x1024 ===
+  imgInDom: true
+  complete: true
+  natural: 1536x1024
+  currentSrc: creator-workshop-filming-setup-DrrdQ89B.png
+  imgBox: 0,590 768x512
+  imgOpacity: 1
+  stageBox: 0,590 768x512
+  stageInline: translate: none; rotate: none; scale: none; transform: translate(0px, 0px); opacity: 1;
+  stageOpacity: 1
+  stageTransform: matrix(1, 0, 0, 1, 0, 0)
+  surfaceBox: 0,590 768x512
+  surfaceOverflow: hidden
+  sectionBox: 0,-0 768x1102
+
+=== 1440x900 ===
+  imgInDom: true
+  complete: true
+  natural: 1536x1024
+  currentSrc: creator-workshop-filming-setup-DrrdQ89B.png
+  imgBox: 0,150 720x600
+  imgOpacity: 1
+  stageBox: 0,150 720x600
+  stageInline: transform: translate(0%, -50%) translate(0px, 0.055px); translate: none; rotate: none; scale: none; opacity: 1;
+  stageOpacity: 1
+  stageTransform: matrix(1, 0, 0, 1, 0, -299.89)
+  surfaceBox: 0,150 720x600
+  surfaceOverflow: hidden
+  sectionBox: 0,0 1440x900
+
+
