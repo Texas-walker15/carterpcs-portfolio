@@ -1,0 +1,56 @@
+CarterPCs fix-v13 — Featured far-right sequence rail
+Probes run against vite preview of the current build (http://localhost:4190)
+
+=== A. Panel-relative geometry, story 01, six desktop widths ===
+1024x768  frame=[544..877] 333x592  rail=[882.1..954.1]  inkRight=516.8  freeRight=69.9  vrail=none  timeline=[57.3..193.3 t=628.4]  nav=0..80
+1280x800  frame=[544..895] 351x624  rail=[901.4..978.2]  inkRight=439.5  freeRight=301.8  vrail=[1226.8..1228.8] t=329.7 b=469.7  timeline=[71.7..207.7 t=659.7]  nav=0..80
+1366x768  frame=[544..877] 333x592  rail=[883.8..965.8]  inkRight=444.3  freeRight=400.2  vrail=[1309.4..1311.4] t=314 b=454  timeline=[76.5..212.5 t=628]  nav=0..80
+1440x900  frame=[544..938.9] 394.9x702  rail=[946.1..1032.5]  inkRight=448.4  freeRight=407.5  vrail=[1380.4..1382.4] t=379.8 b=519.8  timeline=[80.6..216.6 t=759.8]  nav=0..80
+1536x1024  frame=[553..985] 432x768  rail=[992.6..1084.6]  inkRight=453.8  freeRight=451.4  vrail=[1472.6..1474.6] t=441.8 b=581.8  timeline=[86..222 t=883.8]  nav=0..80
+1920x1080  frame=[691.2..1165] 473.8x842.4  rail=[1174..1277]  inkRight=508.4  freeRight=643.0  vrail=[1846.3..1848.3] t=461.9 b=618.7  timeline=[100.3..252.7 t=923.5]  nav=0..89.3
+
+=== B. Per-story rest-state check: 3 stories x 6 viewport/language/theme combos ===
+1024x768 en/dark story1 "What’s the best PCyou can " panelLeft=0 seq=[0..0] 0..0 gapActions=-954.1 gapEdge=1024 ov(nav/frame/actions/copy/timeline)=0/0/0/0/0 marks=3 0x0 pe=auto active=... hit=DIV aria=true ovf=0
+1024x768 en/dark story2 "What has Apple copiedfrom " panelLeft=0 seq=[0..0] 0..0 gapActions=-954.1 gapEdge=1024 ov(nav/frame/actions/copy/timeline)=0/0/0/0/0 marks=3 0x0 pe=auto active=... hit=DIV aria=true ovf=0
+1024x768 en/dark story3 "The Lenovo ThinkPadis the " panelLeft=0 seq=[0..0] 0..0 gapActions=-954.1 gapEdge=1024 ov(nav/frame/actions/copy/timeline)=0/0/0/0/0 marks=3 0x0 pe=auto active=... hit=DIV aria=true ovf=0
+1440x900 en/dark story1 "What’s the best PCyou can " panelLeft=0 seq=[1380.4..1382.4] 379.8..519.8 gapActions=347.9 gapEdge=57.6 ov(nav/frame/actions/copy/timeline)=0/0/0/0/0 marks=3 2x40 pe=none active=#.. hit=ARTICLE aria=true ovf=0
+    active bg=rgb(53, 199, 214) inactive bg=color(srgb 0.960784 0.960784 0.952941 / 0.2)
+1440x900 en/dark story2 "What has Apple copiedfrom " panelLeft=-0.6 seq=[1379.8..1381.8] 379.8..519.8 gapActions=348 gapEdge=58.2 ov(nav/frame/actions/copy/timeline)=0/0/0/0/0 marks=3 2x40 pe=none active=.#. hit=ARTICLE aria=true ovf=0
+    active bg=rgb(53, 199, 214) inactive bg=color(srgb 0.960784 0.960784 0.952941 / 0.2)
+1440x900 en/dark story3 "The Lenovo ThinkPadis the " panelLeft=0 seq=[1380.4..1382.4] 378.8..518.8 gapActions=347.9 gapEdge=57.6 ov(nav/frame/actions/copy/timeline)=0/0/0/0/0 marks=3 2x40 pe=none active=..# hit=ARTICLE aria=true ovf=0
+    active bg=rgb(53, 199, 214) inactive bg=color(srgb 0.960784 0.960784 0.952941 / 0.2)
+1920x1080 en/dark story1 "What’s the best PCyou can " panelLeft=0 seq=[1846.3..1848.3] 461.9..618.7 gapActions=569.3 gapEdge=71.7 ov(nav/frame/actions/copy/timeline)=0/0/0/0/0 marks=3 2x44.8 pe=none active=#.. hit=ARTICLE aria=true ovf=0
+    active bg=rgb(53, 199, 214) inactive bg=color(srgb 0.960784 0.960784 0.952941 / 0.2)
+1920x1080 en/dark story2 "What has Apple copiedfrom " panelLeft=0 seq=[1846.3..1848.3] 461.9..618.7 gapActions=569.3 gapEdge=71.7 ov(nav/frame/actions/copy/timeline)=0/0/0/0/0 marks=3 2x44.8 pe=none active=.#. hit=ARTICLE aria=true ovf=0
+    active bg=rgb(53, 199, 214) inactive bg=color(srgb 0.960784 0.960784 0.952941 / 0.2)
+1920x1080 en/dark story3 "The Lenovo ThinkPadis the " panelLeft=0 seq=[1846.3..1848.3] 461.9..618.7 gapActions=569.3 gapEdge=71.7 ov(nav/frame/actions/copy/timeline)=0/0/0/0/0 marks=3 2x44.8 pe=none active=..# hit=ARTICLE aria=true ovf=0
+    active bg=rgb(53, 199, 214) inactive bg=color(srgb 0.960784 0.960784 0.952941 / 0.2)
+1440x900 fr/light story1 "What’s the best PCyou can " panelLeft=0 seq=[1380.4..1382.4] 379.8..519.8 gapActions=347.9 gapEdge=57.6 ov(nav/frame/actions/copy/timeline)=0/0/0/0/0 marks=3 2x40 pe=none active=#.. hit=ARTICLE aria=true ovf=0
+    active bg=rgb(20, 114, 123) inactive bg=color(srgb 0.0823529 0.0823529 0.0862745 / 0.2)
+1440x900 fr/light story2 "What has Apple copiedfrom " panelLeft=-0.6 seq=[1379.8..1381.8] 379.8..519.8 gapActions=348 gapEdge=58.2 ov(nav/frame/actions/copy/timeline)=0/0/0/0/0 marks=3 2x40 pe=none active=.#. hit=ARTICLE aria=true ovf=0
+    active bg=rgb(20, 114, 123) inactive bg=color(srgb 0.0823529 0.0823529 0.0862745 / 0.2)
+1440x900 fr/light story3 "The Lenovo ThinkPadis the " panelLeft=0 seq=[1380.4..1382.4] 378.8..518.8 gapActions=347.9 gapEdge=57.6 ov(nav/frame/actions/copy/timeline)=0/0/0/0/0 marks=3 2x40 pe=none active=..# hit=ARTICLE aria=true ovf=0
+    active bg=rgb(20, 114, 123) inactive bg=color(srgb 0.0823529 0.0823529 0.0862745 / 0.2)
+1920x1080 es/dark story1 "What’s the best PCyou can " panelLeft=0 seq=[1846.3..1848.3] 461.9..618.7 gapActions=569.3 gapEdge=71.7 ov(nav/frame/actions/copy/timeline)=0/0/0/0/0 marks=3 2x44.8 pe=none active=#.. hit=ARTICLE aria=true ovf=0
+    active bg=rgb(53, 199, 214) inactive bg=color(srgb 0.960784 0.960784 0.952941 / 0.2)
+1920x1080 es/dark story2 "What has Apple copiedfrom " panelLeft=0 seq=[1846.3..1848.3] 461.9..618.7 gapActions=569.3 gapEdge=71.7 ov(nav/frame/actions/copy/timeline)=0/0/0/0/0 marks=3 2x44.8 pe=none active=.#. hit=ARTICLE aria=true ovf=0
+    active bg=rgb(53, 199, 214) inactive bg=color(srgb 0.960784 0.960784 0.952941 / 0.2)
+1920x1080 es/dark story3 "The Lenovo ThinkPadis the " panelLeft=0 seq=[1846.3..1848.3] 461.9..618.7 gapActions=569.3 gapEdge=71.7 ov(nav/frame/actions/copy/timeline)=0/0/0/0/0 marks=3 2x44.8 pe=none active=..# hit=ARTICLE aria=true ovf=0
+    active bg=rgb(53, 199, 214) inactive bg=color(srgb 0.960784 0.960784 0.952941 / 0.2)
+1280x800 en/light story1 "What’s the best PCyou can " panelLeft=0 seq=[1226.8..1228.8] 329.7..469.7 gapActions=248.6 gapEdge=51.2 ov(nav/frame/actions/copy/timeline)=0/0/0/0/0 marks=3 2x40 pe=none active=#.. hit=ARTICLE aria=true ovf=0
+    active bg=rgb(20, 114, 123) inactive bg=color(srgb 0.0823529 0.0823529 0.0862745 / 0.2)
+1280x800 en/light story2 "What has Apple copiedfrom " panelLeft=-0.6 seq=[1226.2..1228.2] 329.7..469.7 gapActions=248.6 gapEdge=51.8 ov(nav/frame/actions/copy/timeline)=0/0/0/0/0 marks=3 2x40 pe=none active=.#. hit=ARTICLE aria=true ovf=0
+    active bg=rgb(20, 114, 123) inactive bg=color(srgb 0.0823529 0.0823529 0.0862745 / 0.2)
+1280x800 en/light story3 "The Lenovo ThinkPadis the " panelLeft=0 seq=[1226.8..1228.8] 328.7..468.7 gapActions=248.6 gapEdge=51.2 ov(nav/frame/actions/copy/timeline)=0/0/0/0/0 marks=3 2x40 pe=none active=..# hit=ARTICLE aria=true ovf=0
+    active bg=rgb(20, 114, 123) inactive bg=color(srgb 0.0823529 0.0823529 0.0862745 / 0.2)
+mobile 320x568 fr: sequence display=none box=0x0 ovf=0
+mobile 390x844 en: sequence display=none box=0x0 ovf=0
+mobile 390x844 es: sequence display=none box=0x0 ovf=0
+reduced-motion 1440x900: sequence=none timeline=none ovf=0
+
+=== C. Live-scroll sweep (every animation frame while the pin is scrubbed) + system theme ===
+live 1280x800 (from y=2057): frames=830 maxOverlap nav/frame/rail/copy/timeline=0/0/0/0/0 outsidePanel=0 maxOverflow=0
+live 1440x900 (from y=2138): frames=770 maxOverlap nav/frame/rail/copy/timeline=0/0/0/0/0 outsidePanel=0 maxOverflow=0
+live 1920x1080 (from y=2538): frames=616 maxOverlap nav/frame/rail/copy/timeline=0/0/0/0/0 outsidePanel=0 maxOverflow=0
+system(dark) 1920x1080: stored=system ground=rgb(13, 13, 13) inactive=color(srgb 0.960784 0.960784 0.952941 / 0.2) active=rgb(53, 199, 214) sameAccentAsTimeline=true
+system(light) 1920x1080: stored=system ground=rgb(245, 245, 241) inactive=color(srgb 0.0823529 0.0823529 0.0862745 / 0.2) active=rgb(20, 114, 123) sameAccentAsTimeline=true
