@@ -6,6 +6,7 @@ import {
 } from '../../animations/gsap'
 import { useReducedMotion } from '../../hooks/useReducedMotion'
 import { usePreferences } from '../../app/Preferences'
+import workshop from '../../assets/creator/creator-workshop-filming-setup.png'
 import styles from './Creator.module.css'
 
 /**
@@ -44,17 +45,29 @@ import styles from './Creator.module.css'
  * safety requirement regardless of RESEARCH.md support, since none of it is
  * timeless creator-positioning content.
  *
- * No approved CarterPCs media exists yet — `.stageSurface` is the drop-in
- * target for a future portrait/studio image or video, same contract as
- * Hero's stage: dropping in real media only requires changing
- * `.stageSurface`'s background, not the surrounding structure. The oversized
- * "02" is decorative environmental texture (echoing the "02 / Creator"
- * metadata below), not a placeholder label — placeholder status is instead
- * carried only by this comment and `data-dev-placeholder`. An earlier draft
- * also had a small visible "development build" caption on the stage; it was
- * removed because it read as an unfinished box rather than intentional art
- * direction, and the numeral + framing detail now make the fallback state
- * legible as a deliberate composition on its own.
+ * SECTION MEDIA
+ * `src/assets/creator/creator-workshop-filming-setup.png` is the supplied
+ * asset, copied in byte for byte (SHA-256
+ * 173F6E94…B67A94505, 1 536 x 1 024, 1 818 691 bytes). It is not cropped,
+ * resized, re-encoded or retouched anywhere in this codebase — every framing
+ * decision below is CSS around the file, never a change to it. This replaces
+ * the gradient placeholder that `.stageSurface` was always documented as the
+ * drop-in target for, so the surrounding structure is unchanged.
+ *
+ * The photograph's own composition decides the layout: its subject (the open
+ * case, the hands, the phone rig, the camera, the tool mat) occupies the left
+ * ~80% and it carries dark negative space on the right. So the image takes the
+ * section's left panel and the type column sits beside it — the same
+ * media-left / text-right rhythm this section already had, now driven by real
+ * media. The only region ever cropped is that right-hand negative space; the
+ * subject is never cut. See `.stage` in Creator.module.css for the arithmetic.
+ *
+ * ACCESSIBILITY
+ * The photograph is editorial media illustrating copy that already names it —
+ * the body paragraph describes PC builds "filmed fast, tested by hand" — so it
+ * carries alt="" rather than restating that for screen readers, matching the
+ * convention Hero documents for its portrait. It is not a functional image and
+ * conveys no information the section's text does not.
  */
 function Creator() {
   const reducedMotion = useReducedMotion()
@@ -113,11 +126,14 @@ function Creator() {
     <section id="creator" className={styles.creator} ref={rootRef}>
       <span className={styles.seam} aria-hidden="true" />
 
-      {/* Environmental drafting grid under the numeral — three CSS gradients,
-          no asset and no extra copy. First in the DOM so it paints beneath
-          the stage's glow and the numeral. Desktop/tablet only; see .anchor
-          in Creator.module.css. */}
-      <span className={styles.anchor} aria-hidden="true" />
+      {/* Environmental numeral, same layer model as Hardware's "04" and
+          Closing's "06": its own layer behind the type, bottom-right, at token
+          opacity. It used to sit inside the stage, which was fine over an empty
+          gradient and is not fine over a photograph — see .backdrop in
+          Creator.module.css. */}
+      <div className={styles.backdrop} aria-hidden="true">
+        <span className={styles.backdropNumeral}>02</span>
+      </div>
 
       <div className={styles.canvas}>
         <p className={styles.meta} data-reveal>
@@ -146,25 +162,27 @@ function Creator() {
         </div>
       </div>
 
-      {/* Development placeholder media stage — no CarterPCs assets are used.
-          Ordered after .canvas in markup so mobile naturally stacks
-          text-then-image (per ARCHITECTURE.md's Section 3 responsive spec)
-          without needing a separate mobile-only DOM order; desktop lifts it
-          out of flow with position: absolute (see Creator.module.css). */}
-      <div
-        className={styles.stage}
-        aria-hidden="true"
-        data-reveal-stage
-        data-dev-placeholder="true"
-      >
+      {/* Section media. Ordered after .canvas in markup so mobile naturally
+          stacks text-then-image (per ARCHITECTURE.md's Section 3 responsive
+          spec) without needing a separate mobile-only DOM order; desktop lifts
+          it out of flow with position: absolute (see Creator.module.css). */}
+      <div className={styles.stage} aria-hidden="true" data-reveal-stage>
         <div className={styles.stageSurface}>
-          <span className={styles.stageGuide} aria-hidden="true" />
-          <span className={styles.stageCorner} aria-hidden="true" />
-          <span className={styles.stageCornerEnd} aria-hidden="true" />
+          {/* Deliberately NOT lazy. This is section 02, one scroll below the
+              Hero, so it is on the first scroll path rather than deep in the
+              page, and at 1.8 MB the fetch is far from instant — deferring the
+              request is how you get an empty plate under someone already
+              looking at it. Intrinsic width/height are declared so the box is
+              reserved before the bytes land and nothing below it shifts. */}
+          <img
+            className={styles.stageImage}
+            src={workshop}
+            alt=""
+            width={1536}
+            height={1024}
+            decoding="async"
+          />
         </div>
-        <span className={styles.stageNumeral} aria-hidden="true">
-          02
-        </span>
       </div>
 
       {/* Creator → Featured transition: mirrors the Hero → Creator seam

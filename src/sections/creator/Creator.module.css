@@ -46,119 +46,68 @@
   );
 }
 
-/* ===== Left anchor =====
-   An environmental drafting grid the numeral sits on, so the left half reads
-   as a deliberate technical field rather than as unused space. Three CSS
-   gradients, no asset and no extra glyph: a vertical rule on the section's
-   own left content margin, then a square grid phased to start from that same
-   margin, all dissolved by a radial mask so the field has no hard edges and
-   fades out well before the type column.
+/* ===== Environmental numeral =====
+   Matches Hardware's "04", Content Universe's "05" and Closing's "06": its own
+   layer behind the type, bottom-right, at the same 8% token opacity, so the
+   four numbered sections finally share one treatment.
 
-   Desktop and tablet only — see the display: none default. Below 1024px the
-   stage is a normal in-flow block and the approved mobile composition has no
-   room for a background field.
+   It previously lived inside the stage, scaled up to fill it. That worked while
+   the stage was an empty gradient and it was the only thing in the left half;
+   over a photograph it is a grey smudge across the case and the phone rig.
 
-   Painted UNDER the stage: it is a sibling that comes first in the DOM, so
-   with .canvas at z-index 1 and .stage positioned after it, the order is
-   anchor -> stage glow -> numeral -> type. */
+   Desktop and tablet only. Below 1024px the section stacks text-then-image with
+   no spare ground for a backdrop, and bottom-right there IS the photograph. The
+   metadata line still reads "02 / Creator" at every width. */
 
-.anchor {
+.backdrop {
   display: none;
 }
 
 /* ===== Media stage =====
-   Same visual language as Hero's stage (near-black surface, restrained glow,
-   dissolve mask, thin framing lines) — see Hero.module.css for the full
-   rationale. Mirrored to the left on desktop instead of the right, and kept
-   in normal document flow (after .canvas) on mobile so text leads. */
+   Holds the section's photograph. Mirrored to the left on desktop, matching
+   Hero's media-right, and kept in normal document flow (after .canvas) on
+   mobile so the text leads.
+
+   THE FILE IS NEVER TOUCHED. Everything here is a viewport onto it: the box is
+   given an aspect ratio, and object-fit decides which part of the untouched
+   1536x1024 original that box shows. The asset itself is byte-identical to
+   the one supplied.
+
+   MOBILE shows the WHOLE frame — the box carries the file's native 3:2, so
+   there is no crop at all, at any width from 320px up. */
 
 .stage {
   position: relative;
   order: 2;
   margin-block-start: calc(var(--space-3) * -1);
-  aspect-ratio: 4 / 3;
+  aspect-ratio: 1536 / 1024;
 }
 
 .stageSurface {
   position: absolute;
   inset: 0;
   overflow: hidden;
-  background:
-    radial-gradient(
-      70% 70% at 30% 25%,
-      color-mix(in srgb, var(--color-accent-secondary) 30%, transparent),
-      transparent 72%
-    ),
-    radial-gradient(
-      60% 60% at 75% 85%,
-      color-mix(in srgb, var(--color-accent-primary) 24%, transparent),
-      transparent 72%
-    );
-  mask-image: linear-gradient(
-    to bottom,
-    transparent 0%,
-    rgb(0 0 0 / 45%) 14%,
-    rgb(0 0 0) 40%
-  );
 }
 
-.stageGuide {
-  position: absolute;
-  inset-inline: 12% 40%;
-  inset-block-start: 72%;
-  height: 1px;
-  background-color: color-mix(
-    in srgb,
-    var(--color-text-primary) 7%,
-    transparent
-  );
+.stageImage {
+  display: block;
+  inline-size: 100%;
+  block-size: 100%;
+  object-fit: cover;
+  /* Anchored left because the subject is: the case, the hands, the phone rig,
+     the camera and the tool mat all sit in the left 80% of the frame, and the
+     right 20% is empty dark space. Any box narrower than 3:2 therefore loses
+     only that empty space. */
+  object-position: left center;
 }
 
-.stageCorner {
-  position: absolute;
-  inset-block-start: 12%;
-  inset-inline-start: 12%;
-  width: 1.75rem;
-  height: 1.75rem;
-  border-block-start: 1px solid
-    color-mix(in srgb, var(--color-accent-secondary) 55%, transparent);
-  border-inline-start: 1px solid
-    color-mix(in srgb, var(--color-accent-secondary) 55%, transparent);
-}
-
-.stageCornerEnd {
-  position: absolute;
-  inset-block-end: 14%;
-  inset-inline-end: 14%;
-  width: 1.75rem;
-  height: 1.75rem;
-  border-block-end: 1px solid
-    color-mix(in srgb, var(--color-accent-primary) 40%, transparent);
-  border-inline-end: 1px solid
-    color-mix(in srgb, var(--color-accent-primary) 40%, transparent);
-}
-
-/* Environmental numeral — picks up the "02 / Creator" metadata already
-   established in .meta and enlarges it into background texture, so the
-   fallback stage reads as intentional editorial art direction (large
-   cropped section numbering) rather than an empty box. A sibling of
-   .stageSurface, not a child of it: nesting translucent text inside a
-   masked, absolutely-positioned surface produced a visible compositing
-   seam around the glyphs in Chromium (a rendering artifact, not an
-   intentional line) — kept as a plain, unmasked layer instead. Cropped by
-   .creator's page-level overflow: clip when it bleeds past the stage.
-   Purely decorative — the parent .stage carries aria-hidden, so this
-   never reaches the a11y tree. */
-.stageNumeral {
-  position: absolute;
-  inset-block-start: 30%;
-  inset-inline-start: 6%;
+.backdropNumeral {
   font-family: var(--font-family-display);
-  font-size: clamp(8rem, 5rem + 20vw, 12rem);
+  font-size: clamp(8rem, 4rem + 20vw, 18rem);
   font-weight: 700;
   line-height: 0.8;
   letter-spacing: -0.04em;
-  color: color-mix(in srgb, var(--color-text-primary) 14%, transparent);
+  color: color-mix(in srgb, var(--color-text-primary) 8%, transparent);
 }
 
 /* ===== Canvas ===== */
@@ -259,116 +208,59 @@
     align-items: center;
   }
 
-  .anchor {
-    display: block;
+  .backdrop {
+    display: flex;
     position: absolute;
+    inset: 0;
     z-index: 0;
-    inset-block: 0;
-    inset-inline-start: 0;
-    inline-size: min(46%, 46rem);
-    /* Decorative and behind everything, but it still covers the left half —
-       it must never take a click. */
+    align-items: flex-end;
+    justify-content: flex-end;
+    padding-inline-end: 2%;
+    /* Decorative, and it spans the section — it must never take a click. */
     pointer-events: none;
-    background-image:
-      /* 1. the section's own left content margin, drawn */
-      linear-gradient(
-        to right,
-        color-mix(in srgb, var(--color-text-primary) 9%, transparent),
-        color-mix(in srgb, var(--color-text-primary) 9%, transparent)
-      ),
-      /* 2. verticals, phased from that same margin */
-        linear-gradient(
-          to right,
-          color-mix(in srgb, var(--color-text-primary) 5%, transparent) 0 1px,
-          transparent 1px
-        ),
-      /* 3. horizontals */
-        linear-gradient(
-          to bottom,
-          color-mix(in srgb, var(--color-text-primary) 5%, transparent) 0 1px,
-          transparent 1px
-        );
-    /* Sized per layer so the pitch is exact and the tiles never wrap with a
-       seam, which is what a repeating-linear-gradient would do here. */
-    background-size:
-      1px 100%,
-      5.5rem 100%,
-      100% 5.5rem;
-    background-position:
-      var(--container-padding-inline) 0,
-      var(--container-padding-inline) 0,
-      0 50%;
-    background-repeat: no-repeat, repeat, repeat;
-    /* Dissolves the field on every side. The vertical radius is deliberately
-       short so the grid — and especially the margin rule — fades out before
-       it reaches either seam; run edge to edge it read as a stray border
-       rather than as texture. */
-    mask-image: radial-gradient(
-      116% 58% at 22% 47%,
-      rgb(0 0 0) 0%,
-      rgb(0 0 0 / 52%) 40%,
-      transparent 76%
-    );
   }
 
+  /* The photograph takes the left half and the type sits beside it, which is
+     the composition the photograph itself was shot for.
+
+     The box is 1229:1024 — the subject region of the file, i.e. its left 80%.
+     With object-position: left, `cover` on a 1.20 box fed a 1.50 image scales
+     to the box HEIGHT, so the visible slice is 1.20/1.50 = exactly the left
+     80% of the frame: the whole subject, and nothing of it lost vertically.
+     The only thing ever cropped is the right-hand negative space. */
   .stage {
     position: absolute;
-    inset-block: -6%;
-    inset-inline: -6% 58%;
+    inset-block-start: 50%;
+    inset-inline: 0 50%;
+    translate: 0 -50%;
+    aspect-ratio: 1229 / 1024;
     order: initial;
     margin-block-start: 0;
-    aspect-ratio: auto;
   }
 
   .stageSurface {
+    /* Dissolves only the trailing edge, so the plate melts into the section
+       instead of butting a hard rectangle against the type column. The leading
+       edge stays crisp against the viewport, which is how the file already
+       ends — the case is cut off at its own left edge. */
     mask-image: linear-gradient(
       to right,
-      rgb(0 0 0) 58%,
-      rgb(0 0 0 / 45%) 84%,
+      rgb(0 0 0) 0 84%,
+      rgb(0 0 0 / 55%) 93%,
       transparent 100%
     );
   }
 
-  .stageGuide {
-    inset-inline: 20% 55%;
-    inset-block-start: 80%;
-  }
-
-  .stageCorner {
-    inset-block-start: 10%;
-    inset-inline-start: 8%;
-  }
-
-  .stageCornerEnd {
-    inset-block-end: 12%;
-    inset-inline-end: 10%;
-  }
-
-  .stageNumeral {
-    inset-block-start: 32%;
-    /* Landed ON the section's left content margin instead of bled off the
-       viewport edge. The stage starts at -6% of the section and is 48% of it
-       wide, so its overhang is exactly 6/48 = 12.5% of the stage's own width;
-       adding the shared page margin to that puts the glyph's left edge on the
-       same line as every other section's copy. Before, the "0" lost 22px at
-       1024 and 41px at 1920 to overflow: clip — a thin, width-dependent slice
-       that read as an accident rather than as a crop. */
-    inset-inline-start: calc(12.5% + var(--container-padding-inline));
-    font-size: clamp(14rem, 9rem + 12vw, 20rem);
-    /* Slightly firmer now that it is fully present and no longer half of it
-       is off-screen. Still environmental, still aria-hidden. */
-    color: color-mix(in srgb, var(--color-text-primary) 16%, transparent);
-  }
-
   .canvas {
     order: initial;
-    /* One grid column further left, same six-column measure. Columns 6..11
-       instead of 7..12 keeps the block's width — and therefore every line
-       break in the headline and body — byte-identical, and only moves it.
-       Measured at 1440: the gap between the numeral's ink and the first
-       character of the type ran 438px; this and the numeral's own move close
-       it to 230px. */
-    grid-column: 6 / 12;
+    /* Back to columns 7..12, beside the photograph rather than overlapping it.
+       fix-v12 had moved this one column left to close a 438px void on the left
+       — a void that existed because the stage was an empty gradient. The
+       photograph now fills that half, so the block returns to the column edge
+       the media ends on, leaving exactly one page margin as the gutter. Same
+       six-column measure either way, so no line break in the headline or body
+       changes. */
+    grid-column: 7 / 13;
     /* Anchored to the top of the row rather than centred in it. Centring split
        the section's leftover height evenly, so the band above the metadata line
        was a function of how tall the copy happened to be — 122px in English at
