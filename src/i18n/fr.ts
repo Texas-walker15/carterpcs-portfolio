@@ -117,10 +117,18 @@ export const fr: Dictionary = {
     title: 'Histoires choisies',
     playShort: 'Lire le Short',
     closePlayer: 'Fermer le lecteur',
-    watchShort: 'Voir le Short',
+    actions: {
+      like: 'J’aime',
+      comments: 'Commentaires',
+      share: 'Partager',
+      watch: 'Voir sur YouTube',
+      linkCopied: 'Lien copié',
+      copyFailed: 'Impossible de copier le lien',
+    },
     a11y: {
       player: 'Lecteur YouTube',
       opensInNewTab: 'ouvre dans un nouvel onglet',
+      viewComments: 'Voir les commentaires sur YouTube',
     },
   },
 

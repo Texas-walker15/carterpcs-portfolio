@@ -136,11 +136,35 @@ export const en = {
     title: 'Selected Stories',
     playShort: 'Play Short',
     closePlayer: 'Close player',
-    watchShort: 'Watch the Short',
+    /**
+     * The action rail beside each Short.
+     *
+     * `like` is a preference held on this page and nowhere else — nothing is
+     * sent to YouTube and nothing is counted, which is exactly why the label
+     * is the bare verb and why no number appears next to it. `comments` and
+     * `watch` both leave for the real Short rather than staging a local
+     * imitation of it. `share` hands off to the platform's own share sheet
+     * where there is one, and copies the same URL where there is not.
+     */
+    actions: {
+      like: 'Like',
+      comments: 'Comments',
+      share: 'Share',
+      watch: 'Watch on YouTube',
+      /** Announced and shown after the URL reaches the clipboard. */
+      linkCopied: 'Link copied',
+      copyFailed: 'Could not copy the link',
+    },
     a11y: {
       /** Prefix for the iframe's title attribute. */
       player: 'YouTube player',
       opensInNewTab: 'opens in a new tab',
+      /**
+       * Follows the visible "Comments" label so the accessible name states
+       * where the link actually goes — it leaves the site rather than opening
+       * a drawer, and the name has to say so before it is followed.
+       */
+      viewComments: 'View comments on YouTube',
     },
   },
 

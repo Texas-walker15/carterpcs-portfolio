@@ -18,6 +18,58 @@ import { featuredStoryCount, getFeaturedStories } from '../../data/featured'
 import styles from './Featured.module.css'
 
 /**
+ * Action-rail glyphs. Drawn here rather than imported so they inherit
+ * `currentColor` and the rail's own sizing, and so nothing in this section
+ * reaches for a third-party icon font. All four are presentational — every
+ * control they sit in carries its own text label and accessible name — hence
+ * aria-hidden and focusable="false" (IE-era SVGs are focusable by default in
+ * some ATs, and a focus stop on a decorative glyph is a dead key press).
+ *
+ * Deliberately NOT a YouTube mark: the fourth action leaves for YouTube, but
+ * it says so in words and points there with a generic "leaves this page"
+ * glyph. Reproducing the platform's logo would be borrowing its identity for
+ * a concept site that has no relationship with it.
+ */
+const iconProps = {
+  viewBox: '0 0 24 24',
+  fill: 'none',
+  stroke: 'currentColor',
+  strokeWidth: 1.6,
+  strokeLinecap: 'round' as const,
+  strokeLinejoin: 'round' as const,
+  'aria-hidden': true,
+  focusable: false as const,
+}
+
+const HeartIcon = ({ filled }: { filled: boolean }) => (
+  <svg {...iconProps} fill={filled ? 'currentColor' : 'none'}>
+    <path d="M12 20.3c-1.6-1-7.2-4.7-7.2-9.6A3.9 3.9 0 0 1 12 8.2a3.9 3.9 0 0 1 7.2 2.5c0 4.9-5.6 8.6-7.2 9.6Z" />
+  </svg>
+)
+
+const CommentIcon = () => (
+  <svg {...iconProps}>
+    <path d="M4.8 5.5h14.4v9.6h-8.6l-4.2 3.4v-3.4H4.8Z" />
+  </svg>
+)
+
+const ShareIcon = () => (
+  <svg {...iconProps}>
+    <circle cx="17.5" cy="5.8" r="2.3" />
+    <circle cx="6.5" cy="12" r="2.3" />
+    <circle cx="17.5" cy="18.2" r="2.3" />
+    <path d="M8.5 10.8 15.5 6.9M8.5 13.2l7 3.9" />
+  </svg>
+)
+
+const ExternalIcon = () => (
+  <svg {...iconProps}>
+    <path d="M14 4.8h5.2V10M19.2 4.8 11 13" />
+    <path d="M17 14v4.7a1.5 1.5 0 0 1-1.5 1.5H6.3a1.5 1.5 0 0 1-1.5-1.5V9.5A1.5 1.5 0 0 1 6.3 8H11" />
+  </svg>
+)
+
+/**
  * Featured Content, per ARCHITECTURE.md's Section 4 spec: "showcase a small
  * set of standout content pieces as large editorial stories, not a video
  * grid." Narrative pacing steps up here on purpose — Hero (dramatic) →
@@ -113,6 +165,78 @@ function Featured() {
   // ref rather than derived from `playingId`, because by the time the effect
   // runs on close, `playingId` is already null.
   const lastPlayedId = useRef<string | null>(null)
+
+  // Which Shorts this visitor has liked, for as long as this page is open.
+  // A Set of ids rather than a flag per story, so the rail stays driven by
+  // data/featured.ts's list rather than by three hard-coded pieces of state.
+  //
+  // This is a LOCAL preference and nothing more. No request is made, no count
+  // is read or written, and nothing here claims to be a YouTube like — which
+  // is also why it is not persisted: a value that survives a reload would
+  // start to look like an account, and there is no account.
+  const [likedIds, setLikedIds] = useState<ReadonlySet<string>>(
+    () => new Set<string>(),
+  )
+  const toggleLike = useCallback((id: string) => {
+    setLikedIds((previous) => {
+      const next = new Set(previous)
+      if (!next.delete(id)) {
+        next.add(id)
+      }
+      return next
+    })
+  }, [])
+
+  // Result of the last share, shown next to the rail it came from and
+  // announced through that panel's own live region.
+  const [shareNotice, setShareNotice] = useState<{
+    id: string
+    copied: boolean
+  } | null>(null)
+  const shareTimer = useRef<ReturnType<typeof setTimeout> | null>(null)
+
+  const shareStory = useCallback(async (id: string, title: string, url: string) => {
+    if (shareTimer.current) {
+      clearTimeout(shareTimer.current)
+      shareTimer.current = null
+    }
+    // The platform's own share sheet, where there is one. It reports its own
+    // outcome, so nothing is shown here — and a visitor who dismisses the
+    // sheet has not failed at anything, so a rejection is silence, not an
+    // error message.
+    if (typeof navigator !== 'undefined' && navigator.share) {
+      try {
+        await navigator.share({ title, url })
+      } catch {
+        /* dismissed */
+      }
+      return
+    }
+    // Otherwise the clipboard, with a real result either way: the API is
+    // absent outside secure contexts and can reject on a denied permission,
+    // and silently doing nothing would look identical to succeeding.
+    let copied = false
+    try {
+      if (!navigator.clipboard?.writeText) {
+        throw new Error('clipboard unavailable')
+      }
+      await navigator.clipboard.writeText(url)
+      copied = true
+    } catch {
+      copied = false
+    }
+    setShareNotice({ id, copied })
+    shareTimer.current = setTimeout(() => setShareNotice(null), 4000)
+  }, [])
+
+  useEffect(
+    () => () => {
+      if (shareTimer.current) {
+        clearTimeout(shareTimer.current)
+      }
+    },
+    [],
+  )
 
   const openPlayer = useCallback((id: string) => {
     lastPlayedId.current = id
@@ -290,6 +414,28 @@ function Featured() {
               scrub: 1,
               pin: true,
               invalidateOnRefresh: true,
+              // The rail comes to rest ON a panel, never between two.
+              //
+              // Without this, a scrubbed rail rests wherever the visitor
+              // happened to stop, and the panel it leaves on screen is a
+              // fraction of the way through its travel. Measured across 42
+              // rest states at 1024/1440/1920, only 9 landed on a panel: the
+              // rest sat up to 960px off, which is what makes the last story
+              // read as "shifted right" — and it dragged the copy out of line
+              // with everything anchored to the panel's own left edge.
+              //
+              // snapTo is 1/(panels-1) because the tween's progress maps
+              // linearly onto the rail, so 0, 0.5 and 1 ARE the three panel
+              // boundaries. Kept short and undelayed: this is a correction of
+              // a few hundred px, not a page transition, and a slow snap on a
+              // pinned section feels like the page is arguing with the wheel.
+              snap: {
+                snapTo: 1 / (panelCount - 1),
+                duration: { min: 0.15, max: 0.35 },
+                delay: 0.05,
+                ease: 'power2.inOut',
+                inertia: false,
+              },
               onUpdate: (self) => {
                 const idx = Math.round(self.progress * (panelCount - 1))
                 setActiveIndex((prev) => (prev === idx ? prev : idx))
@@ -387,6 +533,9 @@ function Featured() {
             // names a specific video, so it is not translated.
             const title = story.headlineLines.join(' ')
             const isPlaying = playingId === story.index
+            const isLiked = likedIds.has(story.index)
+            const notice = shareNotice?.id === story.index ? shareNotice : null
+            const newTab = `(${t.featured.a11y.opensInNewTab})`
 
             return (
               <article
@@ -479,11 +628,93 @@ function Featured() {
                       </>
                     )}
                   </div>
+
+                  {/* Action rail — the editorial reading of a Shorts viewer's
+                    right-hand column. Four controls, in the same order the
+                    shape is recognised in, and each one either does something
+                    real on this page or leaves for the real Short. There are
+                    no counts beside them because there is no data behind them;
+                    a number here would be an invention, and an invented number
+                    on a concept site is just a lie with a nice typeface.
+
+                    It sits OUTSIDE the 9:16 frame rather than over the video:
+                    an overlay would cover the thing it is meant to serve, and
+                    once a player is mounted, controls painted over an iframe
+                    stop receiving pointer events anyway. */}
+                  <div className={styles.actions}>
+                    <button
+                      type="button"
+                      className={`${styles.action} ${styles.actionLike}`}
+                      // The state is the button's, so it is announced by
+                      // aria-pressed rather than by swapping the label — a name
+                      // that changes under the visitor is a name they cannot
+                      // refer back to.
+                      aria-pressed={isLiked}
+                      onClick={() => toggleLike(story.index)}
+                      aria-label={`${t.featured.actions.like} — ${title}`}
+                    >
+                      <HeartIcon filled={isLiked} />
+                      <span>{t.featured.actions.like}</span>
+                    </button>
+
+                    {/* No local comments drawer: the comments are on YouTube,
+                      so this goes to YouTube and its name says so before it is
+                      followed. */}
+                    <a
+                      className={styles.action}
+                      href={story.videoUrl}
+                      target="_blank"
+                      rel="noreferrer"
+                      aria-label={`${t.featured.actions.comments} — ${t.featured.a11y.viewComments} — ${title} ${newTab}`}
+                    >
+                      <CommentIcon />
+                      <span>{t.featured.actions.comments}</span>
+                    </a>
+
+                    <button
+                      type="button"
+                      className={styles.action}
+                      onClick={() => {
+                        void shareStory(story.index, title, story.videoUrl)
+                      }}
+                      aria-label={`${t.featured.actions.share} — ${title}`}
+                    >
+                      <ShareIcon />
+                      <span>{t.featured.actions.share}</span>
+                    </button>
+
+                    {/* Replaces the copy column's old "Watch the Short" link.
+                      Same destination, same new tab, now in the rail where the
+                      other three actions are — one place to leave from rather
+                      than two. */}
+                    <a
+                      className={styles.action}
+                      href={story.videoUrl}
+                      target="_blank"
+                      rel="noreferrer"
+                      aria-label={`${t.featured.actions.watch} — ${title} ${newTab}`}
+                    >
+                      <ExternalIcon />
+                      <span>{t.featured.actions.watch}</span>
+                    </a>
+
+                    {/* Always mounted, filled on demand: a live region added to
+                      the DOM at the same moment as its text is frequently
+                      missed by screen readers, which watch existing regions for
+                      changes. */}
+                    <p className={styles.actionNotice} role="status">
+                      {notice
+                        ? notice.copied
+                          ? t.featured.actions.linkCopied
+                          : t.featured.actions.copyFailed
+                        : ''}
+                    </p>
+                  </div>
                 </div>
 
                 <div className={styles.panelContent} data-panel-content>
                   <p className={styles.panelIndex}>
-                    {story.index} — {story.category}
+                    {story.category}
                   </p>
                   {/* Keyed by position, not by text: a translated headline may
                     legitimately repeat a word across its three lines, and a
@@ -500,35 +731,47 @@ function Featured() {
                   </h3>
                   <p className={styles.panelSupport}>{story.support}</p>
                   <p className={styles.panelTags}>{story.tags.join(' — ')}</p>
-                  {/* Unchanged fallback: still leaves for YouTube itself, for
-                    anyone who would rather watch it there — or who cannot use
-                    the embed at all. */}
-                  <a
-                    className={styles.watchLink}
-                    href={story.videoUrl}
-                    target="_blank"
-                    rel="noreferrer"
-                    aria-label={`${t.featured.watchShort} — ${title} (${t.featured.a11y.opensInNewTab})`}
-                  >
-                    {t.featured.watchShort} <span aria-hidden="true">↗</span>
-                  </a>
+                  {/* The external link that used to close this column now
+                    lives in the rail as "Watch on YouTube". Leaving both would
+                    have put the same destination on the panel twice, and this
+                    column is now purely read, never operated — which also
+                    removes the one place where the tab order and the mobile
+                    reading order disagreed. */}
+                </div>
+
+                {/* Sequence position — one per panel, not one for the section.
+                  It reads as the bottom line of this story's text column, so
+                  it has to be anchored to that column's left edge; a single
+                  viewport-fixed indicator agrees with that edge only while the
+                  rail is exactly on a panel, and was measured up to 960px out
+                  of line mid-travel. Inside the panel it is aligned by
+                  construction, at every position, because it shares the
+                  panel's own padding.
+
+                  Deliberately OUTSIDE [data-panel-content]: that block is
+                  faded and lifted as its panel enters and leaves, and the
+                  position indicator should stay legible through the
+                  transition rather than dissolving with the copy.
+
+                  Decorative, hence aria-hidden: it restates `activeIndex`,
+                  which is derived from scroll position, and a screen-reader
+                  visitor is reading the panels in document order rather than
+                  scrubbing a rail. */}
+                <div className={styles.progress} aria-hidden="true">
+                  {stories.map((other, i) => (
+                    <span
+                      key={other.index}
+                      className={
+                        i === activeIndex
+                          ? `${styles.tick} ${styles.tickActive}`
+                          : styles.tick
+                      }
+                    />
+                  ))}
                 </div>
               </article>
             )
           })}
-        </div>
-
-        <div className={styles.progress} aria-hidden="true">
-          {stories.map((story, i) => (
-            <span
-              key={story.index}
-              className={
-                i === activeIndex
-                  ? `${styles.tick} ${styles.tickActive}`
-                  : styles.tick
-              }
-            />
-          ))}
         </div>
       </div>
 

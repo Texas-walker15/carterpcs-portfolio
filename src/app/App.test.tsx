@@ -141,9 +141,11 @@ describe('App', () => {
       }),
     ).toBeInTheDocument()
 
-    expect(screen.getByText(/01 — hardware/i)).toBeInTheDocument()
-    expect(screen.getByText(/02 — tech/i)).toBeInTheDocument()
-    expect(screen.getByText(/03 — commentary/i)).toBeInTheDocument()
+    expect(screen.getByText(/^hardware$/i, { selector: 'p' })).toBeInTheDocument()
+    expect(screen.getByText(/^tech$/i, { selector: 'p' })).toBeInTheDocument()
+    expect(
+      screen.getByText(/^commentary$/i, { selector: 'p' }),
+    ).toBeInTheDocument()
   })
 
   /**
@@ -160,16 +162,18 @@ describe('App', () => {
 
     const featured = document.querySelector('#featured') as HTMLElement
     // Each story shows its own local poster and offers a real button instead.
-    expect(featured.querySelectorAll('img')).toHaveLength(3)
+    // Scoped to the media frames so only the three poster images are counted.
+    expect(featured.querySelectorAll('[data-media-frame] img')).toHaveLength(3)
     expect(
       within(featured).getAllByRole('button', {
         name: startsWith(en.featured.playShort),
       }),
     ).toHaveLength(3)
-    // The YouTube fallback link is untouched.
+    // The YouTube fallback still exists — it moved into the action rail as
+    // "Watch on YouTube", and still leaves for the real Short.
     expect(
       within(featured).getAllByRole('link', {
-        name: startsWith(en.featured.watchShort),
+        name: startsWith(en.featured.actions.watch),
       }),
     ).toHaveLength(3)
   })
@@ -251,6 +255,171 @@ describe('App', () => {
     expect(document.querySelectorAll('iframe')).toHaveLength(0)
     const restored = screen.getByRole('button', { name: playName(first) })
     await waitFor(() => expect(restored).toHaveFocus())
+  })
+
+  /* ===== Action rail ===== */
+
+  it('gives every story a four-action rail in order, with no invented counts', () => {
+    render(<App />)
+
+    const featured = document.querySelector('#featured') as HTMLElement
+    const rails = featured.querySelectorAll('[data-panel] [class*="actions"]')
+    expect(rails).toHaveLength(3)
+
+    const [first] = getFeaturedStories('en')
+    const controls = Array.from(rails[0].querySelectorAll('button, a'))
+    const labels = controls.map(
+      (el) => (el.getAttribute('aria-label') ?? '').split(' — ')[0],
+    )
+    expect(labels).toEqual([
+      en.featured.actions.like,
+      en.featured.actions.comments,
+      en.featured.actions.share,
+      en.featured.actions.watch,
+    ])
+
+    // Nothing in the rail claims a number. A concept site has no like count,
+    // no view count and no comment count to report, so it reports none.
+    expect(rails[0].textContent).not.toMatch(/\d/)
+
+    // Both links leave for the real Short, in a new tab, with no referrer.
+    for (const link of Array.from(rails[0].querySelectorAll('a'))) {
+      expect(link).toHaveAttribute('href', first.videoUrl)
+      expect(link).toHaveAttribute('target', '_blank')
+      expect(link).toHaveAttribute('rel', 'noreferrer')
+    }
+  })
+
+  it('toggles Like as a pressed state on this page only, one story at a time', async () => {
+    const user = userEvent.setup()
+    render(<App />)
+
+    const [first, second] = getFeaturedStories('en')
+    const likeFirst = screen.getByRole('button', {
+      name: `${en.featured.actions.like} — ${title(first)}`,
+    })
+    const likeSecond = screen.getByRole('button', {
+      name: `${en.featured.actions.like} — ${title(second)}`,
+    })
+
+    expect(likeFirst).toHaveAttribute('aria-pressed', 'false')
+
+    await user.click(likeFirst)
+    expect(likeFirst).toHaveAttribute('aria-pressed', 'true')
+    // Liking one story must not like the others.
+    expect(likeSecond).toHaveAttribute('aria-pressed', 'false')
+    // The name is stable across the state change — aria-pressed carries the
+    // state, so a visitor can still refer to the control by the same name.
+    expect(likeFirst).toHaveAccessibleName(
+      `${en.featured.actions.like} — ${title(first)}`,
+    )
+
+    await user.click(likeFirst)
+    expect(likeFirst).toHaveAttribute('aria-pressed', 'false')
+
+    // Nothing left the page: no embed was created by liking.
+    expect(document.querySelectorAll('iframe')).toHaveLength(0)
+  })
+
+  it('names the Comments link for where it actually goes', () => {
+    render(<App />)
+
+    const [first] = getFeaturedStories('en')
+    const link = screen.getAllByRole('link', {
+      name: startsWith(en.featured.actions.comments),
+    })[0]
+
+    const name = link.getAttribute('aria-label') ?? ''
+    // Visible label first (WCAG 2.5.3), then the required statement of
+    // destination, then which Short, then the new-tab warning.
+    expect(name.startsWith(en.featured.actions.comments)).toBe(true)
+    expect(name).toContain(en.featured.a11y.viewComments)
+    expect(name).toContain(title(first))
+    expect(name).toContain(en.featured.a11y.opensInNewTab)
+    // No local comments UI was built to go with it.
+    expect(link).toHaveAttribute('href', first.videoUrl)
+  })
+
+  it('copies the Short’s URL from the keyboard and reports the result in a live region', async () => {
+    const user = userEvent.setup()
+    const writeText = vi.fn().mockResolvedValue(undefined)
+    Object.defineProperty(navigator, 'clipboard', {
+      value: { writeText },
+      configurable: true,
+    })
+
+    render(<App />)
+
+    const [first] = getFeaturedStories('en')
+    const share = screen.getByRole('button', {
+      name: `${en.featured.actions.share} — ${title(first)}`,
+    })
+
+    // Keyboard, not a synthesised click: this control has to work on Enter.
+    share.focus()
+    await user.keyboard('{Enter}')
+
+    expect(writeText).toHaveBeenCalledWith(first.videoUrl)
+    const status = await screen.findByText(en.featured.actions.linkCopied)
+    expect(status).toHaveAttribute('role', 'status')
+  })
+
+  it('says so when the clipboard refuses, rather than looking like it worked', async () => {
+    const user = userEvent.setup()
+    Object.defineProperty(navigator, 'clipboard', {
+      value: { writeText: vi.fn().mockRejectedValue(new Error('denied')) },
+      configurable: true,
+    })
+
+    render(<App />)
+
+    const [first] = getFeaturedStories('en')
+    await user.click(
+      screen.getByRole('button', {
+        name: `${en.featured.actions.share} — ${title(first)}`,
+      }),
+    )
+
+    expect(
+      await screen.findByText(en.featured.actions.copyFailed),
+    ).toBeInTheDocument()
+  })
+
+  it('hands off to the platform share sheet when there is one, and copies nothing', async () => {
+    const user = userEvent.setup()
+    const share = vi.fn().mockResolvedValue(undefined)
+    const writeText = vi.fn()
+    Object.defineProperty(navigator, 'share', {
+      value: share,
+      configurable: true,
+    })
+    Object.defineProperty(navigator, 'clipboard', {
+      value: { writeText },
+      configurable: true,
+    })
+
+    render(<App />)
+
+    const [first] = getFeaturedStories('en')
+    await user.click(
+      screen.getByRole('button', {
+        name: `${en.featured.actions.share} — ${title(first)}`,
+      }),
+    )
+
+    await waitFor(() =>
+      expect(share).toHaveBeenCalledWith({
+        title: title(first),
+        url: first.videoUrl,
+      }),
+    )
+    expect(writeText).not.toHaveBeenCalled()
+    // The share sheet reports its own outcome; the page does not double up.
+    expect(
+      screen.queryByText(en.featured.actions.linkCopied),
+    ).not.toBeInTheDocument()
+
+    Reflect.deleteProperty(navigator, 'share')
   })
 
   // "Systems" is the reference bar's Hardware entry.
@@ -856,7 +1025,7 @@ describe('localization', () => {
       const stories = getFeaturedStories(language)
       expect(screen.getByText(stories[0].support)).toBeInTheDocument()
       expect(
-        screen.getByText(`${stories[0].index} — ${stories[0].category}`),
+        screen.getByText(stories[0].category, { selector: 'p' }),
       ).toBeInTheDocument()
       expect(screen.getByText(stories[2].tags.join(' — '))).toBeInTheDocument()
 
@@ -867,11 +1036,36 @@ describe('localization', () => {
           name: startsWith(dictionary.featured.playShort),
         }),
       ).toHaveLength(3)
+      // Every rail control translates too — the two links out, and the two
+      // buttons that act on this page.
       expect(
         screen.getAllByRole('link', {
-          name: startsWith(dictionary.featured.watchShort),
+          name: startsWith(dictionary.featured.actions.watch),
         }),
       ).toHaveLength(3)
+      expect(
+        screen.getAllByRole('link', {
+          name: startsWith(dictionary.featured.actions.comments),
+        }),
+      ).toHaveLength(3)
+      expect(
+        screen.getAllByRole('button', {
+          name: startsWith(dictionary.featured.actions.like),
+        }),
+      ).toHaveLength(3)
+      expect(
+        screen.getAllByRole('button', {
+          name: startsWith(dictionary.featured.actions.share),
+        }),
+      ).toHaveLength(3)
+      // The required wording for the comments destination, in this language.
+      expect(
+        screen
+          .getAllByRole('link', {
+            name: startsWith(dictionary.featured.actions.comments),
+          })[0]
+          .getAttribute('aria-label'),
+      ).toContain(dictionary.featured.a11y.viewComments)
 
       const beats = getHardwareBeats(language)
       expect(screen.getByText(beats[0].label)).toBeInTheDocument()

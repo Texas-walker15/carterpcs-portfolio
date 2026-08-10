@@ -114,10 +114,18 @@ export const es: Dictionary = {
     title: 'Historias elegidas',
     playShort: 'Reproducir el Short',
     closePlayer: 'Cerrar el reproductor',
-    watchShort: 'Ver el Short',
+    actions: {
+      like: 'Me gusta',
+      comments: 'Comentarios',
+      share: 'Compartir',
+      watch: 'Ver en YouTube',
+      linkCopied: 'Enlace copiado',
+      copyFailed: 'No se pudo copiar el enlace',
+    },
     a11y: {
       player: 'Reproductor de YouTube',
       opensInNewTab: 'se abre en una pestaña nueva',
+      viewComments: 'Ver los comentarios en YouTube',
     },
   },
 
