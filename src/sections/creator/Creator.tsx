@@ -7,6 +7,7 @@ import {
 import { useReducedMotion } from '../../hooks/useReducedMotion'
 import { usePreferences } from '../../app/Preferences'
 import workshop from '../../assets/creator/creator-workshop-filming-setup.png'
+import workshopWebp from '../../assets/creator/creator-workshop-filming-setup.webp'
 import styles from './Creator.module.css'
 
 /**
@@ -126,13 +127,20 @@ function Creator() {
     <section id="creator" className={styles.creator} ref={rootRef}>
       <span className={styles.seam} aria-hidden="true" />
 
-      {/* Environmental numeral, same layer model as Hardware's "04" and
-          Closing's "06": its own layer behind the type, bottom-right, at token
-          opacity. It used to sit inside the stage, which was fine over an empty
-          gradient and is not fine over a photograph — see .backdrop in
-          Creator.module.css. */}
-      <div className={styles.backdrop} aria-hidden="true">
-        <span className={styles.backdropNumeral}>02</span>
+      {/* Section index rail: mirrors the Hero's page-progress language while
+          keeping the photograph free of the oversized environmental numeral. */}
+      <div className={styles.index} aria-hidden="true">
+        <span className={styles.indexLine} />
+        <span className={styles.indexActive} />
+        <span className={styles.indexTick} />
+        <span className={styles.indexTick} />
+        <span className={styles.indexTick} />
+        <span className={styles.indexTick} />
+        <span className={styles.indexTick} />
+        <p className={styles.indexCount}>
+          <span>02</span>
+          <span className={styles.indexTotal}>/06</span>
+        </p>
       </div>
 
       <div className={styles.canvas}>
@@ -174,14 +182,17 @@ function Creator() {
               request is how you get an empty plate under someone already
               looking at it. Intrinsic width/height are declared so the box is
               reserved before the bytes land and nothing below it shifts. */}
-          <img
-            className={styles.stageImage}
-            src={workshop}
-            alt=""
-            width={1536}
-            height={1024}
-            decoding="async"
-          />
+          <picture>
+            <source srcSet={workshopWebp} type="image/webp" />
+            <img
+              className={styles.stageImage}
+              src={workshop}
+              alt=""
+              width={1536}
+              height={1024}
+              decoding="async"
+            />
+          </picture>
         </div>
       </div>
 

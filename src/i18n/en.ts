@@ -117,10 +117,31 @@ export const en = {
     platforms: 'TikTok · YouTube Shorts · Instagram Reels',
   },
 
+  /**
+   * The three Shorts are click-to-play: nothing is fetched from YouTube until
+   * a visitor asks for it. Only the INTERFACE is translated here. The video
+   * titles themselves stay in English in every language — they are the real,
+   * published titles of the Shorts (see data/featured.ts, where all three
+   * `headlineLines` carry the same English text in all three locales), and
+   * translating a published title would misstate what the visitor is about to
+   * open.
+   *
+   * Each accessible name is composed as `${visible label} — ${title}`, so the
+   * visible label always STARTS the accessible name (WCAG 2.5.3 Label in Name)
+   * and the name still says which of the three Shorts it acts on.
+   */
   featured: {
     metaLabel: '03 / Featured',
     metaNote: 'Selected editorial stories',
     title: 'Selected Stories',
+    playShort: 'Play Short',
+    closePlayer: 'Close player',
+    watchShort: 'Watch the Short',
+    a11y: {
+      /** Prefix for the iframe's title attribute. */
+      player: 'YouTube player',
+      opensInNewTab: 'opens in a new tab',
+    },
   },
 
   hardware: {

@@ -1,4 +1,11 @@
-import { useLayoutEffect, useMemo, useRef, useState } from 'react'
+import {
+  useCallback,
+  useEffect,
+  useLayoutEffect,
+  useMemo,
+  useRef,
+  useState,
+} from 'react'
 import {
   gsap,
   ScrollTrigger,
@@ -34,8 +41,22 @@ import styles from './Featured.module.css'
  * category descriptions, not a reproduced (verified or unverified) Carter
  * video title — see that file's top comment before editing panel copy.
  *
- * No approved CarterPCs media exists yet — each panel's `.panelStageSurface`
- * is the drop-in target, same contract as Hero/Creator's stage.
+ * MEDIA — click to play, nothing before that
+ * Each panel carries a real CarterPCs Short. The page loads ZERO YouTube
+ * iframes: every panel starts as a local poster image plus a real <button>,
+ * and the iframe for one story is created only when that story's button is
+ * pressed. Three always-mounted embeds meant three third-party connections,
+ * three player bundles and three sets of YouTube chrome on first paint, on a
+ * section most visitors scroll past.
+ *
+ * Exactly one player can exist: `playingId` holds a single story id, so
+ * pressing Play on a second story unmounts the first player outright rather
+ * than leaving it paused in the background. Closing restores that story's
+ * poster and its Play button.
+ *
+ * The embed is the privacy-enhanced youtube-nocookie.com host, and the player
+ * lives inside the panel's own 9:16 media frame — never stretched across the
+ * panel, where it used to sit at inset: 0 and cover the headline.
  *
  * Each panel's readable text (`[data-panel-content]`) fades/lifts against
  * its own measured content box, computed arithmetically each frame (no
@@ -80,6 +101,59 @@ function Featured() {
   const trackRef = useRef<HTMLDivElement>(null)
   const railRef = useRef<HTMLDivElement>(null)
   const [activeIndex, setActiveIndex] = useState(0)
+
+  // ONE story's id, or null. Holding a single value is what enforces "only one
+  // Short at a time" — React unmounts the previous <iframe> the moment this
+  // changes, which tears the old player down rather than leaving it paused in
+  // the background still holding a connection to YouTube.
+  const [playingId, setPlayingId] = useState<string | null>(null)
+  const playButtonRefs = useRef(new Map<string, HTMLButtonElement | null>())
+  const closeButtonRef = useRef<HTMLButtonElement | null>(null)
+  // Which play button to hand focus back to once the player closes. Held in a
+  // ref rather than derived from `playingId`, because by the time the effect
+  // runs on close, `playingId` is already null.
+  const lastPlayedId = useRef<string | null>(null)
+
+  const openPlayer = useCallback((id: string) => {
+    lastPlayedId.current = id
+    setPlayingId(id)
+  }, [])
+
+  const closePlayer = useCallback(() => {
+    setPlayingId(null)
+  }, [])
+
+  // Keyboard: a player that can be opened from the keyboard has to be
+  // closable from it too. The close button is reachable by Tab, and Escape is
+  // the shortcut. The listener only exists while a player is mounted.
+  useEffect(() => {
+    if (!playingId) {
+      return
+    }
+    const onKeyDown = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') {
+        closePlayer()
+      }
+    }
+    window.addEventListener('keydown', onKeyDown)
+    return () => window.removeEventListener('keydown', onKeyDown)
+  }, [playingId, closePlayer])
+
+  // Focus follows the swap in both directions: onto the close button when a
+  // player opens, back onto the play button that opened it when it closes.
+  // Without this, closing would drop focus to <body> and a keyboard visitor
+  // would restart the whole section.
+  useEffect(() => {
+    if (playingId) {
+      closeButtonRef.current?.focus()
+      return
+    }
+    const previous = lastPlayedId.current
+    if (previous) {
+      playButtonRefs.current.get(previous)?.focus()
+      lastPlayedId.current = null
+    }
+  }, [playingId])
 
   useLayoutEffect(() => {
     if (reducedMotion) {
@@ -307,50 +381,141 @@ function Featured() {
 
       <div className={styles.track} ref={trackRef}>
         <div className={styles.rail} ref={railRef}>
-          {stories.map((story) => (
-            <article
-              key={story.index}
-              className={styles.panel}
-              data-panel
-              data-variant={story.variant}
-            >
-              <div
-                className={styles.panelStage}
-                aria-hidden="true"
-                data-dev-placeholder="true"
-              >
-                <div className={styles.panelStageSurface}>
-                  <span className={styles.panelGuide} aria-hidden="true" />
-                  <span className={styles.panelCorner} aria-hidden="true" />
-                  <span className={styles.panelCornerEnd} aria-hidden="true" />
-                </div>
-                <span className={styles.panelNumeral} aria-hidden="true">
-                  {story.index}
-                </span>
-              </div>
+          {stories.map((story) => {
+            // The real, published title of the Short. Deliberately the same
+            // English string in every language (see data/featured.ts) — it
+            // names a specific video, so it is not translated.
+            const title = story.headlineLines.join(' ')
+            const isPlaying = playingId === story.index
 
-              <div className={styles.panelContent} data-panel-content>
-                <p className={styles.panelIndex}>
-                  {story.index} — {story.category}
-                </p>
-                {/* Keyed by position, not by text: a translated headline may
+            return (
+              <article
+                key={story.index}
+                className={styles.panel}
+                data-panel
+                data-variant={story.variant}
+              >
+                {/* Decoration only — gradient field, framing marks and the
+                  environmental numeral. The media itself is the .media frame
+                  below, which is why this whole layer is aria-hidden. */}
+                <div className={styles.panelStage} aria-hidden="true">
+                  <div className={styles.panelStageSurface}>
+                    <span className={styles.panelGuide} />
+                    <span className={styles.panelCorner} />
+                    <span className={styles.panelCornerEnd} />
+                  </div>
+                  <span className={styles.panelNumeral}>{story.index}</span>
+                </div>
+
+                {/* Media frame: a 9:16 card, because that is the shape of the
+                  thing. The poster is a 1280x720 YouTube thumbnail whose real
+                  portrait frame is the centre 31.6% of its width, so a 9:16
+                  box with object-fit: cover shows precisely that column and
+                  crops away only YouTube's blurred filler bars.
+
+                  Nothing is requested from YouTube until the button below is
+                  pressed: on first paint this is a local image and a button,
+                  and there is no iframe in the document at all. */}
+                <div className={styles.media}>
+                  <div className={styles.mediaFrame} data-media-frame>
+                    {isPlaying ? (
+                      <>
+                        <iframe
+                          className={styles.player}
+                          // Built here rather than stored, so the autoplay flag
+                          // can depend on the visitor. A click IS the request to
+                          // play, so autoplay after it is not "autoplay" in the
+                          // sense the reduced-motion preference is about — but
+                          // someone who has asked for less motion gets the
+                          // player loaded paused with its controls anyway, and
+                          // decides for themselves.
+                          src={
+                            reducedMotion
+                              ? story.embedUrl
+                              : `${story.embedUrl}&autoplay=1`
+                          }
+                          title={`${t.featured.a11y.player} — ${title}`}
+                          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                          referrerPolicy="strict-origin-when-cross-origin"
+                          allowFullScreen
+                        />
+                        <button
+                          type="button"
+                          ref={closeButtonRef}
+                          className={styles.close}
+                          onClick={closePlayer}
+                          aria-label={`${t.featured.closePlayer} — ${title}`}
+                        >
+                          <span aria-hidden="true">✕</span>
+                          {t.featured.closePlayer}
+                        </button>
+                      </>
+                    ) : (
+                      <>
+                        <img
+                          className={styles.poster}
+                          src={story.thumbnail}
+                          alt=""
+                          loading="lazy"
+                          decoding="async"
+                        />
+                        <button
+                          type="button"
+                          ref={(node) => {
+                            playButtonRefs.current.set(story.index, node)
+                          }}
+                          className={styles.play}
+                          onClick={() => openPlayer(story.index)}
+                          aria-label={`${t.featured.playShort} — ${title}`}
+                        >
+                          <span
+                            className={styles.playIcon}
+                            aria-hidden="true"
+                          />
+                          <span className={styles.playLabel}>
+                            {t.featured.playShort}
+                          </span>
+                        </button>
+                      </>
+                    )}
+                  </div>
+                </div>
+
+                <div className={styles.panelContent} data-panel-content>
+                  <p className={styles.panelIndex}>
+                    {story.index} — {story.category}
+                  </p>
+                  {/* Keyed by position, not by text: a translated headline may
                     legitimately repeat a word across its three lines, and a
                     text key would then collide. */}
-                <h3 className={styles.panelHeadline}>
-                  {story.headlineLines.map((line, lineIndex) => (
-                    <span
-                      key={`${story.index}-${lineIndex}`}
-                      className={styles.panelLine}
-                    >
-                      {line}
-                    </span>
-                  ))}
-                </h3>
-                <p className={styles.panelSupport}>{story.support}</p>
-                <p className={styles.panelTags}>{story.tags.join(' — ')}</p>
-              </div>
-            </article>
-          ))}
+                  <h3 className={styles.panelHeadline}>
+                    {story.headlineLines.map((line, lineIndex) => (
+                      <span
+                        key={`${story.index}-${lineIndex}`}
+                        className={styles.panelLine}
+                      >
+                        {line}
+                      </span>
+                    ))}
+                  </h3>
+                  <p className={styles.panelSupport}>{story.support}</p>
+                  <p className={styles.panelTags}>{story.tags.join(' — ')}</p>
+                  {/* Unchanged fallback: still leaves for YouTube itself, for
+                    anyone who would rather watch it there — or who cannot use
+                    the embed at all. */}
+                  <a
+                    className={styles.watchLink}
+                    href={story.videoUrl}
+                    target="_blank"
+                    rel="noreferrer"
+                    aria-label={`${t.featured.watchShort} — ${title} (${t.featured.a11y.opensInNewTab})`}
+                  >
+                    {t.featured.watchShort} <span aria-hidden="true">↗</span>
+                  </a>
+                </div>
+              </article>
+            )
+          })}
         </div>
 
         <div className={styles.progress} aria-hidden="true">

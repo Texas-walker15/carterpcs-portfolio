@@ -106,10 +106,19 @@ export const es: Dictionary = {
     platforms: 'TikTok · YouTube Shorts · Instagram Reels',
   },
 
+  /* Solo interfaz: los títulos de los Shorts se mantienen en inglés porque son
+     los títulos realmente publicados (ver data/featured.ts). */
   featured: {
     metaLabel: '03 / Destacados',
     metaNote: 'Historias editoriales seleccionadas',
     title: 'Historias elegidas',
+    playShort: 'Reproducir el Short',
+    closePlayer: 'Cerrar el reproductor',
+    watchShort: 'Ver el Short',
+    a11y: {
+      player: 'Reproductor de YouTube',
+      opensInNewTab: 'se abre en una pestaña nueva',
+    },
   },
 
   hardware: {

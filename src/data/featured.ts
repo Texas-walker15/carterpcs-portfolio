@@ -23,6 +23,18 @@
  * measure. Nothing here is machine-translated at runtime.
  */
 
+const pc250kShort = new URL(
+  '../assets/featured/pc-250k-short.webp',
+  import.meta.url,
+).href
+const appleSamsungShort = new URL(
+  '../assets/featured/apple-samsung-short.webp',
+  import.meta.url,
+).href
+const thinkpadShort = new URL(
+  '../assets/featured/thinkpad-short.webp',
+  import.meta.url,
+).href
 import { localize, type Language, type Localized } from '../i18n'
 
 export interface FeaturedStory {
@@ -35,6 +47,17 @@ export interface FeaturedStory {
   tags: string[]
   /** Selects the panel's decorative media-stage variant (see Featured.module.css). */
   variant: 'hardware' | 'tech' | 'commentary'
+  /** youtube.com watch page — the "Watch the Short" fallback link. */
+  videoUrl: string
+  /**
+   * Privacy-enhanced embed, on youtube-nocookie.com. This is a BASE url: no
+   * iframe carries it until a visitor presses Play, and Featured.tsx appends
+   * `&autoplay=1` at that point (see the comment there for why autoplay is
+   * withheld under prefers-reduced-motion). `rel=0` keeps end-cards on the
+   * same channel; `playsinline=1` stops iOS hijacking the whole screen.
+   */
+  embedUrl: string
+  thumbnail: string
 }
 
 /** Authoring shape: structure once, copy three times. */
@@ -45,6 +68,9 @@ interface FeaturedStorySource {
   headlineLines: Localized<string[]>
   support: Localized<string>
   tags: Localized<string[]>
+  videoUrl: string
+  embedUrl: string
+  thumbnail: string
 }
 
 const featuredStorySources: FeaturedStorySource[] = [
@@ -57,20 +83,24 @@ const featuredStorySources: FeaturedStorySource[] = [
       es: 'Hardware',
     },
     headlineLines: {
-      en: ['Budget builds.', 'Extreme rigs.', 'One honest test.'],
-      fr: ['Petits budgets.', 'Machines extrêmes.', 'Un test honnête.'],
-      es: ['Montajes económicos.', 'Equipos extremos.', 'Una prueba honesta.'],
+      en: ['What’s the best PC', 'you can get for', '$250k??'],
+      fr: ['What’s the best PC', 'you can get for', '$250k??'],
+      es: ['What’s the best PC', 'you can get for', '$250k??'],
     },
     support: {
-      en: 'Custom PCs judged on value and thermals, whether the price tag is a few hundred dollars or far beyond it.',
-      fr: 'Des PC sur mesure jugés sur le rapport qualité-prix et les températures, que la facture soit de quelques centaines d’euros ou bien davantage.',
-      es: 'PC a medida juzgados por su relación calidad-precio y sus temperaturas, cueste unos cientos de euros o mucho más.',
+      en: 'A quick look at the most extreme PC budget CarterPCs has explored.',
+      fr: 'Un regard rapide sur le budget PC le plus extrême exploré par CarterPCs.',
+      es: 'Una mirada rápida al presupuesto de PC más extremo que CarterPCs ha explorado.',
     },
     tags: {
-      en: ['PC Hardware', 'Custom Builds', 'GPU / CPU Value'],
-      fr: ['Matériel PC', 'PC sur mesure', 'Valeur GPU / CPU'],
-      es: ['Hardware de PC', 'PC a medida', 'Valor GPU / CPU'],
+      en: ['YouTube Short', 'PC Hardware', 'Custom Builds'],
+      fr: ['Short YouTube', 'Matériel PC', 'PC sur mesure'],
+      es: ['Short de YouTube', 'Hardware de PC', 'PC a medida'],
     },
+    videoUrl: 'https://www.youtube.com/shorts/JekaYRzZRfU',
+    embedUrl:
+      'https://www.youtube-nocookie.com/embed/JekaYRzZRfU?rel=0&playsinline=1',
+    thumbnail: pc250kShort,
   },
   {
     index: '02',
@@ -81,20 +111,24 @@ const featuredStorySources: FeaturedStorySource[] = [
       es: 'Tecnología',
     },
     headlineLines: {
-      en: ['Phones.', 'Features.', 'Everyday friction.'],
-      fr: ['Téléphones.', 'Fonctionnalités.', 'Frictions du quotidien.'],
-      es: ['Teléfonos.', 'Funciones.', 'Fricciones diarias.'],
+      en: ['What has Apple copied', 'from Samsung??'],
+      fr: ['What has Apple copied', 'from Samsung??'],
+      es: ['What has Apple copied', 'from Samsung??'],
     },
     support: {
-      en: 'The devices people actually argue about, tested past what the marketing promises.',
-      fr: 'Les appareils dont on débat vraiment, testés au-delà des promesses du marketing.',
-      es: 'Los dispositivos sobre los que la gente discute de verdad, probados más allá de lo que promete el marketing.',
+      en: 'A fast comparison of the features Apple borrowed and the ideas Samsung brought first.',
+      fr: 'Une comparaison rapide des fonctions reprises par Apple et des idées lancées d’abord par Samsung.',
+      es: 'Una comparación rápida entre las funciones que Apple adoptó y las ideas que Samsung lanzó primero.',
     },
     tags: {
-      en: ['Smartphones', 'Mobile Tech', 'Emerging Tech'],
-      fr: ['Smartphones', 'Tech mobile', 'Tech émergente'],
-      es: ['Smartphones', 'Tecnología móvil', 'Tecnología emergente'],
+      en: ['YouTube Short', 'Smartphones', 'Consumer Tech'],
+      fr: ['Short YouTube', 'Smartphones', 'Tech grand public'],
+      es: ['Short de YouTube', 'Smartphones', 'Tecnología de consumo'],
     },
+    videoUrl: 'https://www.youtube.com/shorts/1iBOP4Gyfi8',
+    embedUrl:
+      'https://www.youtube-nocookie.com/embed/1iBOP4Gyfi8?rel=0&playsinline=1',
+    thumbnail: appleSamsungShort,
   },
   {
     index: '03',
@@ -105,20 +139,24 @@ const featuredStorySources: FeaturedStorySource[] = [
       es: 'Opinión',
     },
     headlineLines: {
-      en: ['When the industry', 'gets it wrong,', 'someone says so.'],
-      fr: ['Quand l’industrie', 'se trompe,', 'quelqu’un le dit.'],
-      es: ['Cuando la industria', 'se equivoca,', 'alguien lo dice.'],
+      en: ['The Lenovo ThinkPad', 'is the Toyota', 'of laptops..'],
+      fr: ['The Lenovo ThinkPad', 'is the Toyota', 'of laptops..'],
+      es: ['The Lenovo ThinkPad', 'is the Toyota', 'of laptops..'],
     },
     support: {
-      en: 'Policy shifts, PR disasters, and scam gear, called out in plain language.',
-      fr: 'Virages réglementaires, fiascos de communication et matériel frauduleux, dénoncés en langage clair.',
-      es: 'Giros normativos, desastres de comunicación y aparatos fraudulentos, señalados en lenguaje llano.',
+      en: 'A quick case for why this reliable laptop has earned its everyday-car reputation.',
+      fr: 'Un argument rapide pour expliquer pourquoi ce portable fiable a gagné sa réputation de voiture du quotidien.',
+      es: 'Una explicación rápida de por qué este portátil fiable se ganó su reputación de coche para todos los días.',
     },
     tags: {
-      en: ['Tech News', 'Scam Tech', 'Consumer Advocacy'],
-      fr: ['Actus tech', 'Arnaques tech', 'Défense du consommateur'],
-      es: ['Noticias tech', 'Tecnología fraudulenta', 'Defensa del consumidor'],
+      en: ['YouTube Short', 'Laptops', 'Everyday Tech'],
+      fr: ['Short YouTube', 'Ordinateurs portables', 'Tech du quotidien'],
+      es: ['Short de YouTube', 'Portátiles', 'Tecnología cotidiana'],
     },
+    videoUrl: 'https://www.youtube.com/shorts/dT49PluhENM',
+    embedUrl:
+      'https://www.youtube-nocookie.com/embed/dT49PluhENM?rel=0&playsinline=1',
+    thumbnail: thinkpadShort,
   },
 ]
 
@@ -133,5 +171,8 @@ export function getFeaturedStories(language: Language): FeaturedStory[] {
     headlineLines: localize(story.headlineLines, language),
     support: localize(story.support, language),
     tags: localize(story.tags, language),
+    videoUrl: story.videoUrl,
+    embedUrl: story.embedUrl,
+    thumbnail: story.thumbnail,
   }))
 }

@@ -90,11 +90,11 @@ test('desktop: the horizontal sequence progresses through all three stories on s
 
   const firstStory = page.getByRole('heading', {
     level: 3,
-    name: /budget builds/i,
+    name: /best pc/i,
   })
   const lastStory = page.getByRole('heading', {
     level: 3,
-    name: /when the industry/i,
+    name: /lenovo thinkpad/i,
   })
 
   await firstStory.scrollIntoViewIfNeeded()
@@ -121,7 +121,7 @@ test('mobile: Featured stories are reachable through natural vertical scroll', a
 
   const lastStory = page.getByRole('heading', {
     level: 3,
-    name: /when the industry/i,
+    name: /lenovo thinkpad/i,
   })
   await lastStory.scrollIntoViewIfNeeded()
   await expect(lastStory).toBeVisible()
@@ -132,6 +132,164 @@ test('mobile: Featured stories are reachable through natural vertical scroll', a
       document.documentElement.clientWidth,
   )
   expect(overflow).toBe(true)
+})
+
+/* ===== Featured: click-to-play Shorts ===== */
+
+const FEATURED = getFeaturedStories('en')
+const shortTitle = (index: number) => FEATURED[index].headlineLines.join(' ')
+const playName = (index: number) =>
+  `${en.featured.playShort} — ${shortTitle(index)}`
+
+test('the page loads with no YouTube iframe anywhere, at any scroll position', async ({
+  page,
+}) => {
+  await page.goto('/')
+  await expect(page.locator('iframe')).toHaveCount(0)
+
+  // Scrolling Featured into view must not create one either — the embeds are
+  // built on click, not on visibility.
+  await page
+    .getByRole('heading', { level: 2, name: /selected stories/i })
+    .scrollIntoViewIfNeeded()
+  await page.waitForTimeout(800)
+  await expect(page.locator('iframe')).toHaveCount(0)
+
+  await expect(
+    page.getByRole('button', {
+      name: new RegExp(`^${en.featured.playShort} `),
+    }),
+  ).toHaveCount(3)
+})
+
+test('mobile: playing a Short creates a nocookie player, and a second one replaces it', async ({
+  page,
+}) => {
+  await page.setViewportSize({ width: 390, height: 844 })
+  await page.goto('/')
+
+  const first = page.getByRole('button', { name: playName(0), exact: true })
+  await first.scrollIntoViewIfNeeded()
+  await first.click()
+
+  const player = page.locator('#featured iframe')
+  await expect(player).toHaveCount(1)
+  await expect(player).toHaveAttribute(
+    'src',
+    /^https:\/\/www\.youtube-nocookie\.com\/embed\/JekaYRzZRfU\?/,
+  )
+  // Exact string, not a regex: these titles contain `$` and `?`, which a
+  // RegExp would read as anchors and quantifiers rather than characters.
+  await expect(player).toHaveAttribute(
+    'title',
+    `${en.featured.a11y.player} — ${shortTitle(0)}`,
+  )
+
+  // Starting the second Short must leave exactly one player, and it must be
+  // the second one — the first is removed, not paused offscreen.
+  const second = page.getByRole('button', { name: playName(1), exact: true })
+  await second.scrollIntoViewIfNeeded()
+  await second.click()
+
+  await expect(player).toHaveCount(1)
+  await expect(player).toHaveAttribute('src', /1iBOP4Gyfi8/)
+  await expect(
+    page.getByRole('button', { name: playName(0), exact: true }),
+  ).toBeVisible()
+
+  // The portrait frame must not push the page sideways at 390px.
+  expect(
+    await page.evaluate(
+      () =>
+        document.documentElement.scrollWidth <=
+        document.documentElement.clientWidth,
+    ),
+  ).toBe(true)
+})
+
+test('mobile: closing a player restores the poster and the Play control', async ({
+  page,
+}) => {
+  await page.setViewportSize({ width: 390, height: 844 })
+  await page.goto('/')
+
+  const play = page.getByRole('button', { name: playName(0), exact: true })
+  await play.scrollIntoViewIfNeeded()
+  await play.click()
+  await expect(page.locator('#featured iframe')).toHaveCount(1)
+
+  await page
+    .getByRole('button', {
+      name: `${en.featured.closePlayer} — ${shortTitle(0)}`,
+      exact: true,
+    })
+    .click()
+
+  await expect(page.locator('#featured iframe')).toHaveCount(0)
+  await expect(
+    page.getByRole('button', { name: playName(0), exact: true }),
+  ).toBeVisible()
+  // The poster is back: three stories, three local images, no embed.
+  await expect(page.locator('#featured img')).toHaveCount(3)
+})
+
+test('desktop: the player is confined to its media frame and never covers the headline', async ({
+  page,
+}) => {
+  await page.goto('/')
+  // Park the pinned TRACK at the viewport top. That is where the pin starts
+  // and the rail is still at x = 0, so panel 1 is squarely in frame and the
+  // measurement below is taken against its own headline rather than against a
+  // half-finished transition between two panels.
+  await page.evaluate(() => {
+    const track = document.querySelector('#featured [class*="track"]')!
+    window.scrollTo(0, window.scrollY + track.getBoundingClientRect().top)
+  })
+  await page.waitForTimeout(1200)
+
+  const firstPanel = page.locator('#featured [data-panel]').first()
+  await firstPanel.getByRole('button', { name: playName(0) }).click()
+
+  const player = page.locator('#featured iframe')
+  await expect(player).toHaveCount(1)
+
+  const overlap = await page.evaluate(() => {
+    const iframe = document.querySelector('#featured iframe')!
+    const frame = iframe.closest('[data-media-frame]')!
+    const panel = iframe.closest('[data-panel]')!
+    const headline = panel.querySelector('h3')!
+    const support = panel.querySelector('h3 + p')!
+    const r = (el: Element) => el.getBoundingClientRect()
+    const cross = (a: DOMRect, b: DOMRect) =>
+      Math.max(0, Math.min(a.right, b.right) - Math.max(a.left, b.left)) *
+      Math.max(0, Math.min(a.bottom, b.bottom) - Math.max(a.top, b.top))
+    const pr = r(iframe)
+    const fr = r(frame)
+    return {
+      // The player fills its frame and nothing more.
+      escapesFrame: +Math.max(
+        0,
+        fr.left - pr.left,
+        pr.right - fr.right,
+        fr.top - pr.top,
+        pr.bottom - fr.bottom,
+      ).toFixed(1),
+      // ...and the frame is nowhere near the copy.
+      overHeadline: cross(pr, r(headline)),
+      overSupport: cross(pr, r(support)),
+      // The panel is not one big video: how much of it the player covers.
+      panelShare: +(
+        (pr.width * pr.height) /
+        (r(panel).width * r(panel).height)
+      ).toFixed(3),
+    }
+  })
+
+  expect(overlap.escapesFrame).toBeLessThanOrEqual(0.5)
+  expect(overlap.overHeadline).toBe(0)
+  expect(overlap.overSupport).toBe(0)
+  // Editorial, not a wall of YouTube.
+  expect(overlap.panelShare).toBeLessThan(0.25)
 })
 
 test('scrolling from Featured reveals the Hardware section', async ({

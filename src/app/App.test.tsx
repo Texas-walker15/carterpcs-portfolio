@@ -30,6 +30,23 @@ function primaryNav(name: string = en.a11y.primaryNavigation) {
   return within(screen.getByRole('navigation', { name }))
 }
 
+/**
+ * The published title of a Short. English in every language on purpose — see
+ * the `featured` block in i18n/en.ts.
+ */
+const title = (story: { headlineLines: string[] }) =>
+  story.headlineLines.join(' ')
+
+/** Featured composes each control's accessible name as `visible label — title`. */
+const playName = (story: { headlineLines: string[] }) =>
+  `${en.featured.playShort} — ${title(story)}`
+
+/**
+ * Matches an accessible name by its leading visible label. A function matcher
+ * rather than a regex, so the titles' `$`, `?` and `.` need no escaping.
+ */
+const startsWith = (label: string) => (name: string) => name.startsWith(label)
+
 describe('App', () => {
   beforeEach(() => {
     // The provider seeds its initial language from local storage, so a value
@@ -112,21 +129,128 @@ describe('App', () => {
     ).toBeInTheDocument()
 
     expect(
-      screen.getByRole('heading', { level: 3, name: /budget builds/i }),
+      screen.getByRole('heading', { level: 3, name: /best pc/i }),
     ).toBeInTheDocument()
     expect(
-      screen.getByRole('heading', { level: 3, name: /phones\.\s*features/i }),
+      screen.getByRole('heading', { level: 3, name: /apple copied/i }),
     ).toBeInTheDocument()
     expect(
       screen.getByRole('heading', {
         level: 3,
-        name: /when the industry/i,
+        name: /lenovo thinkpad/i,
       }),
     ).toBeInTheDocument()
 
     expect(screen.getByText(/01 — hardware/i)).toBeInTheDocument()
     expect(screen.getByText(/02 — tech/i)).toBeInTheDocument()
     expect(screen.getByText(/03 — commentary/i)).toBeInTheDocument()
+  })
+
+  /**
+   * Featured's three Shorts are click-to-play. The assertions below are about
+   * what the DOCUMENT contains, not about what is visible: an <iframe> that
+   * exists has already opened a connection to YouTube, whether or not anyone
+   * can see it.
+   */
+  it('loads no YouTube iframe until a story is played', () => {
+    render(<App />)
+
+    // Nothing anywhere on the page — Featured was the only source of embeds.
+    expect(document.querySelectorAll('iframe')).toHaveLength(0)
+
+    const featured = document.querySelector('#featured') as HTMLElement
+    // Each story shows its own local poster and offers a real button instead.
+    expect(featured.querySelectorAll('img')).toHaveLength(3)
+    expect(
+      within(featured).getAllByRole('button', {
+        name: startsWith(en.featured.playShort),
+      }),
+    ).toHaveLength(3)
+    // The YouTube fallback link is untouched.
+    expect(
+      within(featured).getAllByRole('link', {
+        name: startsWith(en.featured.watchShort),
+      }),
+    ).toHaveLength(3)
+  })
+
+  it('creates the privacy-enhanced embed for the story whose Play button is pressed', async () => {
+    const user = userEvent.setup()
+    render(<App />)
+
+    const [first] = getFeaturedStories('en')
+    await user.click(screen.getByRole('button', { name: playName(first) }))
+
+    const players = document.querySelectorAll('iframe')
+    expect(players).toHaveLength(1)
+
+    const src = players[0].getAttribute('src') ?? ''
+    expect(src).toBe(`${first.embedUrl}&autoplay=1`)
+    expect(src).toContain('https://www.youtube-nocookie.com/embed/JekaYRzZRfU')
+    // The privacy-enhanced host, not the tracking one.
+    expect(src).not.toContain('youtube.com/embed')
+    expect(players[0]).toHaveAttribute(
+      'title',
+      `${en.featured.a11y.player} — ${title(first)}`,
+    )
+  })
+
+  it('plays only one Short at a time — starting a second removes the first player', async () => {
+    const user = userEvent.setup()
+    render(<App />)
+
+    const [first, second] = getFeaturedStories('en')
+
+    await user.click(screen.getByRole('button', { name: playName(first) }))
+    expect(document.querySelectorAll('iframe')).toHaveLength(1)
+    expect(document.querySelector('iframe')?.getAttribute('src')).toContain(
+      'JekaYRzZRfU',
+    )
+    // While it is playing, its own Play button is replaced by the player.
+    expect(
+      screen.queryByRole('button', { name: playName(first) }),
+    ).not.toBeInTheDocument()
+
+    await user.click(screen.getByRole('button', { name: playName(second) }))
+
+    // Still exactly one iframe, and it is the second story's — the first was
+    // removed outright, not left paused in the background.
+    const players = document.querySelectorAll('iframe')
+    expect(players).toHaveLength(1)
+    expect(players[0].getAttribute('src')).toContain('1iBOP4Gyfi8')
+    expect(players[0].getAttribute('src')).not.toContain('JekaYRzZRfU')
+
+    // ...and the first story is back to its poster and Play button.
+    expect(
+      screen.getByRole('button', { name: playName(first) }),
+    ).toBeInTheDocument()
+  })
+
+  it('closes a player from the keyboard and restores its poster and focus', async () => {
+    const user = userEvent.setup()
+    render(<App />)
+
+    const [first] = getFeaturedStories('en')
+    const play = screen.getByRole('button', { name: playName(first) })
+
+    // Keyboard path: focus the control and press Enter, as a keyboard visitor
+    // would, rather than synthesising a click.
+    play.focus()
+    await user.keyboard('{Enter}')
+
+    expect(document.querySelectorAll('iframe')).toHaveLength(1)
+    const close = screen.getByRole('button', {
+      name: `${en.featured.closePlayer} — ${title(first)}`,
+    })
+    // Focus moves to the close control, so the player can be dismissed without
+    // tabbing back through the section.
+    await waitFor(() => expect(close).toHaveFocus())
+
+    await user.keyboard('{Escape}')
+
+    expect(document.querySelectorAll('iframe')).toHaveLength(0)
+    const restored = screen.getByRole('button', { name: playName(first) })
+    await waitFor(() => expect(restored).toHaveFocus())
   })
 
   // "Systems" is the reference bar's Hardware entry.
@@ -445,7 +569,7 @@ describe('App', () => {
       screen.getByRole('heading', { level: 2, name: /selected stories/i }),
     ).toBeInTheDocument()
     expect(
-      screen.getByRole('heading', { level: 3, name: /budget builds/i }),
+      screen.getByRole('heading', { level: 3, name: /best pc/i }),
     ).toBeInTheDocument()
     expect(
       screen.getByRole('heading', {
@@ -735,6 +859,19 @@ describe('localization', () => {
         screen.getByText(`${stories[0].index} — ${stories[0].category}`),
       ).toBeInTheDocument()
       expect(screen.getByText(stories[2].tags.join(' — '))).toBeInTheDocument()
+
+      // The Shorts' player controls are interface, so they translate; the
+      // video titles inside their accessible names stay English.
+      expect(
+        screen.getAllByRole('button', {
+          name: startsWith(dictionary.featured.playShort),
+        }),
+      ).toHaveLength(3)
+      expect(
+        screen.getAllByRole('link', {
+          name: startsWith(dictionary.featured.watchShort),
+        }),
+      ).toHaveLength(3)
 
       const beats = getHardwareBeats(language)
       expect(screen.getByText(beats[0].label)).toBeInTheDocument()
