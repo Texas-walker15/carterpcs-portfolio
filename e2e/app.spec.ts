@@ -726,6 +726,133 @@ test('Hardware nav link scrolls to the Hardware section', async ({ page }) => {
   await expect(page).toHaveURL(/#hardware$/)
 })
 
+/**
+ * Switches language the way the persisted preference does, then reloads so the
+ * first paint is already translated — the alternative, seeding an init script
+ * per language inside a loop, leaves every earlier script still running on
+ * every later navigation.
+ */
+const applyLanguage = async (page: Page, language: 'en' | 'fr' | 'es') => {
+  await page.evaluate((lang) => {
+    window.localStorage.setItem('carterpcs-language', lang)
+  }, language)
+  await page.reload()
+  await expect(page.locator('html')).toHaveAttribute('lang', language)
+}
+
+/**
+ * Jumps to #hardware the way the bar's "Systems" link does, and waits for the
+ * smooth scroll to actually come to rest. Polling for a still scroll position
+ * rather than sleeping a fixed 1.6s: under a loaded parallel run the animation
+ * takes longer, and a reading taken mid-flight is a reading of nothing.
+ */
+const jumpToHardware = async (page: Page) => {
+  await page.waitForTimeout(700)
+  await page.evaluate(() => {
+    document.querySelector<HTMLAnchorElement>('a[href="#hardware"]')!.click()
+  })
+  let previous = Number.NaN
+  for (let attempt = 0; attempt < 60; attempt++) {
+    await page.waitForTimeout(150)
+    const y = await page.evaluate(() => window.scrollY)
+    if (Math.abs(y - previous) < 0.5) {
+      return
+    }
+    previous = y
+  }
+  throw new Error('the jump to #hardware never came to rest')
+}
+
+test('the #hardware anchor lands below the fixed bar at every width, in every language', async ({
+  page,
+}) => {
+  // The bar is 5rem tall only from 1024px up: below that its link row wraps to
+  // two lines, then to three, and where it wraps depends on how long the
+  // translated labels are. A single scroll-margin was landing the section
+  // 101px behind the bar at 390px.
+  for (const [width, height] of [
+    [390, 844],
+    [768, 1024],
+    [1024, 768],
+    [1440, 900],
+  ] as const) {
+    await page.setViewportSize({ width, height })
+    await page.goto('/')
+    for (const language of ['en', 'fr', 'es'] as const) {
+      await applyLanguage(page, language)
+      await jumpToHardware(page)
+
+      const clearance = await page.evaluate(() => {
+        const section = document.querySelector('#hardware')!.getBoundingClientRect()
+        const bar = document.querySelector('nav')!.getBoundingClientRect()
+        return section.top - bar.bottom
+      })
+      expect(
+        clearance,
+        `#hardware at ${width}x${height} in ${language}`,
+      ).toBeGreaterThan(0)
+    }
+  }
+})
+
+test('Hardware: the object never crosses the copy, and the pin never strands the tail', async ({
+  page,
+}) => {
+  for (const [width, height] of [
+    [1024, 768],
+    [1440, 900],
+    [1920, 1080],
+  ] as const) {
+    await page.setViewportSize({ width, height })
+    await page.goto('/')
+    for (const language of ['en', 'fr', 'es'] as const) {
+      await applyLanguage(page, language)
+      await jumpToHardware(page)
+
+      const measured = await page.evaluate(() => {
+        const section = document.querySelector('#hardware')!
+        const stage = section.querySelector('figure')!.getBoundingClientRect()
+        // The painted glyphs, not the line boxes: a line box is as wide as its
+        // column, so it would report a collision the reader cannot see — and
+        // miss the one they can when a long translation runs past it.
+        const inkOf = (selector: string) => {
+          const range = document.createRange()
+          range.selectNodeContents(section.querySelector(selector)!)
+          return Array.from(range.getClientRects()).filter(
+            (r) => r.width > 0.5 && r.height > 0.5,
+          )
+        }
+        const cross = (a: DOMRect, b: DOMRect) =>
+          Math.max(0, Math.min(a.right, b.right) - Math.max(a.left, b.left)) *
+          Math.max(0, Math.min(a.bottom, b.bottom) - Math.max(a.top, b.top))
+        let overStage = 0
+        for (const selector of ['h2', '[class*="kicker"]', '[class*="support"]']) {
+          for (const rect of inkOf(selector)) {
+            overStage += cross(rect, stage)
+          }
+        }
+        return {
+          overStage,
+          // The pin holds the section for 0.65 of a viewport. Whatever it holds
+          // has to be the whole thing, or that scroll is taken from a reader
+          // who has not finished it.
+          sectionHeight: document
+            .querySelector('#hardware')!
+            .getBoundingClientRect().height,
+          viewport: window.innerHeight,
+        }
+      })
+
+      const where = `${width}x${height} ${language}`
+      expect(measured.overStage, `copy over the object at ${where}`).toBe(0)
+      expect(
+        measured.sectionHeight,
+        `Hardware taller than the viewport it pins in at ${where}`,
+      ).toBeLessThanOrEqual(measured.viewport + 1)
+    }
+  }
+})
+
 test('desktop: Hardware choreography resolves and normal scroll flow resumes after it', async ({
   page,
 }) => {

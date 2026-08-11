@@ -124,7 +124,20 @@ function Hardware() {
           const tl = gsap.timeline({
             scrollTrigger: {
               trigger: rootRef.current,
-              start: 'top top',
+              // The section's BOTTOM edge, not its top. When the composition
+              // fits the viewport — which, after the layout fix in
+              // Hardware.module.css, it does at every standard desktop size —
+              // the two are the same scroll position to the pixel, because the
+              // section is exactly 100vh tall. They differ only when it does
+              // NOT fit: a short desktop window, a long translation, a large
+              // browser zoom. Pinning from the top there froze the section for
+              // 0.65 of a viewport with the rest of it still below the fold —
+              // measured before this change at 1024/1440/1920, where the tags
+              // line was off-screen for the pin's entire duration and the
+              // third beat was too at 1024. Hanging the pin off the bottom
+              // edge means the visitor has always reached the end of the
+              // section before its scroll is borrowed.
+              start: 'bottom bottom',
               end: () => `+=${Math.round(window.innerHeight * 0.65)}`,
               scrub: 1,
               pin: true,

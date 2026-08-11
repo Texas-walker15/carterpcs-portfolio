@@ -1,0 +1,266 @@
+CarterPCs fix-v14 - Section 04 / Hardware (#hardware)
+BEFORE = the committed section (HEAD d0b8ecf) built and served on :4191
+AFTER  = the working tree served on :4190
+Every number below is produced by re-running the same probe against both.
+
+############ BEFORE ############
+
+=== A. geometry / rhythm / overlap sweep, 7 viewports x EN,FR,ES x dark,light ===
+320x568-en-dark        sec=1410.2 canvasTop=0 | meta..tags: 104/25/11/20.1/480/65/66.5 | head=2L 280w stage=280x350@420.2 beats=280x409@834.2 ovl(copy/beats/tags vs stage)=0/0/0 ovf=0 clip=0 hidden=_tags_lr5d1_308@0.85
+320x568-en-light       sec=1410.2 canvasTop=0 | meta..tags: 104/25/11/20.1/480/65/66.5 | head=2L 280w stage=280x350@420.2 beats=280x409@834.2 ovl(copy/beats/tags vs stage)=0/0/0 ovf=0 clip=0 hidden=_tags_lr5d1_308@0.85
+320x568-fr-dark        sec=1458.2 canvasTop=0 | meta..tags: 104/25/11/20.1/480/65/66.5 | head=2L 201w stage=280x350@420.2 beats=280x457@834.2 ovl(copy/beats/tags vs stage)=0/0/0 ovf=0 clip=0 hidden=_tags_lr5d1_308@0.85
+320x568-fr-light       sec=1458.2 canvasTop=0 | meta..tags: 104/25/11/20.1/480/65/66.5 | head=2L 201w stage=280x350@420.2 beats=280x457@834.2 ovl(copy/beats/tags vs stage)=0/0/0 ovf=0 clip=0 hidden=_tags_lr5d1_308@0.85
+320x568-es-dark        sec=1528.2 canvasTop=0 | meta..tags: 104/25/11/20/480/65/66.5 | head=3L 234w stage=280x350@490.2 beats=280x457@904.2 ovl(copy/beats/tags vs stage)=0/0/0 ovf=0 clip=0 hidden=_tags_lr5d1_308@0.85
+320x568-es-light       sec=1528.2 canvasTop=0 | meta..tags: 104/25/11/20/480/65/66.5 | head=3L 234w stage=280x350@490.2 beats=280x457@904.2 ovl(copy/beats/tags vs stage)=0/0/0 ovf=0 clip=0 hidden=_tags_lr5d1_308@0.85
+390x844-en-dark        sec=1443.6 canvasTop=0 | meta..tags: 104/25/11/20.5/567.8/65/66.5 | head=2L 300w stage=350x437.5@412.4 beats=350x362.8@913.9 ovl(copy/beats/tags vs stage)=0/0/0 ovf=0 clip=0 hidden=_tags_lr5d1_308@0.85
+390x844-en-light       sec=1443.6 canvasTop=0 | meta..tags: 104/25/11/20.5/567.8/65/66.5 | head=2L 300w stage=350x437.5@412.4 beats=350x362.8@913.9 ovl(copy/beats/tags vs stage)=0/0/0 ovf=0 clip=0 hidden=_tags_lr5d1_308@0.85
+390x844-fr-dark        sec=1467.9 canvasTop=0 | meta..tags: 104/25/11/20.5/567.8/65/66.5 | head=2L 215w stage=350x437.5@412.4 beats=350x387@913.9 ovl(copy/beats/tags vs stage)=0/0/0 ovf=0 clip=0 hidden=_tags_lr5d1_308@0.85
+390x844-fr-light       sec=1467.9 canvasTop=0 | meta..tags: 104/25/11/20.5/567.8/65/66.5 | head=2L 215w stage=350x437.5@412.4 beats=350x387@913.9 ovl(copy/beats/tags vs stage)=0/0/0 ovf=0 clip=0 hidden=_tags_lr5d1_308@0.85
+390x844-es-dark        sec=1443.6 canvasTop=0 | meta..tags: 104/25/11/20.5/567.8/65/66.5 | head=2L 308w stage=350x437.5@412.4 beats=350x362.8@913.9 ovl(copy/beats/tags vs stage)=0/0/0 ovf=0 clip=0 hidden=_tags_lr5d1_308@0.85
+390x844-es-light       sec=1443.6 canvasTop=0 | meta..tags: 104/25/11/20.5/567.8/65/66.5 | head=2L 308w stage=350x437.5@412.4 beats=350x362.8@913.9 ovl(copy/beats/tags vs stage)=0/0/0 ovf=0 clip=0 hidden=_tags_lr5d1_308@0.85
+768x1024-en-dark       sec=1893.4 canvasTop=0 | meta..tags: 104/25/9/17.6/1013.9/65/66.5 | head=2L 410w stage=706.6x883.2@451.5 beats=706.6x347.1@1398.7 ovl(copy/beats/tags vs stage)=0/0/0 ovf=0 clip=0 hidden=_tags_lr5d1_308@0.85
+768x1024-en-light      sec=1893.4 canvasTop=0 | meta..tags: 104/25/9/17.6/1013.9/65/66.5 | head=2L 410w stage=706.6x883.2@451.5 beats=706.6x347.1@1398.7 ovl(copy/beats/tags vs stage)=0/0/0 ovf=0 clip=0 hidden=_tags_lr5d1_308@0.85
+768x1024-fr-dark       sec=1893.4 canvasTop=0 | meta..tags: 104/25/9/17.6/1013.9/65/66.5 | head=2L 294w stage=706.6x883.2@451.5 beats=706.6x347.1@1398.7 ovl(copy/beats/tags vs stage)=0/0/0 ovf=0 clip=0 hidden=_tags_lr5d1_308@0.85
+768x1024-fr-light      sec=1893.4 canvasTop=0 | meta..tags: 104/25/9/17.6/1013.9/65/66.5 | head=2L 294w stage=706.6x883.2@451.5 beats=706.6x347.1@1398.7 ovl(copy/beats/tags vs stage)=0/0/0 ovf=0 clip=0 hidden=_tags_lr5d1_308@0.85
+768x1024-es-dark       sec=1893.4 canvasTop=0 | meta..tags: 104/25/9/17.6/1013.9/65/66.5 | head=2L 420w stage=706.6x883.2@451.5 beats=706.6x347.1@1398.7 ovl(copy/beats/tags vs stage)=0/0/0 ovf=0 clip=0 hidden=_tags_lr5d1_308@0.85
+768x1024-es-light      sec=1893.4 canvasTop=0 | meta..tags: 104/25/9/17.6/1013.9/65/66.5 | head=2L 420w stage=706.6x883.2@451.5 beats=706.6x347.1@1398.7 ovl(copy/beats/tags vs stage)=0/0/0 ovf=0 clip=0 hidden=_tags_lr5d1_308@0.85
+844x390-en-dark        sec=1990.3 canvasTop=0 | meta..tags: 104/25/8/17.3/1101.6/65/66.5 | head=2L 432w stage=776.5x970.6@459.4 beats=776.5x348.8@1494 ovl(copy/beats/tags vs stage)=0/0/0 ovf=0 clip=0 hidden=_tags_lr5d1_308@0.85
+844x390-en-light       sec=1990.3 canvasTop=0 | meta..tags: 104/25/8/17.3/1101.6/65/66.5 | head=2L 432w stage=776.5x970.6@459.4 beats=776.5x348.8@1494 ovl(copy/beats/tags vs stage)=0/0/0 ovf=0 clip=0 hidden=_tags_lr5d1_308@0.85
+844x390-fr-dark        sec=1990.3 canvasTop=0 | meta..tags: 104/25/8/17.3/1101.6/65/66.5 | head=2L 310w stage=776.5x970.6@459.4 beats=776.5x348.8@1494 ovl(copy/beats/tags vs stage)=0/0/0 ovf=0 clip=0 hidden=_tags_lr5d1_308@0.85
+844x390-fr-light       sec=1990.3 canvasTop=0 | meta..tags: 104/25/8/17.3/1101.6/65/66.5 | head=2L 310w stage=776.5x970.6@459.4 beats=776.5x348.8@1494 ovl(copy/beats/tags vs stage)=0/0/0 ovf=0 clip=0 hidden=_tags_lr5d1_308@0.85
+844x390-es-dark        sec=1990.3 canvasTop=0 | meta..tags: 104/25/8/17.3/1101.6/65/66.5 | head=2L 443w stage=776.5x970.6@459.4 beats=776.5x348.8@1494 ovl(copy/beats/tags vs stage)=0/0/0 ovf=0 clip=0 hidden=_tags_lr5d1_308@0.85
+844x390-es-light       sec=1990.3 canvasTop=0 | meta..tags: 104/25/8/17.3/1101.6/65/66.5 | head=2L 443w stage=776.5x970.6@459.4 beats=776.5x348.8@1494 ovl(copy/beats/tags vs stage)=0/0/0 ovf=0 clip=0 hidden=_tags_lr5d1_308@0.85
+1024x768-en-dark       sec=1220.3 canvasTop=0 | meta..tags: 144/25/9/17.3/67.7/81/98.5 | head=3L 295w stage=536.2x446.8@361 beats=292.7x464.8@560.1 ovl(copy/beats/tags vs stage)=862/0/0 ovf=0 clip=0 hidden=_tags_lr5d1_308@0.85
+1024x768-en-light      sec=1220.3 canvasTop=0 | meta..tags: 144/25/9/17.3/67.7/81/98.5 | head=3L 295w stage=536.2x446.8@361 beats=292.7x464.8@560.1 ovl(copy/beats/tags vs stage)=862/0/0 ovf=0 clip=0 hidden=_tags_lr5d1_308@0.85
+1024x768-fr-dark       sec=1206.4 canvasTop=0 | meta..tags: 144/25/9/17.2/67.6/81/98.5 | head=2L 293w stage=536.2x446.8@354 beats=292.7x518@492.8 ovl(copy/beats/tags vs stage)=1960/0/0 ovf=0 clip=0 hidden=_tags_lr5d1_308@0.85
+1024x768-fr-light      sec=1206.4 canvasTop=0 | meta..tags: 144/25/9/17.2/67.6/81/98.5 | head=2L 293w stage=536.2x446.8@354 beats=292.7x518@492.8 ovl(copy/beats/tags vs stage)=1960/0/0 ovf=0 clip=0 hidden=_tags_lr5d1_308@0.85
+1024x768-es-dark       sec=1315.3 canvasTop=0 | meta..tags: 144/25/9/17.3/67.7/81/98.5 | head=3L 342w stage=536.2x446.8@408.5 beats=292.7x544.7@575.1 ovl(copy/beats/tags vs stage)=2270/0/0 ovf=0 clip=0 hidden=_tags_lr5d1_308@0.85
+1024x768-es-light      sec=1315.3 canvasTop=0 | meta..tags: 144/25/9/17.3/67.7/81/98.5 | head=3L 342w stage=536.2x446.8@408.5 beats=292.7x544.7@575.1 ovl(copy/beats/tags vs stage)=2270/0/0 ovf=0 clip=0 hidden=_tags_lr5d1_308@0.85
+1440x900-en-dark       sec=1110.4 canvasTop=0 | meta..tags: 144/25/7/16.4/67/81/98.5 | head=2L 512w stage=759.5x632.9@213 beats=420.3x387@527.9 ovl(copy/beats/tags vs stage)=11028/0/0 ovf=0 clip=0 hidden=_tags_lr5d1_308@0.85
+1440x900-en-light      sec=1110.4 canvasTop=0 | meta..tags: 144/25/7/16.4/67/81/98.5 | head=2L 512w stage=759.5x632.9@213 beats=420.3x387@527.9 ovl(copy/beats/tags vs stage)=11028/0/0 ovf=0 clip=0 hidden=_tags_lr5d1_308@0.85
+1440x900-fr-dark       sec=1137.4 canvasTop=0 | meta..tags: 144/25/7/16.4/67/81/98.5 | head=2L 368w stage=759.5x632.9@226.5 beats=420.3x414@527.9 ovl(copy/beats/tags vs stage)=0/0/0 ovf=0 clip=0 hidden=_tags_lr5d1_308@0.85
+1440x900-fr-light      sec=1137.4 canvasTop=0 | meta..tags: 144/25/7/16.4/67/81/98.5 | head=2L 368w stage=759.5x632.9@226.5 beats=420.3x414@527.9 ovl(copy/beats/tags vs stage)=0/0/0 ovf=0 clip=0 hidden=_tags_lr5d1_308@0.85
+1440x900-es-dark       sec=1137.4 canvasTop=0 | meta..tags: 144/25/7/16.4/67/81/98.5 | head=2L 525w stage=759.5x632.9@226.5 beats=420.3x414@527.9 ovl(copy/beats/tags vs stage)=12410/0/0 ovf=0 clip=0 hidden=_tags_lr5d1_308@0.85
+1440x900-es-light      sec=1137.4 canvasTop=0 | meta..tags: 144/25/7/16.4/67/81/98.5 | head=2L 525w stage=759.5x632.9@226.5 beats=420.3x414@527.9 ovl(copy/beats/tags vs stage)=12410/0/0 ovf=0 clip=0 hidden=_tags_lr5d1_308@0.85
+1920x1080-en-dark      sec=1243.4 canvasTop=0 | meta..tags: 161.3/28.8/7.1/17.5/74.9/90.6/110.4 | head=2L 574w stage=1021.5x851.2@167.2 beats=568.3x433.2@591.2 ovl(copy/beats/tags vs stage)=0/0/0 ovf=0 clip=0 hidden=_tags_lr5d1_308@0.85
+1920x1080-en-light     sec=1243.4 canvasTop=0 | meta..tags: 161.3/28.8/7.1/17.5/74.9/90.6/110.4 | head=2L 574w stage=1021.5x851.2@167.2 beats=568.3x433.2@591.2 ovl(copy/beats/tags vs stage)=0/0/0 ovf=0 clip=0 hidden=_tags_lr5d1_308@0.85
+1920x1080-fr-dark      sec=1243.4 canvasTop=0 | meta..tags: 161.3/28.8/7.1/17.5/74.9/90.6/110.4 | head=2L 412w stage=1021.5x851.2@167.2 beats=568.3x433.2@591.2 ovl(copy/beats/tags vs stage)=0/0/0 ovf=0 clip=0 hidden=_tags_lr5d1_308@0.85
+1920x1080-fr-light     sec=1243.4 canvasTop=0 | meta..tags: 161.3/28.8/7.1/17.5/74.9/90.6/110.4 | head=2L 412w stage=1021.5x851.2@167.2 beats=568.3x433.2@591.2 ovl(copy/beats/tags vs stage)=0/0/0 ovf=0 clip=0 hidden=_tags_lr5d1_308@0.85
+1920x1080-es-dark      sec=1243.4 canvasTop=0 | meta..tags: 161.3/28.8/7.1/17.5/74.9/90.6/110.4 | head=2L 588w stage=1021.5x851.2@167.2 beats=568.3x433.2@591.2 ovl(copy/beats/tags vs stage)=0/0/0 ovf=0 clip=0 hidden=_tags_lr5d1_308@0.85
+1920x1080-es-light     sec=1243.4 canvasTop=0 | meta..tags: 161.3/28.8/7.1/17.5/74.9/90.6/110.4 | head=2L 588w stage=1021.5x851.2@167.2 beats=568.3x433.2@591.2 ovl(copy/beats/tags vs stage)=0/0/0 ovf=0 clip=0 hidden=_tags_lr5d1_308@0.85
+
+=== B. anchor landing, plane collisions, pin reachability, contrast, reduced motion, boundaries ===
+--- 1. anchor landing (nav link click) ---
+390x844: sectionTop=95.6 navBottom=197 clearance=-101.4 firstInkTop=199.6 deadSpaceUnderNav=2.6 h2=272.6..371.5 #hardware
+768x1024: sectionTop=96.2 navBottom=127.7 clearance=-31.5 firstInkTop=200.2 deadSpaceUnderNav=72.5 h2=273.2..408.4 #hardware
+1024x768: sectionTop=96.4 navBottom=80 clearance=16.4 firstInkTop=240.4 deadSpaceUnderNav=160.4 h2=313.4..515.2 #hardware
+1440x900: sectionTop=95.8 navBottom=80 clearance=15.8 firstInkTop=239.8 deadSpaceUnderNav=159.8 h2=312.8..481.7 #hardware
+1920x1080: sectionTop=107.3 navBottom=89.3 clearance=18.0 firstInkTop=268.6 deadSpaceUnderNav=179.3 h2=350.3..539.5 #hardware
+
+--- 2. headline ink vs painted stage planes ---
+1024x768 en: headline:0 support:back=167 kicker:0 beats:0 tags:0 | headlineInkRight=336.2 figureLeft=365.6 rearPlate=375.7..478.9
+1024x768 es: headline:0 support:back=535 kicker:0 beats:0 tags:0 | headlineInkRight=382.5 figureLeft=365.6 rearPlate=375.7..478.9
+1440x900 en: headline:back=4856 support:0 kicker:0 beats:0 tags:0 | headlineInkRight=570 figureLeft=509.9 rearPlate=524.2..670.2
+1440x900 es: headline:back=6229 support:0 kicker:0 beats:0 tags:0 | headlineInkRight=582.9 figureLeft=509.9 rearPlate=524.2..670.2
+1920x1080 en: headline:0 support:0 kicker:0 beats:0 tags:0 | headlineInkRight=645.5 figureLeft=675.8 rearPlate=695.1..891.5
+1920x1080 es: headline:0 support:0 kicker:0 beats:0 tags:0 | headlineInkRight=660.1 figureLeft=675.8 rearPlate=695.1..891.5
+
+--- 3. what is reachable while the desktop pin holds ---
+1024x768 es (vh=768): p=0: lastBeat 981..1119 OFFSCREEN tags 1199..1219 OFFSCREEN h2-nav=152 | p=0.5: lastBeat 981..1119 OFFSCREEN tags 1199..1219 OFFSCREEN h2-nav=152 | p=1: lastBeat 732..870 tags 950..970 OFFSCREEN h2-nav=-97
+1440x900 en (vh=900): p=0: lastBeat 829..915 tags 995..1014 OFFSCREEN h2-nav=137 | p=0.5: lastBeat 829..915 tags 995..1014 OFFSCREEN h2-nav=137 | p=1: lastBeat 537..623 tags 703..722 h2-nav=-155
+1920x1080 en (vh=1080): p=0: lastBeat 928..1025 tags 1114..1136 OFFSCREEN h2-nav=154 | p=0.5: lastBeat 928..1025 tags 1114..1136 OFFSCREEN h2-nav=154 | p=1: lastBeat 577..674 tags 763..785 h2-nav=-197
+
+--- 4. contrast of each text role ---
+dark [class*="meta"]            10px     w400 op=1 ratio=7.69
+dark [class*="kicker"]          12px     w600 op=1 ratio=9.53
+dark h2                         88px     w700 op=1 ratio=17.8
+dark [class*="support"]         18px     w400 op=1 ratio=7.69
+dark [class*="beatIndex"]       16px     w700 op=1 ratio=9.53
+dark [class*="beatLabel"]       13px     w600 op=1 ratio=17.8
+dark [class*="beatDescription"] 18px     w400 op=1 ratio=7.69
+dark [class*="tags"]            13px     w400 op=0.85 ratio=12.86
+light [class*="meta"]            10px     w400 op=1 ratio=5.76
+light [class*="kicker"]          12px     w600 op=1 ratio=5.16
+light h2                         88px     w700 op=1 ratio=16.7
+light [class*="support"]         18px     w400 op=1 ratio=5.76
+light [class*="beatIndex"]       16px     w700 op=1 ratio=5.16
+light [class*="beatLabel"]       13px     w600 op=1 ratio=16.7
+light [class*="beatDescription"] 18px     w400 op=1 ratio=5.76
+light [class*="tags"]            13px     w400 op=0.85 ratio=10.95
+
+--- 5. reduced motion ---
+reduced motion 1440x900: {"faded":["_tags_lr5d1_308"],"clipped":[],"transformed":[],"sectionH":1110,"overflow":0}
+
+--- 6. section boundaries ---
+390x844: featured 3189.3+3927.3 | hardware 7116.6+1443.6 (gap 0.0) | contentUniverse 8560.3 (gap 0.1) docH=11412
+1440x900: featured 1800+3598.8 | hardware 5398.8+1110.4 (gap 0.0) | contentUniverse 7093.8 (gap 584.6) docH=10358
+
+############ AFTER ############
+
+=== A. geometry / rhythm / overlap sweep, 7 viewports x EN,FR,ES x dark,light ===
+320x568-en-dark        sec=1400.9 canvasTop=0 | meta..tags: 104/25/11/20.1/470.7/65/66.5 | head=2L 280w stage=272.6x340.8@420.2 beats=280x409@824.9 ovl(copy/beats/tags vs stage)=0/0/0 ovf=0 clip=0 hidden=_tags_fitiv_370@0.85
+320x568-en-light       sec=1400.9 canvasTop=0 | meta..tags: 104/25/11/20.1/470.7/65/66.5 | head=2L 280w stage=272.6x340.8@420.2 beats=280x409@824.9 ovl(copy/beats/tags vs stage)=0/0/0 ovf=0 clip=0 hidden=_tags_fitiv_370@0.85
+320x568-fr-dark        sec=1448.9 canvasTop=0 | meta..tags: 104/25/11/20.1/470.7/65/66.5 | head=2L 201w stage=272.6x340.8@420.2 beats=280x457@824.9 ovl(copy/beats/tags vs stage)=0/0/0 ovf=0 clip=0 hidden=_tags_fitiv_370@0.85
+320x568-fr-light       sec=1448.9 canvasTop=0 | meta..tags: 104/25/11/20.1/470.7/65/66.5 | head=2L 201w stage=272.6x340.8@420.2 beats=280x457@824.9 ovl(copy/beats/tags vs stage)=0/0/0 ovf=0 clip=0 hidden=_tags_fitiv_370@0.85
+320x568-es-dark        sec=1519 canvasTop=0 | meta..tags: 104/25/11/20/470.8/65/66.5 | head=3L 234w stage=272.6x340.8@490.2 beats=280x457@895 ovl(copy/beats/tags vs stage)=0/0/0 ovf=0 clip=0 hidden=_tags_fitiv_370@0.85
+320x568-es-light       sec=1519 canvasTop=0 | meta..tags: 104/25/11/20/470.8/65/66.5 | head=3L 234w stage=272.6x340.8@490.2 beats=280x457@895 ovl(copy/beats/tags vs stage)=0/0/0 ovf=0 clip=0 hidden=_tags_fitiv_370@0.85
+390x844-en-dark        sec=1443.6 canvasTop=0 | meta..tags: 104/25/11/20.5/567.8/65/66.5 | head=2L 300w stage=350x437.5@412.4 beats=350x362.8@913.9 ovl(copy/beats/tags vs stage)=0/0/0 ovf=0 clip=0 hidden=_tags_fitiv_370@0.85
+390x844-en-light       sec=1443.6 canvasTop=0 | meta..tags: 104/25/11/20.5/567.8/65/66.5 | head=2L 300w stage=350x437.5@412.4 beats=350x362.8@913.9 ovl(copy/beats/tags vs stage)=0/0/0 ovf=0 clip=0 hidden=_tags_fitiv_370@0.85
+390x844-fr-dark        sec=1467.9 canvasTop=0 | meta..tags: 104/25/11/20.5/567.8/65/66.5 | head=2L 215w stage=350x437.5@412.4 beats=350x387@913.9 ovl(copy/beats/tags vs stage)=0/0/0 ovf=0 clip=0 hidden=_tags_fitiv_370@0.85
+390x844-fr-light       sec=1467.9 canvasTop=0 | meta..tags: 104/25/11/20.5/567.8/65/66.5 | head=2L 215w stage=350x437.5@412.4 beats=350x387@913.9 ovl(copy/beats/tags vs stage)=0/0/0 ovf=0 clip=0 hidden=_tags_fitiv_370@0.85
+390x844-es-dark        sec=1443.6 canvasTop=0 | meta..tags: 104/25/11/20.5/567.8/65/66.5 | head=2L 308w stage=350x437.5@412.4 beats=350x362.8@913.9 ovl(copy/beats/tags vs stage)=0/0/0 ovf=0 clip=0 hidden=_tags_fitiv_370@0.85
+390x844-es-light       sec=1443.6 canvasTop=0 | meta..tags: 104/25/11/20.5/567.8/65/66.5 | head=2L 308w stage=350x437.5@412.4 beats=350x362.8@913.9 ovl(copy/beats/tags vs stage)=0/0/0 ovf=0 clip=0 hidden=_tags_fitiv_370@0.85
+768x1024-en-dark       sec=1490.2 canvasTop=0 | meta..tags: 104/25/9/17.6/610.7/65/66.5 | head=2L 410w stage=384x480@451.5 beats=706.6x347.1@995.5 ovl(copy/beats/tags vs stage)=0/0/0 ovf=0 clip=0 hidden=_tags_fitiv_370@0.85
+768x1024-en-light      sec=1490.2 canvasTop=0 | meta..tags: 104/25/9/17.6/610.7/65/66.5 | head=2L 410w stage=384x480@451.5 beats=706.6x347.1@995.5 ovl(copy/beats/tags vs stage)=0/0/0 ovf=0 clip=0 hidden=_tags_fitiv_370@0.85
+768x1024-fr-dark       sec=1490.2 canvasTop=0 | meta..tags: 104/25/9/17.6/610.7/65/66.5 | head=2L 294w stage=384x480@451.5 beats=706.6x347.1@995.5 ovl(copy/beats/tags vs stage)=0/0/0 ovf=0 clip=0 hidden=_tags_fitiv_370@0.85
+768x1024-fr-light      sec=1490.2 canvasTop=0 | meta..tags: 104/25/9/17.6/610.7/65/66.5 | head=2L 294w stage=384x480@451.5 beats=706.6x347.1@995.5 ovl(copy/beats/tags vs stage)=0/0/0 ovf=0 clip=0 hidden=_tags_fitiv_370@0.85
+768x1024-es-dark       sec=1490.2 canvasTop=0 | meta..tags: 104/25/9/17.6/610.7/65/66.5 | head=2L 420w stage=384x480@451.5 beats=706.6x347.1@995.5 ovl(copy/beats/tags vs stage)=0/0/0 ovf=0 clip=0 hidden=_tags_fitiv_370@0.85
+768x1024-es-light      sec=1490.2 canvasTop=0 | meta..tags: 104/25/9/17.6/610.7/65/66.5 | head=2L 420w stage=384x480@451.5 beats=706.6x347.1@995.5 ovl(copy/beats/tags vs stage)=0/0/0 ovf=0 clip=0 hidden=_tags_fitiv_370@0.85
+844x390-en-dark        sec=1253.7 canvasTop=0 | meta..tags: 104/25/8/17.3/365/65/66.5 | head=2L 432w stage=187.2x234@459.4 beats=776.5x348.8@757.4 ovl(copy/beats/tags vs stage)=0/0/0 ovf=0 clip=0 hidden=_tags_fitiv_370@0.85
+844x390-en-light       sec=1253.7 canvasTop=0 | meta..tags: 104/25/8/17.3/365/65/66.5 | head=2L 432w stage=187.2x234@459.4 beats=776.5x348.8@757.4 ovl(copy/beats/tags vs stage)=0/0/0 ovf=0 clip=0 hidden=_tags_fitiv_370@0.85
+844x390-fr-dark        sec=1253.7 canvasTop=0 | meta..tags: 104/25/8/17.3/365/65/66.5 | head=2L 310w stage=187.2x234@459.4 beats=776.5x348.8@757.4 ovl(copy/beats/tags vs stage)=0/0/0 ovf=0 clip=0 hidden=_tags_fitiv_370@0.85
+844x390-fr-light       sec=1253.7 canvasTop=0 | meta..tags: 104/25/8/17.3/365/65/66.5 | head=2L 310w stage=187.2x234@459.4 beats=776.5x348.8@757.4 ovl(copy/beats/tags vs stage)=0/0/0 ovf=0 clip=0 hidden=_tags_fitiv_370@0.85
+844x390-es-dark        sec=1253.7 canvasTop=0 | meta..tags: 104/25/8/17.3/365/65/66.5 | head=2L 443w stage=187.2x234@459.4 beats=776.5x348.8@757.4 ovl(copy/beats/tags vs stage)=0/0/0 ovf=0 clip=0 hidden=_tags_fitiv_370@0.85
+844x390-es-light       sec=1253.7 canvasTop=0 | meta..tags: 104/25/8/17.3/365/65/66.5 | head=2L 443w stage=187.2x234@459.4 beats=776.5x348.8@757.4 ovl(copy/beats/tags vs stage)=0/0/0 ovf=0 clip=0 hidden=_tags_fitiv_370@0.85
+1024x768-en-dark       sec=768 canvasTop=0 | meta..tags: 96/25/9/17.2/130.4/33/66.5 | head=2L 408w stage=455x325@96 beats=942.1x144.9@507.6 ovl(copy/beats/tags vs stage)=0/0/0 ovf=0 clip=0 hidden=_tags_fitiv_370@0.85
+1024x768-en-light      sec=768 canvasTop=0 | meta..tags: 96/25/9/17.2/130.4/33/66.5 | head=2L 408w stage=455x325@96 beats=942.1x144.9@507.6 ovl(copy/beats/tags vs stage)=0/0/0 ovf=0 clip=0 hidden=_tags_fitiv_370@0.85
+1024x768-fr-dark       sec=768 canvasTop=0 | meta..tags: 96/25/9/17.2/103.7/33/66.5 | head=2L 293w stage=455x325@96 beats=942.1x171.6@480.9 ovl(copy/beats/tags vs stage)=0/0/0 ovf=0 clip=0 hidden=_tags_fitiv_370@0.85
+1024x768-fr-light      sec=768 canvasTop=0 | meta..tags: 96/25/9/17.2/103.7/33/66.5 | head=2L 293w stage=455x325@96 beats=942.1x171.6@480.9 ovl(copy/beats/tags vs stage)=0/0/0 ovf=0 clip=0 hidden=_tags_fitiv_370@0.85
+1024x768-es-dark       sec=768 canvasTop=0 | meta..tags: 96/25/9/17.2/103.7/33/66.5 | head=2L 418w stage=455x325@96 beats=942.1x171.6@480.9 ovl(copy/beats/tags vs stage)=0/0/0 ovf=0 clip=0 hidden=_tags_fitiv_370@0.85
+1024x768-es-light      sec=768 canvasTop=0 | meta..tags: 96/25/9/17.2/103.7/33/66.5 | head=2L 418w stage=455x325@96 beats=942.1x171.6@480.9 ovl(copy/beats/tags vs stage)=0/0/0 ovf=0 clip=0 hidden=_tags_fitiv_370@0.85
+1440x900-en-dark       sec=900 canvasTop=0 | meta..tags: 96/25/7/16.4/252.6/33/66.5 | head=2L 512w stage=646.4x461.7@96 beats=1324.8x119@665.5 ovl(copy/beats/tags vs stage)=0/0/0 ovf=0 clip=0 hidden=_tags_fitiv_370@0.85
+1440x900-en-light      sec=900 canvasTop=0 | meta..tags: 96/25/7/16.4/252.6/33/66.5 | head=2L 512w stage=646.4x461.7@96 beats=1324.8x119@665.5 ovl(copy/beats/tags vs stage)=0/0/0 ovf=0 clip=0 hidden=_tags_fitiv_370@0.85
+1440x900-fr-dark       sec=900 canvasTop=0 | meta..tags: 96/25/7/16.4/252.6/33/66.5 | head=2L 368w stage=646.4x461.7@96 beats=1324.8x119@665.5 ovl(copy/beats/tags vs stage)=0/0/0 ovf=0 clip=0 hidden=_tags_fitiv_370@0.85
+1440x900-fr-light      sec=900 canvasTop=0 | meta..tags: 96/25/7/16.4/252.6/33/66.5 | head=2L 368w stage=646.4x461.7@96 beats=1324.8x119@665.5 ovl(copy/beats/tags vs stage)=0/0/0 ovf=0 clip=0 hidden=_tags_fitiv_370@0.85
+1440x900-es-dark       sec=900 canvasTop=0 | meta..tags: 96/25/7/16.4/225.6/33/66.5 | head=2L 525w stage=646.4x461.7@96 beats=1324.8x146@638.5 ovl(copy/beats/tags vs stage)=0/0/0 ovf=0 clip=0 hidden=_tags_fitiv_370@0.85
+1440x900-es-light      sec=900 canvasTop=0 | meta..tags: 96/25/7/16.4/225.6/33/66.5 | head=2L 525w stage=646.4x461.7@96 beats=1324.8x146@638.5 ovl(copy/beats/tags vs stage)=0/0/0 ovf=0 clip=0 hidden=_tags_fitiv_370@0.85
+1920x1080-en-dark      sec=1080 canvasTop=0 | meta..tags: 107.5/28.9/7/17.5/355/36.8/74.5 | head=2L 846w stage=870.4x621.7@107.5 beats=1776.7x133.1@817.5 ovl(copy/beats/tags vs stage)=0/0/0 ovf=0 clip=0 hidden=_tags_fitiv_370@0.85
+1920x1080-en-light     sec=1080 canvasTop=0 | meta..tags: 107.5/28.9/7/17.5/355/36.8/74.5 | head=2L 846w stage=870.4x621.7@107.5 beats=1776.7x133.1@817.5 ovl(copy/beats/tags vs stage)=0/0/0 ovf=0 clip=0 hidden=_tags_fitiv_370@0.85
+1920x1080-fr-dark      sec=1080 canvasTop=0 | meta..tags: 107.5/28.9/7/17.5/449.6/36.8/74.5 | head=1L 833w stage=870.4x621.7@107.5 beats=1776.7x133.1@817.5 ovl(copy/beats/tags vs stage)=0/0/0 ovf=0 clip=0 hidden=_tags_fitiv_370@0.85
+1920x1080-fr-light     sec=1080 canvasTop=0 | meta..tags: 107.5/28.9/7/17.5/449.6/36.8/74.5 | head=1L 833w stage=870.4x621.7@107.5 beats=1776.7x133.1@817.5 ovl(copy/beats/tags vs stage)=0/0/0 ovf=0 clip=0 hidden=_tags_fitiv_370@0.85
+1920x1080-es-dark      sec=1080 canvasTop=0 | meta..tags: 107.5/28.9/7/17.5/355/36.8/74.5 | head=2L 763w stage=870.4x621.7@107.5 beats=1776.7x133.1@817.5 ovl(copy/beats/tags vs stage)=0/0/0 ovf=0 clip=0 hidden=_tags_fitiv_370@0.85
+1920x1080-es-light     sec=1080 canvasTop=0 | meta..tags: 107.5/28.9/7/17.5/355/36.8/74.5 | head=2L 763w stage=870.4x621.7@107.5 beats=1776.7x133.1@817.5 ovl(copy/beats/tags vs stage)=0/0/0 ovf=0 clip=0 hidden=_tags_fitiv_370@0.85
+
+=== B. anchor landing, plane collisions, pin reachability, contrast, reduced motion, boundaries ===
+--- 1. anchor landing (nav link click) ---
+390x844: sectionTop=207.6 navBottom=197 clearance=10.6 firstInkTop=311.6 deadSpaceUnderNav=114.6 h2=384.6..483.5 #hardware
+768x1024: sectionTop=144.2 navBottom=127.7 clearance=16.5 firstInkTop=248.2 deadSpaceUnderNav=120.5 h2=321.2..456.4 #hardware
+1024x768: sectionTop=96.4 navBottom=80 clearance=16.4 firstInkTop=192.4 deadSpaceUnderNav=112.4 h2=265.4..399.9 #hardware
+1440x900: sectionTop=95.8 navBottom=80 clearance=15.8 firstInkTop=191.8 deadSpaceUnderNav=111.8 h2=264.8..433.7 #hardware
+1920x1080: sectionTop=107.3 navBottom=89.3 clearance=18.0 firstInkTop=214.8 deadSpaceUnderNav=125.5 h2=296.5..485.8 #hardware
+
+--- 2. headline ink vs painted stage planes ---
+1024x768 en: headline:0 support:0 kicker:0 beats:0 tags:0 | headlineInkRight=449 figureLeft=528 rearPlate=537.3..623.4
+1024x768 es: headline:0 support:0 kicker:0 beats:0 tags:0 | headlineInkRight=459.3 figureLeft=528 rearPlate=537.3..623.4
+1440x900 en: headline:0 support:0 kicker:0 beats:0 tags:0 | headlineInkRight=570 figureLeft=736 rearPlate=749.2..871.5
+1440x900 es: headline:0 support:0 kicker:0 beats:0 tags:0 | headlineInkRight=582.9 figureLeft=736 rearPlate=749.2..871.5
+1920x1080 en: headline:0 support:0 kicker:0 beats:0 tags:0 | headlineInkRight=917.6 figureLeft=977.9 rearPlate=995.7..1160.3
+1920x1080 es: headline:0 support:0 kicker:0 beats:0 tags:0 | headlineInkRight=835.1 figureLeft=977.9 rearPlate=995.7..1160.3
+
+--- 3. what is reachable while the desktop pin holds ---
+1024x768 es (vh=768): p=0: lastBeat 514..652 tags 684..704 h2-nav=89 | p=0.5: lastBeat 514..652 tags 684..704 h2-nav=89 | p=1: lastBeat 265..403 tags 435..455 h2-nav=-160
+1440x900 en (vh=900): p=0: lastBeat 698..784 tags 816..836 h2-nav=89 | p=0.5: lastBeat 698..784 tags 816..836 h2-nav=89 | p=1: lastBeat 406..492 tags 524..544 h2-nav=-203
+1920x1080 en (vh=1080): p=0: lastBeat 855..951 tags 987..1009 h2-nav=100 | p=0.5: lastBeat 855..951 tags 987..1009 h2-nav=100 | p=1: lastBeat 504..600 tags 636..658 h2-nav=-251
+
+--- 4. contrast of each text role ---
+dark [class*="meta"]            10px     w400 op=1 ratio=7.69
+dark [class*="kicker"]          12px     w600 op=1 ratio=9.53
+dark h2                         88px     w700 op=1 ratio=17.8
+dark [class*="support"]         18px     w400 op=1 ratio=7.69
+dark [class*="beatIndex"]       16px     w700 op=1 ratio=9.53
+dark [class*="beatLabel"]       13px     w600 op=1 ratio=17.8
+dark [class*="beatDescription"] 18px     w400 op=1 ratio=7.69
+dark [class*="tags"]            13px     w400 op=0.85 ratio=12.86
+light [class*="meta"]            10px     w400 op=1 ratio=5.76
+light [class*="kicker"]          12px     w600 op=1 ratio=5.16
+light h2                         88px     w700 op=1 ratio=16.7
+light [class*="support"]         18px     w400 op=1 ratio=5.76
+light [class*="beatIndex"]       16px     w700 op=1 ratio=5.16
+light [class*="beatLabel"]       13px     w600 op=1 ratio=16.7
+light [class*="beatDescription"] 18px     w400 op=1 ratio=5.76
+light [class*="tags"]            13px     w400 op=0.85 ratio=10.95
+
+--- 5. reduced motion ---
+reduced motion 1440x900: {"faded":["_tags_fitiv_370"],"clipped":[],"transformed":[],"sectionH":900,"overflow":0}
+
+--- 6. section boundaries ---
+390x844: featured 3189.3+3927.3 | hardware 7116.6+1443.6 (gap 0.0) | contentUniverse 8560.3 (gap 0.1) docH=11412
+1440x900: featured 1800+3598.8 | hardware 5398.8+900 (gap 0.0) | contentUniverse 6883.8 (gap 585.0) docH=10148
+
+=== C. short desktop windows, clipped text, focusables, live scroll (AFTER only) ===
+--- short desktop windows: is any content stranded by the pin? ---
+1280x720 en: sectionH=799 (vh=720) fullyVisibleWhileScrolling stage=true lastBeat=true tags=true pinnedFrames=11/40 ovf=0
+1280x720 es: sectionH=799 (vh=720) fullyVisibleWhileScrolling stage=true lastBeat=true tags=true pinnedFrames=11/40 ovf=0
+1366x630 fr: sectionH=827 (vh=630) fullyVisibleWhileScrolling stage=true lastBeat=true tags=true pinnedFrames=10/40 ovf=0
+1024x600 es: sectionH=740 (vh=600) fullyVisibleWhileScrolling stage=true lastBeat=true tags=true pinnedFrames=9/40 ovf=0
+1440x820 fr: sectionH=824 (vh=820) fullyVisibleWhileScrolling stage=true lastBeat=true tags=true pinnedFrames=12/40 ovf=0
+2560x900 en: sectionH=1226 (vh=900) fullyVisibleWhileScrolling stage=false lastBeat=true tags=true pinnedFrames=13/40 ovf=0
+
+--- clipped text / tap targets / focusables ---
+320x568 en: clippedText=0 focusables=0 behindNav=0 ovf=0
+320x568 fr: clippedText=0 focusables=0 behindNav=0 ovf=0
+320x568 es: clippedText=0 focusables=0 behindNav=0 ovf=0
+390x844 en: clippedText=0 focusables=0 behindNav=0 ovf=0
+390x844 fr: clippedText=0 focusables=0 behindNav=0 ovf=0
+390x844 es: clippedText=0 focusables=0 behindNav=0 ovf=0
+768x1024 en: clippedText=0 focusables=0 behindNav=0 ovf=0
+768x1024 fr: clippedText=0 focusables=0 behindNav=0 ovf=0
+768x1024 es: clippedText=0 focusables=0 behindNav=0 ovf=0
+844x390 en: clippedText=0 focusables=0 behindNav=0 ovf=0
+844x390 fr: clippedText=0 focusables=0 behindNav=0 ovf=0
+844x390 es: clippedText=0 focusables=0 behindNav=0 ovf=0
+=== C. short desktop windows, clipped text, focusables, live scroll (AFTER only) ===
+--- short desktop windows: is any content stranded by the pin? ---
+1280x720 en: sectionH=799 (vh=720) fullyVisibleWhileScrolling stage=true lastBeat=true tags=true pinnedFrames=11/40 ovf=0
+1280x720 es: sectionH=799 (vh=720) fullyVisibleWhileScrolling stage=true lastBeat=true tags=true pinnedFrames=11/40 ovf=0
+1366x630 fr: sectionH=827 (vh=630) fullyVisibleWhileScrolling stage=true lastBeat=true tags=true pinnedFrames=10/40 ovf=0
+1024x600 es: sectionH=740 (vh=600) fullyVisibleWhileScrolling stage=true lastBeat=true tags=true pinnedFrames=9/40 ovf=0
+1440x820 fr: sectionH=824 (vh=820) fullyVisibleWhileScrolling stage=true lastBeat=true tags=true pinnedFrames=12/40 ovf=0
+2560x900 en: sectionH=1226 (vh=900) fullyVisibleWhileScrolling stage=false lastBeat=true tags=true pinnedFrames=13/40 ovf=0
+
+--- clipped text / tap targets / focusables ---
+320x568 en: clippedText=0 focusables=0 behindNav=0 ovf=0
+320x568 fr: clippedText=0 focusables=0 behindNav=0 ovf=0
+320x568 es: clippedText=0 focusables=0 behindNav=0 ovf=0
+390x844 en: clippedText=0 focusables=0 behindNav=0 ovf=0
+390x844 fr: clippedText=0 focusables=0 behindNav=0 ovf=0
+390x844 es: clippedText=0 focusables=0 behindNav=0 ovf=0
+768x1024 en: clippedText=0 focusables=0 behindNav=0 ovf=0
+768x1024 fr: clippedText=0 focusables=0 behindNav=0 ovf=0
+768x1024 es: clippedText=0 focusables=0 behindNav=0 ovf=0
+844x390 en: clippedText=0 focusables=0 behindNav=0 ovf=0
+844x390 fr: clippedText=0 focusables=0 behindNav=0 ovf=0
+844x390 es: clippedText=0 focusables=0 behindNav=0 ovf=0
+1024x768 en: clippedText=0 focusables=0 behindNav=0 ovf=0
+1024x768 fr: clippedText=0 focusables=0 behindNav=0 ovf=0
+1024x768 es: clippedText=0 focusables=0 behindNav=0 ovf=0
+1440x900 en: clippedText=0 focusables=0 behindNav=0 ovf=0
+1440x900 fr: clippedText=0 focusables=0 behindNav=0 ovf=0
+1440x900 es: clippedText=0 focusables=0 behindNav=0 ovf=0
+1920x1080 en: clippedText=0 focusables=0 behindNav=0 ovf=0
+1920x1080 fr: clippedText=0 focusables=0 behindNav=0 ovf=0
+1920x1080 es: clippedText=0 focusables=0 behindNav=0 ovf=0
+
+--- live scroll through the section, every frame ---
+390x844 es: frames=200 maxNavOverText=68950 maxStageOverText=0 maxOverflow=0
+768x1024 fr: frames=199 maxNavOverText=90219 maxStageOverText=0 maxOverflow=0
+1440x900 en: frames=190 maxNavOverText=105985 maxStageOverText=0 maxOverflow=0
+1920x1080 fr: frames=196 maxNavOverText=158733 maxStageOverText=0 maxOverflow=0
+
+=== D. depth-separation motion, entrance reveal, system theme (PRE vs POST) ===
+--- A. depth separation across the pin ---
+POST 1440x900: 0:[back 0,0,1.00][front 0,0,1.00][04 y0] 0.25:[back -15,-51,0.93][front 17,56,1.06][04 y-13] 0.5:[back -16,-55,0.92][front 18,60,1.06][04 y-14] 0.75:[back -9,-31,0.95][front 10,34,1.03][04 y-8] 1:[back -0,-0,1.00][front 0,0,1.00][04 y-0]
+PRE  1440x900: 0:[back -16,-55,0.92][front 18,60,1.06][04 y-14] 0.25:[back -16,-55,0.92][front 18,60,1.06][04 y-14] 0.5:[back -3,-10,0.99][front 3,11,1.01][04 y-2] 0.75:[back 0,-0,1.00][front 0,0,1.00][04 y0] 1:[back 0,0,1.00][front 0,0,1.00][04 y0]
+POST 1920x1080: 0:[back 0,0,1.00][front 0,0,1.00][04 y0] 0.25:[back -15,-52,0.92][front 17,56,1.06][04 y-13] 0.5:[back -16,-55,0.92][front 18,60,1.06][04 y-14] 0.75:[back -9,-31,0.96][front 10,34,1.03][04 y-8] 1:[back 0,-0,1.00][front 0,0,1.00][04 y0]
+
+--- B. entrance reveal, natural scroll ---
+390x844 fr: revealed=9 stillFaded=0 stillClipped=0 stillShifted=0
+1440x900 fr: revealed=9 stillFaded=0 stillClipped=0 stillShifted=0
+
+--- C. system theme ---
+system(dark): {"stored":"system","ground":"rgb(13, 13, 13)","kicker":"rgb(53, 199, 214)","support":"rgb(163, 163, 160)","sectionH":900,"overflow":0}
+system(light): {"stored":"system","ground":"rgb(245, 245, 241)","kicker":"rgb(20, 114, 123)","support":"rgb(95, 96, 98)","sectionH":900,"overflow":0}
+
+=== E. footer-contrast e2e failure: identical in both builds, unrelated to this change ===
+pre-change  (4191): {"fails":6,"colors":["rgb(116, 117, 118)","rgb(109, 110, 111)"]}
+post-change (4190): {"fails":6,"colors":["rgb(109, 110, 111)","rgb(116, 117, 118)","rgb(103, 104, 106)"]}
