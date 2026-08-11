@@ -70,7 +70,26 @@ export function PreferencesProvider({ children }: { children: ReactNode }) {
             ? 'dark'
             : 'light'
           : theme
+      if (root.dataset.theme === resolved) {
+        // Already painted in this palette — index.html stamps the same
+        // resolution before first paint, so the mount-time run lands here.
+        return
+      }
+      // A THEME change is a palette swap, not an interaction: every element
+      // that transitions `color`/`background-color` for hover would otherwise
+      // animate the swap too, and for ~150ms render in-between colours that
+      // belong to neither palette (measured under AA on both grounds). The
+      // attribute turns those transitions off for the swap itself — see
+      // global.css — and comes back off the tree one frame later, so hover
+      // behaviour is untouched.
+      root.setAttribute('data-theme-switching', '')
       root.dataset.theme = resolved
+      // Force the un-transitioned styles to actually commit before the
+      // attribute is lifted.
+      void document.body.offsetWidth
+      requestAnimationFrame(() => {
+        root.removeAttribute('data-theme-switching')
+      })
     }
     apply()
     const media = window.matchMedia('(prefers-color-scheme: dark)')

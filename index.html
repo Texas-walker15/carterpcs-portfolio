@@ -16,6 +16,31 @@
       content="Unofficial interactive portfolio concept inspired by CarterPCs."
     />
     <title>CarterPCs Portfolio Concept</title>
+    <!-- The theme, stamped BEFORE first paint. Preferences.tsx applies the
+         same resolution again once React mounts (it owns the mid-session
+         changes and the system-preference listener), but it runs in an
+         effect — after first paint — so without this stamp a stored light
+         theme painted one dark frame first and then animated every element
+         that transitions `color` through out-of-palette intermediates
+         (measured: footer links passing through rgb(116,117,118), 4.22:1
+         on the light ground, on their way to 5.76:1). Kept byte-for-byte in
+         sync with readStoredTheme()'s key, values and fallback. -->
+    <script>
+      ;(() => {
+        try {
+          const stored = window.localStorage.getItem('carterpcs-theme')
+          const theme =
+            stored === 'dark' || stored === 'light'
+              ? stored
+              : window.matchMedia('(prefers-color-scheme: dark)').matches
+                ? 'dark'
+                : 'light'
+          document.documentElement.dataset.theme = theme
+        } catch {
+          /* storage unavailable (privacy mode) — tokens.css's defaults hold */
+        }
+      })()
+    </script>
   </head>
   <body>
     <div id="root"></div>

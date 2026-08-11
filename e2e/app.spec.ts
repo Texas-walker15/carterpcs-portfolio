@@ -2034,7 +2034,9 @@ for (const width of [320, 390]) {
   })
 }
 
-test('light theme: the Footer copy meets AA contrast', async ({ page }) => {
+test('light theme: the Footer copy meets AA contrast on every frame from first paint', async ({
+  page,
+}) => {
   await page.setViewportSize(DESKTOP)
   await page.addInitScript(() => {
     window.localStorage.setItem('carterpcs-theme', 'light')
@@ -2042,31 +2044,84 @@ test('light theme: the Footer copy meets AA contrast', async ({ page }) => {
   await page.goto('/')
   await page.getByRole('contentinfo').scrollIntoViewIfNeeded()
 
-  const samples = await page.evaluate(() => {
-    const parse = (value: string) =>
-      value
-        .match(/\d+(\.\d+)?/g)!
-        .slice(0, 3)
-        .map(Number)
-    const background = parse(getComputedStyle(document.body).backgroundColor)
-    return [...document.querySelectorAll('footer a, footer p')].map((el) => {
-      const style = getComputedStyle(el)
-      return {
-        text: (el.textContent ?? '').trim().slice(0, 24),
-        size: parseFloat(style.fontSize),
-        color: parse(style.color),
-        background,
-      }
-    })
+  // Not one sample after an arbitrary wait — TWENTY consecutive animation
+  // frames, starting as early as the runner can ask for them. The defect this
+  // guards against was real but invisible to a settled-state check: the theme
+  // used to be stamped after first paint, so every colour-transitioning
+  // element animated from the dark palette to the light one and spent ~150ms
+  // rendering colours that belong to neither (footer links measured 4.22:1
+  // mid-flight). index.html now stamps the theme before paint; this asserts
+  // the whole boot sequence stays compliant, not just its end state.
+  const frames = await page.evaluate(async () => {
+    const results: { text: string; color: string; background: string }[][] = []
+    for (let frame = 0; frame < 20; frame++) {
+      await new Promise(requestAnimationFrame)
+      results.push(
+        [...document.querySelectorAll('footer a, footer p')].map((el) => ({
+          text: (el.textContent ?? '').trim().slice(0, 24),
+          color: getComputedStyle(el).color,
+          background: getComputedStyle(document.body).backgroundColor,
+        })),
+      )
+    }
+    return results
   })
 
-  expect(samples.length).toBeGreaterThan(0)
-  for (const sample of samples) {
-    expect(
-      contrastRatio(sample.color as Rgb, sample.background as Rgb),
-      `"${sample.text}" contrast`,
-    ).toBeGreaterThanOrEqual(4.5)
-  }
+  expect(frames.length).toBe(20)
+  expect(frames[0].length).toBeGreaterThan(0)
+  const parse = (value: string) =>
+    value.match(/\d+(\.\d+)?/g)!.slice(0, 3).map(Number) as unknown as Rgb
+  frames.forEach((samples, frame) => {
+    for (const sample of samples) {
+      expect(
+        contrastRatio(parse(sample.color), parse(sample.background)),
+        `"${sample.text}" contrast at frame ${frame} (${sample.color})`,
+      ).toBeGreaterThanOrEqual(4.5)
+    }
+  })
+})
+
+test('switching theme through the menu never renders the Footer mid-swap', async ({
+  page,
+}) => {
+  await page.setViewportSize(DESKTOP)
+  await page.addInitScript(() => {
+    window.localStorage.setItem('carterpcs-theme', 'dark')
+  })
+  await page.goto('/')
+  await page.getByRole('contentinfo').scrollIntoViewIfNeeded()
+  await page.waitForTimeout(400)
+
+  // Start recording BEFORE the palette swap: every frame's footer-link colour
+  // is captured from the click onward, so a transition through out-of-palette
+  // intermediates cannot hide between two samples.
+  await page.evaluate(() => {
+    const w = window as typeof window & { __swap?: string[]; __raf?: number }
+    w.__swap = []
+    const tick = () => {
+      w.__swap!.push(getComputedStyle(document.querySelector('footer a')!).color)
+      w.__raf = requestAnimationFrame(tick)
+    }
+    tick()
+  })
+
+  // The real control, not a state poke.
+  await page.getByRole('button', { name: en.a11y.chooseTheme }).click()
+  await page.getByRole('menuitemradio', { name: en.nav.themes.light }).click()
+  await page.waitForTimeout(600)
+
+  const observed = await page.evaluate(() => {
+    const w = window as typeof window & { __swap?: string[]; __raf?: number }
+    cancelAnimationFrame(w.__raf!)
+    return [...new Set(w.__swap!)]
+  })
+
+  // Exactly the two palettes' inks — dark's muted and light's muted — with
+  // no third colour between them on any frame.
+  expect(observed).toEqual(
+    expect.arrayContaining(['rgb(163, 163, 160)', 'rgb(95, 96, 98)']),
+  )
+  expect(observed).toHaveLength(2)
 })
 
 test('reduced motion: the Footer carries no animation at all', async ({

@@ -124,6 +124,17 @@ body {
   transform: translateY(0);
 }
 
+/* While a theme swap is being applied (see Preferences.tsx): a palette swap
+   is not an interaction, so the hover-oriented colour transitions must not
+   animate it — for their duration they render colours that belong to neither
+   palette and can dip under AA. The attribute lives on <html> for exactly one
+   frame around the data-theme write. */
+[data-theme-switching] *,
+[data-theme-switching] *::before,
+[data-theme-switching] *::after {
+  transition-duration: 0s !important;
+}
+
 /* Reduced motion: disable non-essential animation/transition/smooth-scroll sitewide */
 @media (prefers-reduced-motion: reduce) {
   *,

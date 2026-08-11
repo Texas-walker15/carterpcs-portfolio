@@ -4,7 +4,26 @@
   min-height: 100vh;
   display: flex;
   flex-direction: column;
-  scroll-margin-block-start: 6rem;
+  /* Clears the FIXED bar on an anchor jump ("Universe" in the bar, or a deep
+     link). Same measured fix as Hardware's (see Hardware.module.css): the bar
+     is 5rem only from 1024px up — below that its link row wraps to two lines
+     (~8rem), then three (~12.3rem), and the wrap point moves with the
+     language. One 6rem margin landed this section 101px BEHIND the bar at
+     390px and 31px behind it at 768px. Each step clears the tallest measured
+     bar in any language at its width by ~1rem. */
+  scroll-margin-block-start: 13rem;
+}
+
+@media (min-width: 540px) {
+  .contentUniverse {
+    scroll-margin-block-start: 9rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .contentUniverse {
+    scroll-margin-block-start: 6rem;
+  }
 }
 
 /* Hardware -> Content Universe transition: same hairline motif used at
@@ -216,6 +235,40 @@
   letter-spacing: 0.16em;
   text-transform: uppercase;
   color: var(--color-accent-secondary);
+  /* The label occludes the thread and the digits, exactly as the media crops
+     do — the section's own idiom, applied to its smallest text. Without
+     this, the connecting thread's cyan hairline crossed these 12px labels
+     ("Budget Gear" at every desktop width, most of the others somewhere in
+     the A/B/C states across the three languages — probed at 600 points per
+     state), and a cyan line through a 9px glyph is a 1.55:1 ground no
+     accessible violet exists for. On the plain base ground the plate is
+     invisible: it IS the base token. fit-content keeps it the width of the
+     words, not the column. */
+  width: fit-content;
+  padding-inline: 0.375rem;
+  margin-inline-start: -0.375rem;
+  background-color: var(--color-bg-base);
+}
+
+/* Right-aligned territories: the plate hugs the right edge instead (auto
+   start margin pushes the fit-content box over), so the optical alignment of
+   the label against its own headline is unchanged. */
+.entry[data-cat='mobile'] .entrySecondary,
+.entry[data-cat='tech-news'] .entrySecondary,
+.entry[data-cat='emerging-tech'] .entrySecondary {
+  margin-inline-start: auto;
+  margin-inline-end: -0.375rem;
+}
+
+@media (max-width: 767px) {
+  /* The mobile stack is left-aligned everywhere, so the base rule's
+     left-hugging plate is already right for every entry. */
+  .entry[data-cat='mobile'] .entrySecondary,
+  .entry[data-cat='tech-news'] .entrySecondary,
+  .entry[data-cat='emerging-tech'] .entrySecondary {
+    margin-inline-start: -0.375rem;
+    margin-inline-end: 0;
+  }
 }
 
 .entryDescription {
@@ -340,7 +393,17 @@
 
 .entry[data-tier='3'] {
   max-width: 18rem;
-  opacity: 0.6;
+}
+
+/* The tertiary tier recedes through INK, not element opacity. `opacity: 0.6`
+   on the whole entry rendered the same pixels for the big annotation name —
+   but it also dragged the entry's 12px label down with it, to a measured
+   3.44:1 in dark and 2.54:1 in light (opacity multiplies; a child cannot
+   opt back out). Mixing the dim into the name's colour is pixel-identical
+   for the name on the flat ground, while the label below keeps its full
+   muted ink — 7.7:1 dark, 5.76:1 light. */
+.entry[data-tier='3'] .entryName {
+  color: color-mix(in srgb, var(--color-text-primary) 60%, var(--color-bg-base));
 }
 
 .entry[data-tier='3'] .entryName {
@@ -457,14 +520,23 @@
        freezes this exact frame, so the field must be a designed full
        canvas, not an auto-collapsed stack of content heights. */
     grid-template-rows: repeat(8, 1fr);
-    min-height: min(53rem, calc(100vh - 9rem));
+    /* 5.75rem, not 9rem: exactly the 3.25rem that moved from here into the
+       top padding below, so the grid rows keep the same space on every
+       height-bound viewport — (100vh − 9rem) − 3.25rem and
+       (100vh − 5.75rem) − 6.5rem are the same number. */
+    min-height: min(53rem, calc(100vh - 5.75rem));
     column-gap: var(--space-4);
     row-gap: var(--space-2);
     flex: 1;
-    /* Clears the fixed nav while the field is pinned at viewport top —
-       without this the breadcrumb renders across the Hardware headline
-       for the entire pin. */
-    padding-block-start: 3.25rem;
+    /* Clears the fixed bar while the field is pinned at viewport top. The bar
+       is 5rem tall (and rem-scaled above 1536px, so a rem value tracks it at
+       every width) and carries NO background — anything parked under it
+       interleaves with its own link labels. 3.25rem did not clear it:
+       measured pinned states showed the "Hardware" headline's cap band
+       running through the bar's row and the About Carter button sitting on
+       "Tech News" at 1024/1440/1920, for the entire 1.1-viewport pin.
+       6.5rem parks the field's first row ~1.5rem below the bar instead. */
+    padding-block-start: 6.5rem;
     padding-inline-start: 0;
   }
 

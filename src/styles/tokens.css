@@ -17,7 +17,20 @@
 
   /* Color — restrained accents */
   --color-accent-primary: #35c7d6;
-  --color-accent-secondary: #7c4fd6;
+  /* Measured, not eyeballed (same method as the light theme's teal below):
+     #7c4fd6 resolved to 3.65:1 on the dark base — under WCAG AA's 4.5:1 for
+     every small violet label set in it (the Creator kicker, the Content
+     Universe category labels, the Hero card indices). And the base is not
+     even the worst ground those labels really sit on: "Custom Builds" sits
+     partly on the "0" digit's 10% fill (an even ground of #242424, where
+     #7c4fd6 is 2.92:1) and the Hero About chip is a 16% violet wash
+     (#21212f-ish, 3.14:1). This is the darkest value of the same 260° hue
+     that clears 4.5:1 on every ground those labels were measured against —
+     4.61:1 on the digit fill, 4.97:1 on the chip, 5.77:1 on the base —
+     verified against rendered pixels, worst pixel under the glyphs.
+     (#8f5bf6 was evaluated first and misses two of those grounds: 3.69:1
+     and 3.98:1.) */
+  --color-accent-secondary: #9d75f0;
 
   /* Spacing scale (8px base) */
   --space-1: 0.5rem;

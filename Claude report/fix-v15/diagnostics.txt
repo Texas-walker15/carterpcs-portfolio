@@ -1,0 +1,230 @@
+CarterPCs fix-v15 — final implementation and QA pass
+Baseline: 857bb6e. AFTER numbers from the working tree served on :4190.
+
+=== 1. Content Universe: anchor + pinned states, BEFORE ===
+--- 1. anchor landing (#content-universe via nav "Universe" link) ---
+390x844 en: clearance=-100.7 (navBottom=197)
+390x844 fr: clearance=-100.8 (navBottom=197)
+390x844 es: clearance=-100.8 (navBottom=197)
+768x1024 en: clearance=-31.3 (navBottom=127.7)
+768x1024 fr: clearance=-31.8 (navBottom=127.7)
+768x1024 es: clearance=-31.7 (navBottom=127.7)
+1024x768 en: clearance=16.4 (navBottom=80)
+1024x768 fr: clearance=16.4 (navBottom=80)
+1024x768 es: clearance=15.6 (navBottom=80)
+1440x900 en: clearance=15.8 (navBottom=80)
+1440x900 fr: clearance=15.8 (navBottom=80)
+1440x900 es: clearance=15.8 (navBottom=80)
+1920x1080 en: clearance=18 (navBottom=89.3)
+1920x1080 fr: clearance=18 (navBottom=89.3)
+1920x1080 es: clearance=18 (navBottom=89.3)
+
+1024x768 en: clearance=16.4 (navBottom=80)
+1024x768 fr: clearance=16.4 (navBottom=80)
+1024x768 es: clearance=15.6 (navBottom=80)
+1440x900 en: clearance=15.8 (navBottom=80)
+1440x900 fr: clearance=15.8 (navBottom=80)
+1440x900 es: clearance=15.8 (navBottom=80)
+1920x1080 en: clearance=18 (navBottom=89.3)
+1920x1080 fr: clearance=18 (navBottom=89.3)
+1920x1080 es: clearance=18 (navBottom=89.3)
+
+--- 2+3. pin states A/B/C, release, and settled geometry ---
+1024x768 en:
+  A: textPairs=0 mediaOverText=0 nav=26710 idx=0 clip=0 ovf=0
+  B: textPairs=0 mediaOverText=mobile>scam-tech=8530|mobile>community=4235 nav=20064 idx=0 clip=0 ovf=0
+  C: textPairs=0 mediaOverText=0 nav=23049 idx=0 clip=0 ovf=0
+(all 4 desktop widths x 3 languages: 34/36 pinned readings had nav-box overlap 20k-58k px2)
+
+=== 2. Content Universe: anchor + pinned states, AFTER ===
+--- 1. anchor landing (#content-universe via nav "Universe" link) ---
+390x844 en: clearance=11.3 (navBottom=197)
+390x844 fr: clearance=11.2 (navBottom=197)
+390x844 es: clearance=11.2 (navBottom=197)
+768x1024 en: clearance=16.7 (navBottom=127.7)
+768x1024 fr: clearance=16.2 (navBottom=127.7)
+768x1024 es: clearance=16.3 (navBottom=127.7)
+1024x768 en: clearance=16.4 (navBottom=80)
+1024x768 fr: clearance=16.4 (navBottom=80)
+1024x768 es: clearance=15.6 (navBottom=80)
+1440x900 en: clearance=15.8 (navBottom=80)
+1440x900 fr: clearance=15.8 (navBottom=80)
+1440x900 es: clearance=15.8 (navBottom=80)
+1920x1080 en: clearance=18 (navBottom=89.3)
+1920x1080 fr: clearance=18 (navBottom=89.3)
+1920x1080 es: clearance=18 (navBottom=89.3)
+
+all 36 pinned readings nav=0; boundaries:
+390x844: hardware 7116.6+1443.6 | cu 8560.3+2089.6 (gap 0.1) | closing 10649.8 (gap -0.1)
+1440x900: hardware 5398.8+900 | cu 6883.8+2527.9 (gap 585.0) | closing 9411.7 (gap 0.0)
+
+=== 3. All navigation anchors, AFTER (before: creator/featured -100 at phones, -32 at 768) ===
+320x568 en: hero=-196.5  creator=11.6  featured=11.3  hardware=11.2  content-universe=11.1
+320x568 fr: hero=-196.5  creator=11.1  featured=11.5  hardware=11.4  content-universe=11.3
+320x568 es: hero=-196.5  creator=11.3  featured=11.6  hardware=11.5  content-universe=11.5
+390x844 en: hero=-197  creator=11.4  featured=11.3  hardware=10.6  content-universe=11.3
+390x844 fr: hero=-197  creator=11.2  featured=10.7  hardware=11.3  content-universe=11.2
+390x844 es: hero=-197  creator=11  featured=11.4  hardware=10.5  content-universe=11.2
+768x1024 en: hero=-127.7  creator=16.3  featured=16.6  hardware=16.5  content-universe=16.7
+768x1024 fr: hero=-127.7  creator=16.1  featured=16  hardware=16  content-universe=16.2
+768x1024 es: hero=-127.7  creator=16.3  featured=16.2  hardware=16.2  content-universe=16.3
+1024x768 en: hero=-80  creator=16  featured=16.3  hardware=16.4  content-universe=16.4
+1024x768 fr: hero=-80  creator=15.8  featured=16.4  hardware=16.4  content-universe=16.4
+1024x768 es: hero=-80  creator=16  featured=15.6  hardware=15.6  content-universe=15.6
+1280x720 en: hero=-80  creator=16  featured=16.3  hardware=16.5  content-universe=16.5
+1280x720 fr: hero=-80  creator=16  featured=15.8  hardware=16  content-universe=16
+1280x720 es: hero=-80  creator=16  featured=16.2  hardware=16.4  content-universe=16.4
+1440x900 en: hero=-80  creator=16  featured=16  hardware=15.8  content-universe=15.8
+1440x900 fr: hero=-80  creator=16  featured=16  hardware=15.8  content-universe=15.8
+1440x900 es: hero=-80  creator=16  featured=16  hardware=15.8  content-universe=15.8
+1920x1080 en: hero=-89.3  creator=18.7  featured=18.7  hardware=18  content-universe=18
+1920x1080 fr: hero=-89.3  creator=18.7  featured=18.7  hardware=18  content-universe=18
+1920x1080 es: hero=-89.3  creator=18.7  featured=18.7  hardware=18  content-universe=18
+2560x900 en: hero=-81.8  creator=16.3  featured=16.3  hardware=16.6  content-universe=16.6
+2560x900 fr: hero=-81.8  creator=16.3  featured=16.3  hardware=16.6  content-universe=16.6
+2560x900 es: hero=-81.8  creator=16.3  featured=16.3  hardware=16.6  content-universe=16.6
+
+=== 4. Violet token audit, BEFORE (#7c4fd6) ===
+hero 01: 3.14 | hero 02: 3.60 | hero 03/04/05: 3.68-3.77 | creator kicker: 3.65
+cu Custom Builds (digit fill): 2.92 | cu Smartphones/Controversies: 3.65 | cu Budget Gear (thread): 1.55
+
+=== 5. Violet token audit, AFTER (#9d75f0) ===
+token value: #9d75f0
+text instances: 10
+hero               "01                          " 15px     w600 worstGround=rgb(38,32,53) ratio=4.65 
+hero               "02                          " 15px     w600 worstGround=rgb(15,15,16) ratio=5.69 
+hero               "03                          " 10px     w600 worstGround=rgb(8,9,10) ratio=5.92 
+hero               "04                          " 10px     w600 worstGround=rgb(7,8,9) ratio=5.95 
+hero               "05                          " 10px     w600 worstGround=rgb(12,12,17) ratio=5.79 
+creator            "The Creator                 " 12px     w600 worstGround=rgb(13,13,13) ratio=5.77 
+content-universe   "Custom Builds               " 12px     w600 worstGround=rgb(15,15,15) ratio=5.69 
+content-universe   "Smartphones                 " 12px     w600 worstGround=rgb(13,13,13) ratio=5.77 
+content-universe   "Controversies               " 12px     w600 worstGround=rgb(13,13,13) ratio=5.77 
+content-universe   "Budget Gear                 " 12px     w600 worstGround=rgb(42,151,162) ratio=1.03   << FAIL
+
+heart icon (graphic, 3:1): token vs #0d0d0d = 5.77
+Budget Gear row is the rotated-bbox artifact; ink-tight measurement:
+Budget Gear, rotation removed for measurement: worstGround=rgb(15,15,15) ratio vs #9d75f0 = 5.69
+
+=== 6. Theme boot / Footer ===
+BEFORE: stamped in a React effect after first paint; footer links passed through rgb(116,117,118) = 4.22:1; old test failed 5/5 early-sample runs
+AFTER: index.html stamps pre-paint; frame-accurate tests: 20 frames from first paint all >= 4.5; menu swap renders exactly 2 colours. 12/12 repeat runs green.
+
+=== 7. Final cross-site sweep ===
+=== A. full-document walk ===
+320x568 en dark: ovf=0 clip=0 targets<24=CarterPCs@113x23|Work@35x17|Systems@57x17|Process@54x17|Impact@46x17|Content@53x17|Universe@59x17|Learn more↗@88x20 residual=0 bottomReached=true footer=true   << CHECK
+320x568 en light: ovf=0 clip=0 targets<24=CarterPCs@113x23|Work@35x17|Systems@57x17|Process@54x17|Impact@46x17|Content@53x17|Universe@59x17|Learn more↗@88x20 residual=0 bottomReached=true footer=true   << CHECK
+320x568 fr dark: ovf=0 clip=0 targets<24=CarterPCs@113x23|Projets@46x17|Systèmes@65x17|Processus@70x17|Impact@46x17|Contenu@57x17|Univers@51x17|En savoir plus↗@103x20 residual=0 bottomReached=true footer=true   << CHECK
+320x568 fr light: ovf=0 clip=0 targets<24=CarterPCs@113x23|Projets@46x17|Systèmes@65x17|Processus@70x17|Impact@46x17|Contenu@57x17|Univers@51x17|En savoir plus↗@103x20 residual=0 bottomReached=true footer=true   << CHECK
+320x568 es dark: ovf=0 clip=0 targets<24=CarterPCs@113x23|Proyectos@67x17|Sistemas@60x17|Proceso@55x17|Impacto@54x17|Contenido@69x17|Universo@59x17|Saber más↗@82x20 residual=0 bottomReached=true footer=true   << CHECK
+320x568 es light: ovf=0 clip=0 targets<24=CarterPCs@113x23|Proyectos@67x17|Sistemas@60x17|Proceso@55x17|Impacto@54x17|Contenido@69x17|Universo@59x17|Saber más↗@82x20 residual=0 bottomReached=true footer=true   << CHECK
+390x844 en dark: ovf=0 clip=0 targets<24=CarterPCs@113x23|Work@35x17|Systems@57x17|Process@54x17|Impact@46x17|Content@53x17|Universe@59x17|Learn more↗@88x20 residual=0 bottomReached=true footer=true   << CHECK
+390x844 en light: ovf=0 clip=0 targets<24=CarterPCs@113x23|Work@35x17|Systems@57x17|Process@54x17|Impact@46x17|Content@53x17|Universe@59x17|Learn more↗@88x20 residual=0 bottomReached=true footer=true   << CHECK
+390x844 fr dark: ovf=0 clip=0 targets<24=CarterPCs@113x23|Projets@46x17|Systèmes@65x17|Processus@70x17|Impact@46x17|Contenu@57x17|Univers@51x17|En savoir plus↗@103x20 residual=0 bottomReached=true footer=true   << CHECK
+390x844 fr light: ovf=0 clip=0 targets<24=CarterPCs@113x23|Projets@46x17|Systèmes@65x17|Processus@70x17|Impact@46x17|Contenu@57x17|Univers@51x17|En savoir plus↗@103x20 residual=0 bottomReached=true footer=true   << CHECK
+390x844 es dark: ovf=0 clip=0 targets<24=CarterPCs@113x23|Proyectos@67x17|Sistemas@60x17|Proceso@55x17|Impacto@54x17|Contenido@69x17|Universo@59x17|Saber más↗@82x20 residual=0 bottomReached=true footer=true   << CHECK
+390x844 es light: ovf=0 clip=0 targets<24=CarterPCs@113x23|Proyectos@67x17|Sistemas@60x17|Proceso@55x17|Impacto@54x17|Contenido@69x17|Universo@59x17|Saber más↗@82x20 residual=0 bottomReached=true footer=true   << CHECK
+768x1024 en dark: ovf=0 clip=0 targets<24=CarterPCs@113x23|Work@35x17|Systems@57x17|Process@54x17|Impact@46x17|Content@53x17|Universe@59x17|Learn more↗@88x20 residual=0 bottomReached=true footer=true   << CHECK
+768x1024 en light: ovf=0 clip=0 targets<24=CarterPCs@113x23|Work@35x17|Systems@57x17|Process@54x17|Impact@46x17|Content@53x17|Universe@59x17|Learn more↗@88x20 residual=0 bottomReached=true footer=true   << CHECK
+768x1024 fr dark: ovf=0 clip=0 targets<24=CarterPCs@113x23|Projets@46x17|Systèmes@65x17|Processus@70x17|Impact@46x17|Contenu@57x17|Univers@51x17|En savoir plus↗@103x20 residual=0 bottomReached=true footer=true   << CHECK
+768x1024 fr light: ovf=0 clip=0 targets<24=CarterPCs@113x23|Projets@46x17|Systèmes@65x17|Processus@70x17|Impact@46x17|Contenu@57x17|Univers@51x17|En savoir plus↗@103x20 residual=0 bottomReached=true footer=true   << CHECK
+768x1024 es dark: ovf=0 clip=0 targets<24=CarterPCs@113x23|Proyectos@67x17|Sistemas@60x17|Proceso@55x17|Impacto@54x17|Contenido@69x17|Universo@59x17|Saber más↗@82x20 residual=0 bottomReached=true footer=true   << CHECK
+768x1024 es light: ovf=0 clip=0 targets<24=CarterPCs@113x23|Proyectos@67x17|Sistemas@60x17|Proceso@55x17|Impacto@54x17|Contenido@69x17|Universo@59x17|Saber más↗@82x20 residual=0 bottomReached=true footer=true   << CHECK
+1024x768 en dark: ovf=0 clip=0 targets<24=Work@35x17|Systems@57x17|Process@54x17|Impact@46x17|Content@53x17|Universe@59x17|Learn more↗@88x20 residual=0 bottomReached=true footer=true   << CHECK
+1024x768 en light: ovf=0 clip=0 targets<24=Work@35x17|Systems@57x17|Process@54x17|Impact@46x17|Content@53x17|Universe@59x17|Learn more↗@88x20 residual=0 bottomReached=true footer=true   << CHECK
+1024x768 fr dark: ovf=0 clip=0 targets<24=Projets@46x17|Systèmes@65x17|Processus@70x17|Impact@46x17|Contenu@57x17|Univers@51x17|En savoir plus↗@103x20 residual=0 bottomReached=true footer=true   << CHECK
+1024x768 fr light: ovf=0 clip=0 targets<24=Projets@46x17|Systèmes@65x17|Processus@70x17|Impact@46x17|Contenu@57x17|Univers@51x17|En savoir plus↗@103x20 residual=0 bottomReached=true footer=true   << CHECK
+1024x768 es dark: ovf=0 clip=0 targets<24=Proyectos@67x17|Sistemas@60x17|Proceso@55x17|Impacto@54x17|Contenido@69x17|Universo@59x17|Saber más↗@82x20 residual=0 bottomReached=true footer=true   << CHECK
+1024x768 es light: ovf=0 clip=0 targets<24=Proyectos@67x17|Sistemas@60x17|Proceso@55x17|Impacto@54x17|Contenido@69x17|Universo@59x17|Saber más↗@82x20 residual=0 bottomReached=true footer=true   << CHECK
+1280x720 en dark: ovf=0 clip=0 targets<24=Work@35x17|Systems@57x17|Process@54x17|Impact@46x17|Content@53x17|Universe@59x17|Learn more↗@88x20 residual=0 bottomReached=true footer=true   << CHECK
+1280x720 en light: ovf=0 clip=0 targets<24=Work@35x17|Systems@57x17|Process@54x17|Impact@46x17|Content@53x17|Universe@59x17|Learn more↗@88x20 residual=0 bottomReached=true footer=true   << CHECK
+1280x720 fr dark: ovf=0 clip=0 targets<24=Projets@46x17|Systèmes@65x17|Processus@70x17|Impact@46x17|Contenu@57x17|Univers@51x17|En savoir plus↗@103x20 residual=0 bottomReached=true footer=true   << CHECK
+1280x720 fr light: ovf=0 clip=0 targets<24=Projets@46x17|Systèmes@65x17|Processus@70x17|Impact@46x17|Contenu@57x17|Univers@51x17|En savoir plus↗@103x20 residual=0 bottomReached=true footer=true   << CHECK
+1280x720 es dark: ovf=0 clip=0 targets<24=Proyectos@67x17|Sistemas@60x17|Proceso@55x17|Impacto@54x17|Contenido@69x17|Universo@59x17|Saber más↗@82x20 residual=0 bottomReached=true footer=true   << CHECK
+1280x720 es light: ovf=0 clip=0 targets<24=Proyectos@67x17|Sistemas@60x17|Proceso@55x17|Impacto@54x17|Contenido@69x17|Universo@59x17|Saber más↗@82x20 residual=0 bottomReached=true footer=true   << CHECK
+1440x900 en dark: ovf=0 clip=0 targets<24=Work@35x17|Systems@57x17|Process@54x17|Impact@46x17|Content@53x17|Universe@59x17|Learn more↗@88x20 residual=0 bottomReached=true footer=true   << CHECK
+1440x900 en light: ovf=0 clip=0 targets<24=Work@35x17|Systems@57x17|Process@54x17|Impact@46x17|Content@53x17|Universe@59x17|Learn more↗@88x20 residual=0 bottomReached=true footer=true   << CHECK
+1440x900 fr dark: ovf=0 clip=0 targets<24=Projets@46x17|Systèmes@65x17|Processus@70x17|Impact@46x17|Contenu@57x17|Univers@51x17|En savoir plus↗@103x20 residual=0 bottomReached=true footer=true   << CHECK
+1440x900 fr light: ovf=0 clip=0 targets<24=Projets@46x17|Systèmes@65x17|Processus@70x17|Impact@46x17|Contenu@57x17|Univers@51x17|En savoir plus↗@103x20 residual=0 bottomReached=true footer=true   << CHECK
+1440x900 es dark: ovf=0 clip=0 targets<24=Proyectos@67x17|Sistemas@60x17|Proceso@55x17|Impacto@54x17|Contenido@69x17|Universo@59x17|Saber más↗@82x20 residual=0 bottomReached=true footer=true   << CHECK
+1440x900 es light: ovf=0 clip=0 targets<24=Proyectos@67x17|Sistemas@60x17|Proceso@55x17|Impacto@54x17|Contenido@69x17|Universo@59x17|Saber más↗@82x20 residual=0 bottomReached=true footer=true   << CHECK
+1920x1080 en dark: ovf=0 clip=0 targets<24=Work@39x19|Systems@63x19|Process@60x19|Impact@51x19|Content@59x19|Universe@66x19|Learn more↗@98x22 residual=0 bottomReached=true footer=true   << CHECK
+1920x1080 en light: ovf=0 clip=0 targets<24=Work@39x19|Systems@63x19|Process@60x19|Impact@51x19|Content@59x19|Universe@66x19|Learn more↗@98x22 residual=0 bottomReached=true footer=true   << CHECK
+1920x1080 fr dark: ovf=0 clip=0 targets<24=Projets@51x19|Systèmes@72x19|Processus@77x19|Impact@51x19|Contenu@63x19|Univers@57x19|En savoir plus↗@116x22 residual=0 bottomReached=true footer=true   << CHECK
+1920x1080 fr light: ovf=0 clip=0 targets<24=Projets@51x19|Systèmes@72x19|Processus@77x19|Impact@51x19|Contenu@63x19|Univers@57x19|En savoir plus↗@116x22 residual=0 bottomReached=true footer=true   << CHECK
+1920x1080 es dark: ovf=0 clip=0 targets<24=Proyectos@74x19|Sistemas@67x19|Proceso@61x19|Impacto@60x19|Contenido@77x19|Universo@66x19|Saber más↗@92x22 residual=0 bottomReached=true footer=true   << CHECK
+1920x1080 es light: ovf=0 clip=0 targets<24=Proyectos@74x19|Sistemas@67x19|Proceso@61x19|Impacto@60x19|Contenido@77x19|Universo@66x19|Saber más↗@92x22 residual=0 bottomReached=true footer=true   << CHECK
+2560x900 en dark: ovf=0 clip=0 targets<24=Work@36x17|Systems@58x17|Process@55x17|Impact@47x17|Content@54x17|Universe@60x17|Learn more↗@90x20 residual=0 bottomReached=true footer=true   << CHECK
+2560x900 en light: ovf=0 clip=0 targets<24=Work@36x17|Systems@58x17|Process@55x17|Impact@47x17|Content@54x17|Universe@60x17|Learn more↗@90x20 residual=0 bottomReached=true footer=true   << CHECK
+2560x900 fr dark: ovf=0 clip=0 targets<24=Projets@47x17|Systèmes@66x17|Processus@71x17|Impact@47x17|Contenu@58x17|Univers@52x17|En savoir plus↗@106x20 residual=0 bottomReached=true footer=true   << CHECK
+2560x900 fr light: ovf=0 clip=0 targets<24=Projets@47x17|Systèmes@66x17|Processus@71x17|Impact@47x17|Contenu@58x17|Univers@52x17|En savoir plus↗@106x20 residual=0 bottomReached=true footer=true   << CHECK
+2560x900 es dark: ovf=0 clip=0 targets<24=Proyectos@68x17|Sistemas@62x17|Proceso@56x17|Impacto@55x17|Contenido@70x17|Universo@61x17|Saber más↗@84x20 residual=0 bottomReached=true footer=true   << CHECK
+2560x900 es light: ovf=0 clip=0 targets<24=Proyectos@68x17|Sistemas@62x17|Proceso@56x17|Impacto@55x17|Contenido@70x17|Universo@61x17|Saber más↗@84x20 residual=0 bottomReached=true footer=true   << CHECK
+
+=== B. 200% zoom equivalents ===
+1280x720@200% en: ovf=0 clip=0 residual=0 bottomReached=true
+1280x720@200% fr: ovf=0 clip=0 residual=0 bottomReached=true
+1280x720@200% es: ovf=0 clip=0 residual=0 bottomReached=true
+1920x1080@200% en: ovf=0 clip=0 residual=0 bottomReached=true
+1920x1080@200% fr: ovf=0 clip=0 residual=0 bottomReached=true
+1920x1080@200% es: ovf=0 clip=0 residual=0 bottomReached=true
+
+=== C. reduced motion ===
+390x844: overflow=0 hiddenReveals=2 transformed=0
+1440x900: overflow=0 hiddenReveals=2 transformed=2
+
+=== D. system theme, both OS settings ===
+OS-dark: stored=system stamped=dark ground=rgb(13, 13, 13) accent2=#9d75f0
+OS-light: stored=system stamped=light ground=rgb(245, 245, 241) accent2=#5f3ca7
+done
+
+=== 8. Reduced motion after tier-3 ink fix + settled-state partial re-walk ===
+390x844:
+  faded: none
+  transformed: none
+1440x900:
+  faded: none
+  transformed: _entry_1trwp_204|matrix(0.999701, -0.0244322, 0.0244322, 0.999701, 0, 0)|ScamTechBudget Gear
+               _entry_1trwp_204|matrix(0.999848, 0.0174524, -0.0174524, 0.999848, 0, 0)|CommunityStorytellin
+1440x900 en dark: ovf=0 clip=0 settledFaded=0
+390x844 fr light: ovf=0 clip=0 settledFaded=0
+320x568 es dark: ovf=0 clip=0 settledFaded=0
+1920x1080 es light: ovf=0 clip=0 settledFaded=0
+
+=== 9. Tier-3 label contrast before/after ===
+BEFORE: entry opacity 0.6 -> labels 3.44:1 dark / 2.54:1 light
+dark emerging-tech: entryOp=0.8015 label=rgb(163, 163, 160) ratio=7.69 name=color(srgb 0.596863 0.596863 0.592157) ratio=1420549392.72
+dark community: entryOp=0.6298 label=rgb(163, 163, 160) ratio=7.69 name=color(srgb 0.596863 0.596863 0.592157) ratio=1420549392.72
+light emerging-tech: entryOp=0.803 label=rgb(95, 96, 98) ratio=5.76 name=color(srgb 0.433726 0.433726 0.429804) ratio=37127565.08
+light community: entryOp=0.6322 label=rgb(95, 96, 98) ratio=5.76 name=color(srgb 0.433726 0.433726 0.429804) ratio=37127565.08
+
+=== 10. Nav/Hero link hit areas (probe flags were element boxes; real targets) ===
+CarterPCs    box=31.5 +overlay=6.0 => 37.5
+Work         box=17.0 +overlay=8.0 => 25.0
+Systems      box=17.0 +overlay=8.0 => 25.0
+Process      box=17.0 +overlay=8.0 => 25.0
+Impact       box=17.0 +overlay=8.0 => 25.0
+Content      box=17.0 +overlay=8.0 => 25.0
+Universe     box=17.0 +overlay=8.0 => 25.0
+About Carter box=44.0 +overlay=0.0 => 44.0
+Learn more↗  box=19.5 +overlay=6.0 => 25.5
+Work         box=35.5 +overlay=0.0 => 35.5
+Systems      box=35.5 +overlay=0.0 => 35.5
+Process      box=35.5 +overlay=0.0 => 35.5
+Impact       box=35.5 +overlay=0.0 => 35.5
+Content      box=35.5 +overlay=0.0 => 35.5
+Universe     box=35.5 +overlay=0.0 => 35.5
+
+=== Reading notes ===
+- Section 5's "Budget Gear << FAIL" row is the axis-aligned-box artifact on a
+  rotated entry (the entry carries a decorative -1.4deg rotation, so the text
+  rects include corner pixels beside the plate). The ink-tight measurement
+  directly beneath it (rotation removed for measurement only) is the real
+  reading: worstGround rgb(15,15,15), ratio 5.69.
+- Section 7's "targets<24 << CHECK" rows measure ELEMENT boxes. Section 10
+  shows the same controls' real hit targets including their documented
+  ::after overlay areas: bar links 25.0px, wordmark 37.5px, Learn more 25.5px.
+- Section 9's "name ratio=1420549392" figures are a parser overflow on the
+  color(srgb ...) syntax, not measurements: the name ink is rgb(152,152,151)
+  on the dark base = 6.5:1 (large text, needs 3:1), rgb(110.6,...) on light
+  = 4.62:1. The label columns (7.69 / 5.76) are correct.

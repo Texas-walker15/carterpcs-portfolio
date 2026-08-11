@@ -4,8 +4,25 @@
   /* Clears the fixed Nav on an anchor jump (the "Featured" nav link, or any
      future deep link to #featured) — without this, the browser's native
      scroll-into-view lands the section flush with the viewport top, behind
-     the fixed bar, leaving no room for .intro's own padding to register. */
-  scroll-margin-block-start: 6rem;
+     the fixed bar, leaving no room for .intro's own padding to register.
+     6rem is only right from 1024px up, where the bar is 5rem tall — below
+     that its link row wraps to two lines (~8rem), then three (~12.3rem), and
+     a flat 6rem landed this section 100px BEHIND the bar at 320-390px and
+     32px behind it at 768px (same measured defect, and same fix, as
+     Hardware.module.css's). */
+  scroll-margin-block-start: 13rem;
+}
+
+@media (min-width: 540px) {
+  .featured {
+    scroll-margin-block-start: 9rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .featured {
+    scroll-margin-block-start: 6rem;
+  }
 }
 
 /* Creator → Featured transition: continues the same hairline motif used at
