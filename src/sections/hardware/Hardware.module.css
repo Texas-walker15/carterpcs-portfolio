@@ -435,8 +435,26 @@
        columns already are the measure. Landscape rather than the old 6/5:
        across half a 12-column grid, 6/5 is 538px of height at 1440 and the
        section has to fit a viewport. */
-    inline-size: auto;
+    /* 100%, not auto: with justify-self below, the item no longer stretches,
+       and an auto inline-size would resolve to the fit-content of a box whose
+       children are all absolutely positioned — zero. 100% of the grid area is
+       the same six columns stretch resolved to. */
+    inline-size: 100%;
     aspect-ratio: 7 / 5;
+    /* HEIGHT GOVERNOR for ultra-wide, short viewports (the 2560×900 class).
+       The six columns are width-driven, so on a full-width canvas the object
+       kept growing with the window while the window's height did not: at
+       2560×900 it resolved 1198×856 and its lower 152px sat below the fold
+       after an anchor jump. Same idea as the mobile rule's 48vh term — the
+       tallest the object may be is what still fits below the bar at rest
+       (6rem anchor margin + 6rem canvas padding + 0.75rem of air above the
+       fold), expressed as the width that produces it at 7:5. Engages only
+       when the columns outgrow that height budget (~2100px+ windows under
+       ~1000px tall); at 1024–1920 the cap resolves far above the column
+       width and changes nothing. justify-self keeps the capped object on
+       its outboard edge, where the composition already puts it. */
+    max-inline-size: calc((100vh - 12.75rem) * 7 / 5);
+    justify-self: end;
   }
 
   .beats {

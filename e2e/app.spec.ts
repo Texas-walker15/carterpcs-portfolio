@@ -2147,3 +2147,69 @@ test('reduced motion: the Footer carries no animation at all', async ({
 
   expect(state).toEqual({ inlineStyled: 0, notVisible: 0 })
 })
+
+/* ============================================================
+ * Navigation scrolled-state scrim (fix-v16)
+ * ============================================================
+ * The bar is transparent at the page top by design, and during scroll a
+ * theme-aware scrim fades in behind it so page content can never
+ * interleave with the bar's own labels. The scrim is a pseudo-element
+ * overlay: it must add zero layout (the bar's height is identical in
+ * both states) and must release again at the top.
+ */
+
+const scrimState = (page: Page, label = en.a11y.primaryNavigation) =>
+  page.evaluate((navLabel) => {
+    const nav = document.querySelector(`nav[aria-label="${navLabel}"]`)!
+    const cs = getComputedStyle(nav, '::before')
+    return {
+      scrolledAttr: nav.hasAttribute('data-scrolled'),
+      opacity: parseFloat(cs.opacity),
+      barHeight: nav.getBoundingClientRect().height,
+    }
+  }, label)
+
+test('the bar is transparent at the top and carries its scrim once scrolled, with no layout shift', async ({
+  page,
+}) => {
+  for (const viewport of [DESKTOP, MOBILE]) {
+    await page.setViewportSize(viewport)
+    await page.goto('/')
+
+    const atTop = await scrimState(page)
+    expect(atTop.scrolledAttr).toBe(false)
+    expect(atTop.opacity).toBe(0)
+
+    await page.evaluate(() => window.scrollTo(0, 600))
+    await expect
+      .poll(async () => (await scrimState(page)).opacity, { timeout: 5000 })
+      .toBe(1)
+    const scrolled = await scrimState(page)
+    expect(scrolled.scrolledAttr).toBe(true)
+    // A pseudo-element overlay adds no layout: same bar height in both
+    // states, at the single-row desktop bar and the wrapped mobile one.
+    expect(scrolled.barHeight).toBe(atTop.barHeight)
+
+    await page.evaluate(() => window.scrollTo(0, 0))
+    await expect
+      .poll(async () => (await scrimState(page)).opacity, { timeout: 5000 })
+      .toBe(0)
+  }
+})
+
+test('reduced motion: the scrim state still switches, as an instant change', async ({
+  page,
+}) => {
+  await page.emulateMedia({ reducedMotion: 'reduce' })
+  await page.setViewportSize(DESKTOP)
+  await page.goto('/')
+
+  expect((await scrimState(page)).opacity).toBe(0)
+
+  await page.evaluate(() => window.scrollTo(0, 600))
+  // The global reduced-motion rule zeroes the fade, so the scrim must be
+  // fully present as soon as the scroll listener's next frame lands.
+  await expect
+    .poll(async () => (await scrimState(page)).opacity, { timeout: 2000 })
+    .toBe(1)
+})

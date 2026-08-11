@@ -68,6 +68,31 @@ function Nav() {
 
   const [openMenu, setOpenMenu] = useState<MenuId | null>(null)
 
+  // Scrolled-state scrim (see Nav.module.css). One rAF in flight at most —
+  // scroll events fire far more often than frames are painted, and the
+  // scrim only needs the value that will actually render.
+  const [scrolled, setScrolled] = useState(false)
+
+  useEffect(() => {
+    let raf = 0
+    const update = () => {
+      raf = 0
+      setScrolled(window.scrollY > 16)
+    }
+    const onScroll = () => {
+      if (!raf) raf = window.requestAnimationFrame(update)
+    }
+    // Initial read: a reload restores the previous scroll position, and the
+    // bar must not render transparent over mid-page content while waiting
+    // for the first scroll event.
+    update()
+    window.addEventListener('scroll', onScroll, { passive: true })
+    return () => {
+      window.removeEventListener('scroll', onScroll)
+      if (raf) window.cancelAnimationFrame(raf)
+    }
+  }, [])
+
   const baseId = useId()
   const menuId = (id: MenuId) => `${baseId}-${id}-menu`
 
@@ -201,7 +226,11 @@ function Nav() {
   }
 
   return (
-    <nav className={styles.nav} aria-label={t.a11y.primaryNavigation}>
+    <nav
+      className={styles.nav}
+      aria-label={t.a11y.primaryNavigation}
+      data-scrolled={scrolled || undefined}
+    >
       {/* Same shared ~1536px composition canvas as the Hero, so the bar
           never spreads apart from the content on wide viewports. */}
       <div className={styles.bar}>

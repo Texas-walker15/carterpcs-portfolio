@@ -1,0 +1,168 @@
+fix-v16 diagnostics — raw probe output
+Baseline 0e9d785 · preview build served on :4190 · probes in session scratchpad
+(v16-before.mjs, v16-nav-after.mjs, v16-hw.mjs, v16-audit.mjs, v16-structure.mjs,
+v16-shots.mjs, hitarea2.mjs). Full 54-walk sweep output: _audit-raw.log.
+
+================================================================
+1. NAV — BEFORE (content intersecting the bar rect mid-scroll)
+================================================================
+01-before-nav-1440-dark  {"barBottom":80,"n":1,"sample":[{"t":"A daily short-form record of PC builds, ","top":21.3}]}
+02-before-nav-1440-light {"barBottom":80,"n":1,"sample":[{"t":"A daily short-form record of PC builds, ","top":21.3}]}
+03-before-nav-390-fr-dark {"barBottom":197,"n":7,"sample":[
+  {"t":"Carter crée des contenus tech rapides et","top":-62.5},
+  {"t":"En savoir plus↗","top":29.5},{"t":"↗","top":29.5},
+  {"t":"Millions, tous réseaux","top":71},
+  {"t":"En chiffres02","top":167.2},{"t":"En chiffres","top":167.2}]}
+04-before-nav-320-es-light {"barBottom":196.5,"n":0}   (parked between blocks — collision is scroll-position-dependent; see 03)
+
+Scrim strength derivation (94% bg-base over worst passing content):
+ dark : ground = .94*#0d0d0d + .06*#ffffff = #1c1c1c ; label ink (64% #f5f5f3 over it) = #a7a7a6 -> 7.1:1
+ light: ground = .94*#f5f5f1 + .06*#000000 = #e6e6e2 ; label ink (64% #151516 over it) = #606061 -> 5.2:1
+ Both >= 4.5:1 (AA small text) with backdrop-filter treated as unsupported.
+
+================================================================
+2. NAV — AFTER (state machine + layout shift)
+================================================================
+                         top:                                scrolled:                                              back-to-top:
+1440x900 en dark   attr=false op=0 barH=80      attr=true op=1 blur=blur(14px) barH=80   shift=0   attr=false op=0
+1440x900 en light  attr=false op=0 barH=80      attr=true op=1 blur=blur(14px) barH=80   shift=0   attr=false op=0
+390x844  fr dark   attr=false op=0 barH=197     attr=true op=1 blur=blur(14px) barH=197  shift=0   attr=false op=0
+320x568  es light  attr=false op=0 barH=196.5   attr=true op=1 blur=blur(14px) barH=196.5 shift=0  attr=false op=0
+Pinned sections (1440 en dark): scrim opacity=1 over #featured mid-pin and #content-universe mid-pin.
+Reduced motion (audit section D): scrim=1 @ transition 1e-05s at 390x844, 844x390, 1440x900.
+
+================================================================
+3. HARDWARE STAGE — anchor-jump geometry (en dark)
+================================================================
+BEFORE 2560x900: section 98.4..1324.9 (h 1226.5) | stage 196.6..1052.4 (855.9 tall) -> 152.4px below fold | rem 16.362px
+AFTER  2560x900: stage 967.9x691.4, bottom 887.9  -> FRAMED (sec h 1062)
+AFTER  1440x900: stage 646.4x461.7, bottom 653.5  -> unchanged, framed
+AFTER  1920x1080: stage 870.4x621.7, bottom 836.5 -> unchanged, framed
+AFTER  1024x768: stage 455.0x325.0, bottom 517.4  -> unchanged, framed
+AFTER  1280x720: stage 572.8x409.1, bottom 601.6  -> unchanged, framed
+AFTER  1536x1024: stage 690.6x493.3, bottom 685.0 -> unchanged, framed
+Cap: max-inline-size = (100vh − 12.75rem) × 7/5 ; engages only when 6 columns outgrow it.
+Residual (documented, not code-solvable): full section (object+beats+tags) ≈1062px
+at 2560x900 vs ~800px content window below the anchor line; beats delivered by the pin.
+
+================================================================
+4. STRUCTURE AUDIT (1440x900 en dark)
+================================================================
+LANDMARKS {"header":0,"nav":2,"main":1,"footer":1}   (both navs aria-labelled: primary + footer)
+HEADINGS  H1 CarterPCs — Built Different ; H2 per section (Creator, Featured, Hardware,
+          Content Universe, Closing) ; H3 only inside Featured stories + CU categories. No level skips.
+SECTIONS  hero/creator/featured/hardware/content-universe/closing — all labelled.
+SKIP LINK #main-content (target exists on <main>), first Tab stop, visible focus.
+EXTERNAL LINKS (9): all target=_blank rel=noreferrer — 3x Comments, 3x Watch on YouTube,
+          YouTube/Instagram/TikTok socials. No unsafe new-tab links.
+IMAGES    10/10 load (naturalWidth>0). Eager: hero portrait (above fold), Creator workshop
+          (documented decision, WebP 109 KB actually fetched; PNG 1,776 KB is no-WebP fallback
+          only). Lazy+async: avatars, 3 hero tiles, 3 featured posters.
+FOCUS     first 12 Tab stops all carry 2px rgb(53,199,214) outline, all on-screen.
+
+TAP-TARGET note: sweep flags are element boxes; real hit areas measured from the
+::after overlays (hitarea2.mjs re-run against this build):
+  CarterPCs 31.5+6.0 => 37.5px | bar links 17+8 => 25.0px | Learn more 19.5+6 => 25.5px
+  About Carter 44px | footer links 35.5px | menu items >=24px.
+
+================================================================
+5. FULL SWEEP SUMMARY (see _audit-raw.log for all 54 rows)
+================================================================
+54/54 walks: ovf=0, clip=0, residual=0, bottomReached=true, footer=true, errs=0.
+Console errors: 0 · Page errors: 0 · Failed requests: 0 (across all 54 contexts).
+Anchors 844x390 (new viewport): 12/12 land 15.6–16.3px below the bar.
+200% zoom (640x360, 960x540) x EN/FR/ES: all clean.
+Reduced motion 390/844x390/1440: hiddenReveals=0; transformed=2 (authored static
+  rotations — stageAccentBack −2°, stageAccentFront 1.4° — documented fix-v15).
+System theme: OS-dark -> stamped dark, ground rgb(13,13,13); OS-light -> stamped light,
+  ground rgb(245,245,241).
+
+================================================================
+6. VALIDATION CHAIN
+================================================================
+typecheck  tsc -b            0 errors
+lint       eslint .          0 errors
+unit       vitest            42/42
+build      vite build        pass
+e2e        playwright --list Total: 72 tests in 1 file
+           run 1 (line)      72 passed (36.3s)
+           run 2 (line)      72 passed (35.7s)
+           run 3 (line)      72 passed (38.4s)
+           run 4 (default)   72 passed (36.3s)   [72/72] progress confirmed
+           run 5 (line)      72 passed (43.2s)
+           run 6 (line)      72 passed (49.0s)
+           run 7 (line)      72 passed (50.7s)
+           + earlier chain   72 passed (48.1s)
+diff       git diff --check  clean
+
+E2E COUNT NOTE (disclosed): an earlier background batch that piped the default
+reporter through `tail -2` printed "71 passed" on two of its three runs, with
+ZERO failures in all three. It has not reproduced: `--list` reports 72 total and
+SEVEN subsequent full runs each report 72 passed / 0 failed / 0 skipped / 0 flaky.
+Most consistent with one worker not completing under concurrent load in that
+batch (the same shell was also running vitest and a build). Not a code defect;
+recorded here rather than omitted.
+
+FLAKE INVESTIGATION (the slow anchor test, isolated, 6x each tree):
+  changed tree  (working tree):  1 passed x6   (26.8 / 26.9 / 26.4 / 26.1 / 27.2 / 24.6 s)
+  baseline tree (0e9d785 via git archive + build): 1 passed x6
+                                 (28.1 / 27.1 / 27.2 / 27.1 / 27.0 / 26.7 s)
+  -> not flaky on either build; it is simply the suite's slowest test
+     (12 language x viewport combinations, each polled to rest).
+
+================================================================
+7. INDEPENDENT VERIFICATION PASS (probe: v16-verify2.mjs)
+================================================================
+A. FEATURED SHORTS
+ PASS poster state: no iframe mounted before interaction (3 posters, 3 play buttons)
+ PASS click-to-play mounts exactly one player (youtube-nocookie embed JekaYRzZRfU)
+ PASS opening a second story leaves exactly one player mounted (-> 1iBOP4Gyfi8)
+ PASS the mounted player is the newly opened story
+ PASS Like toggles aria-pressed true/false and back, fetches nothing
+ PASS 6/6 Featured external links target=_blank rel=noreferrer, all youtube.com/shorts
+ PASS Escape closes the player
+ PASS Escape restores focus to the originating play control
+B. MENUS
+ PASS theme menu opens on click, aria-expanded=true, 3 menuitemradios
+ PASS Arrow/End move focus inside the menu (Dark -> System)
+ PASS Escape closes and returns focus to the trigger
+ PASS outside click closes the language menu
+ PASS French applies live: lang=fr, storage=fr, 3rd bar label = "Processus"
+ PASS language persists across reload (clean context, no seeding script)
+ PASS theme selection applies + stores (menu items: Sombre|Clair|Systeme)
+ PASS theme stamped pre-paint on reload: dataset.theme=light while #root empty
+C. NAV, THREE STATES, CONTROLS LIVE UNDER THE SCRIM
+ 1440x900: top {attr:false,op:0,h:80} scrolled {attr:true,op:1,h:80} back {attr:false,op:0,h:80}
+           bar link navigates under the scrim 1400 -> 5303 ; theme menu opens: true
+ 390x844 : top {attr:false,op:0,h:197} scrolled {attr:true,op:1,h:197} back {attr:false,op:0,h:197}
+           bar link navigates under the scrim 1400 -> 6909 ; theme menu opens: true
+D. PINNED SECTIONS SETTLE (1440x900, 1024x768, 2560x900)
+ atBottom=true, footer visible, max scroll 9300 / 10367 / 11367 in all three.
+
+PROBE FAULTS FOUND AND CORRECTED IN THIS PASS (not app defects):
+ 1. "only one active player" first read FAIL because the case-insensitive
+    *play* selector also matched "Close player" and closed story 1 instead of
+    opening story 2. Corrected to labels starting with "Play" -> PASS.
+ 2. "language/theme persistence" first read FAIL because lib.mjs's newPage
+    installs an addInitScript that re-seeds localStorage on EVERY navigation,
+    so the reload overwrote the selection under test. Re-tested in a plain
+    context -> PASS.
+ 3. a[href="#creator"] is the THIRD bar slot (Process/Processus), not the
+    first — the initial assertion expected "Projets" and was simply wrong.
+ 4. nav locators had to be scoped to the primary landmark: the footer repeats
+    the same six hrefs (strict-mode violation).
+
+RESIDUE INVESTIGATION (probe: v16-residue.mjs, v16-op85.mjs)
+ A bottom-of-page snapshot taken with no settle showed 4-5 faded elements and
+ 2 inline clip-paths. After a 2.5s settle the clip-paths are GONE (they were
+ the Closing headline's entrance wipe still in flight) and exactly two faded
+ elements remain at every viewport:
+   [hardware]         ._tags   "Custom Builds - Component Testing ..."  13px
+   [content-universe] ._index  "Hardware - Mobile Tech - Tech News ..."  13px
+ Both are AUTHORED CSS (opacity: 0.85 in Hardware.module.css /
+ ContentUniverse.module.css), not animation residue, and both pass AA
+ comfortably as rendered:
+   dark : ink rgb(245,245,243) over rgb(13,13,13) -> effective rgb(210,210,208) = 12.86:1
+   light: ink rgb(21,21,22)  over rgb(245,245,241) -> effective rgb(55,55,55)   = 10.95:1
+ (Contrast measured on the composited effective ink, the same method that
+ caught the fix-v15 tier-3 defect at 3.44:1 / 2.54:1. These are not that.)

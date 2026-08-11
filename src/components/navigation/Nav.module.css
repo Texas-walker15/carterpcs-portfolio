@@ -1,8 +1,10 @@
 /**
  * Three-zone navigation matched to the approved Hero reference:
  * mark + wordmark + violet dot / six muted section labels / About pill
- * + square theme utility. No bar background — typography and spacing
- * carry it, exactly as in the reference.
+ * + square theme utility. At the page top the bar has no background —
+ * typography and spacing carry it, exactly as in the reference. Once the
+ * page scrolls, a scrim fades in behind it (see .nav::before) so moving
+ * content can never interleave with the bar's own labels.
  */
 
 /* Below 768 the three zones cannot share a row without crowding, so the
@@ -15,6 +17,40 @@
   inset-inline: 0;
   z-index: var(--z-nav);
   pointer-events: none;
+}
+
+/* SCROLLED-STATE SCRIM
+   The bar is transparent at the page top (approved identity), but during
+   scroll the sections pass straight beneath its labels — measured at 390px
+   in French, seven live text elements sat inside the 197px bar at once.
+   The scrim is a pseudo-element overlay so the fix costs zero layout: it
+   fades opacity only (no background-color transition, no height change),
+   sized by inset to whatever height the bar wraps to (1–3 rows).
+
+   Strength is measured, not eyeballed: at 94% base over the worst content
+   that can pass beneath (pure white in dark, near-black ink in light), the
+   64%-alpha section labels resolve to 7.1:1 dark and 5.2:1 light — AA with
+   margin even if backdrop-filter is unsupported, so the blur is a pure
+   enhancement. The fade only ever ADDS ground behind the labels, so no
+   transition frame dips below the settled contrast; reduced motion swaps
+   the fade for an instant state change via the global rule. */
+.nav::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background-color: color-mix(in srgb, var(--color-bg-base) 94%, transparent);
+  border-block-end: 1px solid
+    color-mix(in srgb, var(--color-text-primary) 7%, transparent);
+  -webkit-backdrop-filter: blur(14px);
+  backdrop-filter: blur(14px);
+  opacity: 0;
+  transition: opacity var(--duration-base) var(--ease-out);
+}
+
+.nav[data-scrolled]::before {
+  opacity: 1;
 }
 
 /* The bar shares the Hero's ~1536px composition canvas: on viewports
