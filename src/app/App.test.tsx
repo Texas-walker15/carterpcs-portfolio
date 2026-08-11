@@ -22,12 +22,19 @@ function mockMatchMedia(matches: boolean) {
 }
 
 /**
- * The six section labels now appear TWICE — once in the bar and once in the
- * footer's compact row — so every query for one has to say which. Scoping to
- * the landmark is also a stronger assertion than the bare name was.
+ * The centre link row is display:none below the desktop breakpoint, and the
+ * injected module CSS makes that jsdom's reality too — so destination
+ * assertions go through the sections disclosure, the same control a phone
+ * visitor uses. Bar row, menu and footer all render from the ONE shared
+ * SECTION_HREFS × nav.sections pairing, so verifying the menu verifies the
+ * map itself.
  */
-function primaryNav(name: string = en.a11y.primaryNavigation) {
-  return within(screen.getByRole('navigation', { name }))
+async function openSectionsMenu(
+  user: ReturnType<typeof userEvent.setup>,
+  a11y: { chooseSections: string; sectionsMenu: string } = en.a11y,
+) {
+  await user.click(screen.getByRole('button', { name: a11y.chooseSections }))
+  return within(screen.getByRole('menu', { name: a11y.sectionsMenu }))
 }
 
 /**
@@ -83,15 +90,41 @@ describe('App', () => {
     expect(screen.getByText(/making tech interesting\./i)).toBeInTheDocument()
   })
 
-  // The Creator section's nav entry is the "About Carter" control in the
-  // bar's right zone. It is the only link pointing at #creator — a second
-  // centre "Creator" link would be a duplicate destination.
+  // #creator has two intentional entries with honestly-related labels: the
+  // "About Carter" utility pill and the centre row's "Process" — plus the
+  // footer echo. The pill is the one asserted here; "Process" is covered by
+  // the destination-map test below.
   it('has a real navigation link to the Creator section', () => {
     render(<App />)
 
     expect(
       screen.getByRole('link', { name: /^about carter$/i }),
     ).toHaveAttribute('href', '#creator')
+  })
+
+  // Issue-1 regression guard: every primary destination is intentional —
+  // one label per section, no two labels sharing an anchor (the reference's
+  // six labels used to make six promises about four destinations).
+  it('maps each primary-navigation label to its own distinct section', async () => {
+    const user = userEvent.setup()
+    render(<App />)
+
+    const menu = await openSectionsMenu(user)
+    const items = menu.getAllByRole('menuitem')
+    expect(
+      items.map((item) => [
+        item.textContent?.trim(),
+        item.getAttribute('href'),
+      ]),
+    ).toEqual([
+      ['Work', '#featured'],
+      ['Systems', '#hardware'],
+      ['Process', '#creator'],
+      ['Universe', '#content-universe'],
+    ])
+    // No duplicate destinations among the section links.
+    const hrefs = items.map((item) => item.getAttribute('href'))
+    expect(new Set(hrefs).size).toBe(hrefs.length)
   })
 
   it('renders the Creator section with an accessible heading and content', () => {
@@ -109,16 +142,17 @@ describe('App', () => {
     expect(creator.getByText(/youtube shorts/i)).toBeInTheDocument()
   })
 
-  // Reference nav labels (Work / Systems / Process / Impact / Content /
-  // Universe) each anchor to the nearest existing section — "Work" is
-  // the Featured entry.
-  it('has a real navigation link to the Featured section', () => {
+  // "Work" is the Featured entry — asserted through the disclosure, the
+  // control below-desktop visitors actually use (see openSectionsMenu).
+  it('has a real navigation link to the Featured section', async () => {
+    const user = userEvent.setup()
     render(<App />)
 
-    expect(primaryNav().getByRole('link', { name: /^work$/i })).toHaveAttribute(
-      'href',
-      '#featured',
-    )
+    expect(
+      (await openSectionsMenu(user)).getByRole('menuitem', {
+        name: /^work$/i,
+      }),
+    ).toHaveAttribute('href', '#featured')
   })
 
   it('renders the Featured section with an accessible heading and all three stories', () => {
@@ -423,11 +457,14 @@ describe('App', () => {
   })
 
   // "Systems" is the reference bar's Hardware entry.
-  it('has a real navigation link to the Hardware section', () => {
+  it('has a real navigation link to the Hardware section', async () => {
+    const user = userEvent.setup()
     render(<App />)
 
     expect(
-      primaryNav().getByRole('link', { name: /^systems$/i }),
+      (await openSectionsMenu(user)).getByRole('menuitem', {
+        name: /^systems$/i,
+      }),
     ).toHaveAttribute('href', '#hardware')
   })
 
@@ -446,11 +483,14 @@ describe('App', () => {
     expect(screen.getByText(/^performance$/i)).toBeInTheDocument()
   })
 
-  it('has a real navigation link to the Content Universe section', () => {
+  it('has a real navigation link to the Content Universe section', async () => {
+    const user = userEvent.setup()
     render(<App />)
 
     expect(
-      primaryNav().getByRole('link', { name: /^content$/i }),
+      (await openSectionsMenu(user)).getByRole('menuitem', {
+        name: /^universe$/i,
+      }),
     ).toHaveAttribute('href', '#content-universe')
   })
 
@@ -601,7 +641,8 @@ describe('App', () => {
     expect(document.querySelector('#hero')).toBeInTheDocument()
   })
 
-  it('renders the Footer after main as a contentinfo landmark, with the same six destinations as the bar', () => {
+  it('renders the Footer after main as a contentinfo landmark, with the same destinations as the bar', async () => {
+    const user = userEvent.setup()
     render(<App />)
 
     const footer = screen.getByRole('contentinfo')
@@ -619,16 +660,19 @@ describe('App', () => {
       }),
     )
     // Same labels, same targets, same order as the bar — both read the one
-    // shared list in components/navigation/sections.ts.
+    // shared list in components/navigation/sections.ts. The bar side is read
+    // from its sections disclosure (the centre row is hidden below desktop,
+    // which is jsdom's reality too — see openSectionsMenu).
+    const sectionsMenu = await openSectionsMenu(user)
     en.nav.sections.forEach((label) => {
-      const barLink = primaryNav().getByRole('link', { name: label })
+      const barItem = sectionsMenu.getByRole('menuitem', { name: label })
       const footerLink = footerNav.getByRole('link', { name: label })
       expect(footerLink).toHaveAttribute(
         'href',
-        barLink.getAttribute('href') as string,
+        barItem.getAttribute('href') as string,
       )
     })
-    expect(footerNav.getAllByRole('link')).toHaveLength(6)
+    expect(footerNav.getAllByRole('link')).toHaveLength(4)
 
     expect(
       within(footer).getByText('© 2026 CarterPCs Portfolio Concept'),
@@ -676,9 +720,9 @@ describe('App', () => {
 
     const footer = screen.getByRole('contentinfo') as HTMLElement
 
-    // Six internal + three external, and nothing else.
-    expect(footer.querySelectorAll('a')).toHaveLength(9)
-    expect(footer.querySelectorAll('a[href^="#"]')).toHaveLength(6)
+    // Four internal (one per real section) + three external, nothing else.
+    expect(footer.querySelectorAll('a')).toHaveLength(7)
+    expect(footer.querySelectorAll('a[href^="#"]')).toHaveLength(4)
     expect(footer.querySelectorAll('button, form, input')).toHaveLength(0)
     expect(footer.innerHTML).not.toMatch(/mailto:|tel:/i)
 
@@ -945,11 +989,14 @@ describe('localization', () => {
       expect(
         screen.getByRole('link', { name: dictionary.a11y.skipToContent }),
       ).toHaveAttribute('href', '#main-content')
+      const sectionsMenu = await openSectionsMenu(user, dictionary.a11y)
       expect(
-        primaryNav(dictionary.a11y.primaryNavigation).getByRole('link', {
+        sectionsMenu.getByRole('menuitem', {
           name: dictionary.nav.sections[0],
         }),
       ).toHaveAttribute('href', '#featured')
+      // Close it again so the remaining assertions read the settled page.
+      await user.keyboard('{Escape}')
       expect(
         screen.getByRole('link', { name: dictionary.nav.about }),
       ).toHaveAttribute('href', '#creator')

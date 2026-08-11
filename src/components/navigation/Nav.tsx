@@ -17,9 +17,12 @@ import {
 } from '../../app/Preferences'
 
 /**
- * Primary navigation — 1:1 recreation of the approved Hero reference's
- * bar: mark + wordmark + violet indicator left, six section labels
- * centred, "About Carter ↗" pill and the square theme utility right.
+ * Primary navigation — recreation of the approved Hero reference's bar:
+ * mark + wordmark + violet indicator left, the section labels centred
+ * (one per real section — see ./sections.ts for why the reference's six
+ * became four), "About Carter ↗" pill and the square utilities right.
+ * Below 1024px the centre labels move behind the sections disclosure so
+ * the fixed bar stays a compact header instead of wrapping to ~197px.
  *
  * LINK TARGETS: see ./sections.ts.
  *
@@ -53,7 +56,7 @@ const LANGUAGES: { code: Language; flag: string }[] = [
 /** Order only — the visible label comes from the active dictionary. */
 const THEMES: ThemePreference[] = ['dark', 'light', 'system']
 
-type MenuId = 'theme' | 'language'
+type MenuId = 'theme' | 'language' | 'sections'
 
 function Nav() {
   const {
@@ -98,17 +101,27 @@ function Nav() {
 
   const themeWrapRef = useRef<HTMLDivElement>(null)
   const languageWrapRef = useRef<HTMLDivElement>(null)
+  const sectionsWrapRef = useRef<HTMLDivElement>(null)
   const themeTriggerRef = useRef<HTMLButtonElement>(null)
   const languageTriggerRef = useRef<HTMLButtonElement>(null)
+  const sectionsTriggerRef = useRef<HTMLButtonElement>(null)
 
   const wrapRef = useCallback(
     (id: MenuId): RefObject<HTMLDivElement | null> =>
-      id === 'theme' ? themeWrapRef : languageWrapRef,
+      id === 'theme'
+        ? themeWrapRef
+        : id === 'language'
+          ? languageWrapRef
+          : sectionsWrapRef,
     [],
   )
   const triggerRef = useCallback(
     (id: MenuId): RefObject<HTMLButtonElement | null> =>
-      id === 'theme' ? themeTriggerRef : languageTriggerRef,
+      id === 'theme'
+        ? themeTriggerRef
+        : id === 'language'
+          ? languageTriggerRef
+          : sectionsTriggerRef,
     [],
   )
 
@@ -150,8 +163,8 @@ function Nav() {
 
   const items = (id: MenuId) =>
     Array.from(
-      wrapRef(id).current?.querySelectorAll<HTMLButtonElement>(
-        '[role="menuitemradio"]',
+      wrapRef(id).current?.querySelectorAll<HTMLElement>(
+        '[role="menuitemradio"], [role="menuitem"]',
       ) ?? [],
     )
 
@@ -383,6 +396,77 @@ function Nav() {
                   <span aria-hidden="true">{flag}</span>
                   {languageLabels[code]}
                 </button>
+              ))}
+            </div>
+          </div>
+
+          {/* COMPACT-HEADER SECTIONS MENU — below 1024px only (see
+              .sectionsTrigger in Nav.module.css). The centre link row used to
+              wrap under the identity there, holding the fixed bar at ~197px on
+              phones; the links now live behind this disclosure instead. It is
+              the same state-driven menu system as theme/language — same
+              open-state owner, Escape-with-focus-return, outside-press close,
+              arrow/Home/End movement — with role="menuitem" links as its items
+              (the shared items() helper matches both item roles). Activating a
+              link lets the anchor navigate, then closes the panel and hands
+              focus back to the trigger so it is never stranded on a
+              display:none child. */}
+          <div
+            className={styles.menuWrap}
+            ref={sectionsWrapRef}
+            onBlur={handleFocusOut('sections')}
+          >
+            <button
+              className={styles.sectionsTrigger}
+              type="button"
+              ref={sectionsTriggerRef}
+              aria-label={t.a11y.chooseSections}
+              aria-haspopup="menu"
+              aria-expanded={openMenu === 'sections'}
+              aria-controls={menuId('sections')}
+              onClick={() =>
+                setOpenMenu((current) =>
+                  current === 'sections' ? null : 'sections',
+                )
+              }
+              onKeyDown={handleTriggerKeyDown('sections')}
+            >
+              <svg viewBox="0 0 16 16" fill="none" aria-hidden="true">
+                <path
+                  d="M2.5 4.5h11M2.5 8h11M2.5 11.5h11"
+                  stroke="currentColor"
+                  strokeWidth="1.2"
+                  strokeLinecap="round"
+                />
+              </svg>
+            </button>
+            <div
+              className={
+                openMenu === 'sections'
+                  ? `${styles.menu} ${styles.sectionsMenu} ${styles.menuOpen}`
+                  : `${styles.menu} ${styles.sectionsMenu}`
+              }
+              id={menuId('sections')}
+              role="menu"
+              aria-label={t.a11y.sectionsMenu}
+              // See the theme menu above — programmatically focusable only.
+              tabIndex={-1}
+              onKeyDown={handleMenuKeyDown('sections')}
+            >
+              {SECTION_HREFS.map((href, index) => (
+                <a
+                  key={`${href}-${index}`}
+                  role="menuitem"
+                  href={href}
+                  // Close WITHOUT reclaiming focus: activating a link is a
+                  // navigation, and the browser moves focus with the fragment
+                  // (to the target region). Stealing it back to the trigger
+                  // would fight that. Escape and outside-press still return
+                  // focus via the shared closeMenu path.
+                  onClick={() => closeMenu('sections', false)}
+                >
+                  {navigationLabels[index]}
+                </a>
               ))}
             </div>
           </div>

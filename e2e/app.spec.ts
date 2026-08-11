@@ -922,13 +922,15 @@ test('scrolling from Hardware reveals the Content Universe section', async ({
   await expect(heading).toBeVisible()
 })
 
-test('Content nav link scrolls to the Content Universe section', async ({
+test('Universe nav link scrolls to the Content Universe section', async ({
   page,
 }) => {
   await page.goto('/')
 
+  // "Universe" is the one Content Universe entry — its former twin
+  // "Content" pointed at the same anchor and was removed (see sections.ts).
   await primaryNav(page)
-    .getByRole('link', { name: /^content$/i })
+    .getByRole('link', { name: /^universe$/i })
     .click()
   await expect(page).toHaveURL(/#content-universe$/)
 })
@@ -1271,7 +1273,7 @@ for (const [sizeName, size] of [
   })
 }
 
-test('mobile: an open menu clears the bar’s own section links', async ({
+test('mobile: an open menu stays a compact dropdown that covers none of the bar’s controls', async ({
   page,
 }) => {
   await page.setViewportSize(MOBILE)
@@ -1285,28 +1287,29 @@ test('mobile: an open menu clears the bar’s own section links', async ({
     const panel = [...document.querySelectorAll('[role="menu"]')].find(
       (m) => getComputedStyle(m).display !== 'none',
     )
-    if (!panel) return { found: false, coversNavLinks: false, height: 0 }
+    if (!panel) return { found: false, coversControls: false, height: 0 }
     const r = panel.getBoundingClientRect()
-    let coversNavLinks = false
-    // The BAR's own links — the footer has a `nav ul a` row too now, and it
-    // sits far below; including it would weaken this assertion to nothing.
-    // Both navs carry an aria-label, so the footer is excluded explicitly.
-    const barLinks = [...document.querySelectorAll('nav ul a')].filter(
-      (a) => !a.closest('footer'),
-    )
-    for (const link of barLinks) {
-      const l = link.getBoundingClientRect()
+    let coversControls = false
+    // The compact header's own controls (identity, About, the three
+    // triggers) must stay fully visible and operable under an open panel.
+    const controls = [
+      ...document.querySelectorAll(
+        'nav a[href="#hero"], nav a[href="#creator"], nav button[aria-haspopup]',
+      ),
+    ].filter((el) => !el.closest('footer'))
+    for (const control of controls) {
+      const l = control.getBoundingClientRect()
       if (
         r.left < l.right &&
         r.right > l.left &&
         r.top < l.bottom &&
         r.bottom > l.top
       )
-        coversNavLinks = true
+        coversControls = true
     }
     return {
       found: true,
-      coversNavLinks,
+      coversControls,
       // How far down the viewport the panel reaches — it must stay a small
       // dropdown, not a sheet over the Hero.
       height: r.height,
@@ -1315,12 +1318,12 @@ test('mobile: an open menu clears the bar’s own section links', async ({
   })
 
   expect(overlap.found).toBe(true)
-  expect(overlap.coversNavLinks).toBe(false)
+  expect(overlap.coversControls).toBe(false)
   expect(overlap.viewportShare).toBeLessThan(0.25)
 
-  // Every section link stays clickable while the menu is open.
+  // The other triggers stay clickable while the menu is open.
   await expect(
-    primaryNav(page).getByRole('link', { name: 'Work', exact: true }),
+    page.getByRole('button', { name: en.a11y.chooseSections, exact: true }),
   ).toBeVisible()
   expect(await hasHorizontalOverflow(page)).toBe(false)
 })
@@ -1414,7 +1417,9 @@ async function barGeometry(page: Page) {
     }
     const controls = [
       ...nav.querySelectorAll<HTMLElement>('a[href], button[aria-haspopup]'),
-    ]
+      // The sections trigger is display:none at desktop; a hidden control
+      // has a zero rect and is not part of the bar's geometry.
+    ].filter((el) => el.getBoundingClientRect().width > 0)
     const links = [...nav.querySelectorAll('ul a')]
     const wordmark = nav.querySelector('a[href="#hero"]')!
     return {
@@ -1586,34 +1591,35 @@ test('light theme: the primary Hero CTA label is readable on its pill', async ({
  * this asserts what the browser actually hit-tests.
  * ------------------------------------------------------------------ */
 
-test('mobile: nav section links meet the 24px minimum target size', async ({
+test('mobile: the sections menu items meet the 24px minimum target size', async ({
   page,
 }) => {
   await page.setViewportSize(MOBILE)
   await page.goto('/')
 
-  const targets = await page.evaluate(() => {
-    const hits = (el: Element, x: number, y: number) => {
-      const found = document.elementFromPoint(x, y)
-      return !!found && (found === el || el.contains(found))
-    }
-    // Scoped to the bar: the footer now has a `nav ul a` row of its own,
-    // and both navs carry an aria-label — so exclude the footer explicitly.
-    return [...document.querySelectorAll('nav ul a')]
-      .filter((a) => !a.closest('footer'))
-      .map((el) => {
-        const r = el.getBoundingClientRect()
-        const [cx, cy] = [r.left + r.width / 2, r.top + r.height / 2]
-        let up = 0
-        let down = 0
-        while (up < 20 && hits(el, cx, cy - (up + 1))) up += 1
-        while (down < 20 && hits(el, cx, cy + (down + 1))) down += 1
-        return { name: el.textContent, height: up + down, width: r.width }
-      })
-  })
+  // The section destinations live behind the disclosure on mobile — its
+  // items are the targets a finger actually gets.
+  await page
+    .getByRole('button', { name: en.a11y.chooseSections, exact: true })
+    .click()
+  await expect(
+    page.getByRole('menu', { name: en.a11y.sectionsMenu }),
+  ).toBeVisible()
 
-  expect(targets).toHaveLength(6)
+  const targets = await page.evaluate(() =>
+    [...document.querySelectorAll('[role="menuitem"]')].map((el) => {
+      const r = el.getBoundingClientRect()
+      return {
+        name: el.textContent?.trim(),
+        height: r.height,
+        width: r.width,
+      }
+    }),
+  )
+
+  expect(targets).toHaveLength(4)
   for (const target of targets) {
+    // 24 is the WCAG 2.5.8 minimum; the items are authored at ~44px.
     expect(
       target.height,
       `"${target.name}" target height`,
@@ -1622,6 +1628,117 @@ test('mobile: nav section links meet the 24px minimum target size', async ({
       target.width,
       `"${target.name}" target width`,
     ).toBeGreaterThanOrEqual(24)
+  }
+
+  // The trigger itself is a 38px square — comfortably past the minimum.
+  const trigger = await page
+    .getByRole('button', { name: en.a11y.chooseSections, exact: true })
+    .boundingBox()
+  expect(trigger!.width).toBeGreaterThanOrEqual(24)
+  expect(trigger!.height).toBeGreaterThanOrEqual(24)
+})
+
+/* ------------------------------------------------------------------ *
+ * Mobile QA — the sections disclosure (fix-v17)
+ *
+ * Below 1024 the centre link row would have wrapped the fixed bar to
+ * ~197px on phones; the destinations live behind this menu instead. It
+ * shares the theme/language disclosure system, so the behaviours under
+ * test are the shared contract: open state, Escape-with-focus-return,
+ * outside-press close, arrow-key movement, and real navigation.
+ * ------------------------------------------------------------------ */
+
+const sectionsTrigger = (page: Page, label = en.a11y.chooseSections) =>
+  page.getByRole('button', { name: label, exact: true })
+
+test('mobile: the sections menu opens, navigates, closes, and restores focus', async ({
+  page,
+}) => {
+  await page.setViewportSize(MOBILE)
+  await page.goto('/')
+
+  const trigger = sectionsTrigger(page)
+  const menu = page.getByRole('menu', { name: en.a11y.sectionsMenu })
+
+  // Closed at rest, correctly wired.
+  await expect(trigger).toHaveAttribute('aria-expanded', 'false')
+  await expect(menu).toBeHidden()
+
+  // 1. Click opens; the four destinations are present in order.
+  await trigger.click()
+  await expect(trigger).toHaveAttribute('aria-expanded', 'true')
+  await expect(menu).toBeVisible()
+  const labels = await menu.getByRole('menuitem').allTextContents()
+  expect(labels.map((label) => label.trim())).toEqual([
+    ...en.nav.sections,
+  ])
+
+  // 2. Escape closes and hands focus back to the trigger.
+  await page.keyboard.press('Escape')
+  await expect(menu).toBeHidden()
+  await expect(trigger).toBeFocused()
+
+  // 3. Keyboard: ArrowDown opens onto the first item; arrows move.
+  await page.keyboard.press('ArrowDown')
+  await expect(menu).toBeVisible()
+  await expect(
+    menu.getByRole('menuitem', { name: en.nav.sections[0], exact: true }),
+  ).toBeFocused()
+  await page.keyboard.press('ArrowDown')
+  await expect(
+    menu.getByRole('menuitem', { name: en.nav.sections[1], exact: true }),
+  ).toBeFocused()
+  await page.keyboard.press('Escape')
+  await expect(menu).toBeHidden()
+
+  // 4. A pointer press outside closes it.
+  await trigger.click()
+  await expect(menu).toBeVisible()
+  await page.mouse.click(20, 700)
+  await expect(menu).toBeHidden()
+
+  // 5. Activating an item really navigates, closes the menu, and the
+  //    section lands clear of the fixed bar.
+  await trigger.click()
+  await menu
+    .getByRole('menuitem', { name: en.nav.sections[1], exact: true })
+    .click()
+  await expect(page).toHaveURL(/#hardware$/)
+  await expect(menu).toBeHidden()
+  // Activation is a navigation: the browser owns focus placement (fragment
+  // targets). What must NOT happen is focus stranded inside the hidden
+  // panel.
+  const strandedInPanel = await page.evaluate(() => {
+    const active = document.activeElement
+    return !!active?.closest('[role="menu"]')
+  })
+  expect(strandedInPanel).toBe(false)
+  await page.waitForTimeout(1800)
+  const clearance = await page.evaluate(() => {
+    const section = document.querySelector('#hardware')!.getBoundingClientRect()
+    const bar = document.querySelector('nav')!.getBoundingClientRect()
+    return section.top - bar.bottom
+  })
+  expect(clearance).toBeGreaterThan(0)
+})
+
+test('mobile, reduced motion: the sections menu still opens and its items are fully visible', async ({
+  page,
+}) => {
+  await page.emulateMedia({ reducedMotion: 'reduce' })
+  await page.setViewportSize(MOBILE)
+  await page.goto('/')
+
+  await sectionsTrigger(page).click()
+  const menu = page.getByRole('menu', { name: en.a11y.sectionsMenu })
+  await expect(menu).toBeVisible()
+  for (const label of en.nav.sections) {
+    const item = menu.getByRole('menuitem', { name: label, exact: true })
+    await expect(item).toBeVisible()
+    const opacity = await item.evaluate((el) =>
+      parseFloat(getComputedStyle(el).opacity),
+    )
+    expect(opacity).toBe(1)
   }
 })
 
@@ -1877,7 +1994,7 @@ for (const language of ['en', 'fr', 'es'] as const) {
     const footerNav = footer.getByRole('navigation', {
       name: dictionary.footer.a11y.footerNavigation,
     })
-    await expect(footerNav.getByRole('link')).toHaveCount(6)
+    await expect(footerNav.getByRole('link')).toHaveCount(4)
     for (const label of dictionary.nav.sections) {
       await expect(
         footerNav.getByRole('link', { name: label, exact: true }),
@@ -1941,8 +2058,8 @@ test('the Footer links nowhere it was not told to, and claims nothing', async ({
   })
 
   expect(audit).toEqual({
-    total: 9,
-    internal: 6,
+    total: 7,
+    internal: 4,
     hosts: ['www.youtube.com', 'www.instagram.com', 'www.tiktok.com'],
     unsafe: 0,
     controls: 0,

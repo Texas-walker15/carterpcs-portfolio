@@ -5,18 +5,16 @@
   display: flex;
   flex-direction: column;
   /* Clears the FIXED bar on an anchor jump ("Universe" in the bar, or a deep
-     link). Same measured fix as Hardware's (see Hardware.module.css): the bar
-     is 5rem only from 1024px up — below that its link row wraps to two lines
-     (~8rem), then three (~12.3rem), and the wrap point moves with the
-     language. One 6rem margin landed this section 101px BEHIND the bar at
-     390px and 31px behind it at 768px. Each step clears the tallest measured
-     bar in any language at its width by ~1rem. */
-  scroll-margin-block-start: 13rem;
+     link). Same measured fix as Hardware's: tier values and the 600px
+     boundary come from the compact header's real heights per language — see
+     the derivation comment in Hardware.module.css, which these three tiers
+     mirror exactly. */
+  scroll-margin-block-start: 9rem;
 }
 
-@media (min-width: 540px) {
+@media (min-width: 600px) {
   .contentUniverse {
-    scroll-margin-block-start: 9rem;
+    scroll-margin-block-start: 6.5rem;
   }
 }
 

@@ -40,13 +40,18 @@ export const en = {
     primaryNavigation: 'Primary',
     chooseTheme: 'Choose theme',
     chooseLanguage: 'Choose language',
+    chooseSections: 'Browse sections',
     themeMenu: 'Theme',
     languageMenu: 'Language',
+    sectionsMenu: 'Sections',
   },
 
   nav: {
-    /** Six centre labels, in bar order. Targets live in Nav.tsx's SECTIONS. */
-    sections: ['Work', 'Systems', 'Process', 'Impact', 'Content', 'Universe'],
+    /** Centre labels, in bar order — one per real section. Targets live in
+        components/navigation/sections.ts; the two former labels whose
+        destinations duplicated these ("Impact" → #featured, "Content" →
+        #content-universe) were removed, not renamed. */
+    sections: ['Work', 'Systems', 'Process', 'Universe'],
     about: 'About Carter',
     themes: {
       dark: 'Dark',

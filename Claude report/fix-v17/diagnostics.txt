@@ -1,0 +1,80 @@
+fix-v17 diagnostics — raw probe output
+Working tree over 0e9d785 (carries uncommitted fix-v16) · preview on :4190
+Probes in session scratchpad: v17-barheight.mjs, v17-qa.mjs, inline fit/contrast probes.
+
+================================================================
+1. BAR HEIGHT / WRAP POINT (v17-barheight.mjs, after Issue-1+2, before utils fit fix)
+================================================================
+en 320:124.5/2r 360:124.5/2r 390:124.5/2r 430:124.5/2r 470:124.5/2r 500:86/1r 539:86/1r 540:86/1r 600:86/1r 768:86/1r 844:86/1r 1023:86/1r
+fr 320:124.5/2r ... 540:124.5/2r 600:86/1r ... (French holds 2 rows through 599)
+es same as en
+BEFORE (fix-v16 audit, six-label wrapped bar): 320:196.5 390:197 768:128 844:128 1024+:80
+
+AFTER the utils-fit fix (every control inside the bar's padding edge):
+en 320:124.5 ok 360:124.5 ok 390:124.5 ok 430:86 ok 470:86 ok 539:86 ok 600:86 ok 768:86 ok 844:86 ok
+fr 320:124.5 ok 360:124.5 ok 390:124.5 ok 430:124.5 ok 470:86 ok 539:86 ok 600:86 ok 768:86 ok 844:86 ok
+es 320:124.5 ok 360:124.5 ok 390:124.5 ok 430:86 ok 470:86 ok 539:86 ok 600:86 ok 768:86 ok 844:86 ok
+
+DEFECT FOUND AND FIXED DURING QA: at 320px the non-wrapping utils row was
+~334px in French (pill ~160 + 3x38px squares + 3x1.25rem gaps) against a
+280px content box - the sections trigger sat OFF-SCREEN (caught by the
+02-after-compact-320-fr-light capture, confirmed by control-edge probe).
+Fix (<540px): utils gap 0.5rem, pill 0.8125rem/0.625rem padding, decorative
+arrow hidden. Widest (FR) row ~272px. Re-verified: 'ok' at every width in
+all three languages above.
+
+================================================================
+2. MENU CYCLE (v17-qa.mjs; EN covered by e2e)
+================================================================
+PASS fr: menu opens with translated items  :: Projets|Systemes|Processus|Univers
+PASS fr: items >=24px (authored ~44)      :: 43,43,43,43
+PASS fr: Escape returns focus to trigger
+PASS fr: zero console/page errors
+PASS es: menu opens with translated items :: Proyectos|Sistemas|Proceso|Universo
+PASS es: items >=24px                     :: 43,43,43,43
+PASS es: Escape returns focus to trigger
+PASS es: zero console/page errors
+
+Focus-on-navigate decision: activating a menuitem LINK is a navigation, and
+Chrome moves focus with the fragment; the app closes the panel WITHOUT
+reclaiming focus (closeMenu(sections, false)) so it never fights the
+browser. Escape/outside-press still return focus via the shared path.
+Asserted in e2e: focus is never stranded inside the hidden panel.
+
+================================================================
+3. ANCHORS x WIDTHS x LANGUAGES (gap below bar, px; negative = behind bar)
+================================================================
+en: 320:19.1-19.6 390:19.1-19.9 599:58.0-58.5 600:17.6-17.9 768:17.9-18.4 844x390:17.5-18.3 1024:16.0-16.4 1440:15.8-16.0
+fr: 320:19.1-19.5 390:19.2-19.8 599:57.6-58.5 600:17.8-18.0 768:17.7-17.8 844x390:17.7-18.1 1024:15.8-16.4 1440:15.8-16.0
+es: 320:19.3-19.6 390:19.0-19.9 599:57.6-58.5 600:17.8-18.0 768:17.8-18.0 844x390:17.8-18.3 1024:15.6-16.0 1440:15.8-16.0
+All 96 landings clear. The ~58px air at 599 is the pre-boundary band where
+EN/ES are already single-row while the tier still budgets for French's
+two-row bar; the boundary must sit at 600 (French holds 2 rows through 599).
+Tiers: 9rem base / 6.5rem >=600 / 6rem >=1024 (bar 124.5 / 86 / 80px).
+
+================================================================
+4. CONTRAST (srgb-aware parser; the naive first pass mis-read Chrome's
+   color(srgb ...) output - same artifact recorded in fix-v15/v16)
+================================================================
+dark  trigger icon 9.37:1 (needs 3) | item text 16.07:1 (needs 4.5)
+light trigger icon 6.96:1 (needs 3) | item text 14.94:1 (needs 4.5)
+
+================================================================
+5. VALIDATION CHAIN
+================================================================
+typecheck  tsc -b            0 errors
+lint       eslint .          0 errors
+unit       vitest            43/43  (42 + new destination-map test)
+build      vite build        pass
+e2e        playwright        74 tests (72 + 2 new)
+           run 1             74 passed
+           run 2             74 passed
+           run 3             74 passed
+diff       git diff --check  clean
+
+E2E drift fixed during the pass (test-side): "Content" link test renamed to
+"Universe" with the surviving label; the mobile menu-overlap test re-anchored
+to the bar's controls (the old premise - visible link rows - no longer
+exists); the 24px-target test re-targeted at the menu items; barGeometry
+filters hidden (zero-rect) controls so the desktop-hidden trigger is not
+"off the left"; footer counts 9/6 -> 7/4.

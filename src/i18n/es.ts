@@ -22,19 +22,14 @@ export const es: Dictionary = {
     primaryNavigation: 'Principal',
     chooseTheme: 'Elegir tema',
     chooseLanguage: 'Elegir idioma',
+    chooseSections: 'Explorar secciones',
     themeMenu: 'Tema',
     languageMenu: 'Idioma',
+    sectionsMenu: 'Secciones',
   },
 
   nav: {
-    sections: [
-      'Proyectos',
-      'Sistemas',
-      'Proceso',
-      'Impacto',
-      'Contenido',
-      'Universo',
-    ],
+    sections: ['Proyectos', 'Sistemas', 'Proceso', 'Universo'],
     about: 'Sobre Carter',
     themes: {
       dark: 'Oscuro',

@@ -7,10 +7,11 @@
  * content can never interleave with the bar's own labels.
  */
 
-/* Below 768 the three zones cannot share a row without crowding, so the
-   bar wraps deliberately instead of stranding the pill on its own line:
-   identity and the right utilities on the first row, section links
-   beneath. Nothing is hidden — every destination stays reachable. */
+/* Below 1024 the bar is a COMPACT HEADER: identity left, utilities right
+   (About pill, theme, language, and the sections disclosure). The centre
+   link row used to wrap beneath the identity — two extra fixed rows, a
+   197px bar on phones — and now lives behind the sections trigger
+   instead. Every destination stays reachable; none is a permanent row. */
 .nav {
   position: fixed;
   inset-block-start: 0;
@@ -156,9 +157,10 @@
   ) !important;
 }
 
+/* Hidden below 1024 — the sections disclosure carries these destinations
+   there. display, not visibility: the row must contribute no height. */
 .sections {
-  order: 3;
-  width: 100%;
+  display: none;
 }
 
 .wordmark {
@@ -202,11 +204,9 @@
   background-color: var(--color-accent-secondary);
 }
 
-/* Centre zone. On small screens it simply flows after the wordmark; the
-   true three-zone centring only engages once there is room for it. */
+/* Centre zone list geometry — display itself is owned by the compact-header
+   rule above (none below 1024) and the desktop block below (flex). */
 .sections {
-  display: flex;
-  flex-wrap: wrap;
   align-items: center;
   gap: var(--space-1) var(--space-3);
   margin: 0;
@@ -291,6 +291,30 @@
   transition: transform var(--duration-base) var(--ease-out);
 }
 
+/* NARROW-PHONE FIT — measured, not eyeballed. The utils row does not wrap
+   (a third fixed row is exactly what the compact header removes), so at
+   320px its content must fit the 280px between the bar's padding edges.
+   At full size the French row is ~334px: "À propos de Carter" (~160px)
+   + three 38px squares + three 1.25rem gaps — the sections trigger sat
+   off-screen. Compact pill + 0.5rem gaps land the widest (French) row at
+   ~272px. The arrow span is aria-hidden decoration, not copy; the pill
+   keeps its full visible label in every language. */
+@media (max-width: 539px) {
+  .utils {
+    gap: 0.5rem;
+  }
+
+  .about {
+    gap: 0.5rem;
+    padding-inline: 0.625rem;
+    font-size: 0.8125rem;
+  }
+
+  .aboutArrow {
+    display: none;
+  }
+}
+
 .about:hover .aboutArrow {
   transform: translate(0.125rem, -0.125rem);
 }
@@ -342,6 +366,53 @@
   height: 1rem;
 }
 
+/* Sections disclosure trigger — the compact header's entry to the centre
+   links below 1024. Same square utility language as .theme/.language
+   (38px box, ≥24px target; the panel's own items run at ~44px). */
+.sectionsTrigger {
+  display: grid;
+  place-items: center;
+  width: 2.375rem;
+  height: 2.375rem;
+  padding: 0;
+  border: 1px solid
+    color-mix(in srgb, var(--color-text-primary) 8%, transparent);
+  border-radius: 0.75rem;
+  background-color: color-mix(
+    in srgb,
+    var(--color-text-primary) 3%,
+    transparent
+  );
+  color: color-mix(in srgb, var(--color-text-primary) 72%, transparent);
+}
+
+.sectionsTrigger svg {
+  width: 1rem;
+  height: 1rem;
+}
+
+/* The section links inside the panel: real navigation targets, so they get
+   comfortable ~44px rows (WCAG 2.5.8 preferred size), full-strength ink,
+   and the same hover treatment as the other menu items. */
+.sectionsMenu {
+  min-width: 10.5rem;
+}
+
+.sectionsMenu a {
+  display: flex;
+  align-items: center;
+  padding: 0.6875rem 0.875rem;
+  border-radius: 0.5rem;
+  color: var(--color-text-primary);
+  font-size: 0.875rem;
+  letter-spacing: 0.005em;
+  text-decoration: none;
+}
+
+.sectionsMenu a:hover {
+  background: color-mix(in srgb, var(--color-text-primary) 10%, transparent);
+}
+
 /* Six centre links only fit a single row alongside both utilities from
    1024 up — below that the bar keeps its deliberate two-row wrap. */
 @media (min-width: 1024px) {
@@ -383,12 +454,21 @@
   }
 
   .sections {
+    /* The centre row exists only at desktop — below 1024 the base rule
+       hides it and the sections disclosure takes over. */
+    display: flex;
     flex-wrap: nowrap;
     justify-content: center;
-    /* Reference ink: six links spanning 562px (x443→1004) — wider gaps
-       than true centring would suggest. */
+    /* Reference ink: the link cluster rides the same gap system it was
+       calibrated with (measured against the six-label frame; the four
+       remaining labels sit on identical spacing). */
     gap: clamp(1.5rem, 3.38vw, 3.25rem);
     width: auto;
+  }
+
+  /* Desktop shows the full centre row — the disclosure is mobile-only. */
+  .sectionsTrigger {
+    display: none;
   }
 
   .utils {

@@ -5,21 +5,21 @@
   display: flex;
   flex-direction: column;
   /* Clears the FIXED nav on an anchor jump ("Systems" in the bar, or any deep
-     link to #hardware). 6rem everywhere was measured landing the section 101px
-     BEHIND the bar at 390px and 32px behind it at 768px: the bar is 5rem tall
-     only from 1024px up — below that its link row wraps, to 8rem, then to
-     12.3rem once the links need three lines. The wrap point is content-driven,
-     so it moves with the language (English is back to one line at 480px while
-     French still needs two), which is why these two queries are set at the
-     widest width any of the three languages still wraps at, not at a
-     round breakpoint. Each value clears the tallest measured bar in any
-     language at its width by ~1rem. */
-  scroll-margin-block-start: 13rem;
+     link to #hardware). The compact header (fix-v17) is one row of 86px from
+     the width the identity and utilities share a line, and two rows of
+     124.5px below that. The wrap point is content-driven — the French About
+     pill holds two rows through 599px while English/Spanish release at 500 —
+     so the tier boundary sits at the widest width any language still wraps
+     at (600), not at a round breakpoint. Each value clears the tallest
+     measured bar in any language at its width by ≥1rem: 9rem/144px over the
+     124.5px two-row bar, 6.5rem/104px over the 86px single row, and 6rem
+     over the 80px desktop bar. */
+  scroll-margin-block-start: 9rem;
 }
 
-@media (min-width: 540px) {
+@media (min-width: 600px) {
   .hardware {
-    scroll-margin-block-start: 9rem;
+    scroll-margin-block-start: 6.5rem;
   }
 }
 
